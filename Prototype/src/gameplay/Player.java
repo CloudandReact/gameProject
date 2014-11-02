@@ -2,6 +2,7 @@ package gameplay;
 
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+
 import javax.swing.ImageIcon;
 
 public class Player {
@@ -16,15 +17,20 @@ public class Player {
 	
 	
 	public Player() {
-        ImageIcon ii = new ImageIcon(this.getClass().getResource(player));
-        image = ii.getImage();
+		loadImage();
         this.setX(0);
         this.setY(0);
 	}
 	
+	private void loadImage() 
+	{
+		ImageIcon ii = new ImageIcon(getClass().getResource(player));
+		image = ii.getImage();
+	}
+	
 	public void move(){
-		y += dx;
-		x += dy;
+		x += dx;
+		y += dy;
 	}
 	
 	
@@ -33,7 +39,7 @@ public class Player {
 	}
 	
 	public int getY() {
-		return x;
+		return y;
 	}
 	
 	public void setX(int xNew) {
