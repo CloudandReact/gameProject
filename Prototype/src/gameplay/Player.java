@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 
 public class Player {
 	
-	private String player = "player.png";
+	private String player = "blueblock.png";
 	
 	private int dx;
 	private int dy;
@@ -53,19 +53,19 @@ public class Player {
         int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_LEFT) {
-            dx = -1;
+            dx = -25;
         }
 
         if (key == KeyEvent.VK_RIGHT) {
-            dx = 1;
+            dx = 25;
         }
 
         if (key == KeyEvent.VK_UP) {
-            dy = -1;
+            dy = -25;
         }
 
         if (key == KeyEvent.VK_DOWN) {
-            dy = 1;
+            dy = 25;
         }
     }
 
@@ -74,7 +74,7 @@ public class Player {
 
         if (key == KeyEvent.VK_LEFT) {
             dx = 0;
-        }
+        } 
 
         if (key == KeyEvent.VK_RIGHT) {
             dx = 0;
@@ -90,6 +90,5 @@ public class Player {
     }
 	
 	
-	
-	
+
 }
