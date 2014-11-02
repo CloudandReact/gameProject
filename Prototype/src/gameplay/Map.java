@@ -53,8 +53,8 @@ public class Map extends JPanel implements ActionListener
 			g2d.drawLine(0, 25 * j, 25 * gridLength, 25 *j);
 		}
 
-		g2d.setColor(Color.blue);
-		g2d.fillRect(0,0,25,25);
+		//g2d.setColor(Color.blue);
+		//g2d.fillRect(0,0,25,25);
 		
 	}
 	@Override
