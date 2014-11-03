@@ -11,7 +11,7 @@ public class Bomberman extends JFrame
 		setSize(800, 400);
 		setLocationRelativeTo(null);
 		setTitle("Bomberman");
-		setResizable(true);
+		setResizable(false);
 		setVisible(true);	
 	}
 	

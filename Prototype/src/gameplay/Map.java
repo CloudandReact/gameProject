@@ -13,6 +13,10 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Map extends JPanel implements ActionListener {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int gridLength = 31;
 	private int gridHeight = 13;
 
@@ -29,47 +33,40 @@ public class Map extends JPanel implements ActionListener {
 		setFocusable(true);
 
 		player = new Player();
+		concrete = new Concrete();
 
 		timer = new Timer(125, this);
 		timer.start();
-		
 
 	}
 
-
-	
 	public void paint(Graphics g) {
 
 		super.paint(g);
 
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setColor(Color.darkGray);
-		
-		for (int i = 0; i <= gridLength; i++) {
-			g2d.drawLine(25 * i, 0, 25 * i, 25 * gridHeight);
 
-		}
-		for (int j = 0; j <= gridHeight; j++) {
-			g2d.drawLine(0, 25 * j, 25 * gridLength, 25 * j);
-		}
+		/*
+		 * for (int i = 0; i <= gridLength; i++) { g2d.drawLine(25 * i, 0, 25 *
+		 * i, 25 * gridHeight);
+		 * 
+		 * } for (int j = 0; j <= gridHeight; j++) { g2d.drawLine(0, 25 * j, 25
+		 * * gridLength, 25 * j); }
+		 */
 
 		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
-		//g2d.drawImage(concrete.getImage(), 50, 50, this);
-		
-	/*	for (int x = 1; x <= gridLength; x++){
-			for(int y = 1; y <= gridHeight; y++){
-				g2d.drawImage(concrete.getImage(), 25*x, 25*y, this);
+
+		for (int x = 1; x <= gridLength; x = x + 2) {
+			for (int y = 1; y <= gridHeight; y = y + 2) {
+				g2d.drawImage(concrete.getImage(), 25 * x, 25 * y, this);
 			}
-			
-		}*/
-	
+		}
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
 
-		
 	}
-
 
 	public void actionPerformed(ActionEvent e) {
 		player.move();
