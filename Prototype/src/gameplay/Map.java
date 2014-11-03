@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Map extends JPanel implements ActionListener {
-	
+
 	private static final long serialVersionUID = 1L;
 	private int gridLength = 31;
 	private int gridHeight = 13;
@@ -33,7 +33,7 @@ public class Map extends JPanel implements ActionListener {
 		player = new Player();
 		concrete = new Concrete();
 
-		timer = new Timer(200, this);
+		timer = new Timer(150, this);
 		timer.start();
 
 	}
@@ -47,32 +47,13 @@ public class Map extends JPanel implements ActionListener {
 
 		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
 
-		
-	
-		for (int p = 0; p < 775 ; p++){
-			
-			g2d.drawImage(concrete.getImage(), 25*p, 0, this);
-		}
-		for (int q = 0; q < 775 ; q++){
-			
-			g2d.drawImage(concrete.getImage(), 25*q, 300, this);
-		}
-		
-		for (int l = 0; l < 345 ; l++){
-			
-			g2d.drawImage(concrete.getImage(), 0, 25*l, this);
-		}
-		for (int m= 0; m < 345 ; m++){
-			
-			g2d.drawImage(concrete.getImage(), 750, 25*m, this);
-		}
-	for (int x = 2; x < gridLength - 2; x = x+2){
-	
-			for(int y = 2; y < gridHeight - 2; y=y+2){
-			
-				g2d.drawImage(concrete.getImage(), 25*x, 25*y, this);
+		for (int x = 1; x < gridLength; x = x + 2) {
+
+			for (int y = 1; y < gridHeight; y = y + 2) {
+
+				g2d.drawImage(concrete.getImage(), 25 * x, 25 * y, this);
 			}
-			
+
 		}
 
 		Toolkit.getDefaultToolkit().sync();

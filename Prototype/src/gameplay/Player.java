@@ -7,13 +7,7 @@ import javax.swing.ImageIcon;
 
 public class Player {
 
-
 	private String player = "sponge.jpg";
-
-
-	
-	private String player = "rsz_sponge.jpg";
-	
 
 	private int dx;
 	private int dy;
@@ -23,8 +17,8 @@ public class Player {
 
 	public Player() {
 		loadImage();
-        this.setX(25);
-        this.setY(25);
+		this.setX(0);
+		this.setY(0);
 	}
 
 	private void loadImage() {
@@ -33,13 +27,10 @@ public class Player {
 	}
 
 	public void move() {
-		
-		if (((x + dx) % 50 == 25) && ((y + dy) % 50 == 25))
-		{
-				
-		}
-		else
-		{
+
+		if (((x + dx) % 50 == 25) && ((y + dy) % 50 == 25)) {
+
+		} else {
 			if (x + dx < 0)
 				x = 0;
 			else if (x + dx >= 750)
@@ -47,13 +38,11 @@ public class Player {
 			else
 				x += dx;
 
-			if ((y + dy) < 0)
-			{
+			if ((y + dy) < 0) {
 				y = 0;
 			}
 
-			else if ((y + dy) >= 300) 
-			{
+			else if ((y + dy) >= 300) {
 				y = 300;
 			}
 
