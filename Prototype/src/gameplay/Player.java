@@ -74,6 +74,10 @@ public class Player {
 	public void keyPressed(KeyEvent e) {
 
 		int key = e.getKeyCode();
+		
+		if(key == KeyEvent.VK_LEFT && key == KeyEvent.VK_UP){
+			dx = 0;
+		}
 
 		if (key == KeyEvent.VK_LEFT) {
 			dx = -25;

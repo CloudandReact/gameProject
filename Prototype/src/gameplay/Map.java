@@ -76,9 +76,4 @@ public class Map extends JPanel implements ActionListener {
 		}
 	}
 
-	public void initMap() {
-		repaint();
-
-	}
-
 }

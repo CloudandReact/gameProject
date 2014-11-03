@@ -5,17 +5,15 @@ import javax.swing.*;
 
 public class Concrete extends JPanel {
 
-	private String concrete = "wall.png";
-
-	/*
-	 * private int positionX; private int positionY; private int width; private
-	 * int height; private final boolean cantPass = true;
+	/**
+	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	private String concrete = "wall.png";
 	private Image image;
 
 	public Concrete() {
 		loadImage();
-
 	}
 
 	private void loadImage() {
