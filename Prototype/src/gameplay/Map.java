@@ -13,9 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Map extends JPanel implements ActionListener {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private int gridLength = 31;
 	private int gridHeight = 13;
