@@ -8,7 +8,7 @@ public class Bomberman extends JFrame
 	{
 		add(new Map());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(775, 345);
+		setSize(800, 400);
 		setLocationRelativeTo(null);
 		setTitle("Bomberman");
 		setResizable(true);

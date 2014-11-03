@@ -18,22 +18,21 @@ public class Map extends JPanel implements ActionListener {
 
 	private Player player;
 	private Timer timer;
+	private Concrete concrete;
 
 	public Map() {
 
 		addKeyListener(new TAdapter());
 		setFocusable(true);
-		// setBackground(Color.BLACK);
+		setBackground(Color.darkGray);
 		setDoubleBuffered(true);
 		setFocusable(true);
 
 		player = new Player();
 
-		timer = new Timer(5, this);
+		timer = new Timer(125, this);
 		timer.start();
-
-		player.setX(0);
-		player.setY(0);
+		
 
 	}
 
@@ -43,7 +42,8 @@ public class Map extends JPanel implements ActionListener {
 		super.paint(g);
 
 		Graphics2D g2d = (Graphics2D) g;
-
+		g2d.setColor(Color.darkGray);
+		
 		for (int i = 0; i <= gridLength; i++) {
 			g2d.drawLine(25 * i, 0, 25 * i, 25 * gridHeight);
 
@@ -53,6 +53,15 @@ public class Map extends JPanel implements ActionListener {
 		}
 
 		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
+		//g2d.drawImage(concrete.getImage(), 50, 50, this);
+		
+	/*	for (int x = 1; x <= gridLength; x++){
+			for(int y = 1; y <= gridHeight; y++){
+				g2d.drawImage(concrete.getImage(), 25*x, 25*y, this);
+			}
+			
+		}*/
+	
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();

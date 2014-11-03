@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 
 public class Player {
 	
-	private String player = "blueblock.png";
+	private String player = "concreteblock.png";
 	
 	private int dx;
 	private int dy;
@@ -29,8 +29,28 @@ public class Player {
 	}
 	
 	public void move(){
-		x += dx;
-		y += dy;
+		
+		if(x + dx < 0){
+			x = 0;
+		}
+		else if (x + dx > 750){
+			x = 750;
+		}
+		
+		else x += dx;
+		
+		if(((y + dy) < 0)){
+			y = 0;
+		}
+		
+		else if ((y + dx) > 300){
+			y = 300;
+		}
+	
+		else y += dy;
+		
+
+	
 	}
 	
 	
