@@ -46,8 +46,6 @@ public class Map extends JPanel implements ActionListener {
 		g2d.setColor(Color.darkGray);
 
 		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
-		
-		// test
 
 		for (int x = 1; x < gridLength; x = x + 2) {
 
