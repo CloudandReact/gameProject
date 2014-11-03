@@ -3,6 +3,7 @@ package gameplay;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -38,23 +39,29 @@ public class Map extends JPanel implements ActionListener
 	}
 	
 	@Override
-	public void paintComponent(Graphics g)
+	
+	 public void paint(Graphics g) 
 	{
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.setColor(Color.WHITE);
-		
-		for (int i = 0; i <= gridLength; i++)
-		{
-			g2d.drawLine(25*i, 0, 25 * i, 25 * gridHeight);
-			
-		}
-		for (int j = 0; j <= gridHeight; j++)
-		{
-			g2d.drawLine(0, 25 * j, 25 * gridLength, 25 *j);
-		}
-		
-		g2d.drawImage(player.getImage(), player.getX(), getY(), this);		
-	}
+
+		  super.paint(g);
+
+		  Graphics2D g2d = (Graphics2D) g;
+
+		  for (int i = 0; i <= gridLength; i++) {
+		   g2d.drawLine(25 * i, 0, 25 * i, 25 * gridHeight);
+
+		  }
+		  for (int j = 0; j <= gridHeight; j++) {
+		   g2d.drawLine(0, 25 * j, 25 * gridLength, 25 * j);
+		  }
+
+		  g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
+
+		  Toolkit.getDefaultToolkit().sync();
+		  g.dispose();
+
+		  
+	 }
 	
 	public void actionPerformed(ActionEvent e) {
 		player.move();
