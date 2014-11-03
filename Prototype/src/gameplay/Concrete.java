@@ -1,18 +1,11 @@
 package gameplay;
 
-import java.util.*;
 import java.awt.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.io.*;
-
-import javax.imageio.*;
 import javax.swing.*;
 
 public class Concrete extends JPanel {
 
-	private String concrete = "concreteblock.png";
+	private String concrete = "wall.png";
 	
 /*	private int positionX;
 	private int positionY;
@@ -31,8 +24,8 @@ public class Concrete extends JPanel {
 
 	private void loadImage() 
 	{
-		ImageIcon iii = new ImageIcon(getClass().getResource(concrete));
-		image = iii.getImage();
+		ImageIcon ii = new ImageIcon(getClass().getResource(concrete));
+		image = ii.getImage();
 	}
 	
 	public Image getImage(){

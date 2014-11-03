@@ -35,7 +35,7 @@ public class Map extends JPanel implements ActionListener {
 		player = new Player();
 		concrete = new Concrete();
 
-		timer = new Timer(125, this);
+		timer = new Timer(200, this);
 		timer.start();
 
 	}
@@ -47,18 +47,10 @@ public class Map extends JPanel implements ActionListener {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setColor(Color.darkGray);
 
-		/*
-		 * for (int i = 0; i <= gridLength; i++) { g2d.drawLine(25 * i, 0, 25 *
-		 * i, 25 * gridHeight);
-		 * 
-		 * } for (int j = 0; j <= gridHeight; j++) { g2d.drawLine(0, 25 * j, 25
-		 * * gridLength, 25 * j); }
-		 */
-
 		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
 
-		for (int x = 1; x <= gridLength; x = x + 2) {
-			for (int y = 1; y <= gridHeight; y = y + 2) {
+		for (int x = 1; x < gridLength; x = x + 2) {
+			for (int y = 1; y < gridHeight; y = y + 2) {
 				g2d.drawImage(concrete.getImage(), 25 * x, 25 * y, this);
 			}
 		}
