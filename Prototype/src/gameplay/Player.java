@@ -7,7 +7,13 @@ import javax.swing.ImageIcon;
 
 public class Player {
 
+
 	private String player = "sponge.jpg";
+
+
+	
+	private String player = "rsz_sponge.jpg";
+	
 
 	private int dx;
 	private int dy;
@@ -17,8 +23,8 @@ public class Player {
 
 	public Player() {
 		loadImage();
-		this.setX(0);
-		this.setY(0);
+        this.setX(25);
+        this.setY(25);
 	}
 
 	private void loadImage() {
