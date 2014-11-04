@@ -33,7 +33,7 @@ public class Map extends JPanel implements ActionListener {
 		player = new Player();
 		concrete = new Concrete();
 
-		timer = new Timer(150, this);
+		timer = new Timer(100, this);
 		timer.start();
 
 	}

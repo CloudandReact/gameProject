@@ -75,23 +75,23 @@ public class Player {
 
 		int key = e.getKeyCode();
 		
-		if(key == KeyEvent.VK_LEFT && key == KeyEvent.VK_UP){
-			dx = 0;
+		if (dx != 0 || dy != 0 ){
+			return;
 		}
 
 		if (key == KeyEvent.VK_LEFT) {
 			dx = -25;
 		}
 
-		if (key == KeyEvent.VK_RIGHT) {
+		else if (key == KeyEvent.VK_RIGHT) {
 			dx = 25;
 		}
 
-		if (key == KeyEvent.VK_UP) {
+		else if (key == KeyEvent.VK_UP) {
 			dy = -25;
 		}
 
-		if (key == KeyEvent.VK_DOWN) {
+		else if (key == KeyEvent.VK_DOWN) {
 			dy = 25;
 		}
 	}

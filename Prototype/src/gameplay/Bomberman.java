@@ -13,7 +13,7 @@ public class Bomberman extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(775, 346);
 		setLocationRelativeTo(null);
-		setTitle("Bomberman");
+		setTitle("\"Bob\"erman");
 		setResizable(false);
 		setVisible(true);
 	}
