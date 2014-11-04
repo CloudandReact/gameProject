@@ -37,19 +37,27 @@ public class MyButtonListener implements ActionListener {
 		panel.add(usernameLabel);
 
 		JTextField userText = new JTextField(20);
-		userText.setBounds(100, 10, 160, 25);
+		userText.setBounds(110, 10, 160, 25);
 		panel.add(userText);
 
 		JLabel passwordLabel = new JLabel("Password");
 		passwordLabel.setBounds(10, 40, 80, 25);
 		panel.add(passwordLabel);
-
+		
 		JPasswordField passwordText = new JPasswordField(20);
-		passwordText.setBounds(100, 40, 160, 25);
+		passwordText.setBounds(110, 40, 160, 25);
 		panel.add(passwordText);
 		
+		JLabel verifyPasswordLabel = new JLabel("Verify Password");
+		verifyPasswordLabel.setBounds(3, 70, 160, 25);
+		panel.add(verifyPasswordLabel);
+		
+		JPasswordField verifyPasswordText = new JPasswordField(20);
+		verifyPasswordText.setBounds(110, 70, 160, 25);
+		panel.add(verifyPasswordText);
+		
 		JButton createButton = new JButton("Create Account");
-		createButton.setBounds(10, 80,1600, 25);
+		createButton.setBounds(10,100,160, 25);
 		panel.add(createButton);
 		
 		
