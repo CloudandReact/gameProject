@@ -12,27 +12,18 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class MyButtonListener implements ActionListener {
-	JPanel panelLogin;
-	JPanel panelLoginReg;
-	
-	public MyButtonListener(JPanel panel2){
-		panelLogin = panel2;
-		panelLoginReg = panel2;
-		
-	}
-	
+
 	public void actionPerformed(ActionEvent e) {
-		JButton source = (JButton) e.getSource();
+		//JButton source = (JButton) e.getSource();
 		//JOptionPane.showMessageDialog(source, source.getText() + " button has been pressed");
 		
 		JFrame frame = new JFrame("Register");
 		frame.setSize(300, 185);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		//JPanel panel = new JPanel();
-		panelLoginReg.removeAll();
-		frame.add(panelLoginReg);
-		registerScreen(panelLoginReg);
+		JPanel panel = new JPanel();
+		frame.add(panel);
+		registerScreen(panel);
 		
 		frame.setVisible(true);
 		
