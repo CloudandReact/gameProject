@@ -54,7 +54,7 @@ public class Login {
 		registerButton.setBounds(180, 80, 80, 25);
 		panel.add(registerButton);
 		
-		ActionListener myButtonListener = new MyButtonListener();
+		ActionListener myButtonListener = new MyButtonListener(panel);
 		loginButton.addActionListener(myButtonListener);
 		registerButton.addActionListener(myButtonListener);
 		
