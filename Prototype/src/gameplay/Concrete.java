@@ -9,7 +9,7 @@ public class Concrete extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String concrete = "wall.png";
+	private String concrete = "concrete.png";
 	private Image image;
 
 	public Concrete() {
