@@ -1,8 +1,12 @@
 package menu;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -11,6 +15,7 @@ public class Login {
 
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Bomberman Login");
+		
 		frame.setSize(300, 150);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -25,9 +30,9 @@ public class Login {
 
 		panel.setLayout(null);
 
-		JLabel userLabel = new JLabel("User");
-		userLabel.setBounds(10, 10, 80, 25);
-		panel.add(userLabel);
+		JLabel usernameLabel = new JLabel("Username");
+		usernameLabel.setBounds(10, 10, 80, 25);
+		panel.add(usernameLabel);
 
 		JTextField userText = new JTextField(20);
 		userText.setBounds(100, 10, 160, 25);
@@ -41,13 +46,28 @@ public class Login {
 		passwordText.setBounds(100, 40, 160, 25);
 		panel.add(passwordText);
 
-		JButton loginButton = new JButton("login");
+		JButton loginButton = new JButton("Login");
 		loginButton.setBounds(10, 80, 80, 25);
 		panel.add(loginButton);
 		
-		JButton registerButton = new JButton("register");
+		JButton registerButton = new JButton("Register");
 		registerButton.setBounds(180, 80, 80, 25);
 		panel.add(registerButton);
+		
+		ActionListener myButtonListener = new MyButtonListener();
+		loginButton.addActionListener(myButtonListener);
+		registerButton.addActionListener(myButtonListener);
+		
 	}
+	
+	
+	public class LoginButtonListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JOptionPane.showMessageDialog(null, "login button has been pressed");
+		}
+	}
+
+	
 
 }
