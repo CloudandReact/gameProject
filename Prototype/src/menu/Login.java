@@ -11,19 +11,18 @@ import java.awt.event.ActionEvent;
 import javax.swing.*;
 
 public class Login extends JPanel {
-	
+
 	JLabel usernameLabel = new JLabel("Username");
 	JLabel passwordLabel = new JLabel("Password");
 	JTextField userText = new JTextField();
 	JPasswordField passwordText = new JPasswordField();
 	JButton loginButton = new JButton("Login");
 	JButton createAccountButton = new JButton("Create Account");
-	
-	
+
 	public Login() {
-		
+
 		setLayout(null);
-		
+
 		usernameLabel.setBounds(10, 10, 80, 25);
 		add(usernameLabel);
 
@@ -38,29 +37,26 @@ public class Login extends JPanel {
 
 		loginButton.setBounds(10, 80, 80, 25);
 		add(loginButton);
-		
+
 		createAccountButton.setBounds(150, 80, 150, 25);
 		add(createAccountButton);
-		
-		
+
 		loginButton.addActionListener(new ActionListener() {
- 
-            public void actionPerformed(ActionEvent e)
-            {
-                //Execute when button is pressed
-                System.out.println("You clicked the button");
-            }
-        });
-		
+
+			public void actionPerformed(ActionEvent e) {
+				// Execute when button is pressed
+				System.out.println("You clicked the button");
+			}
+		});
+
 		createAccountButton.addActionListener(new ActionListener() {
- 
-            public void actionPerformed(ActionEvent e)
-            {
-                //Execute when button is pressed
-            	new AccountMenu(AccountCreation.class);
-            }
-        });
-		
+
+			public void actionPerformed(ActionEvent e) {
+				// Execute when button is pressed
+				new AccountMenu(new AccountCreation());
+			}
+		});
+
 		setVisible(true);
 	}
 }

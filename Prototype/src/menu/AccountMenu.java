@@ -8,15 +8,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class AccountMenu extends JFrame {
-	
-	public AccountMenu(Class<AccountCreation> accountCreation) {
-		
+
+	public AccountMenu(AccountCreation AccountC) {
+
 		getContentPane().removeAll();
 		setTitle("Login");
-		setSize(300, 150);
+		setSize(300, 185);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
-		add(new AccountCreation());
+		setResizable(true);
+		add(AccountC);
 		setVisible(true);
 		repaint();
 	}
@@ -24,9 +24,9 @@ public class AccountMenu extends JFrame {
 	public AccountMenu() {
 		getContentPane().removeAll();
 		setTitle("Login");
-		setSize(300, 150);
+		setSize(300, 185);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
+		setResizable(true);
 		add(new Login());
 		setVisible(true);
 		repaint();
@@ -35,11 +35,12 @@ public class AccountMenu extends JFrame {
 	public static void main(String[] args) {
 		new AccountMenu();
 	}
-	
+
 	public class LoginButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			JOptionPane.showMessageDialog(null, "login button has been pressed");
+			JOptionPane
+					.showMessageDialog(null, "login button has been pressed");
 		}
 	}
 }

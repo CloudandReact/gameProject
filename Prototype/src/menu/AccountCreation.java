@@ -1,5 +1,8 @@
 package menu;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -7,7 +10,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class AccountCreation extends JPanel {
-	
+
 	JLabel userRealNameLabel = new JLabel("Real Name");
 	JTextField userNameText = new JTextField();
 	JLabel usernameLabel = new JLabel("Username");
@@ -17,16 +20,14 @@ public class AccountCreation extends JPanel {
 	JLabel verifyPasswordLabel = new JLabel("Verify Password");
 	JPasswordField verifyPasswordText = new JPasswordField(20);
 	JButton createButton = new JButton("Create Account");
-	
-	
+
 	public AccountCreation() {
-		
+
 		setLayout(null);
-		
+
 		userRealNameLabel.setBounds(10, 10, 80, 25);
 		add(userRealNameLabel);
 
-		
 		userNameText.setBounds(130, 10, 160, 25);
 		add(userNameText);
 
@@ -48,11 +49,21 @@ public class AccountCreation extends JPanel {
 		verifyPasswordText.setBounds(130, 100, 160, 25);
 		add(verifyPasswordText);
 
-		createButton.setBounds(70,135,160,25);
+		createButton.setBounds(70, 135, 160, 25);
 		add(createButton);
-		
+
+		createButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				// Execute when button is pressed
+				new AccountMenu();
+			}
+		});
+
 		setVisible(true);
-		
+
+		setVisible(true);
+
 	}
 
 }
