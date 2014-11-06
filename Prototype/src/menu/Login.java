@@ -47,6 +47,7 @@ public class Login {
 		createAccountButton.setBounds(150, 80, 150, 25);
 		panel.add(createAccountButton);
 		
+		
 		panelL = panel;
 		panel.repaint();
 		

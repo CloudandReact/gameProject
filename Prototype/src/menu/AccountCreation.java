@@ -21,6 +21,8 @@ public class AccountCreation extends JFrame{
 	JLabel verifyPasswordLabel = new JLabel("Verify Password");
 	JPasswordField verifyPasswordText = new JPasswordField(20);
 	JButton createButton = new JButton("Create Account");
+	JButton backButton = new JButton("Back");
+
 	
 	JPanel panelA;
 
@@ -30,6 +32,7 @@ public class AccountCreation extends JFrame{
 		panel.removeAll();
 
 		panel.setLayout(null);
+		
 		
 		setTitle("Create Account");
 
@@ -58,8 +61,13 @@ public class AccountCreation extends JFrame{
 		verifyPasswordText.setBounds(130, 100, 160, 25);
 		panel.add(verifyPasswordText);
 
-		createButton.setBounds(70, 135, 160, 25);
+		createButton.setBounds(125, 135, 160, 25);
 		panel.add(createButton);
+		
+		backButton.setBounds(10, 135, 80, 25);
+		panel.add(backButton);
+		
+		
 		panel.repaint();
 		panelA = panel;
 
@@ -73,6 +81,17 @@ public class AccountCreation extends JFrame{
 			}
 		});
 
+		backButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				// Execute when button is pressed
+				getContentPane().removeAll();
+				new Login(panelA);
+			}
+		});
+		
+		
+		
 		panel.setVisible(true);
 
 	}

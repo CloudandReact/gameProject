@@ -10,16 +10,9 @@ import javax.swing.JPanel;
 public class AccountMenu extends JFrame {
 
 	private static JPanel panel = new JPanel();
-
-	public AccountMenu(AccountCreation AccountC) {
-
-		setTitle("Login");
-		setSize(300, 185);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(true);
-		add(panel);
-		setVisible(true);
-		repaint();
+	
+	public void setFrameTitle(){
+		setTitle("Create Account");
 	}
 
 	public AccountMenu() {
