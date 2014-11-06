@@ -9,27 +9,29 @@ import javax.swing.JPanel;
 
 public class AccountMenu extends JFrame {
 
+	private static JPanel panel = new JPanel();
+
 	public AccountMenu(AccountCreation AccountC) {
 
-		getContentPane().removeAll();
 		setTitle("Login");
 		setSize(300, 185);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(true);
-		add(AccountC);
+		add(panel);
 		setVisible(true);
 		repaint();
 	}
 
 	public AccountMenu() {
-		getContentPane().removeAll();
+
 		setTitle("Login");
 		setSize(300, 185);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(true);
-		add(new Login());
+		add(panel);
+		new Login(panel);
 		setVisible(true);
-		repaint();
+
 	}
 
 	public static void main(String[] args) {

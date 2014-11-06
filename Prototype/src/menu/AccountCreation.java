@@ -4,12 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class AccountCreation extends JPanel {
+public class AccountCreation extends JFrame{
 
 	JLabel userRealNameLabel = new JLabel("Real Name");
 	JTextField userNameText = new JTextField();
@@ -20,49 +21,59 @@ public class AccountCreation extends JPanel {
 	JLabel verifyPasswordLabel = new JLabel("Verify Password");
 	JPasswordField verifyPasswordText = new JPasswordField(20);
 	JButton createButton = new JButton("Create Account");
+	
+	JPanel panelA;
 
-	public AccountCreation() {
 
-		setLayout(null);
+	public AccountCreation(JPanel panel) {
+
+		panel.removeAll();
+
+		panel.setLayout(null);
+		
+		setTitle("Create Account");
+
 
 		userRealNameLabel.setBounds(10, 10, 80, 25);
-		add(userRealNameLabel);
+		panel.add(userRealNameLabel);
 
 		userNameText.setBounds(130, 10, 160, 25);
-		add(userNameText);
+		panel.add(userNameText);
 
 		usernameLabel.setBounds(10, 40, 80, 25);
-		add(usernameLabel);
+		panel.add(usernameLabel);
 
 		userText.setBounds(130, 40, 160, 25);
-		add(userText);
+		panel.add(userText);
 
 		passwordLabel.setBounds(10, 70, 80, 25);
-		add(passwordLabel);
+		panel.add(passwordLabel);
 
 		passwordText.setBounds(130, 70, 160, 25);
-		add(passwordText);
+		panel.add(passwordText);
 
 		verifyPasswordLabel.setBounds(10, 100, 160, 25);
-		add(verifyPasswordLabel);
+		panel.add(verifyPasswordLabel);
 
 		verifyPasswordText.setBounds(130, 100, 160, 25);
-		add(verifyPasswordText);
+		panel.add(verifyPasswordText);
 
 		createButton.setBounds(70, 135, 160, 25);
-		add(createButton);
+		panel.add(createButton);
+		panel.repaint();
+		panelA = panel;
+
 
 		createButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
-				new AccountMenu();
+				getContentPane().removeAll();
+				new Login(panelA);
 			}
 		});
 
-		setVisible(true);
-
-		setVisible(true);
+		panel.setVisible(true);
 
 	}
 

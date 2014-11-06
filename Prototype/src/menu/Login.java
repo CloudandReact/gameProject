@@ -7,10 +7,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
 import java.awt.event.ActionEvent;
+
 import javax.swing.*;
 
-public class Login extends JPanel {
+public class Login {
 
 	JLabel usernameLabel = new JLabel("Username");
 	JLabel passwordLabel = new JLabel("Password");
@@ -18,29 +20,36 @@ public class Login extends JPanel {
 	JPasswordField passwordText = new JPasswordField();
 	JButton loginButton = new JButton("Login");
 	JButton createAccountButton = new JButton("Create Account");
+	
+	JPanel panelL;
 
-	public Login() {
-
-		setLayout(null);
+	public Login(JPanel panel) {
+		
+		panel.removeAll();		
+		
+		panel.setLayout(null);
 
 		usernameLabel.setBounds(10, 10, 80, 25);
-		add(usernameLabel);
+		panel.add(usernameLabel);
 
 		userText.setBounds(100, 10, 160, 25);
-		add(userText);
+		panel.add(userText);
 
 		passwordLabel.setBounds(10, 40, 80, 25);
-		add(passwordLabel);
+		panel.add(passwordLabel);
 
 		passwordText.setBounds(100, 40, 160, 25);
-		add(passwordText);
+		panel.add(passwordText);
 
 		loginButton.setBounds(10, 80, 80, 25);
-		add(loginButton);
+		panel.add(loginButton);
 
 		createAccountButton.setBounds(150, 80, 150, 25);
-		add(createAccountButton);
-
+		panel.add(createAccountButton);
+		
+		panelL = panel;
+		panel.repaint();
+		
 		loginButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -53,10 +62,10 @@ public class Login extends JPanel {
 
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
-				new AccountMenu(new AccountCreation());
+				new AccountCreation(panelL);
 			}
 		});
 
-		setVisible(true);
+		panel.setVisible(true);
 	}
 }
