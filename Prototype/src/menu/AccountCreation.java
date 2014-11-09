@@ -21,9 +21,9 @@ public class AccountCreation extends JFrame {
 	JLabel usernameLabel = new JLabel("Username");
 	JTextField userText = new JTextField();
 	JLabel passwordLabel = new JLabel("Password");
-	JPasswordField passwordText = new JPasswordField(20);
+	JPasswordField passwordText = new JPasswordField();
 	JLabel verifyPasswordLabel = new JLabel("Verify Password");
-	JPasswordField verifyPasswordText = new JPasswordField(20);
+	JPasswordField verifyPasswordText = new JPasswordField();
 	JButton createButton = new JButton("Create"); 
 	JButton backButton = new JButton("Back");
 	String realName;
