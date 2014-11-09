@@ -7,10 +7,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionEvent;
+
 import javax.swing.*;
 
-public class Login extends JPanel {
+public class Login {
 
 	JLabel usernameLabel = new JLabel("Username");
 	JLabel passwordLabel = new JLabel("Password");
@@ -18,34 +21,61 @@ public class Login extends JPanel {
 	JPasswordField passwordText = new JPasswordField();
 	JButton loginButton = new JButton("Login");
 	JButton createAccountButton = new JButton("Create Account");
+	String username = "";
+	String password = "";
 
-	public Login() {
+	JPanel panelL;
 
-		setLayout(null);
+	public Login(JPanel panel) {
 
-		usernameLabel.setBounds(10, 10, 80, 25);
-		add(usernameLabel);
+		panel.removeAll();
+		panel.setLayout(null);
+		
+		AccountMenu.setFrameTitle("Login");
 
-		userText.setBounds(100, 10, 160, 25);
-		add(userText);
+		usernameLabel.setBounds(10, 40, 80, 25);
+		panel.add(usernameLabel);
 
-		passwordLabel.setBounds(10, 40, 80, 25);
-		add(passwordLabel);
+		userText.setBounds(130, 40, 160, 25);
+		panel.add(userText);
 
-		passwordText.setBounds(100, 40, 160, 25);
-		add(passwordText);
+		passwordLabel.setBounds(10, 70, 80, 25);
+		panel.add(passwordLabel);
 
-		loginButton.setBounds(10, 80, 80, 25);
-		add(loginButton);
+		passwordText.setBounds(130, 70, 160, 25);
+		panel.add(passwordText);
 
-		createAccountButton.setBounds(150, 80, 150, 25);
-		add(createAccountButton);
+		loginButton.setBounds(50, 135, 80, 25);
+		panel.add(loginButton);
+
+		createAccountButton.setBounds(140, 135, 125, 25);
+		panel.add(createAccountButton);
+		
+		panel.repaint();
+		panelL = panel;
 
 		loginButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
-				System.out.println("You clicked the button");
+				username = userText.getText();
+				// makes password into a string converts from char array
+				// check that username and password arent null
+				password = String.valueOf(passwordText.getPassword());
+				System.out.println("username" + username + "password " + password);
+				FileWriting loginValidity = new FileWriting();
+				loginValidity.openFile();
+				//String error = "Error";
+				//String success = "Success";
+
+				if (loginValidity.loginIsValid(username, password)) {
+					// go to menu
+					new MainMenu(panelL);
+				} else {
+					JOptionPane.showMessageDialog(null,"Incorrect username or password. Please retry.",password, JOptionPane.INFORMATION_MESSAGE);
+
+				}
+
 			}
 		});
 
@@ -53,10 +83,10 @@ public class Login extends JPanel {
 
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
-				new AccountMenu(new AccountCreation());
+				new AccountCreation(panelL);
 			}
 		});
 
-		setVisible(true);
+		panel.setVisible(true);
 	}
 }

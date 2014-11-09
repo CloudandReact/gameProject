@@ -7,29 +7,30 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class AccountMenu extends JFrame {
+public class AccountMenu {
 
-	public AccountMenu(AccountCreation AccountC) {
+	private static JPanel panel = new JPanel();
+	private static JFrame frame = new JFrame();
 
-		getContentPane().removeAll();
-		setTitle("Login");
-		setSize(300, 185);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(true);
-		add(AccountC);
-		setVisible(true);
-		repaint();
+	public static void setFrameTitle(String title) {
+		frame.setTitle(title);
 	}
 
 	public AccountMenu() {
-		getContentPane().removeAll();
-		setTitle("Login");
-		setSize(300, 185);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(true);
-		add(new Login());
-		setVisible(true);
-		repaint();
+
+		frame.setSize(325, 215);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(true);
+		frame.add(panel);
+		new Login(panel);
+		frame.setVisible(true);
+
+	}
+	
+
+	public static void destroyFrame(){
+		frame.setVisible(false);
+		frame.dispose();
 	}
 
 	public static void main(String[] args) {
@@ -39,8 +40,10 @@ public class AccountMenu extends JFrame {
 	public class LoginButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			JOptionPane
-					.showMessageDialog(null, "login button has been pressed");
+			JOptionPane.showMessageDialog(null, "login button has been pressed");
 		}
 	}
+	
+	
+
 }

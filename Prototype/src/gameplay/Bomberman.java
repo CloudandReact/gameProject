@@ -18,7 +18,4 @@ public class Bomberman extends JFrame {
 		setVisible(true);
 	}
 
-	public static void main(String[] args) {
-		new Bomberman();
-	}
 }
