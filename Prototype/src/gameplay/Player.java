@@ -17,8 +17,8 @@ public class Player {
 
 	public Player() {
 		loadImage();
-		this.setX(0);
-		this.setY(0);
+		this.setX(1);
+		this.setY(1);
 	}
 
 	private void loadImage() {
@@ -28,22 +28,22 @@ public class Player {
 
 	public void move() {
 
-		if (((x + dx) % 50 == 25) && ((y + dy) % 50 == 25)) {
+		if (((x + dx + 25) % 50 == 25) && ((y + dy + 25) % 50 == 25)) {
 
 		} else {
-			if (x + dx < 0)
-				x = 0;
-			else if (x + dx >= 750)
-				x = 750;
+			if (x + dx < 25)
+				x = 25;
+			else if (x + dx >= 775)
+				x = 775;
 			else
 				x += dx;
 
-			if ((y + dy) < 0) {
-				y = 0;
+			if ((y + dy) < 25) {
+				y = 25;
 			}
 
-			else if ((y + dy) >= 300) {
-				y = 300;
+			else if ((y + dy) >= 325) {
+				y = 325;
 			}
 
 			else

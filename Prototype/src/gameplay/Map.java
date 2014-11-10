@@ -15,8 +15,8 @@ import javax.swing.Timer;
 public class Map extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private int gridLength = 31;
-	private int gridHeight = 13;
+	private int gridLength = 32;
+	private int gridHeight = 14;
 
 	private Player player;
 	private Timer timer;
@@ -47,14 +47,18 @@ public class Map extends JPanel implements ActionListener {
 
 		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
 
-		for (int x = 1; x < gridLength; x = x + 2) {
-
-			for (int y = 1; y < gridHeight; y = y + 2) {
-
+		for (int x = 2; x < gridLength; x = x + 2) {
+			for (int y = 2; y < gridHeight; y = y + 2) {
 				g2d.drawImage(concrete.getImage(), 25 * x, 25 * y, this);
 			}
-
 		}
+		for (int x = 0; x <= gridLength; x++) {
+			for (int y = 0; y <= gridHeight; y++) {
+				if ((x == 0) || (x == gridLength) || (y == 0) || (y == gridHeight))
+				g2d.drawImage(concrete.getImage(), 25 * x, 25 * y, this);
+			}
+		}
+
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
