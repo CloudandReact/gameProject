@@ -129,7 +129,7 @@ public class AccountCreation extends JFrame {
 						
 					} else if (!writing.isPasswordValid()) {
 						
-						JOptionPane.showMessageDialog(null,"Password should be atleast 8 characters long containing at least one upper case character, one number and one special character.",error, JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null,"Password should be atleast 8 characters long containing at least one upper case character and number.",error, JOptionPane.INFORMATION_MESSAGE);
 						
 					} else if (!writing.arePasswordSame()){
 						JOptionPane.showMessageDialog(null,"Passwords do not match.",error,JOptionPane.INFORMATION_MESSAGE);
