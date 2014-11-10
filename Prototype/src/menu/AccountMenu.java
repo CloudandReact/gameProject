@@ -20,7 +20,7 @@ public class AccountMenu {
 
 		frame.setSize(325, 215);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(true);
+		frame.setResizable(false);
 		frame.add(panel);
 		new Login(panel);
 		frame.setVisible(true);

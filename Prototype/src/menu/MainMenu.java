@@ -16,12 +16,14 @@ public class MainMenu extends JFrame{
 	
 	JPanel panelL;
 	JButton playButton = new JButton("Play");
+	
 	public MainMenu(JPanel panel){
+		
 		panel.removeAll();
 		panel.setLayout(null);
 		AccountMenu.setFrameTitle("Main Menu");
 		
-		playButton.setBounds(90, 50, 80, 25);
+		playButton.setBounds(122, 75, 80, 25);
 		panel.add(playButton);
 		panel.repaint();
 		panelL = panel;
