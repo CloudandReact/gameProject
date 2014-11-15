@@ -9,7 +9,7 @@ public class Bomberman extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	public Bomberman() {
-		add(new Map());
+		add(new Render());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(825, 396);
 		setLocationRelativeTo(null);

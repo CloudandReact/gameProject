@@ -9,7 +9,7 @@ public class FileWriting {
 	String usernameFromFile = "";
 	String passwordFromFile = "";
 	String lineInfo[];
-	boolean isLoginCredFound = false;
+	private boolean isLoginCredFound = false;
 	String lineOfFile[] = new String[100];
 	ArrayList<String> userFileInfo1;
 
@@ -63,29 +63,6 @@ public class FileWriting {
 					userFileInfo1.add(userData[i + 2]);
 				}
 
-				/*
-				 * //System.out.println(line.toString()); String
-				 * line=input.nextLine(); if(line.length()==0){ break; }
-				 * System.out.println(line); String
-				 * lineInfo[]=(line.toString()).split(",");
-				 * 
-				 * // the problem System.out.println(lineInfo[1] +
-				 * "  info at 0");
-				 * 
-				 * String usernameFromFile=lineInfo[1];
-				 * //System.out.println(usernameFromFile +"userName from file");
-				 * String passwordFromFile=lineInfo[2];
-				 * //System.out.println(passwordFromFile + " password is");
-				 * userFileInfo1.add(usernameFromFile);
-				 * userFileInfo1.add(passwordFromFile); //
-				 * System.out.println(line.toString() );
-				 * //System.out.println(usernameFromFile+ "  user "+
-				 * passwordFromFile + " passwrd" ); //line=input.readLine();
-				 */
-
-				// lineOfFile[lineInFile++]=line;
-
-				// check if username not null
 			}
 			br.close();
 
