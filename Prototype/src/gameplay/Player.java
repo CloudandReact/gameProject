@@ -13,12 +13,16 @@ public class Player {
 	private int dy;
 	private int x;
 	private int y;
+	private int posX = 1;
+	private int posY = 1;
 	private Image image;
+	Cell[][] gridMap;
 
-	public Player() {
+	public Player(Cell[][] gridMap) {
 		loadImage();
-		this.setX(1);
-		this.setY(1);
+		this.setX(25);
+		this.setY(25);
+		gridMap[1][1] = Cell.PLAYER;
 	}
 
 	private void loadImage() {
@@ -27,28 +31,41 @@ public class Player {
 	}
 
 	public void move() {
-
-		if (((x + dx + 25) % 50 == 25) && ((y + dy + 25) % 50 == 25)) {
-
-		} else {
-			if (x + dx < 25)
-				x = 25;
-			else if (x + dx >= 775)
-				x = 775;
-			else
-				x += dx;
-
-			if ((y + dy) < 25) {
-				y = 25;
-			}
-
-			else if ((y + dy) >= 325) {
-				y = 325;
-			}
-
-			else
-				y += dy;
+		
+		if(gridMap[posX+(dx/25)][posY] == Cell.EMPTY){
+			gridMap[posX+(dx/25)][posY] = Cell.PLAYER;
+			posX++;
+			x += dx;	
 		}
+		
+		if(gridMap[posX][posY+(dx/25)] == Cell.EMPTY){
+			gridMap[posX][posY+(dx/25)] = Cell.PLAYER;
+			posY++;
+			y += dy;
+		}
+
+		
+//		if (((x + dx + 25) % 50 == 25) && ((y + dy + 25) % 50 == 25)) {
+//
+//		} else {
+//			if (x + dx < 25)
+//				x = 25;
+//			else if (x + dx >= 775)
+//				x = 775;
+//			else
+//				x += dx;
+//
+//			if ((y + dy) < 25) {
+//				y = 25;
+//			}
+//
+//			else if ((y + dy) >= 325) {
+//				y = 325;
+//			}
+//
+//			else
+//				y += dy;
+//		}
 	}
 
 	public int getX() {
