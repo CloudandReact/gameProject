@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 
 public class Brick {
 	
-	private String brick = "concrete.png";
+	private String brick = "brick.png";
 	private Image image;
 	
 	public Brick(Cell[][] gridMap)

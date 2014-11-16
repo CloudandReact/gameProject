@@ -82,7 +82,7 @@ public class Render extends JPanel implements ActionListener {
 		for (int x = 0; x <= gridLength; x++) {
 			for (int y = 0; y <= gridHeight; y++) {
 				if (gridMap[x][y] == Cell.BRICK) {
-					g2d.drawImage(imgConcrete, 25 * x, 25 * y, this);
+					g2d.drawImage(brick.getImage(), 25 * x, 25 * y, this);
 				}
 			}
 		}
