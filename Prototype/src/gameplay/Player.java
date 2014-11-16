@@ -35,20 +35,44 @@ public class Player {
 		
 		
 		//System.out.println(gridMap[1][1]);
-		
-		if(gridMap[posX+(dx/25)][posY] == Cell.EMPTY){
-			gridMap[posX][posY] = Cell.PLAYER;
-			posX++;
-			x += dx;
+		if (dx > 0){
+			if(gridMap[posX+(dx/25)][posY] == Cell.EMPTY){
+				gridMap[posX][posY] = Cell.EMPTY;
+				posX++;
+				gridMap[posX][posY] = Cell.PLAYER;
+				x += dx;
+			}
+		}
+		if (dx < 0){
+			if(gridMap[posX+(dx/25)][posY] == Cell.EMPTY){
+				gridMap[posX][posY] = Cell.EMPTY;
+				posX--;
+				gridMap[posX][posY] = Cell.PLAYER;
+				x += dx;
+			}
+			
 		}
 		
-		if(gridMap[posX][posY+(dy/25)] == Cell.EMPTY){
-			gridMap[posX][posY+(dy/25)] = Cell.PLAYER;
-			posY++;
-			y += dy;
+		if (dy > 0){
+			if(gridMap[posX][posY+(dy/25)] == Cell.EMPTY){
+				gridMap[posX][posY] = Cell.EMPTY;
+				posY++;
+				gridMap[posX][posY] = Cell.PLAYER;
+				y += dy;
+			}
+		}
+		if (dy < 0){
+			if(gridMap[posX][posY+(dy/25)] == Cell.EMPTY){
+				gridMap[posX][posY] = Cell.EMPTY;
+				posY--;
+				gridMap[posX][posY] = Cell.PLAYER;
+				y += dy;
+			}
+			
 		}
 		
-		System.out.println("Position X: " + posX + "Position Y: " + posY);
+
+		System.out.println("Position X: " + posX + " Position Y: " + posY);
 
 
 		
