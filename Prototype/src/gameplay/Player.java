@@ -72,7 +72,7 @@ public class Player {
 
 		}
 
-		//System.out.println("Position X: " + posX + " Position Y: " + posY);
+		System.out.println("Position X: " + posX + " Position Y: " + posY);
 
 	}
 
@@ -107,7 +107,6 @@ public class Player {
 		if (key == KeyEvent.VK_X){
 			System.out.println("BOMBAMAN<>BOMBAMAN FRENLY NEIGBOHUD BOMBAMAN");
 			gridMap[posX][posY] = Cell.BOMB;
-			Render.setIsBombPlaced(true);
 		
 		}
 

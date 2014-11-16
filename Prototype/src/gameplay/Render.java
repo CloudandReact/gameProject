@@ -24,13 +24,12 @@ public class Render extends JPanel implements ActionListener {
 	private Timer timer;
 	private Brick brick;
 	private Bomb bomb;
-	private static Boolean isBombPlaced = false;
+	private Concrete concrete;
 	
 	// Concrete
-	private String concrete = "concrete.png";
-	private Image imgConcrete;
+	//private String concrete = "concrete.png";
+	//private Image imgConcrete;
 	
-	private Boolean initialized = false;
 	
 	Grid grid = new Grid();
 	Cell[][] gridMap = grid.getGridMap();
@@ -39,24 +38,21 @@ public class Render extends JPanel implements ActionListener {
 	
 
 	public Render() {
+		
 		player = new Player(gridMap);
 		brick = new Brick(gridMap);
 		bomb = new Bomb();
+		concrete = new Concrete(gridMap);
+		
 		addKeyListener(new TAdapter());
 		setFocusable(true);
 		setBackground(Color.darkGray);
 		setDoubleBuffered(true);
 		setFocusable(true);
-		
-		brick = new Brick(gridMap);
-		bomb = new Bomb();
-		
-		this.loadConcrete();
-		//concrete = new Concrete();
+				
 		
 		// do this in brick class after
-		placeConcrete();
-		placeBricks();
+		//placeBricks();
 		
 		timer = new Timer(100, this);
 		timer.start();
@@ -72,7 +68,7 @@ public class Render extends JPanel implements ActionListener {
 		g2d = (Graphics2D) g;
 		g2d.setColor(Color.darkGray);
 		
-		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
+		//g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
 		
 		for(int i = 0; i < 33; i++){
 			for(int j = 0; j < 15; j++){
@@ -84,7 +80,7 @@ public class Render extends JPanel implements ActionListener {
 					g2d.drawImage(bomb.getImage(), player.getX(), player.getY(), this);
 					continue;
 		        case CONCRETE:
-					g2d.drawImage(imgConcrete, 25 * i, 25 * j, this);
+					g2d.drawImage(concrete.getImage(), 25 * i, 25 * j, this);
 					continue;
 		        case BRICK:
 					g2d.drawImage(brick.getImage(), 25 * i, 25 * j, this);
@@ -105,34 +101,8 @@ public class Render extends JPanel implements ActionListener {
 		g.dispose();
 
 	}
-	
-	private void placeBricks(){	
-		for (int x = 0; x <= gridLength; x++) {
-			for (int y = 0; y <= gridHeight; y++) {
-				if (gridMap[x][y] == Cell.BRICK) {
-					gridMap[x][y] = Cell.BRICK;
-				}
-			}
-		}
-	}
-	
-	
-	
-	private void placeConcrete(){
-		for (int x = 2; x < gridLength; x = x + 2) {
-			for (int y = 2; y < gridHeight; y = y + 2) {
-				gridMap[x][y] = Cell.CONCRETE;
-			}
-		}
-		for (int x = 0; x <= gridLength; x++) {
-			for (int y = 0; y <= gridHeight; y++) {
-				if ((x == 0) || (x == gridLength) || (y == 0) || (y == gridHeight)){
-					gridMap[x][y] = Cell.CONCRETE;
-				}
-			}
-		}	
-	}
 
+		
 	public void actionPerformed(ActionEvent e) {
 		player.move();
 		repaint();
@@ -148,15 +118,7 @@ public class Render extends JPanel implements ActionListener {
 			player.keyPressed(e);
 		}
 	}
-	private void loadConcrete() {
-		ImageIcon iC = new ImageIcon(getClass().getResource(concrete));
-		imgConcrete = iC.getImage();
-	}
-	
-	public static void setIsBombPlaced(Boolean x){
-		isBombPlaced = x;
-		
-	}
+
 
 }
 	

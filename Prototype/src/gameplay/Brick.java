@@ -14,7 +14,11 @@ public class Brick {
 	public Brick(Cell[][] gridMap)
 	{
 		loadImage();
-		
+		placeBricks(gridMap);
+
+	}
+	
+	private void placeBricks(Cell[][] gridMap){
 		for (int i = 0; i < 33; i++)
 		{
 			for (int j = 0; j < 14; j++)
@@ -30,7 +34,6 @@ public class Brick {
 			}
 		}
 	}
-
 	
 	public static int randInt(int min, int max) {
 
