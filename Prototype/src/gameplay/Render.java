@@ -22,6 +22,7 @@ public class Render extends JPanel implements ActionListener {
 
 	private Player player;
 	private Timer timer;
+	private Brick brick;
 	
 	// Concrete
 	private String concrete = "concrete.png";
@@ -41,6 +42,7 @@ public class Render extends JPanel implements ActionListener {
 		
 		
 		player = new Player(gridMap);
+		brick = new Brick(gridMap);
 		this.loadConcrete();
 		//concrete = new Concrete();
 
@@ -58,6 +60,8 @@ public class Render extends JPanel implements ActionListener {
 
 		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
 		
+		
+		
 		// Concrete **NOTE WE CAN CHANGE THIS: i.e. drawGrid**
 		for (int x = 2; x < gridLength; x = x + 2) {
 			for (int y = 2; y < gridHeight; y = y + 2) {
@@ -74,6 +78,16 @@ public class Render extends JPanel implements ActionListener {
 				}
 			}
 		}
+		
+		for (int x = 0; x <= gridLength; x++) {
+			for (int y = 0; y <= gridHeight; y++) {
+				if (gridMap[x][y] == Cell.BRICK) {
+					g2d.drawImage(imgConcrete, 25 * x, 25 * y, this);
+				}
+			}
+		}
+		
+		
 
 		
 		Toolkit.getDefaultToolkit().sync();
