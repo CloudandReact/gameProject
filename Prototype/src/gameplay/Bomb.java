@@ -17,7 +17,7 @@ public class Bomb {
 	private Image image;
 	
 	public Bomb(){
-		
+		loadImage();
 	}
 	
 	private void loadImage() {

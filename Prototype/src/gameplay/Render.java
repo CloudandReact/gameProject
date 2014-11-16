@@ -65,32 +65,26 @@ public class Render extends JPanel implements ActionListener {
 		g2d = (Graphics2D) g;
 		g2d.setColor(Color.darkGray);
 		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
-		g2d.drawImage(bomb.getImage(), player.getX(), player.getY(), this);
-
+		
 		if(isBombPlaced){
-			System.out.println("Yolo");
-			//g2d.drawImage(bomb.getImage(), player.getX(), player.getY(), this);
+			g2d.drawImage(bomb.getImage(), player.getX(), player.getY(), this);
 			
 		}
 		isBombPlaced = false;
 		
-		// Concrete **NOTE WE CAN CHANGE THIS: i.e. drawGrid**
-		for (int x = 2; x < gridLength; x = x + 2) {
-			for (int y = 2; y < gridHeight; y = y + 2) {
-				gridMap[x][y] = Cell.CONCRETE;
-				g2d.drawImage(imgConcrete, 25 * x, 25 * y, this);
-			}
-		}
 		// Border
-		for (int x = 0; x <= gridLength; x++) {
-			for (int y = 0; y <= gridHeight; y++) {
-				if ((x == 0) || (x == gridLength) || (y == 0) || (y == gridHeight)){
-					g2d.drawImage(imgConcrete, 25 * x, 25 * y, this);
-					gridMap[x][y] = Cell.CONCRETE;
-				}
-			}
-		}
-		
+		createBorder();
+		// Concrete **NOTE WE CAN CHANGE THIS: i.e. drawGrid**
+		placeConcrete();
+		// Bricks
+		placeBricks();
+	
+		Toolkit.getDefaultToolkit().sync();
+		g.dispose();
+
+	}
+	
+	private void placeBricks(){	
 		for (int x = 0; x <= gridLength; x++) {
 			for (int y = 0; y <= gridHeight; y++) {
 				if (gridMap[x][y] == Cell.BRICK) {
@@ -98,13 +92,26 @@ public class Render extends JPanel implements ActionListener {
 				}
 			}
 		}
-		
-		
-
-		
-		Toolkit.getDefaultToolkit().sync();
-		g.dispose();
-
+	}
+	
+	private void createBorder(){
+		for (int x = 0; x <= gridLength; x++) {
+			for (int y = 0; y <= gridHeight; y++) {
+				if ((x == 0) || (x == gridLength) || (y == 0) || (y == gridHeight)){
+					g2d.drawImage(imgConcrete, 25 * x, 25 * y, this);
+					gridMap[x][y] = Cell.CONCRETE;
+				}
+			}
+		}	
+	}
+	
+	private void placeConcrete(){
+		for (int x = 2; x < gridLength; x = x + 2) {
+			for (int y = 2; y < gridHeight; y = y + 2) {
+				gridMap[x][y] = Cell.CONCRETE;
+				g2d.drawImage(imgConcrete, 25 * x, 25 * y, this);
+			}
+		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
