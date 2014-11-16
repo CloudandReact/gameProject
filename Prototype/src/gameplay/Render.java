@@ -69,15 +69,19 @@ public class Render extends JPanel implements ActionListener {
 		g2d.setColor(Color.darkGray);
 		
 		//g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
+			
+	
 		
 		for(int i = 0; i < 33; i++){
 			for(int j = 0; j < 15; j++){
 		        switch (gridMap[i][j]) {
 		        case PLAYER:
+					System.out.println(gridMap[i][j]);
 		    		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
 		        	continue;
 		        case BOMB: 
-					g2d.drawImage(bomb.getImage(), player.getX(), player.getY(), this);
+					System.out.println(gridMap[i][j]);
+					g2d.drawImage(bomb.getImage(), 25 * i , 25 * j, this);
 					continue;
 		        case CONCRETE:
 					g2d.drawImage(concrete.getImage(), 25 * i, 25 * j, this);
