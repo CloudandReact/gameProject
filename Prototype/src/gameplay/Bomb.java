@@ -1,9 +1,6 @@
 package gameplay;
 
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.event.KeyEvent;
-
 import javax.swing.ImageIcon;
 
 public class Bomb {
@@ -42,24 +39,5 @@ public class Bomb {
 	public void explode(){
 		
 	}
-
-	
-//	public void keyPressed(KeyEvent e) {
-//
-//		int key = e.getKeyCode();
-//		if (key == KeyEvent.VK_X) {
-//			System.out.println("BOMBERMAAAAAAAN");
-//			
-//		}
-//	}
-
-//	public void keyReleased(KeyEvent e) {
-//		int key = e.getKeyCode();
-//
-//		if (key == KeyEvent.VK_X) {
-//			;
-//		}
-//
-//	}
 }
 
