@@ -38,7 +38,13 @@ public class Player {
 
 		if (dx > 0) {
 			if (gridMap[posX + (dx / 25)][posY] == Cell.EMPTY) {
-				gridMap[posX][posY] = Cell.EMPTY;
+				
+				if (gridMap[posX][posY] == Cell.PLAYERANDBOMB) {
+					gridMap[posX][posY] = Cell.BOMB;
+				}
+				else {
+					gridMap[posX][posY] = Cell.EMPTY;
+				}
 				posX++;
 				gridMap[posX][posY] = Cell.PLAYER;
 				x += dx;
@@ -46,7 +52,13 @@ public class Player {
 		}
 		if (dx < 0) {
 			if (gridMap[posX + (dx / 25)][posY] == Cell.EMPTY) {
-				gridMap[posX][posY] = Cell.EMPTY;
+				
+				if (gridMap[posX][posY] == Cell.PLAYERANDBOMB) {
+					gridMap[posX][posY] = Cell.BOMB;
+				}
+				else {
+					gridMap[posX][posY] = Cell.EMPTY;
+				}
 				posX--;
 				gridMap[posX][posY] = Cell.PLAYER;
 				x += dx;
@@ -56,7 +68,12 @@ public class Player {
 
 		if (dy > 0) {
 			if (gridMap[posX][posY + (dy / 25)] == Cell.EMPTY) {
-				gridMap[posX][posY] = Cell.EMPTY;
+				if (gridMap[posX][posY] == Cell.PLAYERANDBOMB) {
+					gridMap[posX][posY] = Cell.BOMB;
+				}
+				else {
+					gridMap[posX][posY] = Cell.EMPTY;
+				}
 				posY++;
 				gridMap[posX][posY] = Cell.PLAYER;
 				y += dy;
@@ -64,7 +81,12 @@ public class Player {
 		}
 		if (dy < 0) {
 			if (gridMap[posX][posY + (dy / 25)] == Cell.EMPTY) {
-				gridMap[posX][posY] = Cell.EMPTY;
+				if (gridMap[posX][posY] == Cell.PLAYERANDBOMB) {
+					gridMap[posX][posY] = Cell.BOMB;
+				}
+				else {
+					gridMap[posX][posY] = Cell.EMPTY;
+				}
 				posY--;
 				gridMap[posX][posY] = Cell.PLAYER;
 				y += dy;
@@ -106,7 +128,7 @@ public class Player {
 		
 		if (key == KeyEvent.VK_X){
 			System.out.println("BOMBAMAN<>BOMBAMAN FRENLY NEIGBOHUD BOMBAMAN");
-			gridMap[posX][posY] = Cell.BOMB;
+			gridMap[posX][posY] = Cell.PLAYERANDBOMB;
 		
 		}
 
