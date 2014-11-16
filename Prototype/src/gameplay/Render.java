@@ -81,7 +81,7 @@ public class Render extends JPanel implements ActionListener {
 		        	continue;
 		        case BOMB: 
 					System.out.println(gridMap[i][j]);
-					g2d.drawImage(bomb.getImage(), 25 * i , 25 * j, this);
+					g2d.drawImage(bomb.getImageBomb(), 25 * i , 25 * j, this);
 					continue;
 		        case CONCRETE:
 					g2d.drawImage(concrete.getImage(), 25 * i, 25 * j, this);
@@ -90,7 +90,7 @@ public class Render extends JPanel implements ActionListener {
 					g2d.drawImage(brick.getImage(), 25 * i, 25 * j, this);
 					continue;
 		        case PLAYERANDBOMB:
-		        	// RAISE TO DO
+					g2d.drawImage(bomb.getImageBombPlayer(), 25 * i , 25 * j, this);
 		        	continue;
 		        case ENEMY:
 		        	// RAISE TO DO
