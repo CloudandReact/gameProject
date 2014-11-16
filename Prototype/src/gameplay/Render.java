@@ -29,6 +29,7 @@ public class Render extends JPanel implements ActionListener {
 	
 	Grid grid = new Grid();
 	Cell[][] gridMap = grid.getGridMap();
+	
 
 	public Render() {
 
@@ -37,7 +38,8 @@ public class Render extends JPanel implements ActionListener {
 		setBackground(Color.darkGray);
 		setDoubleBuffered(true);
 		setFocusable(true);
-
+		
+		
 		player = new Player(gridMap);
 		this.loadConcrete();
 		//concrete = new Concrete();
@@ -60,15 +62,17 @@ public class Render extends JPanel implements ActionListener {
 		for (int x = 2; x < gridLength; x = x + 2) {
 			for (int y = 2; y < gridHeight; y = y + 2) {
 				gridMap[x][y] = Cell.CONCRETE;
+
 				g2d.drawImage(imgConcrete, 25 * x, 25 * y, this);
 			}
 		}
 		// Border
 		for (int x = 0; x <= gridLength; x++) {
 			for (int y = 0; y <= gridHeight; y++) {
-				if ((x == 0) || (x == gridLength) || (y == 0) || (y == gridHeight))
+				if ((x == 0) || (x == gridLength) || (y == 0) || (y == gridHeight)){
 					g2d.drawImage(imgConcrete, 25 * x, 25 * y, this);
 					gridMap[x][y] = Cell.CONCRETE;
+				}
 			}
 		}
 

@@ -22,7 +22,8 @@ public class Player {
 		loadImage();
 		this.setX(25);
 		this.setY(25);
-		gridMap[1][1] = Cell.PLAYER;
+		this.gridMap = gridMap;
+		this.gridMap[1][1] = Cell.PLAYER;
 	}
 
 	private void loadImage() {
@@ -32,17 +33,23 @@ public class Player {
 
 	public void move() {
 		
+		
+		//System.out.println(gridMap[1][1]);
+		
 		if(gridMap[posX+(dx/25)][posY] == Cell.EMPTY){
-			gridMap[posX+(dx/25)][posY] = Cell.PLAYER;
+			gridMap[posX][posY] = Cell.PLAYER;
 			posX++;
-			x += dx;	
+			x += dx;
 		}
 		
-		if(gridMap[posX][posY+(dx/25)] == Cell.EMPTY){
-			gridMap[posX][posY+(dx/25)] = Cell.PLAYER;
+		if(gridMap[posX][posY+(dy/25)] == Cell.EMPTY){
+			gridMap[posX][posY+(dy/25)] = Cell.PLAYER;
 			posY++;
 			y += dy;
 		}
+		
+		System.out.println("Position X: " + posX + "Position Y: " + posY);
+
 
 		
 //		if (((x + dx + 25) % 50 == 25) && ((y + dy + 25) % 50 == 25)) {
