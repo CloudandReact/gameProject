@@ -76,11 +76,9 @@ public class Render extends JPanel implements ActionListener {
 			for(int j = 0; j < 15; j++){
 		        switch (gridMap[i][j]) {
 		        case PLAYER:
-					System.out.println(gridMap[i][j]);
 		    		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
 		        	continue;
 		        case BOMB: 
-					System.out.println(gridMap[i][j]);
 					g2d.drawImage(bomb.getImageBomb(), 25 * i , 25 * j, this);
 					continue;
 		        case CONCRETE:

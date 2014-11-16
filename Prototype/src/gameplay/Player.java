@@ -18,7 +18,7 @@ public class Player {
 	
 	private Image image;
 	Cell[][] gridMap;
-	private Bomb bomb = new Bomb();
+	private Bomb bomb; 
 
 
 	public Player(Cell[][] gridMap) {
@@ -117,6 +117,7 @@ public class Player {
 	public Image getImage() {
 		return image;
 	}
+	
 
 	public void keyPressed(KeyEvent e) {
 
@@ -129,7 +130,8 @@ public class Player {
 		if (key == KeyEvent.VK_X){
 			System.out.println("BOMBAMAN<>BOMBAMAN FRENLY NEIGBOHUD BOMBAMAN");
 			gridMap[posX][posY] = Cell.PLAYERANDBOMB;
-		
+			bomb = new Bomb();
+			bomb.bombLogic(posX,posY,gridMap);
 		}
 
 		if (key == KeyEvent.VK_LEFT) {
@@ -153,7 +155,6 @@ public class Player {
 		int key = e.getKeyCode();
 		
 		if (key == KeyEvent.VK_X){
-
 		
 		}
 

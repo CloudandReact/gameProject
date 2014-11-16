@@ -1,6 +1,7 @@
 package gameplay;
 
 import java.awt.Image;
+
 import javax.swing.ImageIcon;
 
 public class Bomb {
@@ -16,6 +17,11 @@ public class Bomb {
 	private Image image;
 	private Image image2;
 	
+	long startTime;
+	long currentTime;
+	
+	
+		
 	public Bomb(){
 		loadImage();
 	}
@@ -36,8 +42,35 @@ public class Bomb {
 		return image2;
 	}
 	
-	public void explode(){
+	public void bombLogic(int posX, int posY, Cell[][] gridMap){
+		startTime = System.currentTimeMillis();
 		
+		while(true){
+			if((currentTime = System.currentTimeMillis()) - startTime == 3000){
+				System.out.println("StartTime: " + startTime + " CurrentTime: " + currentTime );
+				
+				gridMap[posX][posY] = Cell.EMPTY;
+				
+				if(gridMap[posX+1][posY] == Cell.BRICK){
+					gridMap[posX+1][posY] = Cell.EMPTY;
+				}
+				
+				if(gridMap[posX-1][posY] == Cell.BRICK){
+					gridMap[posX-1][posY] = Cell.EMPTY;
+				}
+				
+				if(gridMap[posX][posY+1] == Cell.BRICK){
+					gridMap[posX][posY+1] = Cell.EMPTY;
+				}
+				
+				if(gridMap[posX][posY-1] == Cell.BRICK){
+					gridMap[posX][posY-1] = Cell.EMPTY;
+				}
+				
+				break;
+			}
+		}
 	}
+	
 }
 
