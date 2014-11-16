@@ -24,7 +24,7 @@ public class Brick {
 					gridMap[i][j] = Cell.BRICK;			
 				}
 			
-				if ((i == 1 && j == 1) || (i == 1 && j == 2) || (i == 2 && j == 1)){
+				if ((i == 1 && j == 1) || (i == 1 && j == 2) || (i == 2 && j == 1)) {
 					gridMap[i][j] = Cell.EMPTY;
 				}
 			}
@@ -45,6 +45,7 @@ public class Brick {
 		ImageIcon ii = new ImageIcon(getClass().getResource(brick));
 		image = ii.getImage();
 	}
+	
 	public Image getImage() {
 		return image;
 	}

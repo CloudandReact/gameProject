@@ -23,6 +23,8 @@ public class Render extends JPanel implements ActionListener {
 	private Player player;
 	private Timer timer;
 	private Brick brick;
+	private Bomb bomb;
+	private static Boolean isBombPlaced = false;
 	
 	// Concrete
 	private String concrete = "concrete.png";
@@ -30,6 +32,9 @@ public class Render extends JPanel implements ActionListener {
 	
 	Grid grid = new Grid();
 	Cell[][] gridMap = grid.getGridMap();
+	
+	Graphics2D g2d;
+	
 	
 
 	public Render() {
@@ -43,6 +48,8 @@ public class Render extends JPanel implements ActionListener {
 		
 		player = new Player(gridMap);
 		brick = new Brick(gridMap);
+		bomb = new Bomb();
+		
 		this.loadConcrete();
 		//concrete = new Concrete();
 
@@ -55,12 +62,17 @@ public class Render extends JPanel implements ActionListener {
 
 		super.paint(g);
 
-		Graphics2D g2d = (Graphics2D) g;
+		g2d = (Graphics2D) g;
 		g2d.setColor(Color.darkGray);
-
 		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
-		
-		
+		g2d.drawImage(bomb.getImage(), player.getX(), player.getY(), this);
+
+		if(isBombPlaced){
+			System.out.println("Yolo");
+			//g2d.drawImage(bomb.getImage(), player.getX(), player.getY(), this);
+			
+		}
+		isBombPlaced = false;
 		
 		// Concrete **NOTE WE CAN CHANGE THIS: i.e. drawGrid**
 		for (int x = 2; x < gridLength; x = x + 2) {
@@ -103,6 +115,7 @@ public class Render extends JPanel implements ActionListener {
 	private class TAdapter extends KeyAdapter {
 		public void keyReleased(KeyEvent e) {
 			player.keyReleased(e);
+			
 		}
 
 		public void keyPressed(KeyEvent e) {
@@ -113,7 +126,11 @@ public class Render extends JPanel implements ActionListener {
 		ImageIcon iC = new ImageIcon(getClass().getResource(concrete));
 		imgConcrete = iC.getImage();
 	}
-
+	
+	public static void setIsBombPlaced(Boolean x){
+		isBombPlaced = x;
+		
+	}
 
 }
 	
