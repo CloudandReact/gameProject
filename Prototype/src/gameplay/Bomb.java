@@ -16,9 +16,11 @@ public class Bomb implements Runnable {
 	
 	private String bomb = "bomb.png";
 	private String bombPlayer = "bomb&Bomberman.jpg";
+	private String bombExploding = "explosion.png";
 	
 	private Image image;
 	private Image image2;
+	private Image explode;
 	
 	long startTime;
 	long currentTime;
@@ -41,6 +43,9 @@ public class Bomb implements Runnable {
 		
 		ImageIcon bombP = new ImageIcon(getClass().getResource(bombPlayer));
 		image2 = bombP.getImage();
+		
+		ImageIcon bombExplode = new ImageIcon(getClass().getResource(bombExploding));
+		explode = bombExplode.getImage();
 	}
 	
 	public Image getImageBomb() {
@@ -49,6 +54,10 @@ public class Bomb implements Runnable {
 	
 	public Image getImageBombPlayer(){
 		return image2;
+	}
+	
+	public Image getImageBombExplode(){
+		return explode;
 	}
 	
 	public void bombLogic(int posX, int posY, Cell[][] gridMap){
@@ -67,20 +76,42 @@ public class Bomb implements Runnable {
 				gridMap[posX][posY] = Cell.EMPTY;
 				
 				if(gridMap[posX+1][posY] == Cell.BRICK){
-					gridMap[posX+1][posY] = Cell.EMPTY;
+					gridMap[posX+1][posY] = Cell.EXPLODE;
 				}
 				
 				if(gridMap[posX-1][posY] == Cell.BRICK){
-					gridMap[posX-1][posY] = Cell.EMPTY;
+					gridMap[posX-1][posY] = Cell.EXPLODE;
 				}
 				
 				if(gridMap[posX][posY+1] == Cell.BRICK){
-					gridMap[posX][posY+1] = Cell.EMPTY;
+					gridMap[posX][posY+1] = Cell.EXPLODE;
 				}
 				
 				if(gridMap[posX][posY-1] == Cell.BRICK){
-					gridMap[posX][posY-1] = Cell.EMPTY;
+					gridMap[posX][posY-1] = Cell.EXPLODE;
 				}
+				
+				if(gridMap[posX][posY] != Cell.CONCRETE){
+					gridMap[posX][posY] = Cell.EXPLODE;
+				}
+				
+				if(gridMap[posX+1][posY] != Cell.CONCRETE){
+					gridMap[posX+1][posY] = Cell.EXPLODE;
+				}
+				
+				if(gridMap[posX-1][posY] != Cell.CONCRETE){
+					gridMap[posX-1][posY] = Cell.EXPLODE;
+				}
+				
+				if(gridMap[posX][posY+1] != Cell.CONCRETE){
+					gridMap[posX][posY+1] = Cell.EXPLODE;
+				}
+				
+				if(gridMap[posX][posY-1] != Cell.CONCRETE){
+					gridMap[posX][posY-1] = Cell.EXPLODE;
+				}
+				
+				
 				
 				break;
 			}

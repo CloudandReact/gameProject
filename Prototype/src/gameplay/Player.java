@@ -158,7 +158,7 @@ public class Player {
 		int key = e.getKeyCode();
 		
 		if (key == KeyEvent.VK_X){
-		
+			
 		}
 
 		if (key == KeyEvent.VK_LEFT) {

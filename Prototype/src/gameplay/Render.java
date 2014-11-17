@@ -69,7 +69,6 @@ public class Render extends JPanel implements ActionListener {
 		g2d.setColor(Color.darkGray);
 		
 		//g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
-			
 	
 		
 		for(int i = 0; i < 33; i++){
@@ -90,6 +89,9 @@ public class Render extends JPanel implements ActionListener {
 		        case PLAYERANDBOMB:
 					g2d.drawImage(bomb.getImageBombPlayer(), 25 * i , 25 * j, this);
 		        	continue;
+		        case EXPLODE:
+		        	g2d.drawImage(bomb.getImageBombExplode(), 25 * i , 25 * j, this);
+		        	gridMap[i][j] = Cell.EMPTY;
 		        case ENEMY:
 		        	// RAISE TO DO
 		        	continue;
