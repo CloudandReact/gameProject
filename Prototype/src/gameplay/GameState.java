@@ -1,6 +1,7 @@
 package gameplay;
 
 public class GameState {
+	
 	private State state = State.RUNNING;
 	
 	public GameState(){
@@ -14,8 +15,5 @@ public class GameState {
 	public State getState(){
 		return state;
 	}
-	
-	
-	
 }
 

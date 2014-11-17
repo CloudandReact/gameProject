@@ -29,12 +29,15 @@ public class Bomb implements Runnable {
 		
 	public Bomb(){
 		loadImage();
+		range = 1;
+		
 	}
 	
 	public Bomb(int x, int y, Cell[][] z){
 		posX = x;
 		posY = y;
 		gridMap = z;
+		range = 1;
 	}
 	
 	private void loadImage() {
@@ -69,52 +72,57 @@ public class Bomb implements Runnable {
 
 		startTime = System.currentTimeMillis();
 		
-		while(true){
+		while(range >= 0){
+			
+			//if range>1 we'll get array out of bounds at the edges (i.e. trying to check gridMap[-1]->nogood
 			if((currentTime = System.currentTimeMillis()) - startTime == 3000){
 				System.out.println("StartTime: " + startTime + " CurrentTime: " + currentTime );
 				
 				gridMap[posX][posY] = Cell.EMPTY;
 				
-				if(gridMap[posX+1][posY] == Cell.BRICK || gridMap[posX-1][posY] == Cell.ENEMY){
-					gridMap[posX+1][posY] = Cell.EXPLODE;
+				if(gridMap[posX+range][posY] == Cell.BRICK || gridMap[posX-range][posY] == Cell.ENEMY){
+					gridMap[posX+range][posY] = Cell.EXPLODE;
 				}
 				
-				if(gridMap[posX-1][posY] == Cell.BRICK || gridMap[posX-1][posY] == Cell.ENEMY){
-					gridMap[posX-1][posY] = Cell.EXPLODE;
+				if(gridMap[posX-range][posY] == Cell.BRICK || gridMap[posX-range][posY] == Cell.ENEMY){
+					gridMap[posX-range][posY] = Cell.EXPLODE;
 				}
 				
-				if(gridMap[posX][posY+1] == Cell.BRICK || gridMap[posX-1][posY] == Cell.ENEMY){
-					gridMap[posX][posY+1] = Cell.EXPLODE;
+				if(gridMap[posX][posY+range] == Cell.BRICK || gridMap[posX-range][posY] == Cell.ENEMY){
+					gridMap[posX][posY+range] = Cell.EXPLODE;
 				}
 				
-				if(gridMap[posX][posY-1] == Cell.BRICK || gridMap[posX-1][posY] == Cell.ENEMY){
-					gridMap[posX][posY-1] = Cell.EXPLODE;
+				if(gridMap[posX][posY-range] == Cell.BRICK || gridMap[posX-range][posY] == Cell.ENEMY){
+					gridMap[posX][posY-range] = Cell.EXPLODE;
 				}
 				
 				if(gridMap[posX][posY] != Cell.CONCRETE){
 					gridMap[posX][posY] = Cell.EXPLODE;
 				}
 				
-				if(gridMap[posX+1][posY] != Cell.CONCRETE){
-					gridMap[posX+1][posY] = Cell.EXPLODE;
+				if(gridMap[posX+range][posY] != Cell.CONCRETE){
+					gridMap[posX+range][posY] = Cell.EXPLODE;
 				}
 				
-				if(gridMap[posX-1][posY] != Cell.CONCRETE){
-					gridMap[posX-1][posY] = Cell.EXPLODE;
+				if(gridMap[posX-range][posY] != Cell.CONCRETE){
+					gridMap[posX-range][posY] = Cell.EXPLODE;
 				}
 				
-				if(gridMap[posX][posY+1] != Cell.CONCRETE){
-					gridMap[posX][posY+1] = Cell.EXPLODE;
+				if(gridMap[posX][posY+range] != Cell.CONCRETE){
+					gridMap[posX][posY+range] = Cell.EXPLODE;
 				}
 				
-				if(gridMap[posX][posY-1] != Cell.CONCRETE){
-					gridMap[posX][posY-1] = Cell.EXPLODE;
+				if(gridMap[posX][posY-range] != Cell.CONCRETE){
+					gridMap[posX][posY-range] = Cell.EXPLODE;
 				}
 				
+				range--;
 				
-				break;
 			}
+			
 		}
+		
+		range = 1;
 	}
 	
 }
