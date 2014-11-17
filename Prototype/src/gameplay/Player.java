@@ -19,14 +19,16 @@ public class Player {
 	private Image image;
 	Cell[][] gridMap;
 	private Bomb bomb; 
+	private GameState gameState;
 
 
-	public Player(Cell[][] gridMap) {
+	public Player(Cell[][] gridMap, GameState x) {
 		loadImage();
 		this.setX(25);
 		this.setY(25);
 		this.gridMap = gridMap;
 		this.gridMap[1][1] = Cell.PLAYER;
+		gameState = x;
 	}
 
 	private void loadImage() {
@@ -127,6 +129,16 @@ public class Player {
 			return;
 		}
 		
+		if (key == KeyEvent.VK_ESCAPE){
+			if(gameState.getState() == State.RUNNING){
+				gameState.setState(State.PAUSE);		
+			}
+			else{
+				gameState.setState(State.RUNNING);
+			}
+			System.out.println("STATE: " + gameState.getState());
+		}
+		
 		if (key == KeyEvent.VK_X){
 			System.out.println("BOMBAMAN<>BOMBAMAN FRENLY NEIGBOHUD BOMBAMAN");
 			gridMap[posX][posY] = Cell.PLAYERANDBOMB;
@@ -159,6 +171,9 @@ public class Player {
 		
 		if (key == KeyEvent.VK_X){
 			
+		}
+		if (key == KeyEvent.VK_ESCAPE){
+		
 		}
 
 		if (key == KeyEvent.VK_LEFT) {

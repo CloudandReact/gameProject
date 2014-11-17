@@ -19,12 +19,14 @@ public class Render extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private int gridLength = 32;
 	private int gridHeight = 14;
-
+	private int dimension = 25;
+	
 	private Player player;
 	private Timer timer;
 	private Brick brick;
 	private Bomb bomb;
 	private Enemy enemy;
+	private GameState gameState;
 	private Concrete concrete;
 	
 	// Concrete
@@ -39,11 +41,12 @@ public class Render extends JPanel implements ActionListener {
 	
 
 	public Render() {
-		
-		player = new Player(gridMap);
+		gameState = new GameState();
+		player = new Player(gridMap, gameState);
 		brick = new Brick(gridMap);
 		bomb = new Bomb();
 		enemy = new Enemy(gridMap);
+		
 		
 		concrete = new Concrete(gridMap);
 		
@@ -72,7 +75,12 @@ public class Render extends JPanel implements ActionListener {
 		g2d.setColor(Color.darkGray);
 		
 		//g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
-	
+		System.out.println(gameState.getState());
+		
+//		while(gameState.getState() == State.PAUSE){
+//
+//		}
+		
 		
 		for(int i = 0; i < 33; i++){
 			for(int j = 0; j < 15; j++){
@@ -81,23 +89,23 @@ public class Render extends JPanel implements ActionListener {
 		    		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
 		        	continue;
 		        case BOMB: 
-					g2d.drawImage(bomb.getImageBomb(), 25 * i , 25 * j, this);
+					g2d.drawImage(bomb.getImageBomb(), dimension * i , dimension * j, this);
 					continue;
 		        case CONCRETE:
-					g2d.drawImage(concrete.getImage(), 25 * i, 25 * j, this);
+					g2d.drawImage(concrete.getImage(), dimension * i, dimension * j, this);
 					continue;
 		        case BRICK:
-					g2d.drawImage(brick.getImage(), 25 * i, 25 * j, this);
+					g2d.drawImage(brick.getImage(), dimension * i, dimension * j, this);
 					continue;
 		        case PLAYERANDBOMB:
-					g2d.drawImage(bomb.getImageBombPlayer(), 25 * i , 25 * j, this);
+					g2d.drawImage(bomb.getImageBombPlayer(), dimension * i , dimension * j, this);
 		        	continue;
 		        case EXPLODE:
-		        	g2d.drawImage(bomb.getImageBombExplode(), 25 * i , 25 * j, this);
+		        	g2d.drawImage(bomb.getImageBombExplode(), dimension * i , dimension * j, this);
 		        	gridMap[i][j] = Cell.EMPTY;
 		        	continue;
 		        case ENEMY:
-		        	g2d.drawImage(enemy.getImage(), 25 * i , 25 * j, this);
+		        	g2d.drawImage(enemy.getImage(), dimension * i , dimension * j, this);
 		        	continue;
 		        default:
 					break;          	
