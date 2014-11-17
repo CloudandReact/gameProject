@@ -15,23 +15,36 @@ public class Validate {
 	}
 	
 	 public boolean isRealNameValid(String realName){
+		 //checks if more than one word otherwise just checks one word
 		 if(realName.indexOf(" ")>0){
-			 String realNameSplit[]=realName.split(" ");
-			 System.out.println(realNameSplit.length);
-			 if(realNameSplit.length>2){
-				 return false;
-			 }else{ 
+			 	String realNameSplit[]=realName.split(" ");
+			 	System.out.println(realNameSplit.length);
+			    for(int i=0; i<realNameSplit.length;i++)
+			    {
 				 //latin characters \\p{L}]
 				 //dont need to use matching cause will only match specific
-				 if(realNameSplit[0].matches("\\p{L}+")&&realNameSplit[1].matches("\\p{L}+")){
+			    	if(realNameSplit[i].matches("\\p{L}+"))
+			    	{
 					 realNameValid=true;
 					 
-					return true; 
-				 }
-			 }
+					
+			    	}
+			    	else
+			    	{
+			    		return false;
+			    	}
+			    }
 			 
+		}
+		 else{
+			 if(realName.matches("\\p{L}+")){
+				 realNameValid=true;
 			 }
-		 return false;
+			 else{
+				 return false;
+			 }
+		 }
+		return realNameValid;
 		 
 	 }	 //create indentical method without input as getters
 	 public boolean isRealNameValid(){

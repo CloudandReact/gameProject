@@ -30,6 +30,15 @@ public class FileWriting {
 		}
 		return false;
 
+	} public boolean isUserNameAvailible(String username){
+		for (int i = 0; i < (userFileInfo1).size(); i = i + 2){
+			System.out.println("use file " +userFileInfo1.get(i));
+			if (userFileInfo1.get(i).equals(username)){
+				return false;
+			}
+		}
+		return true;
+		
 	}
 
 	public void openFile() {
@@ -77,8 +86,7 @@ public class FileWriting {
 		return isLoginCredFound;
 	}
 
-	public void writeToFile(String realName, String username, String password,
-			String retypePassword) throws IOException {
+	public void writeToFile(String realName, String username, String password,String retypePassword) throws IOException {
 		String fileName = System.getProperty("user.dir") + "\\" + "src" + "\\" + "menu" + "\\" + ("userInfo.csv");
 		File userInfo = new File(fileName);
 		// check if file exists otherwise create new file...
