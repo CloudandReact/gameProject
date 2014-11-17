@@ -4,12 +4,15 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class Bomb {
+public class Bomb implements Runnable {
 
+	
 	private int range;
 	private int counter;
+	
 	private int posX;
 	private int posY;
+	private Cell[][] gridMap;
 	
 	private String bomb = "bomb.png";
 	private String bombPlayer = "bomb&Bomberman.jpg";
@@ -24,6 +27,12 @@ public class Bomb {
 		
 	public Bomb(){
 		loadImage();
+	}
+	
+	public Bomb(int x, int y, Cell[][] z){
+		posX = x;
+		posY = y;
+		gridMap = z;
 	}
 	
 	private void loadImage() {
@@ -43,6 +52,12 @@ public class Bomb {
 	}
 	
 	public void bombLogic(int posX, int posY, Cell[][] gridMap){
+
+	}
+
+	@Override
+	public void run() {
+
 		startTime = System.currentTimeMillis();
 		
 		while(true){

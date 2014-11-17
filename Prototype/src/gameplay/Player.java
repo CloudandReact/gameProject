@@ -130,8 +130,11 @@ public class Player {
 		if (key == KeyEvent.VK_X){
 			System.out.println("BOMBAMAN<>BOMBAMAN FRENLY NEIGBOHUD BOMBAMAN");
 			gridMap[posX][posY] = Cell.PLAYERANDBOMB;
-			bomb = new Bomb();
-			bomb.bombLogic(posX,posY,gridMap);
+			
+			bomb = new Bomb(posX, posY, gridMap);
+			Thread t = new Thread(bomb);
+	        t.start();
+			//bomb.bombLogic(posX,posY,gridMap);
 		}
 
 		if (key == KeyEvent.VK_LEFT) {
