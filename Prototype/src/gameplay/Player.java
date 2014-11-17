@@ -7,7 +7,7 @@ import javax.swing.ImageIcon;
 
 public class Player {
 
-	private String player = "sponge.jpg";
+	private String player = "bomberman.png";
 
 	private int dx;
 	private int dy;

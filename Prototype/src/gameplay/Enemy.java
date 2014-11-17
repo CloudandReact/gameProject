@@ -6,7 +6,7 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 
 public class Enemy {
-	private String enemy = "Enemy.png";
+	private String enemy = "enemy.png";
 	private Image image;
 	
 	public Enemy(Cell[][] gridMap)
@@ -21,7 +21,7 @@ public class Enemy {
 		{
 			for (int j = 0; j < 14; j++)
 			{
-				int rand = randInt(1,15);
+				int rand = randInt(1,55);
 				if(rand == 5){
 					gridMap[i][j] = Cell.ENEMY;			
 				}

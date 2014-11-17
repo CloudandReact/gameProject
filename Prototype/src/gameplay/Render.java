@@ -24,6 +24,7 @@ public class Render extends JPanel implements ActionListener {
 	private Timer timer;
 	private Brick brick;
 	private Bomb bomb;
+	private Enemy enemy;
 	private Concrete concrete;
 	
 	// Concrete
@@ -42,6 +43,8 @@ public class Render extends JPanel implements ActionListener {
 		player = new Player(gridMap);
 		brick = new Brick(gridMap);
 		bomb = new Bomb();
+		enemy = new Enemy(gridMap);
+		
 		concrete = new Concrete(gridMap);
 		
 		addKeyListener(new TAdapter());
@@ -92,8 +95,9 @@ public class Render extends JPanel implements ActionListener {
 		        case EXPLODE:
 		        	g2d.drawImage(bomb.getImageBombExplode(), 25 * i , 25 * j, this);
 		        	gridMap[i][j] = Cell.EMPTY;
+		        	continue;
 		        case ENEMY:
-		        	// RAISE TO DO
+		        	g2d.drawImage(enemy.getImage(), 25 * i , 25 * j, this);
 		        	continue;
 		        default:
 					break;          	
