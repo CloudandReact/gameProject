@@ -75,19 +75,19 @@ public class Bomb implements Runnable {
 				
 				gridMap[posX][posY] = Cell.EMPTY;
 				
-				if(gridMap[posX+1][posY] == Cell.BRICK){
+				if(gridMap[posX+1][posY] == Cell.BRICK || gridMap[posX-1][posY] == Cell.ENEMY){
 					gridMap[posX+1][posY] = Cell.EXPLODE;
 				}
 				
-				if(gridMap[posX-1][posY] == Cell.BRICK){
+				if(gridMap[posX-1][posY] == Cell.BRICK || gridMap[posX-1][posY] == Cell.ENEMY){
 					gridMap[posX-1][posY] = Cell.EXPLODE;
 				}
 				
-				if(gridMap[posX][posY+1] == Cell.BRICK){
+				if(gridMap[posX][posY+1] == Cell.BRICK || gridMap[posX-1][posY] == Cell.ENEMY){
 					gridMap[posX][posY+1] = Cell.EXPLODE;
 				}
 				
-				if(gridMap[posX][posY-1] == Cell.BRICK){
+				if(gridMap[posX][posY-1] == Cell.BRICK || gridMap[posX-1][posY] == Cell.ENEMY){
 					gridMap[posX][posY-1] = Cell.EXPLODE;
 				}
 				
@@ -110,7 +110,6 @@ public class Bomb implements Runnable {
 				if(gridMap[posX][posY-1] != Cell.CONCRETE){
 					gridMap[posX][posY-1] = Cell.EXPLODE;
 				}
-				
 				
 				
 				break;
