@@ -18,10 +18,11 @@ public class AccountMenu {
 
 	public AccountMenu() {
 
-		frame.setSize(325, 215);
+		frame.setSize(325, 230);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(false);
 		frame.add(panel);
+		frame.setLocationRelativeTo(null);
 		new Login(panel);
 		frame.setVisible(true);
 
