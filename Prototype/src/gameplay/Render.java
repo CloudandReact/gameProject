@@ -80,7 +80,11 @@ public class Render extends JPanel implements ActionListener {
 //		while(gameState.getState() == State.PAUSE){
 //
 //		}
+<<<<<<< HEAD
 		//System.out.println(player.getX() +","+ player.getY());
+=======
+		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
+>>>>>>> FETCH_HEAD
 		
 		for(int i = 0; i < 33; i++){
 			for(int j = 0; j < 15; j++){
