@@ -107,8 +107,9 @@ public class AccountCreation extends JFrame {
 				System.out.println(realName);
 				String error = "Error";
 				FileWriting writing = new FileWriting();
-
-				if (writing.checkIfValid(realName, username, password, retypePassword)) {
+		 		writing.openFile();
+		 		
+				if (writing.checkIfValid(realName, username, password, retypePassword)&&writing.isUserNameAvailible(username)) {
 					try {writing.writeToFile(realName, username, password, retypePassword);
 						JOptionPane.showMessageDialog(null,"Registration complete, please login.", "Success!", JOptionPane.INFORMATION_MESSAGE);
 						createButton.setEnabled(true);
@@ -134,6 +135,9 @@ public class AccountCreation extends JFrame {
 					} else if (!writing.arePasswordSame()){
 						JOptionPane.showMessageDialog(null,"Passwords do not match.",error,JOptionPane.INFORMATION_MESSAGE);
 
+					} else if(!writing.isUserNameAvailible(username)){
+						JOptionPane.showMessageDialog(null,"Username is already taken.",error,JOptionPane.INFORMATION_MESSAGE);
+						
 					}
 					// JOptionPane.showMessageDialog(null,
 					// "could not register fix the error please reenter",password,
