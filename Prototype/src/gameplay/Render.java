@@ -42,13 +42,13 @@ public class Render extends JPanel implements ActionListener {
 
 	public Render() {
 		gameState = new GameState();
+		player = new Player(gridMap, gameState);
 		brick = new Brick(gridMap);
 		bomb = new Bomb();
 		enemy = new Enemy(gridMap);
 		
 		
 		concrete = new Concrete(gridMap);
-		player = new Player(gridMap, gameState);
 		
 		addKeyListener(new TAdapter());
 		setFocusable(true);
@@ -80,13 +80,12 @@ public class Render extends JPanel implements ActionListener {
 //		while(gameState.getState() == State.PAUSE){
 //
 //		}
-		//System.out.println(player.getX() +","+ player.getY());
+		
 		
 		for(int i = 0; i < 33; i++){
 			for(int j = 0; j < 15; j++){
 		        switch (gridMap[i][j]) {
 		        case PLAYER:
-		        	
 		    		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
 		        	continue;
 		        case BOMB: 
