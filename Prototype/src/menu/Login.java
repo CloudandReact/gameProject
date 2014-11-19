@@ -56,7 +56,7 @@ public class Login {
 
 		loginButton.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
 				username = userText.getText();
 				// makes password into a string converts from char array

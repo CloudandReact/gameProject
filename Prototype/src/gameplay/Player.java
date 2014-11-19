@@ -138,7 +138,7 @@ public class Player {
 		}
 		
 		// Pausing
-		if (key == KeyEvent.VK_ESCAPE){
+		if (key == KeyEvent.VK_SPACE){
 			if(gameState.getState() == State.RUNNING){
 				gameState.setState(State.PAUSE);		
 			}

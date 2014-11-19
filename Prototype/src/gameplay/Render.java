@@ -11,15 +11,19 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import menu.MainMenu;
+import menu.PauseMenu;
 
 
 public class Render extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private int gridLength = 32;
-	private int gridHeight = 14;
+	private int gridLength = 33;
+	private int gridHeight = 15;
 	private int dimension = 25;
 	
 	private Player player;
@@ -29,7 +33,8 @@ public class Render extends JPanel implements ActionListener {
 	private Enemy enemy;
 	private GameState gameState;
 	private Concrete concrete;
-	private Boolean isPaused;
+	private Boolean pauseMenuOpen;
+	
 	// Concrete
 	// private String concrete = "concrete.png";
 	// private Image imgConcrete;
@@ -55,7 +60,7 @@ public class Render extends JPanel implements ActionListener {
 		setDoubleBuffered(true);
 		setFocusable(true);
 				
-		isPaused = false;
+		pauseMenuOpen = false;
 		timer = new Timer(100, this);
 		timer.start();
 		
@@ -75,8 +80,8 @@ public class Render extends JPanel implements ActionListener {
 			
 		}
 		else{
-			for(int i = 0; i < 33; i++){
-				for(int j = 0; j < 15; j++){
+			for(int i = 0; i < gridLength; i++){
+				for(int j = 0; j < gridHeight; j++){
 			        switch (gridMap[i][j]) {
 			        case PLAYER:
 			    		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
@@ -115,17 +120,22 @@ public class Render extends JPanel implements ActionListener {
 		
 
 	}
-
+	
 		
 	public void actionPerformed(ActionEvent e) {
 		if(gameState.getState() == State.RUNNING){
 			player.move();
 			repaint();
+		}	
+		
+		else if(gameState.getState() == State.PAUSE && pauseMenuOpen == false ){
+			new PauseMenu(this, gameState);
+			pauseMenuOpen = true;
 		}
 
-		
-
 	}
+	
+
 
 	private class TAdapter extends KeyAdapter {
 		public void keyReleased(KeyEvent e) {
@@ -137,7 +147,18 @@ public class Render extends JPanel implements ActionListener {
 			player.keyPressed(e);
 		}
 	}
+	// Need a way to destroy frame....
+	public void destroyPanel(){
+		setVisible(false);
+		g2d.dispose();
+		//setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
 
+	public void setPauseMenuState(boolean x) {
+		pauseMenuOpen = x;
+		
+	}
+	
 
 }
 	

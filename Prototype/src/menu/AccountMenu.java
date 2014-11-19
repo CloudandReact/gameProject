@@ -25,6 +25,7 @@ public class AccountMenu {
 		frame.setLocationRelativeTo(null);
 		new Login(panel);
 		frame.setVisible(true);
+		
 
 	}
 	
