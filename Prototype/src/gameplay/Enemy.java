@@ -23,7 +23,7 @@ public class Enemy {
 
 	private void placeEnemies() {
 		for (int i = 2; i <= 31; i++) {
-			for (int j = 2; j <= 11; j++) {
+			for (int j = 2; j <= 13; j++) {
 				int rand = randInt(1, 55);
 				if (rand == 5) {
 					if(gridMap[i][j] == Cell.EMPTY){
