@@ -11,28 +11,30 @@ public class Enemy {
 	Cell[][] gridMap;
 	private int dimension = 25;
 	private int enemyDirection;
+	private int numberOfEnemies;
 
 	public Enemy(Cell[][] x) {
 		loadImage();
 		gridMap = x;
-		placeEnemies(gridMap);
+		placeEnemies();
+		numberOfEnemies = 0;
 
 	}
 
-	private void placeEnemies(Cell[][] gridMap) {
-		for (int i = 0; i < 33; i++) {
-			for (int j = 0; j < 14; j++) {
+	private void placeEnemies() {
+		for (int i = 2; i <= 31; i++) {
+			for (int j = 2; j <= 11; j++) {
 				int rand = randInt(1, 55);
 				if (rand == 5) {
-					gridMap[i][j] = Cell.ENEMY;
+					if(gridMap[i][j] == Cell.EMPTY){
+						gridMap[i][j] = Cell.ENEMY;
+						numberOfEnemies++;					
+					}
 				}
-
-				if ((i == 1 && j == 1) || (i == 1 && j == 2)
-						|| (i == 2 && j == 1)) {
-					gridMap[i][j] = Cell.EMPTY;
-				}
-			}
+			}		
 		}
+		System.out.println("Number of Enemies..: " + numberOfEnemies);
+
 	}
 
 	public static int randInt(int min, int max) {
@@ -50,17 +52,18 @@ public class Enemy {
 	}
 
 	public Image getImage() {
+
 		return image;
 	}
 
 	public void move() {
+
 		for (int posX = 1; posX < 32; posX++) {
 			for (int posY = 1; posY < 14; posY++) {
 				if (gridMap[posX][posY] == Cell.ENEMY) {
 					int rand = randInt(1, 2);
 					if (rand == 1) {
-						if (gridMap[posX + enemyDirection][posY] != Cell.BRICK
-								&& gridMap[posX + enemyDirection][posY] != Cell.CONCRETE) {
+						if (gridMap[posX + enemyDirection][posY] != Cell.BRICK && gridMap[posX + enemyDirection][posY] != Cell.CONCRETE) {
 							enemyDirection = 1;
 							//System.out.println("X IS POSITIVE");
 						} else {
@@ -68,9 +71,8 @@ public class Enemy {
 							//System.out.println("X IS NEGATIVE");
 						}
 
-						if (gridMap[posX + enemyDirection][posY] == Cell.EMPTY
-								|| gridMap[posX + enemyDirection][posY] == Cell.PLAYER) {
-							gridMap[posX][posY] = Cell.EMPTY;
+						if (gridMap[posX + enemyDirection][posY] == Cell.EMPTY || gridMap[posX + enemyDirection][posY] == Cell.PLAYER) {
+							gridMap[posX][posY] = Cell.EMPTY; 
 							gridMap[posX + enemyDirection][posY] = Cell.ENEMY;
 
 						}

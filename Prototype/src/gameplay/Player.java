@@ -98,7 +98,7 @@ public class Player {
 
 		}
 
-		System.out.println("Position X: " + posX + " Position Y: " + posY);
+		//System.out.println("Position X: " + posX + " Position Y: " + posY);
 
 	}
 

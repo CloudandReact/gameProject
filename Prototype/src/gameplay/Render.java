@@ -49,8 +49,9 @@ public class Render extends JPanel implements ActionListener {
 		gameState = new GameState();
 		brick = new Brick(gridMap);
 		bomb = new Bomb();
-		enemy = new Enemy(gridMap);
 		concrete = new Concrete(gridMap);
+		enemy = new Enemy(gridMap);
+
 		player = new Player(gridMap, gameState);
 		
 		
@@ -74,7 +75,7 @@ public class Render extends JPanel implements ActionListener {
 		g2d = (Graphics2D) g;
 		g2d.setColor(Color.darkGray);
 		
-		System.out.println("Your score is.... : " + Player.getScore());
+		//System.out.println("Your score is.... : " + Player.getScore());
 		
 		if(gameState.getState() == State.PAUSE){
 			
