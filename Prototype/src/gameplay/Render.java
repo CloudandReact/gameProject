@@ -30,17 +30,15 @@ public class Render extends JPanel implements ActionListener {
 	private Concrete concrete;
 	
 	// Concrete
-	//private String concrete = "concrete.png";
-	//private Image imgConcrete;
+	// private String concrete = "concrete.png";
+	// private Image imgConcrete;
 	
 	
 	Grid grid = new Grid();
 	Cell[][] gridMap = grid.getGridMap();
 	
 	Graphics2D g2d;	
-	
-	int enemyDirection = 1;
-	
+		
 	Thread t;
 
 	public Render() {
@@ -60,10 +58,7 @@ public class Render extends JPanel implements ActionListener {
 		setFocusable(true);
 				
 		
-		// do this in brick class after
-		//placeBricks();
-		
-		timer = new Timer(400, this);
+		timer = new Timer(150, this);
 		timer.start();
 		
 		
@@ -76,13 +71,7 @@ public class Render extends JPanel implements ActionListener {
 		g2d = (Graphics2D) g;
 		g2d.setColor(Color.darkGray);
 		
-		//g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
-		//System.out.println(gameState.getState());
-		
-//		while(gameState.getState() == State.PAUSE){
-//
-//		}
-		
+		System.out.println("Your score is.... : " + Player.getScore());
 		
 		for(int i = 0; i < 33; i++){
 			for(int j = 0; j < 15; j++){

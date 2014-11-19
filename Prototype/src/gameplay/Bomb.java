@@ -4,7 +4,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class Bomb implements Runnable {
+public class Bomb extends Player implements Runnable  {
 
 	
 	private int range;
@@ -84,18 +84,30 @@ public class Bomb implements Runnable {
 				}
 				
 				if(gridMap[posX+range][posY] != Cell.CONCRETE){
+					if(gridMap[posX+range][posY] == Cell.ENEMY){
+						Player.setScore(Player.getScore() + 100);					
+					}
 					gridMap[posX+range][posY] = Cell.EXPLODE;
 				}
 				
 				if(gridMap[posX-range][posY] != Cell.CONCRETE){
+					if(gridMap[posX-range][posY] == Cell.ENEMY){
+						Player.setScore(Player.getScore() + 100);					
+					}
 					gridMap[posX-range][posY] = Cell.EXPLODE;
 				}
 				
 				if(gridMap[posX][posY+range] != Cell.CONCRETE){
+					if(gridMap[posX][posY+range] == Cell.ENEMY){
+						Player.setScore(Player.getScore() + 100);					
+					}
 					gridMap[posX][posY+range] = Cell.EXPLODE;
 				}
 				
 				if(gridMap[posX][posY-range] != Cell.CONCRETE){
+					if(gridMap[posX][posY-range] == Cell.ENEMY){
+						Player.setScore(Player.getScore() + 100);					
+					}
 					gridMap[posX][posY-range] = Cell.EXPLODE;
 				}
 				

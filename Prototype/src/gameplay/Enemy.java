@@ -63,10 +63,10 @@ public class Enemy implements Runnable {
 						if (gridMap[posX + enemyDirection][posY] != Cell.BRICK
 								&& gridMap[posX + enemyDirection][posY] != Cell.CONCRETE) {
 							enemyDirection = 1;
-							System.out.println("X IS POSITIVE");
+							//System.out.println("X IS POSITIVE");
 						} else {
 							enemyDirection = -1;
-							System.out.println("X IS NEGATIVE");
+							//System.out.println("X IS NEGATIVE");
 						}
 
 						if (gridMap[posX + enemyDirection][posY] == Cell.EMPTY
@@ -82,11 +82,11 @@ public class Enemy implements Runnable {
 						if (gridMap[posX][posY + enemyDirection] != Cell.BRICK
 								&& gridMap[posX][posY + enemyDirection] != Cell.CONCRETE) {
 							enemyDirection = 1;
-							System.out.println("Y IS POSITIVE");
+							//System.out.println("Y IS POSITIVE");
 
 						} else {
 							enemyDirection = -1;
-							System.out.println("Y IS NEGATIVE");
+							//System.out.println("Y IS NEGATIVE");
 
 						}
 						if (gridMap[posX][posY + enemyDirection] == Cell.EMPTY
