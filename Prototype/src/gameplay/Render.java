@@ -42,12 +42,13 @@ public class Render extends JPanel implements ActionListener {
 
 	public Render() {
 		gameState = new GameState();
+		player = new Player(gridMap, gameState);
 		brick = new Brick(gridMap);
 		bomb = new Bomb();
 		enemy = new Enemy(gridMap);
+		
+		
 		concrete = new Concrete(gridMap);
-		player = new Player(gridMap, gameState);
-
 		
 		addKeyListener(new TAdapter());
 		setFocusable(true);
