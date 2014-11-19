@@ -147,8 +147,8 @@ public class Player {
 				bomb = new Bomb(posX, posY, gridMap);
 				Thread t = new Thread(bomb);
 		        t.start();
-		        // CLOSE THREADs?
 			}
+
 		}
 
 		if (key == KeyEvent.VK_LEFT) {

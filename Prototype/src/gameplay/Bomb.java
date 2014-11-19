@@ -76,8 +76,25 @@ public class Bomb implements Runnable {
 			
 			//if range>1 we'll get array out of bounds at the edges (i.e. trying to check gridMap[-1]->nogood
 			if((currentTime = System.currentTimeMillis()) - startTime == 3000){
-				System.out.println("StartTime: " + startTime + " CurrentTime: " + currentTime );	
+				System.out.println("StartTime: " + startTime + " CurrentTime: " + currentTime );
 				
+				gridMap[posX][posY] = Cell.EMPTY;
+				
+				if(gridMap[posX+range][posY] == Cell.BRICK || gridMap[posX-range][posY] == Cell.ENEMY){
+					gridMap[posX+range][posY] = Cell.EXPLODE;
+				}
+				
+				if(gridMap[posX-range][posY] == Cell.BRICK || gridMap[posX-range][posY] == Cell.ENEMY){
+					gridMap[posX-range][posY] = Cell.EXPLODE;
+				}
+				
+				if(gridMap[posX][posY+range] == Cell.BRICK || gridMap[posX-range][posY] == Cell.ENEMY){
+					gridMap[posX][posY+range] = Cell.EXPLODE;
+				}
+				
+				if(gridMap[posX][posY-range] == Cell.BRICK || gridMap[posX-range][posY] == Cell.ENEMY){
+					gridMap[posX][posY-range] = Cell.EXPLODE;
+				}
 				
 				if(gridMap[posX][posY] != Cell.CONCRETE){
 					gridMap[posX][posY] = Cell.EXPLODE;
@@ -103,11 +120,9 @@ public class Bomb implements Runnable {
 				
 			}
 			
-			
 		}
 		
 		range = 1;
-		System.out.println("Ale");
 	}
 	
 }
