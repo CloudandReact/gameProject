@@ -34,7 +34,7 @@ public class Render extends JPanel implements ActionListener {
 	private GameState gameState;
 	private Concrete concrete;
 	private Boolean pauseMenuOpen;
-	
+	private String username;
 	// Concrete
 	// private String concrete = "concrete.png";
 	// private Image imgConcrete;
@@ -45,7 +45,8 @@ public class Render extends JPanel implements ActionListener {
 	
 	Graphics2D g2d;	
 		
-	public Render() {
+	public Render(String username) {
+		System.out.println("HELLO MY NAME IS...: " + username);
 		gameState = new GameState();
 		brick = new Brick(gridMap);
 		bomb = new Bomb();
@@ -53,6 +54,8 @@ public class Render extends JPanel implements ActionListener {
 		enemy = new Enemy(gridMap);
 
 		player = new Player(gridMap, gameState);
+		player.setUsername(username);
+		this.username = username;
 		
 		
 		addKeyListener(new TAdapter());
@@ -130,7 +133,7 @@ public class Render extends JPanel implements ActionListener {
 		}	
 		
 		else if(gameState.getState() == State.PAUSE && pauseMenuOpen == false ){
-			new PauseMenu(this, gameState);
+			new PauseMenu(this, gameState, username);
 			pauseMenuOpen = true;
 		}
 

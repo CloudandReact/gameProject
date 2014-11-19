@@ -7,7 +7,8 @@ import javax.swing.ImageIcon;
 
 public class Player {
 
-	private String player = "bomberman.png";
+	private String playerImage = "bomberman.png";
+	private String username;
 
 	private int dx;
 	private int dy;
@@ -119,7 +120,7 @@ public class Player {
 	}
 	
 	private void loadImage() {
-		ImageIcon ii = new ImageIcon(getClass().getResource(player));
+		ImageIcon ii = new ImageIcon(getClass().getResource(playerImage));
 		image = ii.getImage();
 	}
 
@@ -212,6 +213,10 @@ public class Player {
 
 	public static void setScore(int score) {
 		Player.score = score;
+	}
+
+	public void setUsername(String name) {
+		username = name;	
 	}
 
 

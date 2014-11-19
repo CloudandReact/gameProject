@@ -23,9 +23,12 @@ public class MainMenu extends JFrame{
 	JButton leaderboardsButton = new JButton("Leaderboards");
 	JButton logOutButton = new JButton("Log out");
 	JButton quitButton = new JButton("Quit to Desktop");
+	String playersName;
 	
-	
-	public MainMenu(JPanel panel){
+			
+	public MainMenu(JPanel panel, String username){
+		
+		playersName = username;
 		
 		panel.removeAll();
 		panel.setLayout(null);
@@ -63,7 +66,7 @@ public class MainMenu extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
 				AccountMenu.destroyFrame();
-				new Bomberman();	
+				new Bomberman(playersName);	
 			}
 			
 		});

@@ -29,7 +29,10 @@ public class PauseMenu extends JFrame{
 	Render render;
 	GameState state;
 	
-	public PauseMenu(Render r, GameState x){
+	String playersName;
+	
+	public PauseMenu(Render r, GameState x, String username){
+		playersName = username;
 		state = x; 
 		render = r;
 		setSize(325, 230);
@@ -74,7 +77,7 @@ public class PauseMenu extends JFrame{
 				//getContentPane().removeAll();
 				
 				render.destroyPanel();
-				new MainMenu(panel);
+				new MainMenu(panel, playersName);
 					
 				
 			}
