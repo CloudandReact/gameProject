@@ -39,6 +39,9 @@ public class Render extends JPanel implements ActionListener {
 	
 	Graphics2D g2d;	
 	
+	int enemyDirection = 1;
+	
+	Thread t;
 
 	public Render() {
 		gameState = new GameState();
@@ -47,7 +50,8 @@ public class Render extends JPanel implements ActionListener {
 		enemy = new Enemy(gridMap);
 		concrete = new Concrete(gridMap);
 		player = new Player(gridMap, gameState);
-
+		t = new Thread(enemy);
+        t.start();
 		
 		addKeyListener(new TAdapter());
 		setFocusable(true);
@@ -59,22 +63,21 @@ public class Render extends JPanel implements ActionListener {
 		// do this in brick class after
 		//placeBricks();
 		
-		timer = new Timer(100, this);
+		timer = new Timer(400, this);
 		timer.start();
-		
 		
 		
 	}
 
 	public void paint(Graphics g) {
-
+	
 		super.paint(g);
 
 		g2d = (Graphics2D) g;
 		g2d.setColor(Color.darkGray);
 		
 		//g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
-		System.out.println(gameState.getState());
+		//System.out.println(gameState.getState());
 		
 //		while(gameState.getState() == State.PAUSE){
 //
@@ -111,7 +114,7 @@ public class Render extends JPanel implements ActionListener {
 		        }
 			}
 		}
-
+		enemy.run();
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
 

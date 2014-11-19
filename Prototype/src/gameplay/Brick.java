@@ -19,9 +19,9 @@ public class Brick {
 	}
 	
 	private void placeBricks(Cell[][] gridMap){
-		for (int i = 0; i < 33; i++)
+		for (int i = 1; i < 32; i++)
 		{
-			for (int j = 0; j < 14; j++)
+			for (int j = 1; j < 14; j++)
 			{
 				int rand = randInt(1,3);
 				if(rand == 1){
@@ -35,7 +35,7 @@ public class Brick {
 		}
 	}
 	
-	public static int randInt(int min, int max) {
+	private static int randInt(int min, int max) {
 
 	    Random rand = new Random();
 	    
