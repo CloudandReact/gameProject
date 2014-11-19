@@ -5,7 +5,7 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
-public class Enemy {
+public class Enemy implements Runnable {
 	private String enemy = "enemy.png";
 	private Image image;
 	
@@ -49,5 +49,11 @@ public class Enemy {
 	
 	public Image getImage() {
 		return image;
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 }
