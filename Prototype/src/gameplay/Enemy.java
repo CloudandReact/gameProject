@@ -11,7 +11,7 @@ public class Enemy {
 	Cell[][] gridMap;
 	private int dimension = 25;
 	private int enemyDirection;
-	private int numberOfEnemies;
+	private static int numberOfEnemies;
 
 	public Enemy(Cell[][] x) {
 		loadImage();
@@ -54,6 +54,10 @@ public class Enemy {
 	public Image getImage() {
 
 		return image;
+	}
+	
+	public static int getNumberOfEnemies(){
+		return numberOfEnemies;
 	}
 
 	public void move() {
