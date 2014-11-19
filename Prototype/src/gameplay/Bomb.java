@@ -30,7 +30,6 @@ public class Bomb implements Runnable {
 	public Bomb(){
 		loadImage();
 		range = 1;
-		
 	}
 	
 	public Bomb(int x, int y, Cell[][] z){
@@ -78,23 +77,7 @@ public class Bomb implements Runnable {
 			if((currentTime = System.currentTimeMillis()) - startTime == 3000){
 				System.out.println("StartTime: " + startTime + " CurrentTime: " + currentTime );
 				
-				gridMap[posX][posY] = Cell.EMPTY;
-				
-				if(gridMap[posX+range][posY] == Cell.BRICK || gridMap[posX-range][posY] == Cell.ENEMY){
-					gridMap[posX+range][posY] = Cell.EXPLODE;
-				}
-				
-				if(gridMap[posX-range][posY] == Cell.BRICK || gridMap[posX-range][posY] == Cell.ENEMY){
-					gridMap[posX-range][posY] = Cell.EXPLODE;
-				}
-				
-				if(gridMap[posX][posY+range] == Cell.BRICK || gridMap[posX-range][posY] == Cell.ENEMY){
-					gridMap[posX][posY+range] = Cell.EXPLODE;
-				}
-				
-				if(gridMap[posX][posY-range] == Cell.BRICK || gridMap[posX-range][posY] == Cell.ENEMY){
-					gridMap[posX][posY-range] = Cell.EXPLODE;
-				}
+				//gridMap[posX][posY] = Cell.EMPTY;
 				
 				if(gridMap[posX][posY] != Cell.CONCRETE){
 					gridMap[posX][posY] = Cell.EXPLODE;
