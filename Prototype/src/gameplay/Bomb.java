@@ -74,7 +74,7 @@ public class Bomb extends Player implements Runnable  {
 		while(range >= 0){
 			
 			//if range>1 we'll get array out of bounds at the edges (i.e. trying to check gridMap[-1]->nogood
-			if((currentTime = System.currentTimeMillis()) - startTime == 3000){
+			if((currentTime = System.currentTimeMillis()) - startTime == 1000){
 				System.out.println("StartTime: " + startTime + " CurrentTime: " + currentTime );
 				
 				//gridMap[posX][posY] = Cell.EMPTY;
@@ -118,6 +118,7 @@ public class Bomb extends Player implements Runnable  {
 		}
 		
 		range = 1;
+		
 	}
 	
 }

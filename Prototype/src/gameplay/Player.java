@@ -98,7 +98,7 @@ public class Player {
 
 		}
 
-		//System.out.println("Position X: " + posX + " Position Y: " + posY);
+		System.out.println("Position X: " + posX + " Position Y: " + posY);
 
 	}
 
@@ -137,6 +137,7 @@ public class Player {
 			return;
 		}
 		
+		// Pausing
 		if (key == KeyEvent.VK_ESCAPE){
 			if(gameState.getState() == State.RUNNING){
 				gameState.setState(State.PAUSE);		
@@ -148,13 +149,15 @@ public class Player {
 		}
 		
 		if (key == KeyEvent.VK_X){
-			if(gridMap[posX][posY] != Cell.PLAYERANDBOMB){
-				System.out.println("BOMBAMAN<>BOMBAMAN FRENLY NEIGBOHUD BOMBAMAN");
-				gridMap[posX][posY] = Cell.PLAYERANDBOMB;
-				
-				bomb = new Bomb(posX, posY, gridMap);
-				Thread t = new Thread(bomb);
-		        t.start();
+			if(gameState.getState() == State.RUNNING){
+				if(gridMap[posX][posY] != Cell.PLAYERANDBOMB){
+					System.out.println("BOMBAMAN<>BOMBAMAN FRENLY NEIGBOHUD BOMBAMAN");
+					gridMap[posX][posY] = Cell.PLAYERANDBOMB;
+
+					bomb = new Bomb(posX, posY, gridMap);
+					Thread t = new Thread(bomb);
+			        t.start();
+				}			
 			}
 
 		}

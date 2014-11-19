@@ -5,7 +5,7 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
-public class Enemy implements Runnable {
+public class Enemy {
 	private String enemy = "enemy.png";
 	private Image image;
 	Cell[][] gridMap;
@@ -53,8 +53,7 @@ public class Enemy implements Runnable {
 		return image;
 	}
 
-	@Override
-	public void run() {
+	public void move() {
 		for (int posX = 1; posX < 32; posX++) {
 			for (int posY = 1; posY < 14; posY++) {
 				if (gridMap[posX][posY] == Cell.ENEMY) {
