@@ -28,6 +28,8 @@ public class Render extends JPanel implements ActionListener {
 	private Enemy enemy;
 	private GameState gameState;
 	private Concrete concrete;
+	private PowerUps powerups;
+	private ExitWay exitway;
 	
 	// Concrete
 	//private String concrete = "concrete.png";
@@ -42,14 +44,17 @@ public class Render extends JPanel implements ActionListener {
 
 	public Render() {
 		gameState = new GameState();
-		player = new Player(gridMap, gameState);
+		
 		brick = new Brick(gridMap);
 		bomb = new Bomb();
 		enemy = new Enemy(gridMap);
 		
 		
-		concrete = new Concrete(gridMap);
 		
+		concrete = new Concrete(gridMap);
+		powerups = new PowerUps(gridMap);
+		exitway = new ExitWay(gridMap);
+		player = new Player(gridMap, gameState);
 		addKeyListener(new TAdapter());
 		setFocusable(true);
 		setBackground(Color.darkGray);
@@ -100,12 +105,32 @@ public class Render extends JPanel implements ActionListener {
 		        case PLAYERANDBOMB:
 					g2d.drawImage(bomb.getImageBombPlayer(), dimension * i , dimension * j, this);
 		        	continue;
+		        case BOMBANDEXITWAY:
+					g2d.drawImage(bomb.getImageBombPlayer(), dimension * i , dimension * j, this);
+		        	continue;
 		        case EXPLODE:
 		        	g2d.drawImage(bomb.getImageBombExplode(), dimension * i , dimension * j, this);
+		        	
 		        	gridMap[i][j] = Cell.EMPTY;
+		        	
 		        	continue;
 		        case ENEMY:
 		        	g2d.drawImage(enemy.getImage(), dimension * i , dimension * j, this);
+		        	continue;
+		        case BRICKANDPOWERUPS:
+		        	g2d.drawImage(brick.getImage(), dimension * i, dimension * j, this);
+		        	continue;
+		        case POWERUPS:
+		        	g2d.drawImage(powerups.getBombsImage(), dimension * i, dimension * j, this);
+		        	continue;
+		        case BRICKANDEXITWAY:
+		        	g2d.drawImage(brick.getImage(), dimension * i, dimension * j, this);
+		        	continue;
+		        case PLAYERANDEXITWAY:
+		        	g2d.drawImage(exitway.getImagePlayerAndExitway(), dimension * i, dimension * j, this);
+		        	continue;
+		        case EXITWAY:
+		        	g2d.drawImage(exitway.getImageExitway(), dimension * i, dimension * j, this);
 		        	continue;
 		        default:
 					break;          	
