@@ -13,8 +13,8 @@ public class Bomberman extends JFrame {
 	
 	//Testing without logging in
 
-	public Bomberman(String username) {
-		add(new Render(username));
+	public Bomberman() {
+		add(new Render());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setDimensionX(825);
 		setDimensionY(395);

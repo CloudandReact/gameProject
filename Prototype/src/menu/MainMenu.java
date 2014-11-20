@@ -1,6 +1,7 @@
 package menu;
 
 import gameplay.Bomberman;
+import gameplay.PlayerInfo;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,9 +28,8 @@ public class MainMenu extends JFrame{
 	
 			
 	public MainMenu(JPanel panel, String username){
-		
 		playersName = username;
-		
+				
 		panel.removeAll();
 		panel.setLayout(null);
 		AccountMenu.setFrameTitle("Main Menu");
@@ -66,7 +66,8 @@ public class MainMenu extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
 				AccountMenu.destroyFrame();
-				new Bomberman(playersName);	
+				PlayerInfo.setUsername(playersName);
+				new Bomberman();	
 			}
 			
 		});

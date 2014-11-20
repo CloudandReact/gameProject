@@ -2,6 +2,7 @@ package menu;
 
 import gameplay.Bomberman;
 import gameplay.GameState;
+import gameplay.PlayerInfo;
 import gameplay.Render;
 import gameplay.State;
 
@@ -31,8 +32,7 @@ public class PauseMenu extends JFrame{
 	
 	String playersName;
 	
-	public PauseMenu(Render r, GameState x, String username){
-		playersName = username;
+	public PauseMenu(Render r, GameState x){
 		state = x; 
 		render = r;
 		setSize(325, 230);
@@ -77,7 +77,7 @@ public class PauseMenu extends JFrame{
 				//getContentPane().removeAll();
 				
 				render.destroyPanel();
-				new MainMenu(panel, playersName);
+				new MainMenu(panel, PlayerInfo.getUsername());
 					
 				
 			}

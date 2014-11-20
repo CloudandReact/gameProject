@@ -21,8 +21,8 @@ public class Login {
 	JPasswordField passwordText = new JPasswordField();
 	JButton loginButton = new JButton("Login");
 	JButton createAccountButton = new JButton("Create Account");
-	String username = "";
-	String password = "";
+	private String username = "";
+	private String password = "";
 
 	JPanel panelL;
 
