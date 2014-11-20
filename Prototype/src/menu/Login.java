@@ -70,12 +70,9 @@ public class Login {
 
 				if (loginValidity.loginIsValid(username, password)) {
 					// go to menu
-<<<<<<< HEAD
 					new MainMenu(panelL, username);
-=======
-					PlayerInfo.usernameStatic=username;
-					new MainMenu(panelL);
->>>>>>> origin/ElliotChanges
+					PlayerInfo.setUsername(username);
+				
 				} else {
 					JOptionPane.showMessageDialog(null,"Incorrect username or password. Please retry.",password, JOptionPane.INFORMATION_MESSAGE);
 
