@@ -4,7 +4,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class Bomb implements Runnable {
+public class Bomb extends Player implements Runnable  {
 
 	
 	private int range;
@@ -88,7 +88,7 @@ public class Bomb implements Runnable {
 		while(range >= 0){
 			
 			//if range>1 we'll get array out of bounds at the edges (i.e. trying to check gridMap[-1]->nogood
-			if((currentTime = System.currentTimeMillis()) - startTime == 3000){
+			if((currentTime = System.currentTimeMillis()) - startTime == 1000){
 				System.out.println("StartTime: " + startTime + " CurrentTime: " + currentTime );
 				
 				//gridMap[posX][posY] = Cell.EMPTY;
@@ -98,6 +98,7 @@ public class Bomb implements Runnable {
 				}
 				
 				if(gridMap[posX+range][posY] != Cell.CONCRETE){
+
 					if(gridMap[posX+range][posY] == Cell.BRICKANDPOWERUPS){
 						gridMap[posX+range][posY] = Cell.POWERUPS;
 					}
@@ -107,14 +108,19 @@ public class Bomb implements Runnable {
 					else if(gridMap[posX+range][posY] == Cell.EXITWAY){
 						gridMap[posX+range][posY] = Cell.EXITWAY;
 					}
-					else{
-						if(gridMap[posX+range][posY] == Cell.ENEMY){
+					else if(gridMap[posX+range][posY] == Cell.ENEMY){
 							numberOfEnemiesKilled++;
 							System.out.println("Killed one!");
 							System.out.println(numberOfEnemiesKilled);
-						}
-					gridMap[posX+range][posY] = Cell.EXPLODE;
+							Player.setScore(Player.getScore() + 100);					
+							gridMap[posX+range][posY] = Cell.EXPLODE;
+
 					}
+					else{
+						gridMap[posX+range][posY] = Cell.EXPLODE;
+					}
+
+
 				}
 				
 				if(gridMap[posX-range][posY] != Cell.CONCRETE){
@@ -127,14 +133,18 @@ public class Bomb implements Runnable {
 					else if(gridMap[posX-range][posY] == Cell.EXITWAY){
 						gridMap[posX-range][posY] = Cell.EXITWAY;
 					}
-					else {
-						if(gridMap[posX-range][posY] == Cell.ENEMY){
+					else if(gridMap[posX-range][posY] == Cell.ENEMY){
 							numberOfEnemiesKilled++;
 							System.out.println("Killed one!");
 							System.out.println(numberOfEnemiesKilled);
-						}
-					gridMap[posX-range][posY] = Cell.EXPLODE;
+							Player.setScore(Player.getScore() + 100);	
+							gridMap[posX-range][posY] = Cell.EXPLODE;
 					}
+					else{
+						gridMap[posX-range][posY] = Cell.EXPLODE;
+					}
+
+				
 				}
 				
 				if(gridMap[posX][posY+range] != Cell.CONCRETE){
@@ -147,14 +157,18 @@ public class Bomb implements Runnable {
 					else if(gridMap[posX][posY+range] == Cell.EXITWAY){
 						gridMap[posX][posY+range] = Cell.EXITWAY;
 					}
-					else{
-						if(gridMap[posX][posY+range] == Cell.ENEMY){
+					else if(gridMap[posX][posY+range] == Cell.ENEMY){
 							numberOfEnemiesKilled++;
 							System.out.println("Killed one!");
 							System.out.println(numberOfEnemiesKilled);
-						}
-					gridMap[posX][posY+range] = Cell.EXPLODE;
+							Player.setScore(Player.getScore() + 100);
+							gridMap[posX][posY+range] = Cell.EXPLODE;
+
 					}
+					else{
+						gridMap[posX][posY+range] = Cell.EXPLODE;
+					}
+					
 				}
 				
 				if(gridMap[posX][posY-range] != Cell.CONCRETE){
@@ -167,16 +181,20 @@ public class Bomb implements Runnable {
 					else if(gridMap[posX][posY-range] == Cell.EXITWAY){
 						gridMap[posX][posY-range] = Cell.EXITWAY;
 					}
-					else{
-						if(gridMap[posX][posY-range] == Cell.ENEMY){
+					else if(gridMap[posX][posY-range] == Cell.ENEMY){
 							numberOfEnemiesKilled++;
 							System.out.println("Killed one!");
 							System.out.println(numberOfEnemiesKilled);
-						}
-					gridMap[posX][posY-range] = Cell.EXPLODE;
+							Player.setScore(Player.getScore() + 100);
+							gridMap[posX][posY-range] = Cell.EXPLODE;
+
 					}
+					else{
+						gridMap[posX][posY-range] = Cell.EXPLODE;
+					}
+					
 				}
-				
+						
 				
 				range--;
 				
@@ -185,6 +203,7 @@ public class Bomb implements Runnable {
 		}
 		
 		range = 1;
+		
 	}
 	
 }

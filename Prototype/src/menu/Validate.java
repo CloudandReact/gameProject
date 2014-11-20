@@ -2,10 +2,12 @@ package menu;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public class Validate {
+	
 	boolean realNameValid=false;;
 	boolean usernameValid=false;
 	boolean passwordValid=false;
 	boolean passwordSame=false;
+	
 	public boolean validateCreateAccount(String realName,String username,String password, String retypePassword)
 	{
 		if(isRealNameValid(realName)&&isUserNameValid( username) && isPasswordValid(password)&&arePasswordSame(password,retypePassword)){

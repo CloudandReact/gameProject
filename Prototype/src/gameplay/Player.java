@@ -7,35 +7,37 @@ import javax.swing.ImageIcon;
 
 public class Player {
 
-	private String player = "bomberman.png";
+	private String playerImage = "bomberman.png";
 
 	private int dx;
 	private int dy;
 	private int x;
 	private int y;
-	private int posX = 1;
-	private int posY = 1;
+	private int posX;
+	private int posY;
+	private static int score;
 	
 	private Image image;
 	Cell[][] gridMap;
 	private Bomb bomb; 
 	private GameState gameState;
 
+	public Player(){
+		
+	}
 
 	public Player(Cell[][] gridMap, GameState x) {
 		loadImage();
 		this.setX(25);
 		this.setY(25);
+		this.posX = 1;
+		this.posY = 1;
 		this.gridMap = gridMap;
 		this.gridMap[1][1] = Cell.PLAYER;
+		setScore(0);
 		gameState = x;
 	}
-
-	private void loadImage() {
-		ImageIcon ii = new ImageIcon(getClass().getResource(player));
-		image = ii.getImage();
-	}
-
+	
 	public void move() {
 
 		if (dx > 0) {
@@ -171,6 +173,12 @@ public class Player {
 	public void setY(int yNew) {
 		y = yNew;
 	}
+	
+	private void loadImage() {
+		ImageIcon ii = new ImageIcon(getClass().getResource(playerImage));
+		image = ii.getImage();
+	}
+
 
 	public Image getImage() {
 		return image;
@@ -185,7 +193,8 @@ public class Player {
 			return;
 		}
 		
-		if (key == KeyEvent.VK_ESCAPE){
+		// Pausing
+		if (key == KeyEvent.VK_SPACE){
 			if(gameState.getState() == State.RUNNING){
 				gameState.setState(State.PAUSE);		
 			}
@@ -196,13 +205,15 @@ public class Player {
 		}
 		
 		if (key == KeyEvent.VK_X){
-			if(gridMap[posX][posY] != Cell.PLAYERANDBOMB){
-				System.out.println("BOMBAMAN<>BOMBAMAN FRENLY NEIGBOHUD BOMBAMAN");
-				gridMap[posX][posY] = Cell.PLAYERANDBOMB;
-				
-				bomb = new Bomb(posX, posY, gridMap);
-				Thread t = new Thread(bomb);
-		        t.start();
+			if(gameState.getState() == State.RUNNING){
+				if(gridMap[posX][posY] != Cell.PLAYERANDBOMB){
+					System.out.println("BOMBAMAN<>BOMBAMAN FRENLY NEIGBOHUD BOMBAMAN");
+					gridMap[posX][posY] = Cell.PLAYERANDBOMB;
+
+					bomb = new Bomb(posX, posY, gridMap);
+					Thread t = new Thread(bomb);
+			        t.start();
+				}			
 			}
 
 		}
@@ -250,5 +261,18 @@ public class Player {
 			dy = 0;
 		}
 	}
+
+	public static int getScore() {
+		return score;
+	}
+
+	public static void setScore(int score) {
+		Player.score = score;
+	}
+
+//	public void setUsername(String name) {
+//		this.username = name;	
+//	}
+
 
 }

@@ -21,8 +21,8 @@ public class Login {
 	JPasswordField passwordText = new JPasswordField();
 	JButton loginButton = new JButton("Login");
 	JButton createAccountButton = new JButton("Create Account");
-	String username = "";
-	String password = "";
+	private String username = "";
+	private String password = "";
 
 	JPanel panelL;
 
@@ -56,7 +56,7 @@ public class Login {
 
 		loginButton.addActionListener(new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
 				username = userText.getText();
 				// makes password into a string converts from char array
@@ -70,7 +70,7 @@ public class Login {
 
 				if (loginValidity.loginIsValid(username, password)) {
 					// go to menu
-					new MainMenu(panelL);
+					new MainMenu(panelL, username);
 				} else {
 					JOptionPane.showMessageDialog(null,"Incorrect username or password. Please retry.",password, JOptionPane.INFORMATION_MESSAGE);
 

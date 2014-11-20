@@ -11,14 +11,19 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
+import menu.MainMenu;
+import menu.PauseMenu;
+
 
 public class Render extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private int gridLength = 32;
-	private int gridHeight = 14;
+	private int gridLength = 33;
+	private int gridHeight = 15;
 	private int dimension = 25;
 	
 	private Player player;
@@ -31,23 +36,31 @@ public class Render extends JPanel implements ActionListener {
 	private PowerUps powerups;
 	private ExitWay exitway;
 	
+
+	private Boolean pauseMenuOpen;
+	//private String username;
 	// Concrete
-	//private String concrete = "concrete.png";
-	//private Image imgConcrete;
+	// private String concrete = "concrete.png";
+	// private Image imgConcrete;
 	
 	
 	Grid grid = new Grid();
 	Cell[][] gridMap = grid.getGridMap();
 	
 	Graphics2D g2d;	
-	
-
+		
 	public Render() {
+		System.out.println("HELLO MY NAME IS...: " + PlayerInfo.getUsername());
 		gameState = new GameState();
 		
 		brick = new Brick(gridMap);
 		bomb = new Bomb();
 		enemy = new Enemy(gridMap);
+		concrete = new Concrete(gridMap);
+		enemy = new Enemy(gridMap);
+
+		player = new Player(gridMap, gameState);
+		
 		
 		
 		
@@ -61,93 +74,102 @@ public class Render extends JPanel implements ActionListener {
 		setDoubleBuffered(true);
 		setFocusable(true);
 				
-		
-		// do this in brick class after
-		//placeBricks();
-		
+		pauseMenuOpen = false;
 		timer = new Timer(100, this);
 		timer.start();
-		
 		
 		
 	}
 
 	public void paint(Graphics g) {
-
+	
 		super.paint(g);
-
+		
 		g2d = (Graphics2D) g;
 		g2d.setColor(Color.darkGray);
 		
-		//g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
-		System.out.println(gameState.getState());
+		//System.out.println("Your score is.... : " + Player.getScore());
 		
-//		while(gameState.getState() == State.PAUSE){
-//
-//		}
-		
-		
-		for(int i = 0; i < 33; i++){
-			for(int j = 0; j < 15; j++){
-		        switch (gridMap[i][j]) {
-		        case PLAYER:
-		    		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
-		        	continue;
-		        case BOMB: 
-					g2d.drawImage(bomb.getImageBomb(), dimension * i , dimension * j, this);
-					continue;
-		        case CONCRETE:
-					g2d.drawImage(concrete.getImage(), dimension * i, dimension * j, this);
-					continue;
-		        case BRICK:
-					g2d.drawImage(brick.getImage(), dimension * i, dimension * j, this);
-					continue;
-		        case PLAYERANDBOMB:
-					g2d.drawImage(bomb.getImageBombPlayer(), dimension * i , dimension * j, this);
-		        	continue;
-		        case BOMBANDEXITWAY:
-					g2d.drawImage(bomb.getImageBombPlayer(), dimension * i , dimension * j, this);
-		        	continue;
-		        case EXPLODE:
-		        	g2d.drawImage(bomb.getImageBombExplode(), dimension * i , dimension * j, this);
-		        	
-		        	gridMap[i][j] = Cell.EMPTY;
-		        	
-		        	continue;
-		        case ENEMY:
-		        	g2d.drawImage(enemy.getImage(), dimension * i , dimension * j, this);
-		        	continue;
-		        case BRICKANDPOWERUPS:
-		        	g2d.drawImage(brick.getImage(), dimension * i, dimension * j, this);
-		        	continue;
-		        case POWERUPS:
-		        	g2d.drawImage(powerups.getBombsImage(), dimension * i, dimension * j, this);
-		        	continue;
-		        case BRICKANDEXITWAY:
-		        	g2d.drawImage(brick.getImage(), dimension * i, dimension * j, this);
-		        	continue;
-		        case PLAYERANDEXITWAY:
-		        	g2d.drawImage(exitway.getImagePlayerAndExitway(), dimension * i, dimension * j, this);
-		        	continue;
-		        case EXITWAY:
-		        	g2d.drawImage(exitway.getImageExitway(), dimension * i, dimension * j, this);
-		        	continue;
-		        default:
-					break;          	
-		        }
-			}
-		}
 
+		if(gameState.getState() == State.PAUSE){
+			
+
+		}
+		else{
+			for(int i = 0; i < gridLength; i++){
+				for(int j = 0; j < gridHeight; j++){
+			        switch (gridMap[i][j]) {
+			        case PLAYER:
+			    		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
+			        	continue;
+			        case BOMB: 
+						g2d.drawImage(bomb.getImageBomb(), dimension * i , dimension * j, this);
+						continue;
+			        case CONCRETE:
+						g2d.drawImage(concrete.getImage(), dimension * i, dimension * j, this);
+						continue;
+			        case BRICK:
+						g2d.drawImage(brick.getImage(), dimension * i, dimension * j, this);
+						continue;
+			        case PLAYERANDBOMB:
+						g2d.drawImage(bomb.getImageBombPlayer(), dimension * i , dimension * j, this);
+			        	continue;
+			        case BOMBANDEXITWAY:
+						g2d.drawImage(bomb.getImageBombPlayer(), dimension * i , dimension * j, this);
+			        	continue;
+			        case EXPLODE:
+			        	g2d.drawImage(bomb.getImageBombExplode(), dimension * i , dimension * j, this);
+			        	gridMap[i][j] = Cell.EMPTY;
+			        	continue;
+			        case ENEMY:
+			        	g2d.drawImage(enemy.getImage(), dimension * i , dimension * j, this);
+			        	continue;
+			        case BRICKANDPOWERUPS:
+			        	g2d.drawImage(brick.getImage(), dimension * i, dimension * j, this);
+			        	continue;
+			        case POWERUPS:
+			        	g2d.drawImage(powerups.getBombsImage(), dimension * i, dimension * j, this);
+			        	continue;
+			        case BRICKANDEXITWAY:
+			        	g2d.drawImage(brick.getImage(), dimension * i, dimension * j, this);
+			        	continue;
+			        case PLAYERANDEXITWAY:
+			        	g2d.drawImage(exitway.getImagePlayerAndExitway(), dimension * i, dimension * j, this);
+			        	continue;
+			        case EXITWAY:
+			        	g2d.drawImage(exitway.getImageExitway(), dimension * i, dimension * j, this);
+			        	continue;
+			        default:
+						break;          	
+			        }
+				}
+			}
+			enemy.move();
+			
+		}
+		
+		
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
+		
 
 	}
-
+	
 		
 	public void actionPerformed(ActionEvent e) {
-		player.move();
-		repaint();
+		if(gameState.getState() == State.RUNNING){
+			player.move();
+			repaint();
+		}	
+		
+		else if(gameState.getState() == State.PAUSE && pauseMenuOpen == false ){
+			new PauseMenu(this, gameState);
+			pauseMenuOpen = true;
+		}
+
 	}
+	
+
 
 	private class TAdapter extends KeyAdapter {
 		public void keyReleased(KeyEvent e) {
@@ -159,7 +181,18 @@ public class Render extends JPanel implements ActionListener {
 			player.keyPressed(e);
 		}
 	}
+	// Need a way to destroy frame....
+	public void destroyPanel(){
+		setVisible(false);
+		g2d.dispose();
+		//setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
 
+	public void setPauseMenuState(boolean x) {
+		pauseMenuOpen = x;
+		
+	}
+	
 
 }
 	

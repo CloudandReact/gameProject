@@ -11,6 +11,7 @@ public class Bomberman extends JFrame {
 	private static int dimensionX;
 	private static int dimensionY;
 	
+	//Testing without logging in
 
 	public Bomberman() {
 		add(new Render());
@@ -36,9 +37,6 @@ public class Bomberman extends JFrame {
 	
 	public static int getDimensionY(){
 		return dimensionY;
-	}
-	public static void main(String[] args){
-		new Bomberman();
-	}
+	}	
 
 }
