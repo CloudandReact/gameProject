@@ -1,5 +1,4 @@
 package menu;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -12,19 +11,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
-public class AccountCreation extends JFrame {
+import gameplay.PlayerInfo;
+public class AccountModifications extends JFrame{
 
 	JLabel userRealNameLabel = new JLabel("Real Name");
 	// note changed could modify
-	JTextField userNameText = new JTextField();
-	JLabel usernameLabel = new JLabel("Username");
-	JTextField userText = new JTextField();
+	JTextField realNameText = new JTextField();
+	//JLabel usernameLabel = new JLabel("Username");
+	//JTextField userText = new JTextField();
 	JLabel passwordLabel = new JLabel("Password");
 	JPasswordField passwordText = new JPasswordField();
 	JLabel verifyPasswordLabel = new JLabel("Verify Password");
 	JPasswordField verifyPasswordText = new JPasswordField();
-	JButton createButton = new JButton("Create"); 
+	JButton modifyButton = new JButton("Modify"); 
 	JButton backButton = new JButton("Back");
 	String realName;
 	String username;
@@ -33,42 +32,42 @@ public class AccountCreation extends JFrame {
 
 	JPanel panelA;
 
-	public AccountCreation(JPanel panel) {
+	public AccountModifications(JPanel panel) {
 
 		panel.removeAll();
 
 		panel.setLayout(null);
 
-		AccountMenu.setFrameTitle("Create Account");
+		AccountMenu.setFrameTitle("Account modification");
 
 		userRealNameLabel.setBounds(10, 10, 80, 25);
 		panel.add(userRealNameLabel);
 
-		userNameText.setBounds(130, 10, 160, 25);
-		panel.add(userNameText);
+		realNameText.setBounds(130, 10, 160, 25);
+		panel.add(realNameText);
 
-		usernameLabel.setBounds(10, 40, 80, 25);
+		/*usernameLabel.setBounds(10, 40, 80, 25);
 		panel.add(usernameLabel);
 
 		userText.setBounds(130, 40, 160, 25);
-		panel.add(userText);
+		panel.add(userText);*/
 
-		passwordLabel.setBounds(10, 70, 80, 25);
+		passwordLabel.setBounds(10, 40, 80, 25);
 		panel.add(passwordLabel);
 
-		passwordText.setBounds(130, 70, 160, 25);
+		passwordText.setBounds(130, 40, 160, 25);
 		panel.add(passwordText);
 
-		verifyPasswordLabel.setBounds(10, 100, 160, 25);
+		verifyPasswordLabel.setBounds(10, 70, 160, 25);
 		panel.add(verifyPasswordLabel);
 
-		verifyPasswordText.setBounds(130, 100, 160, 25);
+		verifyPasswordText.setBounds(130, 70, 160, 25);
 		panel.add(verifyPasswordText);
 
-		createButton.setBounds(165, 135, 80, 25);
-		panel.add(createButton);
+		modifyButton.setBounds(165, 105, 80, 25);
+		panel.add(modifyButton);
 
-		backButton.setBounds(80, 135, 80, 25);
+		backButton.setBounds(80, 105, 80, 25);
 		panel.add(backButton);
 		
 		panel.repaint();
@@ -76,9 +75,7 @@ public class AccountCreation extends JFrame {
 		
 		// this adds in a focus for info
 		
-
-			
-		createButton.addActionListener(new ActionListener() {
+		modifyButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				// createButton.setEnabled(false);
@@ -86,8 +83,8 @@ public class AccountCreation extends JFrame {
 				System.out.println("action comman" + e.getActionCommand());
 				// getContentPane().removeAll();
 				// new Login(panelA);
-				realName = userNameText.getText();
-				username = userText.getText();
+				realName = realNameText.getText();
+				String username=PlayerInfo.getUsername();
 				password = String.valueOf(passwordText.getPassword());
 				retypePassword = String.valueOf(verifyPasswordText.getPassword());
 				System.out.println(realName);
@@ -95,12 +92,12 @@ public class AccountCreation extends JFrame {
 				FileWriting writing = new FileWriting();
 		 		writing.openFile();
 		 		
-				if (writing.checkIfValid(realName, username, password, retypePassword)&&writing.isUserNameAvailible(username)) {
-					try {writing.writeToFile(realName, username, password, retypePassword);
-						JOptionPane.showMessageDialog(null,"Registration complete, please login.", "Success!", JOptionPane.INFORMATION_MESSAGE);
-						createButton.setEnabled(true);
+				if (writing.checkIfValid(realName, username, password, retypePassword)) {
+					try {writing.overwriteToFileString(realName, username, password, retypePassword);
+						JOptionPane.showMessageDialog(null,"Modification Complete.", "Success!", JOptionPane.INFORMATION_MESSAGE);
+						modifyButton.setEnabled(true);
 						getContentPane().removeAll();
-						new Login(panelA);
+						new MainMenu(panelA);
 					} catch (Exception e1) {
 						System.out.println(e1);
 						JOptionPane.showMessageDialog(null,"Could not write to file.", password, JOptionPane.INFORMATION_MESSAGE);
@@ -110,21 +107,21 @@ public class AccountCreation extends JFrame {
 				else {
 					if (!writing.isRealNameValid()) {
 						JOptionPane.showMessageDialog(null,"Incorrect input. Realname should be two words.",error, JOptionPane.INFORMATION_MESSAGE);
-					} else if (!writing.isUserNameValid()) {
+					}
+					else if (!writing.isUserNameValid()) {
 						
 						JOptionPane.showMessageDialog(null,"Username should consist of one word that is at least 6 characters long.",error, JOptionPane.INFORMATION_MESSAGE);
 						
-					} else if (!writing.isPasswordValid()) {
+					}  
+					else if (!writing.isPasswordValid()) {
 						
 						JOptionPane.showMessageDialog(null,"Password should be atleast 8 characters long containing at least one upper case character and number.",error, JOptionPane.INFORMATION_MESSAGE);
 						
-					} else if (!writing.arePasswordSame()){
+					} 
+					else if (!writing.arePasswordSame()){
 						JOptionPane.showMessageDialog(null,"Passwords do not match.",error,JOptionPane.INFORMATION_MESSAGE);
 
-					} else if(!writing.isUserNameAvailible(username)){
-						JOptionPane.showMessageDialog(null,"Username is already taken.",error,JOptionPane.INFORMATION_MESSAGE);
-						
-					}
+					} 
 					// JOptionPane.showMessageDialog(null,
 					// "could not register fix the error please reenter",password,
 					// JOptionPane.INFORMATION_MESSAGE);
@@ -140,7 +137,7 @@ public class AccountCreation extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
 				getContentPane().removeAll();
-				new Login(panelA);
+				new MainMenu(panelA);
 			}
 		});
 

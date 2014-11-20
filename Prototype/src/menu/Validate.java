@@ -15,9 +15,19 @@ public class Validate {
 		}
 		return false;
 	}
+	public boolean validateModifyAccount(String realName,String password, String retypePassword)
+	{
+		if(isRealNameValid(realName)&& isPasswordValid(password)&&arePasswordSame(password,retypePassword)){
+			return true;
+		}
+		return false;
+	}
 	
 	 public boolean isRealNameValid(String realName){
 		 //checks if more than one word otherwise just checks one word
+		 System.out.println(realName+ " real name");
+		 System.out.println("hello wordllgnngn");
+		 System.out.println(realName.trim().length());
 		 if(realName.indexOf(" ")>0){
 			 	String realNameSplit[]=realName.split(" ");
 			 	System.out.println(realNameSplit.length);
@@ -39,7 +49,8 @@ public class Validate {
 			 
 		}
 		 else{
-			 if(realName.matches("\\p{L}+")){
+			 
+			 if(realName.matches("\\p{L}+")&&realName.length()>0){
 				 realNameValid=true;
 			 }
 			 else{
@@ -55,6 +66,7 @@ public class Validate {
 	public boolean isUserNameValid(String username){
 		//latin characters problems\\p{L}
 		//split i
+		System.out.println(username);
 		String whitespaceInUserName[]=username.split(" ");
 		if(username.matches("[\\p{L}\\s\\d]+")&&username.length()>=6 &&whitespaceInUserName.length==1){
 			usernameValid=true;
