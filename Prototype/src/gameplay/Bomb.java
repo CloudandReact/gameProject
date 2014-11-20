@@ -17,10 +17,13 @@ public class Bomb implements Runnable {
 	private String bomb = "bomb.png";
 	private String bombPlayer = "bomb&Bomberman.jpg";
 	private String bombExploding = "explosion.png";
+	private String bombAndExitways = "bombandexitway.png";
+	private static int numberOfEnemiesKilled; 
 	
 	private Image image;
 	private Image image2;
 	private Image explode;
+	private Image bombandexitway;
 	
 	long startTime;
 	long currentTime;
@@ -48,6 +51,9 @@ public class Bomb implements Runnable {
 		
 		ImageIcon bombExplode = new ImageIcon(getClass().getResource(bombExploding));
 		explode = bombExplode.getImage();
+		
+		ImageIcon bombAndExitway = new ImageIcon(getClass().getResource(bombAndExitways));
+		bombandexitway = bombAndExitway .getImage();
 	}
 	
 	public Image getImageBomb() {
@@ -62,8 +68,16 @@ public class Bomb implements Runnable {
 		return explode;
 	}
 	
+	public Image getImageBombAndExitway(){
+		return bombandexitway;
+	}
+	
 	public void bombLogic(int posX, int posY, Cell[][] gridMap){
 
+	}
+	
+	public static int getNumberOfEnemiesKilled(){
+		return numberOfEnemiesKilled;
 	}
 
 	@Override
@@ -84,20 +98,85 @@ public class Bomb implements Runnable {
 				}
 				
 				if(gridMap[posX+range][posY] != Cell.CONCRETE){
+					if(gridMap[posX+range][posY] == Cell.BRICKANDPOWERUPS){
+						gridMap[posX+range][posY] = Cell.POWERUPS;
+					}
+					else if(gridMap[posX+range][posY] == Cell.BRICKANDEXITWAY){
+						gridMap[posX+range][posY] = Cell.EXITWAY;
+					}
+					else if(gridMap[posX+range][posY] == Cell.EXITWAY){
+						gridMap[posX+range][posY] = Cell.EXITWAY;
+					}
+					else{
+						if(gridMap[posX+range][posY] == Cell.ENEMY){
+							numberOfEnemiesKilled++;
+							System.out.println("Killed one!");
+							System.out.println(numberOfEnemiesKilled);
+						}
 					gridMap[posX+range][posY] = Cell.EXPLODE;
+					}
 				}
 				
 				if(gridMap[posX-range][posY] != Cell.CONCRETE){
+					if(gridMap[posX-range][posY] == Cell.BRICKANDPOWERUPS){
+						gridMap[posX-range][posY] = Cell.POWERUPS;
+					}
+					else if(gridMap[posX-range][posY] == Cell.BRICKANDEXITWAY){
+						gridMap[posX-range][posY] = Cell.EXITWAY;
+					}
+					else if(gridMap[posX-range][posY] == Cell.EXITWAY){
+						gridMap[posX-range][posY] = Cell.EXITWAY;
+					}
+					else {
+						if(gridMap[posX-range][posY] == Cell.ENEMY){
+							numberOfEnemiesKilled++;
+							System.out.println("Killed one!");
+							System.out.println(numberOfEnemiesKilled);
+						}
 					gridMap[posX-range][posY] = Cell.EXPLODE;
+					}
 				}
 				
 				if(gridMap[posX][posY+range] != Cell.CONCRETE){
+					if(gridMap[posX][posY+range] == Cell.BRICKANDPOWERUPS){
+						gridMap[posX][posY+range] = Cell.POWERUPS;
+					}
+					else if(gridMap[posX][posY+range] == Cell.BRICKANDEXITWAY){
+						gridMap[posX][posY+range] = Cell.EXITWAY;
+					}
+					else if(gridMap[posX][posY+range] == Cell.EXITWAY){
+						gridMap[posX][posY+range] = Cell.EXITWAY;
+					}
+					else{
+						if(gridMap[posX][posY+range] == Cell.ENEMY){
+							numberOfEnemiesKilled++;
+							System.out.println("Killed one!");
+							System.out.println(numberOfEnemiesKilled);
+						}
 					gridMap[posX][posY+range] = Cell.EXPLODE;
+					}
 				}
 				
 				if(gridMap[posX][posY-range] != Cell.CONCRETE){
+					if(gridMap[posX][posY-range] == Cell.BRICKANDPOWERUPS){
+						gridMap[posX][posY-range] = Cell.POWERUPS;
+					}
+					else if(gridMap[posX][posY-range] == Cell.BRICKANDEXITWAY){
+						gridMap[posX][posY-range] = Cell.EXITWAY;
+					}
+					else if(gridMap[posX][posY-range] == Cell.EXITWAY){
+						gridMap[posX][posY-range] = Cell.EXITWAY;
+					}
+					else{
+						if(gridMap[posX][posY-range] == Cell.ENEMY){
+							numberOfEnemiesKilled++;
+							System.out.println("Killed one!");
+							System.out.println(numberOfEnemiesKilled);
+						}
 					gridMap[posX][posY-range] = Cell.EXPLODE;
+					}
 				}
+				
 				
 				range--;
 				

@@ -10,6 +10,7 @@ public class Brick {
 	
 	private String brick = "brick.png";
 	private Image image;
+	private Boolean powerUpPlaced = false;
 	
 	public Brick(Cell[][] gridMap)
 	{
@@ -27,7 +28,12 @@ public class Brick {
 				if(rand == 1){
 					gridMap[i][j] = Cell.BRICK;			
 				}
-			
+				
+				/*if(!powerUpPlaced){
+					
+				}			
+				powerUpPlaced = true;*/
+
 				if ((i == 1 && j == 1) || (i == 1 && j == 2) || (i == 2 && j == 1)) {
 					gridMap[i][j] = Cell.EMPTY;
 				}
