@@ -13,6 +13,13 @@ public class Validate {
 		}
 		return false;
 	}
+	public boolean validateModifyAccount(String realName,String password, String retypePassword)
+	{
+		if(isRealNameValid(realName)&& isPasswordValid(password)&&arePasswordSame(password,retypePassword)){
+			return true;
+		}
+		return false;
+	}
 	
 	 public boolean isRealNameValid(String realName){
 		 //checks if more than one word otherwise just checks one word

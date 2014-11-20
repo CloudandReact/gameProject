@@ -86,5 +86,14 @@ public class MainMenu extends JFrame{
 			
 		});
 		
+		accountManagementButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Execute when button is pressed
+				//AccountMenu.destroyFrame();
+				new AccountModifications(panelL);
+				
+			}
+			
+		});
 	}
 }
