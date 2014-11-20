@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 
 import javax.swing.*;
-import gameplay.PlayerInfo;
+
 public class Login {
 
 	JLabel usernameLabel = new JLabel("Username");
@@ -71,8 +71,6 @@ public class Login {
 				if (loginValidity.loginIsValid(username, password)) {
 					// go to menu
 					new MainMenu(panelL, username);
-					PlayerInfo.setUsername(username);
-				
 				} else {
 					JOptionPane.showMessageDialog(null,"Incorrect username or password. Please retry.",password, JOptionPane.INFORMATION_MESSAGE);
 
