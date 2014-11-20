@@ -8,7 +8,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-
+import gameplay.PlayerInfo;
 public class FileWriting {
 	String usernameFromFile = "";
 	String passwordFromFile = "";
@@ -119,6 +119,33 @@ public class FileWriting {
 		writer.close();
 
 	}
+	public void overwriteToFileString (String realName, String username, String password,String retypePassword) throws IOException {
+	String fileName = System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userInfo.csv");
+	// String fileName=("userInfo.csv");
+	File userInfo = new File(fileName);
+	// check if file exists otherwise create new file...
+	if (userInfo.exists()) {
+	} else {
+		userInfo.createNewFile();
+	}
+	FileWriter fileWriter = new FileWriter(fileName,false);
+	CSVPrinter writer = new CSVPrinter(fileWriter, CSVFormat.DEFAULT);
+	for (int i = 0; i < (userFileInfo1).size(); i = i+1) {
+	
+			if(userFileInfo1.get(i).get(1).equals(PlayerInfo.getUsername())){
+	writer.printRecord(realName, username, password);
+	// writer.newLine();
+	// writer.flush();
+	
+			}
+			else {
+				writer.printRecord(userFileInfo1.get(i));
+			}
+
+}
+	writer.close();
+	}
+	
 
 	Validate checkInfo = new Validate();
 
@@ -151,7 +178,5 @@ public class FileWriting {
 	public boolean arePasswordSame() {
 		return checkInfo.arePasswordSame();
 	}
-	public ArrayList<CSVRecord> listOf(){
-		return userFileInfo1;
-	}
+	
 }

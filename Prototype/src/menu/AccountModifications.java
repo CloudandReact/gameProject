@@ -11,11 +11,12 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import gameplay.PlayerInfo;
 public class AccountModifications extends JFrame{
 
 	JLabel userRealNameLabel = new JLabel("Real Name");
 	// note changed could modify
-	JTextField realNameText = new JTextField("firstname lastname");
+	JTextField realNameText = new JTextField();
 	//JLabel usernameLabel = new JLabel("Username");
 	//JTextField userText = new JTextField();
 	JLabel passwordLabel = new JLabel("Password");
@@ -73,23 +74,7 @@ public class AccountModifications extends JFrame{
 		panelA = panel;
 		
 		// this adds in a focus for info
-		realNameText.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) {
-				if (realNameText.getText().equals("firstname lastname")) {
-					realNameText.setText("");
-				}
-			}
-
-			public void focusLost(FocusEvent e) {
-				// nothing
-				if (realNameText.getText().length() == 0) {
-					// System.out.println(userNameText.getText()+ " "+
-					// userNameText.getText().length());
-					realNameText.setText("firstname lastname");
-				}
-			}
-		});
-
+		
 		modifyButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -99,7 +84,7 @@ public class AccountModifications extends JFrame{
 				// getContentPane().removeAll();
 				// new Login(panelA);
 				realName = realNameText.getText();
-				//username = userText.getText();
+				String username=PlayerInfo.getUsername();
 				password = String.valueOf(passwordText.getPassword());
 				retypePassword = String.valueOf(verifyPasswordText.getPassword());
 				System.out.println(realName);
@@ -107,12 +92,12 @@ public class AccountModifications extends JFrame{
 				FileWriting writing = new FileWriting();
 		 		writing.openFile();
 		 		
-				if (writing.checkIfValid(realName, username, password, retypePassword)&&writing.isUserNameAvailible(username)) {
-					try {writing.writeToFile(realName, username, password, retypePassword);
-						JOptionPane.showMessageDialog(null,"Registration complete, please login.", "Success!", JOptionPane.INFORMATION_MESSAGE);
+				if (writing.checkIfValid(realName, username, password, retypePassword)) {
+					try {writing.overwriteToFileString(realName, username, password, retypePassword);
+						JOptionPane.showMessageDialog(null,"Modification Complete.", "Success!", JOptionPane.INFORMATION_MESSAGE);
 						modifyButton.setEnabled(true);
 						getContentPane().removeAll();
-						new Login(panelA);
+						new MainMenu(panelA);
 					} catch (Exception e1) {
 						System.out.println(e1);
 						JOptionPane.showMessageDialog(null,"Could not write to file.", password, JOptionPane.INFORMATION_MESSAGE);
@@ -122,11 +107,18 @@ public class AccountModifications extends JFrame{
 				else {
 					if (!writing.isRealNameValid()) {
 						JOptionPane.showMessageDialog(null,"Incorrect input. Realname should be two words.",error, JOptionPane.INFORMATION_MESSAGE);
-					}  else if (!writing.isPasswordValid()) {
+					}
+					else if (!writing.isUserNameValid()) {
+						
+						JOptionPane.showMessageDialog(null,"Username should consist of one word that is at least 6 characters long.",error, JOptionPane.INFORMATION_MESSAGE);
+						
+					}  
+					else if (!writing.isPasswordValid()) {
 						
 						JOptionPane.showMessageDialog(null,"Password should be atleast 8 characters long containing at least one upper case character and number.",error, JOptionPane.INFORMATION_MESSAGE);
 						
-					} else if (!writing.arePasswordSame()){
+					} 
+					else if (!writing.arePasswordSame()){
 						JOptionPane.showMessageDialog(null,"Passwords do not match.",error,JOptionPane.INFORMATION_MESSAGE);
 
 					} 
