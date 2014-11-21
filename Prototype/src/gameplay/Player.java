@@ -20,7 +20,6 @@ public class Player {
 	private Image image;
 	Cell[][] gridMap;
 	private Bomb bomb; 
-	private GameState gameState;
 	
 	private Boolean isBombPlaced;
 
@@ -28,7 +27,7 @@ public class Player {
 		
 	}
 
-	public Player(Cell[][] gridMap, GameState x) {
+	public Player(Cell[][] gridMap) {
 		loadImage();
 		this.setX(25);
 		this.setY(25);
@@ -37,7 +36,6 @@ public class Player {
 		this.gridMap = gridMap;
 		this.gridMap[1][1] = Cell.PLAYER;
 		setScore(0);
-		gameState = x;
 		this.isBombPlaced = false;
 	}
 	
@@ -204,21 +202,22 @@ public class Player {
 		
 		// Pausing
 		if (key == KeyEvent.VK_SPACE){
-			if(gameState.getState() == State.RUNNING){
-				gameState.setState(State.PAUSE);		
+			if(GameState.getState() ==  State.RUNNING){
+				GameState.setState(State.PAUSE);		
 			}
 			else{
-				gameState.setState(State.RUNNING);
+				GameState.setState(State.RUNNING);
 			}
-			System.out.println("STATE: " + gameState.getState());
+			System.out.println("STATE: " + GameState.getState());
 		}
 		
 		if (key == KeyEvent.VK_X){
-			if(gameState.getState() == State.RUNNING && isBombPlaced == false){
+			if(GameState.getState() == State.RUNNING && isBombPlaced == false){
 				if(gridMap[posX][posY] != Cell.PLAYERANDBOMB){
 					System.out.println("BOMBAMAN<>BOMBAMAN FRENLY NEIGBOHUD BOMBAMAN");
+					
 					gridMap[posX][posY] = Cell.PLAYERANDBOMB;
-
+					
 					bomb = new Bomb(posX, posY, gridMap, this);
 					Thread t = new Thread(bomb);
 			        t.start();

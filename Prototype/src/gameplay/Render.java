@@ -36,6 +36,8 @@ public class Render extends JPanel implements ActionListener {
 	private PowerUps powerups;
 	private ExitWay exitway;
 	
+	private Boolean isPlayerAlive;
+	Boolean isNew;
 
 	private Boolean pauseMenuOpen;
 	//private String username;
@@ -51,23 +53,20 @@ public class Render extends JPanel implements ActionListener {
 		
 	public Render() {
 		System.out.println("HELLO MY NAME IS...: " + PlayerInfo.getUsername());
-		gameState = new GameState();
 		
+		GameState.setState(State.RUNNING);
 		brick = new Brick(gridMap);
 		bomb = new Bomb();
 		enemy = new Enemy(gridMap);
-		concrete = new Concrete(gridMap);
-		enemy = new Enemy(gridMap);
-
-		player = new Player(gridMap, gameState);
-		
-		
-		
-		
-		concrete = new Concrete(gridMap);
+		concrete = new Concrete(gridMap);		
 		powerups = new PowerUps(gridMap);
-		exitway = new ExitWay(gridMap);
-		player = new Player(gridMap, gameState);
+		exitway = new ExitWay(gridMap);	
+		player = new Player(gridMap);
+		isPlayerAlive = true;
+		isNew = false;
+		
+
+		
 		addKeyListener(new TAdapter());
 		setFocusable(true);
 		setBackground(Color.darkGray);
@@ -80,9 +79,26 @@ public class Render extends JPanel implements ActionListener {
 		
 		
 	}
+	public void reset(){
+		gridMap = grid.getGridMap();
+		GameState.setState(State.RUNNING);
+		brick = new Brick(gridMap);
+		bomb = new Bomb();
+		enemy = new Enemy(gridMap);
+		concrete = new Concrete(gridMap);		
+		powerups = new PowerUps(gridMap);
+		exitway = new ExitWay(gridMap);	
+		player = new Player(gridMap);
+
+		isPlayerAlive = true;
+		pauseMenuOpen = false;
+		timer = new Timer(100, this);
+		timer.start();
+	}
 
 	public void paint(Graphics g) {
-	
+		
+		
 		super.paint(g);
 		
 		g2d = (Graphics2D) g;
@@ -91,16 +107,18 @@ public class Render extends JPanel implements ActionListener {
 		//System.out.println("Your score is.... : " + Player.getScore());
 		
 
-		if(gameState.getState() == State.PAUSE){
+		if(GameState.getState() == State.PAUSE){
+				
 			
-
 		}
 		else{
+			isPlayerAlive = false;
 			for(int i = 0; i < gridLength; i++){
 				for(int j = 0; j < gridHeight; j++){
 			        switch (gridMap[i][j]) {
 			        case PLAYER:
 			    		g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
+			    		isPlayerAlive = true;
 			        	continue;
 			        case BOMB: 
 						g2d.drawImage(bomb.getImageBomb(), dimension * i , dimension * j, this);
@@ -113,6 +131,7 @@ public class Render extends JPanel implements ActionListener {
 						continue;
 			        case PLAYERANDBOMB:
 						g2d.drawImage(bomb.getImageBombPlayer(), dimension * i , dimension * j, this);
+			    		isPlayerAlive = true;
 			        	continue;
 			        case BOMBANDEXITWAY:
 						g2d.drawImage(bomb.getImageBombPlayer(), dimension * i , dimension * j, this);
@@ -135,16 +154,32 @@ public class Render extends JPanel implements ActionListener {
 			        	continue;
 			        case PLAYERANDEXITWAY:
 			        	g2d.drawImage(exitway.getImagePlayerAndExitway(), dimension * i, dimension * j, this);
+			    		isPlayerAlive = true;
 			        	continue;
 			        case EXITWAY:
 			        	g2d.drawImage(exitway.getImageExitway(), dimension * i, dimension * j, this);
 			        	continue;
 			        default:
-						break;          	
+
+			        	break;          	
 			        }
 				}
 			}
+			
 			enemy.move();
+			if(isPlayerAlive == false){
+				GameState.setState(State.PLAYERDEAD);
+				GameState.setState(State.RUNNING);
+				timer.stop();
+				reset();
+				
+//				
+//				if(isNew == false){
+//					g2d.dispose();
+//					new Bomberman();
+//					isNew = true;
+//				}
+			}
 			
 		}
 		
@@ -157,12 +192,12 @@ public class Render extends JPanel implements ActionListener {
 	
 		
 	public void actionPerformed(ActionEvent e) {
-		if(gameState.getState() == State.RUNNING){
+		if(GameState.getState() == State.RUNNING){
 			player.move();
 			repaint();
 		}	
 		
-		else if(gameState.getState() == State.PAUSE && pauseMenuOpen == false ){
+		else if(GameState.getState() == State.PAUSE && pauseMenuOpen == false ){
 			new PauseMenu(this, gameState);
 			pauseMenuOpen = true;
 		}
