@@ -234,6 +234,8 @@ public class Player {
 					gridMap[posX][posY] = Cell.PLAYERANDBOMB;
 					
 					bomb = new Bomb(posX, posY, gridMap, this);
+					// THIS IS WHERE WE SET THE RANGE!!!!!!!!!!!!!!!!!!! SET IT AS HIGH AS YOU WANT, FRIENDS
+					bomb.setRange(1);
 					Thread t = new Thread(bomb);
 			        t.start();
 			        isBombPlaced = true;
