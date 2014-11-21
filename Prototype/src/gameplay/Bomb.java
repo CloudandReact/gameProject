@@ -4,7 +4,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class Bomb extends Player implements Runnable  {
+public class Bomb implements Runnable  {
 
 	
 	private int range;
@@ -25,6 +25,7 @@ public class Bomb extends Player implements Runnable  {
 	private Image explode;
 	private Image bombandexitway;
 	
+	Player player;
 	long startTime;
 	long currentTime;
 	
@@ -35,7 +36,8 @@ public class Bomb extends Player implements Runnable  {
 		range = 1;
 	}
 	
-	public Bomb(int x, int y, Cell[][] z){
+	public Bomb(int x, int y, Cell[][] z, Player p){
+		player = p;
 		posX = x;
 		posY = y;
 		gridMap = z;
@@ -55,6 +57,15 @@ public class Bomb extends Player implements Runnable  {
 		ImageIcon bombAndExitway = new ImageIcon(getClass().getResource(bombAndExitways));
 		bombandexitway = bombAndExitway .getImage();
 	}
+	
+//	public Boolean getIsBombPlaced(){
+//		return isBombPlaced;
+//	}
+//	
+//	public void setIsBombPlaced(Boolean x){
+//		isBombPlaced = x;
+//	}
+//	
 	
 	public Image getImageBomb() {
 		return image;
@@ -194,8 +205,7 @@ public class Bomb extends Player implements Runnable  {
 					}
 					
 				}
-						
-				
+				player.setBombStatus(false);
 				range--;
 				
 			}

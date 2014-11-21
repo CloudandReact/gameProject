@@ -21,6 +21,8 @@ public class Player {
 	Cell[][] gridMap;
 	private Bomb bomb; 
 	private GameState gameState;
+	
+	private Boolean isBombPlaced;
 
 	public Player(){
 		
@@ -36,6 +38,7 @@ public class Player {
 		this.gridMap[1][1] = Cell.PLAYER;
 		setScore(0);
 		gameState = x;
+		this.isBombPlaced = false;
 	}
 	
 	public void move() {
@@ -157,7 +160,13 @@ public class Player {
 		
 
 	}
-
+	public Boolean getBombStatus(){
+		return isBombPlaced;
+	}
+	
+	public void setBombStatus(Boolean x){
+		isBombPlaced = x; 
+	}
 	public int getX() {
 		return x;
 	}
@@ -205,18 +214,20 @@ public class Player {
 		}
 		
 		if (key == KeyEvent.VK_X){
-			if(gameState.getState() == State.RUNNING){
+			if(gameState.getState() == State.RUNNING && isBombPlaced == false){
 				if(gridMap[posX][posY] != Cell.PLAYERANDBOMB){
 					System.out.println("BOMBAMAN<>BOMBAMAN FRENLY NEIGBOHUD BOMBAMAN");
 					gridMap[posX][posY] = Cell.PLAYERANDBOMB;
 
-					bomb = new Bomb(posX, posY, gridMap);
+					bomb = new Bomb(posX, posY, gridMap, this);
 					Thread t = new Thread(bomb);
 			        t.start();
+			        isBombPlaced = true;
 				}			
 			}
 
 		}
+		
 
 		if (key == KeyEvent.VK_LEFT) {
 			dx = -25;
