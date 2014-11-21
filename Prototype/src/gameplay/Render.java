@@ -35,6 +35,7 @@ public class Render extends JPanel implements ActionListener {
 	private Concrete concrete;
 	private PowerUps powerups;
 	private ExitWay exitway;
+	private int numberOfLives;
 	
 	private Boolean isPlayerAlive;
 	Boolean isNew;
@@ -47,39 +48,26 @@ public class Render extends JPanel implements ActionListener {
 	
 	
 	Grid grid = new Grid();
-	Cell[][] gridMap = grid.getGridMap();
+	Cell[][] gridMap;
 	
 	Graphics2D g2d;	
 		
 	public Render() {
 		System.out.println("HELLO MY NAME IS...: " + PlayerInfo.getUsername());
 		
-		GameState.setState(State.RUNNING);
-		brick = new Brick(gridMap);
-		bomb = new Bomb();
-		enemy = new Enemy(gridMap);
-		concrete = new Concrete(gridMap);		
-		powerups = new PowerUps(gridMap);
-		exitway = new ExitWay(gridMap);	
-		player = new Player(gridMap);
-		isPlayerAlive = true;
-		isNew = false;
-		
+		initialize();
 
-		
+		numberOfLives = 3;
 		addKeyListener(new TAdapter());
 		setFocusable(true);
 		setBackground(Color.darkGray);
 		setDoubleBuffered(true);
 		setFocusable(true);
 				
-		pauseMenuOpen = false;
-		timer = new Timer(100, this);
-		timer.start();
 		
 		
 	}
-	public void reset(){
+	public void initialize(){
 		gridMap = grid.getGridMap();
 		GameState.setState(State.RUNNING);
 		brick = new Brick(gridMap);
@@ -171,7 +159,16 @@ public class Render extends JPanel implements ActionListener {
 				GameState.setState(State.PLAYERDEAD);
 				GameState.setState(State.RUNNING);
 				timer.stop();
-				reset();
+				if(player.getLivesLeft() == 0){
+					System.out.println("No more lives left sorry friend");
+					// START FROM LEVEL 1... ADD LEVEL LOGIC, NEXT LEVEL LIVES RESTORED TO 3
+				}
+				else{
+					System.out.println("Lives Left...: ");
+					player.setLivesLeft(--numberOfLives);
+				}
+				
+				initialize();
 				
 //				
 //				if(isNew == false){

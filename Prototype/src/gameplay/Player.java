@@ -16,6 +16,7 @@ public class Player {
 	private int posX;
 	private int posY;
 	private static int score;
+	private int livesLeft;
 	
 	private Image image;
 	Cell[][] gridMap;
@@ -42,6 +43,9 @@ public class Player {
 	public void move() {
 
 		if (dx > 0) {
+			if(gridMap[posX + (dx / 25)][posY] == Cell.ENEMY){
+				gridMap[posX][posY] = Cell.EMPTY;
+			}
 			if (gridMap[posX + (dx / 25)][posY] == Cell.EMPTY 
 					|| gridMap[posX + (dx / 25)][posY] == Cell.POWERUPS 
 					|| gridMap[posX + (dx / 25)][posY] == Cell.EXITWAY
@@ -70,6 +74,9 @@ public class Player {
 			}
 		}
 		if (dx < 0) {
+			if(gridMap[posX - (dx / 25)][posY] == Cell.ENEMY){
+				gridMap[posX][posY] = Cell.EMPTY;
+			}
 			if (gridMap[posX + (dx / 25)][posY] == Cell.EMPTY 
 					|| gridMap[posX + (dx / 25)][posY] == Cell.POWERUPS
 					|| gridMap[posX + (dx / 25)][posY] == Cell.EXITWAY
@@ -100,6 +107,9 @@ public class Player {
 		}
 
 		if (dy > 0) {
+			if(gridMap[posX][posY + (dy / 25)] == Cell.ENEMY){
+				gridMap[posX][posY] = Cell.EMPTY;
+			}
 			if (gridMap[posX][posY + (dy / 25)] == Cell.EMPTY 
 					|| gridMap[posX][posY + (dy / 25)] == Cell.POWERUPS
 					||gridMap[posX][posY + (dy / 25)] == Cell.EXITWAY
@@ -127,6 +137,10 @@ public class Player {
 			}
 		}
 		if (dy < 0) {
+			// Dealing with enemy collisions. If theres an enemy, remove player from the grid so he is set to dead on the next paint. 
+			if(gridMap[posX][posY - (dy / 25)] == Cell.ENEMY){
+				gridMap[posX][posY] = Cell.EMPTY;
+			}
 			if (gridMap[posX][posY + (dy / 25)] == Cell.EMPTY 
 					|| gridMap[posX][posY + (dy / 25)] == Cell.POWERUPS
 					|| gridMap[posX][posY + (dy / 25)] == Cell.EXITWAY
@@ -211,6 +225,7 @@ public class Player {
 			System.out.println("STATE: " + GameState.getState());
 		}
 		
+		// Bomb Logic
 		if (key == KeyEvent.VK_X){
 			if(GameState.getState() == State.RUNNING && isBombPlaced == false){
 				if(gridMap[posX][posY] != Cell.PLAYERANDBOMB){
@@ -278,6 +293,14 @@ public class Player {
 
 	public static void setScore(int score) {
 		Player.score = score;
+	}
+
+	public int getLivesLeft() {
+		return livesLeft;
+	}
+
+	public void setLivesLeft(int livesLeft) {
+		this.livesLeft = livesLeft;
 	}
 
 //	public void setUsername(String name) {
