@@ -21,7 +21,6 @@ import menu.PauseMenu;
 public class Render extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private int dimension = 25;
 
 	private Player player;
 	private Timer timer;
@@ -113,60 +112,60 @@ public class Render extends JPanel implements ActionListener {
 				for (int j = 0; j < Bomberman.HEIGHT; j++) {
 					switch (gridMap[i][j]) {
 					case PLAYER:
-						g2d.drawImage(player.getImage(), dimension * (i - leftMostVisibleCell),
-								dimension * j, this);
+						g2d.drawImage(player.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell),
+								Bomberman.TILE_SIZE * j, this);
 						isPlayerAlive = true;
 						continue;
 					case BOMB:
-						g2d.drawImage(bomb.getImageBomb(), dimension * (i - leftMostVisibleCell),
-								dimension * j, this);
+						g2d.drawImage(bomb.getImageBomb(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell),
+								Bomberman.TILE_SIZE * j, this);
 						continue;
 					case CONCRETE:
-						g2d.drawImage(concrete.getImage(), dimension * (i - leftMostVisibleCell),
-								dimension * j, this);
+						g2d.drawImage(concrete.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell),
+								Bomberman.TILE_SIZE * j, this);
 						continue;
 					case BRICK:
-						g2d.drawImage(brick.getImage(), dimension * (i - leftMostVisibleCell),
-								dimension * j, this);
+						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell),
+								Bomberman.TILE_SIZE * j, this);
 						continue;
 					case PLAYERANDBOMB:
-						g2d.drawImage(bomb.getImageBombPlayer(), dimension * (i - leftMostVisibleCell),
-								dimension * j, this);
+						g2d.drawImage(bomb.getImageBombPlayer(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell),
+								Bomberman.TILE_SIZE * j, this);
 						isPlayerAlive = true;
 						continue;
 					case BOMBANDEXITWAY:
-						g2d.drawImage(bomb.getImageBombPlayer(), dimension * (i - leftMostVisibleCell),
-								dimension * j, this);
+						g2d.drawImage(bomb.getImageBombPlayer(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell),
+								Bomberman.TILE_SIZE * j, this);
 						continue;
 					case EXPLODE:
 						g2d.drawImage(bomb.getImageBombExplode(),
-								dimension * (i - leftMostVisibleCell), dimension * j, this);
+								Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						gridMap[i][j] = Cell.EMPTY;
 						continue;
 					case ENEMY:
-						g2d.drawImage(enemy.getImage(), dimension * (i - leftMostVisibleCell),
-								dimension * j, this);
+						g2d.drawImage(enemy.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell),
+								Bomberman.TILE_SIZE * j, this);
 						continue;
 					case BRICKANDPOWERUPS:
-						g2d.drawImage(brick.getImage(), dimension * (i - leftMostVisibleCell),
-								dimension * j, this);
+						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell),
+								Bomberman.TILE_SIZE * j, this);
 						continue;
 					case POWERUPS:
-						g2d.drawImage(powerups.getBombsImage(), dimension *(i - leftMostVisibleCell),
-								dimension * j, this);
+						g2d.drawImage(powerups.getBombsImage(), Bomberman.TILE_SIZE *(i - leftMostVisibleCell),
+								Bomberman.TILE_SIZE * j, this);
 						continue;
 					case BRICKANDEXITWAY:
-						g2d.drawImage(brick.getImage(), dimension * (i - leftMostVisibleCell),
-								dimension * j, this);
+						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell),
+								Bomberman.TILE_SIZE * j, this);
 						continue;
 					case PLAYERANDEXITWAY:
 						g2d.drawImage(exitway.getImagePlayerAndExitway(),
-								dimension * (i - leftMostVisibleCell), dimension * j, this);
+								Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						isPlayerAlive = true;
 						continue;
 					case EXITWAY:
-						g2d.drawImage(exitway.getImageExitway(), dimension * (i - leftMostVisibleCell),
-								dimension * j, this);
+						g2d.drawImage(exitway.getImageExitway(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell),
+								Bomberman.TILE_SIZE * j, this);
 						continue;
 					default:
 
