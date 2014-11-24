@@ -5,10 +5,12 @@ import gameplay.PlayerInfo;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -90,5 +92,42 @@ public class MainMenu extends JFrame{
 			
 		});
 		
+
+		accountManagementButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Execute when button is pressed
+				//AccountMenu.destroyFrame();
+				new AccountModifications(panelL);
+				
+			}
+			
+		});
+		loadGameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//
+				try {
+					new LoadGame(panelL);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+			
+		});
+		loadLevelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//
+				if(PlayerInfo.unlockedLevel==1){
+					JOptionPane.showMessageDialog(null,"Please start a new game no levels availible", "Error", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else{
+					
+				}
+				
+			}
+			
+		});
+
 	}
 }
