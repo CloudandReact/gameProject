@@ -14,7 +14,7 @@ public class Grid {
 		//gridSizeY = Bomberman.getDimensionY();
 		//dimension = 25;
 		//gridMap = new Cell[gridSizeX/dimension][gridSizeY/dimension];
-		gridMap = new Cell[33][15];
+		gridMap = new Cell[Bomberman.WIDTH][Bomberman.HEIGHT];
 		
 
 	}
@@ -26,8 +26,8 @@ public class Grid {
 //	}
 	
 	public Cell[][] getGridMap(){
-		for(int i = 0; i < 33; i++){
-			for(int j = 0; j < 15; j++){
+		for(int i = 0; i < Bomberman.WIDTH; i++){
+			for(int j = 0; j < Bomberman.HEIGHT; j++){
 				gridMap[i][j] = Cell.EMPTY;
 			}
 		}

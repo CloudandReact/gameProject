@@ -21,8 +21,6 @@ import menu.PauseMenu;
 public class Render extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private int gridLength = 33;
-	private int gridHeight = 15;
 	private int dimension = 25;
 
 	private Player player;
@@ -112,7 +110,7 @@ public class Render extends JPanel implements ActionListener {
 		} else {
 			isPlayerAlive = false;
 			for (int i = leftMostVisibleCell; i <= rightMostVisibleCell; i++) {
-				for (int j = 0; j < gridHeight; j++) {
+				for (int j = 0; j < Bomberman.HEIGHT; j++) {
 					switch (gridMap[i][j]) {
 					case PLAYER:
 						g2d.drawImage(player.getImage(), dimension * (i - leftMostVisibleCell),

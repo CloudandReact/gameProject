@@ -62,8 +62,8 @@ public class Enemy {
 
 	public void move() {
 
-		for (int posX = 1; posX < 32; posX++) {
-			for (int posY = 1; posY < 14; posY++) {
+		for (int posX = 1; posX < Bomberman.WIDTH-1; posX++) {
+			for (int posY = 1; posY < Bomberman.HEIGHT-1; posY++) {
 				if (gridMap[posX][posY] == Cell.ENEMY) {
 					int rand = randInt(1, 2);
 					if (rand == 1) {
