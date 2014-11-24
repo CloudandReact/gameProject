@@ -9,7 +9,7 @@ public class Enemy {
 	private String enemy = "enemy.png";
 	private Image image;
 	Cell[][] gridMap;
-	private int dimension = 25;
+	
 	private int enemyDirection;
 	private static int numberOfEnemies;
 
@@ -22,8 +22,8 @@ public class Enemy {
 	}
 
 	private void placeEnemies() {
-		for (int i = 2; i <= 31; i++) {
-			for (int j = 2; j <= 13; j++) {
+		for (int i = 2; i < Bomberman.WIDTH; i++) {
+			for (int j = 2; j < Bomberman.HEIGHT; j++) {
 				int rand = randInt(1, 55);
 				if (rand == 5) {
 					if(gridMap[i][j] == Cell.EMPTY){
