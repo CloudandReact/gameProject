@@ -13,6 +13,10 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.*;
 
+
+import gameplay.Player;
+import gameplay.PlayerInfo;
+
 public class Login {
 
 	JLabel usernameLabel = new JLabel("Username");
@@ -71,6 +75,15 @@ public class Login {
 				if (loginValidity.loginIsValid(username, password)) {
 					// go to menu
 					new MainMenu(panelL, username);
+					//added storing of username and password
+					PlayerInfo.usernameStatic=username;
+					PlayerInfo.passwordStatic=password;
+					StoreStatistics storingIntoPlayer= new StoreStatistics();
+					storingIntoPlayer.checkNumberOfGames();
+					//this line just for test will see if to make it void and store all info in player
+					int jar=storingIntoPlayer.numberOfGames();
+					
+	
 				} else {
 					JOptionPane.showMessageDialog(null,"Incorrect username or password. Please retry.",password, JOptionPane.INFORMATION_MESSAGE);
 

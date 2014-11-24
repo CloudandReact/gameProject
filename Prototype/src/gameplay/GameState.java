@@ -2,17 +2,27 @@ package gameplay;
 
 public class GameState {
 	
-	private State state = State.RUNNING;
+
+	private static State state;
+
 	
-	public GameState(){
+	public static void setState(State newState){
+		state = newState;
+		validateState();
+	}
+	
+	private static void validateState() {
+		if(state == State.PLAYERDEAD){
+			System.out.println("PLAYERDEAD");
+			
+			state = State.RUNNING;
+			//new Bomberman();
+			
+		}
 		
 	}
-	
-	public void setState(State newState){
-		state = newState;
-	}
-	
-	public State getState(){
+
+	public static State getState(){
 		return state;
 	}
 }

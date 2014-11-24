@@ -16,17 +16,19 @@ public class Player {
 	private int posX;
 	private int posY;
 	private static int score;
+	private int livesLeft;
 	
 	private Image image;
 	Cell[][] gridMap;
 	private Bomb bomb; 
-	private GameState gameState;
+	
+	private Boolean isBombPlaced;
 
 	public Player(){
 		
 	}
 
-	public Player(Cell[][] gridMap, GameState x) {
+	public Player(Cell[][] gridMap) {
 		loadImage();
 		this.setX(25);
 		this.setY(25);
@@ -35,12 +37,15 @@ public class Player {
 		this.gridMap = gridMap;
 		this.gridMap[1][1] = Cell.PLAYER;
 		setScore(0);
-		gameState = x;
+		this.isBombPlaced = false;
 	}
 	
 	public void move() {
 
 		if (dx > 0) {
+			if(gridMap[posX + (dx / 25)][posY] == Cell.ENEMY){
+				gridMap[posX][posY] = Cell.EMPTY;
+			}
 			if (gridMap[posX + (dx / 25)][posY] == Cell.EMPTY 
 					|| gridMap[posX + (dx / 25)][posY] == Cell.POWERUPS 
 					|| gridMap[posX + (dx / 25)][posY] == Cell.EXITWAY
@@ -69,6 +74,9 @@ public class Player {
 			}
 		}
 		if (dx < 0) {
+			if(gridMap[posX - (dx / 25)][posY] == Cell.ENEMY){
+				gridMap[posX][posY] = Cell.EMPTY;
+			}
 			if (gridMap[posX + (dx / 25)][posY] == Cell.EMPTY 
 					|| gridMap[posX + (dx / 25)][posY] == Cell.POWERUPS
 					|| gridMap[posX + (dx / 25)][posY] == Cell.EXITWAY
@@ -99,6 +107,9 @@ public class Player {
 		}
 
 		if (dy > 0) {
+			if(gridMap[posX][posY + (dy / 25)] == Cell.ENEMY){
+				gridMap[posX][posY] = Cell.EMPTY;
+			}
 			if (gridMap[posX][posY + (dy / 25)] == Cell.EMPTY 
 					|| gridMap[posX][posY + (dy / 25)] == Cell.POWERUPS
 					||gridMap[posX][posY + (dy / 25)] == Cell.EXITWAY
@@ -126,6 +137,10 @@ public class Player {
 			}
 		}
 		if (dy < 0) {
+			// Dealing with enemy collisions. If theres an enemy, remove player from the grid so he is set to dead on the next paint. 
+			if(gridMap[posX][posY - (dy / 25)] == Cell.ENEMY){
+				gridMap[posX][posY] = Cell.EMPTY;
+			}
 			if (gridMap[posX][posY + (dy / 25)] == Cell.EMPTY 
 					|| gridMap[posX][posY + (dy / 25)] == Cell.POWERUPS
 					|| gridMap[posX][posY + (dy / 25)] == Cell.EXITWAY
@@ -157,7 +172,13 @@ public class Player {
 		
 
 	}
-
+	public Boolean getBombStatus(){
+		return isBombPlaced;
+	}
+	
+	public void setBombStatus(Boolean x){
+		isBombPlaced = x; 
+	}
 	public int getX() {
 		return x;
 	}
@@ -195,28 +216,34 @@ public class Player {
 		
 		// Pausing
 		if (key == KeyEvent.VK_SPACE){
-			if(gameState.getState() == State.RUNNING){
-				gameState.setState(State.PAUSE);		
+			if(GameState.getState() ==  State.RUNNING){
+				GameState.setState(State.PAUSE);		
 			}
 			else{
-				gameState.setState(State.RUNNING);
+				GameState.setState(State.RUNNING);
 			}
-			System.out.println("STATE: " + gameState.getState());
+			System.out.println("STATE: " + GameState.getState());
 		}
 		
+		// Bomb Logic
 		if (key == KeyEvent.VK_X){
-			if(gameState.getState() == State.RUNNING){
+			if(GameState.getState() == State.RUNNING && isBombPlaced == false){
 				if(gridMap[posX][posY] != Cell.PLAYERANDBOMB){
 					System.out.println("BOMBAMAN<>BOMBAMAN FRENLY NEIGBOHUD BOMBAMAN");
+					
 					gridMap[posX][posY] = Cell.PLAYERANDBOMB;
-
-					bomb = new Bomb(posX, posY, gridMap);
+					
+					bomb = new Bomb(posX, posY, gridMap, this);
+					// THIS IS WHERE WE SET THE RANGE!!!!!!!!!!!!!!!!!!! SET IT AS HIGH AS YOU WANT, FRIENDS
+					bomb.setRange(1);
 					Thread t = new Thread(bomb);
 			        t.start();
+			        isBombPlaced = true;
 				}			
 			}
 
 		}
+		
 
 		if (key == KeyEvent.VK_LEFT) {
 			dx = -25;
@@ -268,6 +295,14 @@ public class Player {
 
 	public static void setScore(int score) {
 		Player.score = score;
+	}
+
+	public int getLivesLeft() {
+		return livesLeft;
+	}
+
+	public void setLivesLeft(int livesLeft) {
+		this.livesLeft = livesLeft;
 	}
 
 //	public void setUsername(String name) {
