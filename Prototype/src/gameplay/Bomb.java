@@ -4,7 +4,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class Bomb extends Player implements Runnable  {
+public class Bomb implements Runnable  {
 
 	
 	private int range;
