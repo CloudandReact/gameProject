@@ -2,6 +2,8 @@ package gameplay;
 
 import javax.swing.JFrame;
 
+import menu.AccountMenu;
+
 public class Bomberman extends JFrame {
 	/**
 	 * 
@@ -37,5 +39,9 @@ public class Bomberman extends JFrame {
 	public static int getDimensionY(){
 		return dimensionY;
 	}	
+	
+	public static void main(String[] args) {
+		new Bomberman();
+	}
 
 }
