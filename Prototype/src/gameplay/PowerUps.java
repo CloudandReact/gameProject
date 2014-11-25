@@ -28,22 +28,23 @@ public class PowerUps {
 	private Image imageWP;
 	private Image imageFP;
 	
+	private Grid grid;
 	
 	
-	public PowerUps(Cell[][] gridMap)
-	{
+	public PowerUps(Grid grid){
+		this.grid = grid;
 		loadImage();
-		placePowerups(gridMap);
+		placePowerups();
 
 	}
 	
 	
-	private void placePowerups(Cell[][] gridMap){
+	private void placePowerups(){
 		
 		int randX = randInt(2,31);
 		int randY = randInt(2,13); 
 		
-		gridMap[1][3] = Cell.BRICKANDPOWERUPS;
+		grid.setContents(1,3,Cell.BRICKANDPOWERUPS);
 		/*
 		switch(level) {
 		case 1:

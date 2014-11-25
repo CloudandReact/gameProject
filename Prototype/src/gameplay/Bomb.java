@@ -12,7 +12,6 @@ public class Bomb implements Runnable {
 
 	private int posX;
 	private int posY;
-	private Cell[][] gridMap;
 
 	private String bomb = "bomb.png";
 	private String bombPlayer = "bomb&Bomberman.jpg";
@@ -29,6 +28,8 @@ public class Bomb implements Runnable {
 	long startTime;
 	long currentTime;
 	
+	private Grid grid;
+	
 	/*
 	 * RANGE IS DEFAULTED TO 1 IN CONSTRUCTORS. TO SET RANGE USE SETTER ON BOMB OBJECT. USE THE SAME BOMB OBJECT SUPPLIED TO THE THREAD. 
 	 */
@@ -38,8 +39,8 @@ public class Bomb implements Runnable {
 		this.range = 1;
 	}
 
-	public Bomb(int posX, int posY, Cell[][] gridMap, Player player) {
-		this.gridMap = gridMap;
+	public Bomb(int posX, int posY, Grid grid, Player player) {
+		this.grid = grid;
 		this.player = player;
 		this.posX = posX;
 		this.posY = posY;
@@ -83,9 +84,6 @@ public class Bomb implements Runnable {
 		return bombandexitway;
 	}
 
-	public void bombLogic(int posX, int posY, Cell[][] gridMap) {
-
-	}
 
 	public static int getNumberOfEnemiesKilled() {
 		return numberOfEnemiesKilled;
@@ -93,14 +91,15 @@ public class Bomb implements Runnable {
 
 	@Override
 	public void run() {
+		
 
 		startTime = System.currentTimeMillis();
 
 		currentRange = 0;
 		// wait before exploding
 		while(true){
-			if ((currentTime = System.currentTimeMillis()) - startTime == 2000) {
-				System.out.println("StartTime: " + startTime + " CurrentTime: "+ currentTime);
+			
+			if ((currentTime = System.currentTimeMillis()) - startTime >= 2000) {
 				break;
 			}
 		}
@@ -108,34 +107,34 @@ public class Bomb implements Runnable {
 			
 		while (currentRange <= range) {
 
-			if (gridMap[posX + currentRange][posY] != Cell.CONCRETE) {
+			if (grid.getContents(posX + currentRange,posY) != Cell.CONCRETE) {
 				
-				if (gridMap[posX + currentRange][posY] == Cell.BRICKANDPOWERUPS) {
-					gridMap[posX + currentRange][posY] = Cell.POWERUPS;
+				if (grid.getContents(posX + currentRange,posY) == Cell.BRICKANDPOWERUPS) {
+					grid.setContents(posX + currentRange,posY,Cell.POWERUPS);
 
 				} 
-				else if (gridMap[posX + currentRange][posY] == Cell.BRICKANDEXITWAY) {
-					gridMap[posX + currentRange][posY] = Cell.EXITWAY;
+				else if (grid.getContents(posX + currentRange,posY) == Cell.BRICKANDEXITWAY) {
+					grid.setContents(posX + currentRange,posY,Cell.EXITWAY);
 				} 
-				else if (gridMap[posX + currentRange][posY] == Cell.EXITWAY) {
-					gridMap[posX + currentRange][posY] = Cell.EXITWAY;
+				else if (grid.getContents(posX + currentRange,posY) == Cell.EXITWAY) {
+					grid.setContents(posX + currentRange,posY,Cell.EXITWAY);
 				} 
-				else if (gridMap[posX + currentRange][posY] == Cell.ENEMY) {
+				else if (grid.getContents(posX + currentRange,posY) == Cell.ENEMY) {
 
 					numberOfEnemiesKilled++;
 					System.out.println(numberOfEnemiesKilled);
 					Player.setScore(Player.getScore() + 100);
-					gridMap[posX + currentRange][posY] = Cell.EXPLODE;
+					grid.setContents(posX + currentRange,posY,Cell.EXPLODE);
 
 				} 
 				else {
-					gridMap[posX + currentRange][posY] = Cell.EXPLODE;
+					grid.setContents(posX + currentRange,posY, Cell.EXPLODE);
 				}
 				
 				currentRange++;
 			} 
 			
-			else if(gridMap[posX + currentRange][posY] == Cell.CONCRETE) {
+			else if(grid.getContents(posX + currentRange,posY) == Cell.CONCRETE) {
 				// Come out of the loop, we don't want to explode across the
 				// concrete
 				break;
@@ -146,34 +145,34 @@ public class Bomb implements Runnable {
 		
 		while (currentRange <= range) {
 
-			if (gridMap[posX - currentRange][posY] != Cell.CONCRETE) {
+			if (grid.getContents(posX - currentRange,posY) != Cell.CONCRETE) {
 				
-				if (gridMap[posX - currentRange][posY] == Cell.BRICKANDPOWERUPS) {
-					gridMap[posX - currentRange][posY] = Cell.POWERUPS;
+				if (grid.getContents(posX - currentRange,posY) == Cell.BRICKANDPOWERUPS) {
+					grid.setContents(posX - currentRange,posY,Cell.POWERUPS);
 
 				} 
-				else if (gridMap[posX - currentRange][posY] == Cell.BRICKANDEXITWAY) {
-					gridMap[posX - currentRange][posY] = Cell.EXITWAY;
+				else if (grid.getContents(posX - currentRange,posY) == Cell.BRICKANDEXITWAY) {
+					grid.setContents(posX - currentRange,posY, Cell.EXITWAY);
 				} 
-				else if (gridMap[posX - currentRange][posY] == Cell.EXITWAY) {
-					gridMap[posX - currentRange][posY] = Cell.EXITWAY;
+				else if (grid.getContents(posX - currentRange,posY) == Cell.EXITWAY) {
+					grid.setContents(posX - currentRange,posY,Cell.EXITWAY);
 				} 
-				else if (gridMap[posX - currentRange][posY] == Cell.ENEMY) {
+				else if (grid.getContents(posX - currentRange,posY) == Cell.ENEMY) {
 
 					numberOfEnemiesKilled++;
 					System.out.println(numberOfEnemiesKilled);
 					Player.setScore(Player.getScore() + 100);
-					gridMap[posX - currentRange][posY] = Cell.EXPLODE;
+					grid.setContents(posX - currentRange,posY, Cell.EXPLODE);
 
 				} 
 				else {
-					gridMap[posX - currentRange][posY] = Cell.EXPLODE;
+					grid.setContents(posX - currentRange,posY, Cell.EXPLODE);
 				}
 				
 				currentRange++;
 			} 
 			
-			else if(gridMap[posX - currentRange][posY] == Cell.CONCRETE) {
+			else if(grid.getContents(posX - currentRange,posY) == Cell.CONCRETE) {
 				// Come out of the loop, we don't want to explode across the
 				// concrete
 				break;
@@ -184,34 +183,34 @@ public class Bomb implements Runnable {
 		
 		while (currentRange <= range) {
 			System.out.println("CURRENT RANGE IN Y: ..." + currentRange);
-			if (gridMap[posX][posY + currentRange] != Cell.CONCRETE) {
+			if (grid.getContents(posX,posY + currentRange) != Cell.CONCRETE) {
 				
-				if (gridMap[posX][posY + currentRange] == Cell.BRICKANDPOWERUPS) {
-					gridMap[posX][posY + currentRange] = Cell.POWERUPS;
+				if (grid.getContents(posX,posY + currentRange) == Cell.BRICKANDPOWERUPS) {
+					grid.setContents(posX,posY + currentRange, Cell.POWERUPS);
 
 				} 
-				else if (gridMap[posX][posY + currentRange] == Cell.BRICKANDEXITWAY) {
-					gridMap[posX][posY + currentRange] = Cell.EXITWAY;
+				else if (grid.getContents(posX,posY + currentRange) == Cell.BRICKANDEXITWAY) {
+					grid.setContents(posX,posY + currentRange,Cell.EXITWAY);
 				} 
-				else if (gridMap[posX][posY + currentRange] == Cell.EXITWAY) {
-					gridMap[posX][posY + currentRange] = Cell.EXITWAY;
+				else if (grid.getContents(posX,posY + currentRange) == Cell.EXITWAY) {
+					grid.setContents(posX,posY + currentRange,Cell.EXITWAY);
 				} 
-				else if (gridMap[posX][posY + currentRange] == Cell.ENEMY) {
+				else if (grid.getContents(posX,posY + currentRange) == Cell.ENEMY) {
 
 					numberOfEnemiesKilled++;
 					System.out.println("Killed one!");
 					System.out.println(numberOfEnemiesKilled);
 					Player.setScore(Player.getScore() + 100);
-					gridMap[posX][posY + currentRange] = Cell.EXPLODE;
+					grid.setContents(posX,posY + currentRange,Cell.EXPLODE);
 
 				} 
 				else {
-					gridMap[posX][posY + currentRange] = Cell.EXPLODE;
+					grid.setContents(posX,posY + currentRange,Cell.EXPLODE);
 				}
 				currentRange++;
 			} 
 			
-			else if(gridMap[posX][posY + currentRange] == Cell.CONCRETE) {
+			else if(grid.getContents(posX,posY + currentRange) == Cell.CONCRETE) {
 				// Come out of the loop, we don't want to explode across the
 				// concrete
 				break;
@@ -221,34 +220,36 @@ public class Bomb implements Runnable {
 		currentRange = 0;
 		
 		while (currentRange <= range) {
-			if (gridMap[posX][posY - currentRange] != Cell.CONCRETE) {
+			if (grid.getContents(posX,posY - currentRange) != Cell.CONCRETE) {
 				
-				if (gridMap[posX][posY - currentRange] == Cell.BRICKANDPOWERUPS) {
-					gridMap[posX][posY - currentRange] = Cell.POWERUPS;
+				if (grid.getContents(posX,posY - currentRange) == Cell.BRICKANDPOWERUPS) {
+					grid.setContents(posX,posY - currentRange,Cell.POWERUPS);
 
 				} 
-				else if (gridMap[posX][posY - currentRange] == Cell.BRICKANDEXITWAY) {
-					gridMap[posX][posY - currentRange] = Cell.EXITWAY;
+				else if (grid.getContents(posX,posY - currentRange) == Cell.BRICKANDEXITWAY) {
+					grid.setContents(posX,posY - currentRange,Cell.EXITWAY);
 				} 
-				else if (gridMap[posX][posY - currentRange] == Cell.EXITWAY) {
-					gridMap[posX][posY - currentRange] = Cell.EXITWAY;
+				else if (grid.getContents(posX,posY - currentRange) == Cell.EXITWAY) {
+					grid.setContents(posX,posY - currentRange,Cell.EXITWAY);
 				} 
-				else if (gridMap[posX][posY - currentRange] == Cell.ENEMY) {
+				else if (grid.getContents(posX,posY - currentRange) == Cell.ENEMY) {
 
 					numberOfEnemiesKilled++;
 					System.out.println("Killed one!");
 					System.out.println(numberOfEnemiesKilled);
 					Player.setScore(Player.getScore() + 100);
-					gridMap[posX][posY - currentRange] = Cell.EXPLODE;
+					grid.setContents(posX,posY - currentRange,Cell.EXPLODE);
 
 				} 
 				else {
-					gridMap[posX][posY - currentRange] = Cell.EXPLODE;
+					grid.setContents(posX,posY - currentRange,Cell.EXPLODE);
+					System.out.println("HERE");
 				}
+				
 				currentRange++;
 			} 
 			
-			else if(gridMap[posX][posY - currentRange] == Cell.CONCRETE) {
+			else if(grid.getContents(posX,posY - currentRange) == Cell.CONCRETE) {
 				// Come out of the loop, we don't want to explode across the concrete
 				break;
 			}

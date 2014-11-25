@@ -13,19 +13,22 @@ public class ExitWay {
 	private Image imagePlayerAndExitway;
 	private static Boolean access = false;
 	
-	public ExitWay (Cell[][] gridMap)
-	{
+	Grid grid;
+	
+	public ExitWay (Grid grid){
+		this.grid = grid;
 		loadImage();
-		placeExitWay(gridMap);
+		placeExitWay();
 
 	}
 	
-	private void placeExitWay(Cell[][] gridMap){
+	private void placeExitWay(){
 		
 		int randX = randInt(2,31);
 		int randY = randInt(2,13); 
 		
-		gridMap[4][1] = Cell.BRICKANDEXITWAY;
+		grid.setContents(4,1,Cell.BRICKANDPOWERUPS);
+		
 	}
 	
 	public static int randInt(int min, int max) {

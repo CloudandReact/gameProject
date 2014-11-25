@@ -5,17 +5,21 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
-public class Enemy {
+import Astar.*;
+
+public class Enemy implements Mover {
 	private String enemy = "enemy.png";
 	private Image image;
-	Cell[][] gridMap;
+	
+	private Grid grid;
+
 	
 	private int enemyDirection;
 	private static int numberOfEnemies;
 
-	public Enemy(Cell[][] x) {
+	public Enemy(Grid grid) {
 		loadImage();
-		gridMap = x;
+		this.grid = grid;
 		placeEnemies();
 		numberOfEnemies = 0;
 
@@ -26,8 +30,8 @@ public class Enemy {
 			for (int j = 2; j < Bomberman.HEIGHT; j++) {
 				int rand = randInt(1, 55);
 				if (rand == 5) {
-					if(gridMap[i][j] == Cell.EMPTY){
-						gridMap[i][j] = Cell.ENEMY;
+					if(grid.getContents(i,j) == Cell.EMPTY){
+						grid.setContents(i, j, Cell.ENEMY);
 						numberOfEnemies++;					
 					}
 				}
@@ -60,14 +64,23 @@ public class Enemy {
 		return numberOfEnemies;
 	}
 
+	
+//	
+//	public void  move(){
+//		Grid grid = null;
+//		AStarPathFinder finder = new AStarPathFinder(grid);
+//		
+//	}
+	
+	
 	public void move() {
 
 		for (int posX = 1; posX < Bomberman.WIDTH-1; posX++) {
 			for (int posY = 1; posY < Bomberman.HEIGHT-1; posY++) {
-				if (gridMap[posX][posY] == Cell.ENEMY) {
+				if (grid.getContents(posX,posY) == Cell.ENEMY) {
 					int rand = randInt(1, 2);
 					if (rand == 1) {
-						if (gridMap[posX + enemyDirection][posY] != Cell.BRICK && gridMap[posX + enemyDirection][posY] != Cell.CONCRETE) {
+						if (grid.getContents(posX + enemyDirection,posY) != Cell.BRICK && grid.getContents(posX + enemyDirection,posY) != Cell.CONCRETE) {
 							enemyDirection = 1;
 							//System.out.println("X IS POSITIVE");
 						} else {
@@ -75,17 +88,16 @@ public class Enemy {
 							//System.out.println("X IS NEGATIVE");
 						}
 
-						if (gridMap[posX + enemyDirection][posY] == Cell.EMPTY || gridMap[posX + enemyDirection][posY] == Cell.PLAYER) {
-							gridMap[posX][posY] = Cell.EMPTY; 
-							gridMap[posX + enemyDirection][posY] = Cell.ENEMY;
-
+						if(grid.getContents(posX + enemyDirection,posY) == Cell.EMPTY || grid.getContents(posX + enemyDirection,posY) == Cell.PLAYER) {
+							grid.setContents(posX,posY,Cell.EMPTY);
+							grid.setContents(posX+enemyDirection,posY,Cell.ENEMY);				
 						}
 
 					}
 
 					else {
-						if (gridMap[posX][posY + enemyDirection] != Cell.BRICK
-								&& gridMap[posX][posY + enemyDirection] != Cell.CONCRETE) {
+						if (grid.getContents(posX, posY+enemyDirection) != Cell.BRICK && grid.getContents(posX, posY+enemyDirection) != Cell.CONCRETE) {
+							
 							enemyDirection = 1;
 							//System.out.println("Y IS POSITIVE");
 
@@ -94,10 +106,9 @@ public class Enemy {
 							//System.out.println("Y IS NEGATIVE");
 
 						}
-						if (gridMap[posX][posY + enemyDirection] == Cell.EMPTY
-								|| gridMap[posX][posY + enemyDirection] == Cell.PLAYER) {
-							gridMap[posX][posY] = Cell.EMPTY;
-							gridMap[posX][posY + enemyDirection] = Cell.ENEMY;
+						if (grid.getContents(posX, posY+enemyDirection) == Cell.EMPTY || grid.getContents(posX, posY+enemyDirection) == Cell.PLAYER) {
+							grid.setContents(posX,posY,Cell.EMPTY);
+							grid.setContents(posX, posY+enemyDirection, Cell.ENEMY);
 						}
 					}
 				}

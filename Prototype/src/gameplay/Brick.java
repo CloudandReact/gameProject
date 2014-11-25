@@ -12,30 +12,25 @@ public class Brick {
 	private Image image;
 	private Boolean powerUpPlaced = false;
 	
-	public Brick(Cell[][] gridMap)
-	{
+	private Grid grid;
+	
+	public Brick(Grid grid){
 		loadImage();
-		placeBricks(gridMap);
+		this.grid = grid;
+		placeBricks();
 
 	}
 	
-	private void placeBricks(Cell[][] gridMap){
-		for (int i = 1; i < Bomberman.WIDTH; i++)
-		{
-			for (int j = 1; j < Bomberman.HEIGHT; j++)
-			{
+	private void placeBricks(){
+		for (int i = 1; i < Bomberman.WIDTH; i++){
+			for (int j = 1; j < Bomberman.HEIGHT; j++){
 				int rand = randInt(1,3);
 				if(rand == 1){
-					gridMap[i][j] = Cell.BRICK;			
+					grid.setContents(i, j, Cell.BRICK);			
 				}
 				
-				/*if(!powerUpPlaced){
-					
-				}			
-				powerUpPlaced = true;*/
-
 				if ((i == 1 && j == 1) || (i == 1 && j == 2) || (i == 2 && j == 1)) {
-					gridMap[i][j] = Cell.EMPTY;
+					grid.setContents(i, j, Cell.EMPTY);	
 				}
 			}
 		}

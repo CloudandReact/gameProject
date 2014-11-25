@@ -17,89 +17,89 @@ public class Player {
 	private int posY;
 	private static int score;
 	private int livesLeft;
-	
+
 	private Image image;
-	Cell[][] gridMap;
-	private Bomb bomb; 
-	
+	Grid grid;
+	private Bomb bomb;
+
 	private Boolean isBombPlaced;
 
-	public Player(){
-		
+	public Player() {
+
 	}
 
-	public Player(Cell[][] gridMap) {
+	public Player(Grid grid) {
 		loadImage();
 		this.setX(25);
 		this.setY(25);
 		this.posX = 1;
 		this.posY = 1;
-		this.gridMap = gridMap;
-		this.gridMap[1][1] = Cell.PLAYER;
+		this.grid = grid;
+		this.grid.setContents(1, 1, Cell.PLAYER);
 		setScore(0);
 		this.isBombPlaced = false;
 	}
-	
+
 	public void move() {
 
 		if (dx > 0) {
-			if(gridMap[posX + (dx / 25)][posY] == Cell.ENEMY){
-				gridMap[posX][posY] = Cell.EMPTY;
+			if(grid.getContents(posX + (dx / 25), posY) == Cell.ENEMY){
+				grid.setContents(posX, posY, Cell.EMPTY);
 			}
-			if (gridMap[posX + (dx / 25)][posY] == Cell.EMPTY 
-					|| gridMap[posX + (dx / 25)][posY] == Cell.POWERUPS 
-					|| gridMap[posX + (dx / 25)][posY] == Cell.EXITWAY
+			if (grid.getContents(posX + (dx / 25), posY) == Cell.EMPTY 
+					|| grid.getContents(posX + (dx / 25), posY) == Cell.POWERUPS 
+					|| grid.getContents(posX + (dx / 25), posY) == Cell.EXITWAY
 					) {
 				
-				if (gridMap[posX][posY] == Cell.PLAYERANDBOMB) {
-					gridMap[posX][posY] = Cell.BOMB;
+				if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
+					grid.setContents(posX, posY, Cell.BOMB);
 				}
-				else if (gridMap[posX][posY] == Cell.EXITWAY) {
-					gridMap[posX][posY] = Cell.PLAYERANDEXITWAY;
+				else if (grid.getContents(posX, posY) == Cell.EXITWAY) {
+					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
 				}
-				else if (gridMap[posX][posY] == Cell.PLAYERANDEXITWAY) {
-					gridMap[posX][posY] = Cell.EXITWAY;
+				else if (grid.getContents(posX, posY) == Cell.PLAYERANDEXITWAY) {
+					grid.setContents(posX, posY, Cell.EXITWAY);
 				}
 				else {
-					gridMap[posX][posY] = Cell.EMPTY;
+					grid.setContents(posX, posY, Cell.EMPTY);
 				}
 				posX++;
-				if(gridMap[posX][posY] == Cell.EXITWAY){
-					gridMap[posX][posY] = Cell.PLAYERANDEXITWAY;
+				if(grid.getContents(posX, posY) == Cell.EXITWAY){
+					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
 				}
 				else{
-				gridMap[posX][posY] = Cell.PLAYER;
+				grid.setContents(posX, posY, Cell.PLAYER);
 				}
 				x += dx;
 			}
 		}
 		if (dx < 0) {
-			if(gridMap[posX - (dx / 25)][posY] == Cell.ENEMY){
-				gridMap[posX][posY] = Cell.EMPTY;
+			if(grid.getContents(posX - (dx / 25), posY) == Cell.ENEMY){
+				grid.setContents(posX, posY, Cell.EMPTY);
 			}
-			if (gridMap[posX + (dx / 25)][posY] == Cell.EMPTY 
-					|| gridMap[posX + (dx / 25)][posY] == Cell.POWERUPS
-					|| gridMap[posX + (dx / 25)][posY] == Cell.EXITWAY
+			if (grid.getContents(posX + (dx / 25), posY) == Cell.EMPTY 
+					|| grid.getContents(posX + (dx / 25), posY) == Cell.POWERUPS
+					|| grid.getContents(posX + (dx / 25), posY) == Cell.EXITWAY
 					) {
 				
-				if (gridMap[posX][posY] == Cell.PLAYERANDBOMB) {
-					gridMap[posX][posY] = Cell.BOMB;
+				if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
+					grid.setContents(posX, posY, Cell.BOMB);
 				}
-				else if (gridMap[posX][posY] == Cell.EXITWAY) {
-					gridMap[posX][posY] = Cell.PLAYERANDEXITWAY;
+				else if (grid.getContents(posX, posY) == Cell.EXITWAY) {
+					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
 				}
-				else if (gridMap[posX][posY] == Cell.PLAYERANDEXITWAY) {
-					gridMap[posX][posY] = Cell.EXITWAY;
+				else if (grid.getContents(posX, posY) == Cell.PLAYERANDEXITWAY) {
+					grid.setContents(posX, posY, Cell.EXITWAY);
 				}
 				else {
-					gridMap[posX][posY] = Cell.EMPTY;
+					grid.setContents(posX, posY, Cell.EMPTY);
 				}
 				posX--;
-				if(gridMap[posX][posY] == Cell.EXITWAY){
-					gridMap[posX][posY] = Cell.PLAYERANDEXITWAY;
+				if(grid.getContents(posX, posY) == Cell.EXITWAY){
+					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
 				}
 				else{
-				gridMap[posX][posY] = Cell.PLAYER;
+				grid.setContents(posX, posY, Cell.PLAYER);
 				}
 				x += dx;
 			}
@@ -107,62 +107,62 @@ public class Player {
 		}
 
 		if (dy > 0) {
-			if(gridMap[posX][posY + (dy / 25)] == Cell.ENEMY){
-				gridMap[posX][posY] = Cell.EMPTY;
+			if(grid.getContents(posX, posY + (dy / 25)) == Cell.ENEMY){
+				grid.setContents(posX, posY, Cell.EMPTY);
 			}
-			if (gridMap[posX][posY + (dy / 25)] == Cell.EMPTY 
-					|| gridMap[posX][posY + (dy / 25)] == Cell.POWERUPS
-					||gridMap[posX][posY + (dy / 25)] == Cell.EXITWAY
+			if (grid.getContents(posX, posY + (dy / 25)) == Cell.EMPTY 
+					|| grid.getContents(posX, posY + (dy / 25)) == Cell.POWERUPS
+					||grid.getContents(posX, posY + (dy / 25)) == Cell.EXITWAY
 					) {
-				if (gridMap[posX][posY] == Cell.PLAYERANDBOMB) {
-					gridMap[posX][posY] = Cell.BOMB;
+				if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
+					grid.setContents(posX, posY, Cell.BOMB);
 				}
-				else if (gridMap[posX][posY] == Cell.EXITWAY) {
-					gridMap[posX][posY] = Cell.PLAYERANDEXITWAY;
+				else if (grid.getContents(posX, posY) == Cell.EXITWAY) {
+					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
 				}
-				else if (gridMap[posX][posY] == Cell.PLAYERANDEXITWAY) {
-					gridMap[posX][posY] = Cell.EXITWAY;
+				else if (grid.getContents(posX, posY) == Cell.PLAYERANDEXITWAY) {
+					grid.setContents(posX, posY, Cell.EXITWAY);
 				}
 				else {
-					gridMap[posX][posY] = Cell.EMPTY;
+					grid.setContents(posX, posY, Cell.EMPTY);
 				}
 				posY++;
-				if(gridMap[posX][posY] == Cell.EXITWAY){
-					gridMap[posX][posY] = Cell.PLAYERANDEXITWAY;
+				if(grid.getContents(posX, posY) == Cell.EXITWAY){
+					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
 				}
 				else{
-				gridMap[posX][posY] = Cell.PLAYER;
+				grid.setContents(posX, posY, Cell.PLAYER);
 				}
 				y += dy;
 			}
 		}
 		if (dy < 0) {
 			// Dealing with enemy collisions. If theres an enemy, remove player from the grid so he is set to dead on the next paint. 
-			if(gridMap[posX][posY - (dy / 25)] == Cell.ENEMY){
-				gridMap[posX][posY] = Cell.EMPTY;
+			if(grid.getContents(posX, posY - (dy / 25)) == Cell.ENEMY){
+				grid.setContents(posX, posY, Cell.EMPTY);
 			}
-			if (gridMap[posX][posY + (dy / 25)] == Cell.EMPTY 
-					|| gridMap[posX][posY + (dy / 25)] == Cell.POWERUPS
-					|| gridMap[posX][posY + (dy / 25)] == Cell.EXITWAY
+			if (grid.getContents(posX, posY + (dy / 25)) == Cell.EMPTY 
+					|| grid.getContents(posX, posY + (dy / 25)) == Cell.POWERUPS
+					|| grid.getContents(posX, posY + (dy / 25)) == Cell.EXITWAY
 					) {
-				if (gridMap[posX][posY] == Cell.PLAYERANDBOMB) {
-					gridMap[posX][posY] = Cell.BOMB;
+				if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
+					grid.setContents(posX, posY, Cell.BOMB);
 				}
-				else if (gridMap[posX][posY] == Cell.EXITWAY) {
-					gridMap[posX][posY] = Cell.PLAYERANDEXITWAY;
+				else if (grid.getContents(posX, posY) == Cell.EXITWAY) {
+					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
 				}
-				else if (gridMap[posX][posY] == Cell.PLAYERANDEXITWAY) {
-					gridMap[posX][posY] = Cell.EXITWAY;
+				else if (grid.getContents(posX, posY) == Cell.PLAYERANDEXITWAY) {
+					grid.setContents(posX, posY, Cell.EXITWAY);
 				}
 				else {
-					gridMap[posX][posY] = Cell.EMPTY;
+					grid.setContents(posX, posY, Cell.EMPTY);
 				}
 				posY--;
-				if(gridMap[posX][posY] == Cell.EXITWAY){
-					gridMap[posX][posY] = Cell.PLAYERANDEXITWAY;
+				if(grid.getContents(posX, posY) == Cell.EXITWAY){
+					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
 				}
 				else {
-				gridMap[posX][posY] = Cell.PLAYER;
+				grid.setContents(posX, posY, Cell.PLAYER);
 				}
 				y += dy;
 			}
@@ -172,13 +172,15 @@ public class Player {
 		
 
 	}
-	public Boolean getBombStatus(){
+
+	public Boolean getBombStatus() {
 		return isBombPlaced;
 	}
-	
-	public void setBombStatus(Boolean x){
-		isBombPlaced = x; 
+
+	public void setBombStatus(Boolean x) {
+		isBombPlaced = x;
 	}
+
 	public int getX() {
 		return x;
 	}
@@ -194,17 +196,15 @@ public class Player {
 	public void setY(int yNew) {
 		y = yNew;
 	}
-	
+
 	private void loadImage() {
 		ImageIcon ii = new ImageIcon(getClass().getResource(playerImage));
 		image = ii.getImage();
 	}
 
-
 	public Image getImage() {
 		return image;
 	}
-	
 
 	public void keyPressed(KeyEvent e) {
 
@@ -213,37 +213,37 @@ public class Player {
 		if (dx != 0 || dy != 0) {
 			return;
 		}
-		
+
 		// Pausing
-		if (key == KeyEvent.VK_SPACE){
-			if(GameState.getState() ==  State.RUNNING){
-				GameState.setState(State.PAUSE);		
-			}
-			else{
+		if (key == KeyEvent.VK_SPACE) {
+			if (GameState.getState() == State.RUNNING) {
+				GameState.setState(State.PAUSE);
+			} else {
 				GameState.setState(State.RUNNING);
 			}
 			System.out.println("STATE: " + GameState.getState());
 		}
-		
+
 		// Bomb Logic
-		if (key == KeyEvent.VK_X){
-			if(GameState.getState() == State.RUNNING && isBombPlaced == false){
-				if(gridMap[posX][posY] != Cell.PLAYERANDBOMB){
-					System.out.println("BOMBAMAN<>BOMBAMAN FRENLY NEIGBOHUD BOMBAMAN");
-					
-					gridMap[posX][posY] = Cell.PLAYERANDBOMB;
-					
-					bomb = new Bomb(posX, posY, gridMap, this);
-					// THIS IS WHERE WE SET THE RANGE!!!!!!!!!!!!!!!!!!! SET IT AS HIGH AS YOU WANT, FRIENDS
+		if (key == KeyEvent.VK_X) {
+			if (GameState.getState() == State.RUNNING && isBombPlaced == false) {
+				if (grid.getContents(posX, posY) != Cell.PLAYERANDBOMB) {
+					System.out
+							.println("BOMBAMAN<>BOMBAMAN FRENLY NEIGBOHUD BOMBAMAN");
+
+					grid.setContents(posX, posY, Cell.PLAYERANDBOMB);
+
+					bomb = new Bomb(posX, posY, grid, this);
+					// THIS IS WHERE WE SET THE RANGE!!!!!!!!!!!!!!!!!!! SET IT
+					// AS HIGH AS YOU WANT, FRIENDS
 					bomb.setRange(1);
 					Thread t = new Thread(bomb);
-			        t.start();
-			        isBombPlaced = true;
-				}			
+					t.start();
+					isBombPlaced = true;
+				}
 			}
 
 		}
-		
 
 		if (key == KeyEvent.VK_LEFT) {
 			dx = -25;
@@ -264,12 +264,12 @@ public class Player {
 
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
-		
-		if (key == KeyEvent.VK_X){
-			
+
+		if (key == KeyEvent.VK_X) {
+
 		}
-		if (key == KeyEvent.VK_ESCAPE){
-		
+		if (key == KeyEvent.VK_ESCAPE) {
+
 		}
 
 		if (key == KeyEvent.VK_LEFT) {
@@ -305,9 +305,8 @@ public class Player {
 		this.livesLeft = livesLeft;
 	}
 
-//	public void setUsername(String name) {
-//		this.username = name;	
-//	}
-
+	// public void setUsername(String name) {
+	// this.username = name;
+	// }
 
 }

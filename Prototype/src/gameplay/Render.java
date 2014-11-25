@@ -43,7 +43,6 @@ public class Render extends JPanel implements ActionListener {
 	// private Image imgConcrete;
 
 	Grid grid = new Grid();
-	Cell[][] gridMap;
 
 	Graphics2D g2d;
 
@@ -63,15 +62,16 @@ public class Render extends JPanel implements ActionListener {
 	}
 
 	public void initialize() {
-		gridMap = grid.getGridMap();
+
+		grid.initializeGridMap();
 		GameState.setState(State.RUNNING);
-		brick = new Brick(gridMap);
+		brick = new Brick(grid);
 		bomb = new Bomb();
-		enemy = new Enemy(gridMap);
-		concrete = new Concrete(gridMap);
-		powerups = new PowerUps(gridMap);
-		exitway = new ExitWay(gridMap);
-		player = new Player(gridMap);
+		enemy = new Enemy(grid);
+		concrete = new Concrete(grid);
+		powerups = new PowerUps(grid);
+		exitway = new ExitWay(grid);
+		player = new Player(grid); 
 
 		isPlayerAlive = true;
 		pauseMenuOpen = false;
@@ -97,7 +97,7 @@ public class Render extends JPanel implements ActionListener {
 			rightMostVisibleCell = 30;
 		}
 
-		System.out.println(leftMostVisibleCell + " " + rightMostVisibleCell);
+		//System.out.println(leftMostVisibleCell + " " + rightMostVisibleCell);
 
 		g2d = (Graphics2D) g;
 		g2d.setColor(Color.darkGray);
@@ -110,7 +110,7 @@ public class Render extends JPanel implements ActionListener {
 			isPlayerAlive = false;
 			for (int i = leftMostVisibleCell; i <= rightMostVisibleCell; i++) {
 				for (int j = 0; j < Bomberman.HEIGHT; j++) {
-					switch (gridMap[i][j]) {
+					switch (grid.getContents(i, j)) {
 					case PLAYER:
 						g2d.drawImage(player.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell),
 								Bomberman.TILE_SIZE * j, this);
@@ -140,7 +140,7 @@ public class Render extends JPanel implements ActionListener {
 					case EXPLODE:
 						g2d.drawImage(bomb.getImageBombExplode(),
 								Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
-						gridMap[i][j] = Cell.EMPTY;
+						grid.setContents(i,j,Cell.EMPTY);
 						continue;
 					case ENEMY:
 						g2d.drawImage(enemy.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell),
