@@ -13,23 +13,25 @@ public class Enemy implements Mover {
 	private Image image;
 
 	private Grid grid;
+	private Grid tempGrid;
 	
-	private ArrayList enemies;
+	private Render render;	
 	
 	private EnemyTracker enemyTracker;
 	
 	private static int enemyCount;
 	
 	
-
+	
 	private Path path;
 	PathFinder finder;
 
-	public Enemy(Grid grid) {
+	public Enemy(Grid grid, Render render) {
 		enemyCount = 0;
-		enemies = new ArrayList();
+		this.render = render;
 		loadImage();
 		this.grid = grid;
+		this.tempGrid = new Grid();
 		placeEnemies();
 		
 
@@ -37,7 +39,7 @@ public class Enemy implements Mover {
 
 	private void placeEnemies() {
 
-		for (int i = 2; i < Bomberman.WIDTH; i++) {
+	/*	for (int i = 2; i < Bomberman.WIDTH; i++) {
 			for (int j = 2; j < Bomberman.HEIGHT; j++) {
 				int rand = randInt(1, 55);
 				if (rand == 5) {
@@ -49,8 +51,9 @@ public class Enemy implements Mover {
 					}
 				}
 			}
-		}
-
+		}*/
+		
+		grid.setContents(1,11,Cell.ENEMY);
 		System.out.println("Number of Enemies..: " + enemyCount);
 
 	}
@@ -84,48 +87,56 @@ public class Enemy implements Mover {
 	// AStarPathFinder finder = new AStarPathFinder(grid);
 	//
 	// }
+	
+	public void copyGrid(){
+		for (int posX = 0; posX < Bomberman.WIDTH; posX++) {
+			for (int posY = 0; posY < Bomberman.HEIGHT; posY++) {
+				tempGrid.setContents(posX,posY,grid.getContents(posX,posY));
+			}
+		}		
+	}
 
 	public void aStarMovement(int targetX, int targetY) {
-		finder = new AStarPathFinder(grid, 2);
+		
+		finder = new AStarPathFinder(grid, 3);
 		
 		
-		for (int i = 0; i < enemyCount; i++) {
-			enemyTracker = (EnemyTracker) enemies.get(i);
-			path = finder.findPath(this, enemyTracker.getxPosition(), enemyTracker.getyPosition(), targetX, targetY);
-			
-			if (path != null) {
-				
-				grid.setContents(enemyTracker.getxPosition(), enemyTracker.getyPosition(), Cell.EMPTY);
-				grid.setContents(path.getX(1), path.getY(1), Cell.ENEMY);
-				path = null;
+		// Create the needed enemy types, when we find an enemy on the grid we call the appropriate move method.. Kappa
+		
+		copyGrid();				
+
+		for (int posX = 1; posX < Bomberman.WIDTH - 1; posX++) {
+			for (int posY = 1; posY < Bomberman.HEIGHT - 1; posY++) {
+				if (tempGrid.getContents(posX, posY) == Cell.ENEMY) {
+
+					path = finder.findPath(this, posX, posY, targetX, targetY);
+
+					if (path != null) {
+
+						grid.setContents(posX, posY, Cell.EMPTY);
+						// System.out.println("Player position: X: " + targetX +
+						// " Y: " + targetY + " xTarget IS: " + path.getX(1) +
+						// " yTarget IS: " + path.getY(1));
+						
+						if(grid.getContents(path.getX(1), path.getY(1)) == Cell.PLAYER){
+							grid.setContents(path.getX(1), path.getY(1), Cell.ENEMY);
+							GameState.setState(State.PLAYERDEAD);
+							render.setIsPlayerAlive(false);
+						}
+						
+						grid.setContents(path.getX(1), path.getY(1), Cell.ENEMY);
+						path = null;
+
+						// ENEMYMOVE
+
+					}
+
+					else {
+						// System.out.println("Path is null");
+					}
+				}
 			}
 		}
-
-//		for (int posX = 1; posX < Bomberman.WIDTH - 1; posX++) {
-//			for (int posY = 1; posY < Bomberman.HEIGHT - 1; posY++) {
-//				if (grid.getContents(posX, posY) == Cell.ENEMY) {
-//
-//					path = finder.findPath(this, posX, posY, targetX, targetY);
-//
-//					if (path != null) {
-//
-//						grid.setContents(posX, posY, Cell.EMPTY);
-//						// System.out.println("Player position: X: " + targetX +
-//						// " Y: " + targetY + " xTarget IS: " + path.getX(1) +
-//						// " yTarget IS: " + path.getY(1));
-//						grid.setContents(path.getX(1), path.getY(1), Cell.ENEMY);
-//						path = null;
-//
-//						// ENEMYMOVE
-//
-//					}
-//
-//					else {
-//						// System.out.println("Path is null");
-//					}
-//				}
-//			}
-//		}
 		
 		
 

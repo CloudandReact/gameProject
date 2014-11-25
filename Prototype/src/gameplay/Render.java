@@ -37,6 +37,8 @@ public class Render extends JPanel implements ActionListener {
 	private int currentLevel;
 	private int numberOfLives;
 	private int count;
+	private int leftMostVisibleCell;
+	private int rightMostVisibleCell;
 
 
 	private Boolean isPlayerAlive;
@@ -69,12 +71,15 @@ public class Render extends JPanel implements ActionListener {
 
 	public void initialize() {
 
-		count = 0;
-		grid.initializeGridMap();
+		
 		GameState.setState(State.RUNNING);
+		count = 0;
+		
+		grid.initializeGridMap();
+		
 		brick = new Brick(grid);
 		bomb = new Bomb(grid);
-		enemy = new Enemy(grid);
+		enemy = new Enemy(grid,this);
 		concrete = new Concrete(grid);
 		powerups = new PowerUps(grid);
 		exitway = new ExitWay(grid);
@@ -84,30 +89,19 @@ public class Render extends JPanel implements ActionListener {
 		level.setLevel(currentLevel);
 		isPlayerAlive = true;
 		pauseMenuOpen = false;
-		timer = new Timer(125, this);
+		timer = new Timer(100, this);
 		timer.start();
 	}
 
 	public void paint(Graphics g) {
 
 		super.paint(g);
-
-		int leftMostVisibleCell = player.getX() / 25 - 7;
-		int rightMostVisibleCell = player.getX() / 25 + 7;
-
-		if (leftMostVisibleCell < 0) {
-			rightMostVisibleCell = rightMostVisibleCell - leftMostVisibleCell;
-			leftMostVisibleCell = 0;
-		}
-
-		if (rightMostVisibleCell > 30) {
-			leftMostVisibleCell = leftMostVisibleCell
-					- (rightMostVisibleCell - 30);
-			rightMostVisibleCell = 30;
-		}
-
 		g2d = (Graphics2D) g;
 		g2d.setColor(Color.darkGray);
+		
+		getVisibleRange();
+		checkIfPlayerAlive();
+		
 
 		if (player.getBombStatus() && (currentTime = System.currentTimeMillis()) - player.getInitialTime() >= 2000) {
 
@@ -255,29 +249,56 @@ public class Render extends JPanel implements ActionListener {
 			}
 			count++;
 
-			if (isPlayerAlive == false) {
-				GameState.setState(State.PLAYERDEAD);
-				GameState.setState(State.RUNNING);
-				timer.stop();
-				if (player.getLivesLeft() == 0) {
-					System.out.println("No more lives left sorry friend");
-					// START FROM LEVEL 1... ADD LEVEL LOGIC, NEXT LEVEL LIVES
-					// RESTORED TO 3
-				}
-
-				else {
-					System.out.println("Lives Left...: ");
-					player.setLivesLeft(--numberOfLives);
-				}
-
-				initialize();
-			}
-
 		}
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
 
+	}
+	private void getVisibleRange(){
+		
+		leftMostVisibleCell = player.getX() / 25 - 7;
+		rightMostVisibleCell = player.getX() / 25 + 7;
+
+		if (leftMostVisibleCell < 0) {
+			rightMostVisibleCell = rightMostVisibleCell - leftMostVisibleCell;
+			leftMostVisibleCell = 0;
+		}
+
+		if (rightMostVisibleCell > 30) {
+			leftMostVisibleCell = leftMostVisibleCell
+					- (rightMostVisibleCell - 30);
+			rightMostVisibleCell = 30;
+		}
+		
+		
+	}
+	private void checkIfPlayerAlive() {
+		
+		if (isPlayerAlive == false) {
+			GameState.setState(State.PLAYERDEAD);
+			GameState.setState(State.RUNNING);
+			timer.stop();
+			
+			if (player.getLivesLeft() == 0) {
+				System.out.println("No more lives left sorry friend");
+				// START FROM LEVEL 1... ADD LEVEL LOGIC, NEXT LEVEL LIVES
+				// RESTORED TO 3
+			}
+
+			else {
+				System.out.println("Lives Left...: ");
+				player.setLivesLeft(--numberOfLives);
+			}
+
+			initialize();
+		}
+		
+		
+	}
+
+	public void setIsPlayerAlive(Boolean bool){
+		isPlayerAlive = bool;
 	}
 
 	public void actionPerformed(ActionEvent e) {

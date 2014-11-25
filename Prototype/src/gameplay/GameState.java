@@ -16,10 +16,8 @@ public class GameState {
 			System.out.println("PLAYERDEAD");
 			
 			state = State.RUNNING;
-			//new Bomberman();
-			
-		}
-		
+			//new Bomberman();	
+		}	
 	}
 
 	public static State getState(){
