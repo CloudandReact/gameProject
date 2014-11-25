@@ -78,7 +78,7 @@ public class Enemy implements Mover {
 	// }
 
 	public void aStarMovement(int targetX, int targetY) {
-		finder = new AStarPathFinder(grid, 2);
+		finder = new AStarPathFinder(grid, 3);
 
 		for (int posX = 1; posX < Bomberman.WIDTH - 1; posX++) {
 			for (int posY = 1; posY < Bomberman.HEIGHT - 1; posY++) {

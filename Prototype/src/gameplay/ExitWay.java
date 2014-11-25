@@ -27,7 +27,7 @@ public class ExitWay {
 		int randX = randInt(2,31);
 		int randY = randInt(2,13); 
 		
-		grid.setContents(4,1,Cell.BRICKANDPOWERUPS);
+		grid.setContents(4,1,Cell.BRICKANDEXITWAY);
 		
 	}
 	
