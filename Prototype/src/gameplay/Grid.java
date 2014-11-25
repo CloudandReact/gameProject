@@ -68,10 +68,11 @@ public class Grid implements TileBasedMap {
 	@Override
 	public boolean blocked(Mover mover, int x, int y) {
 		
-		if (gridMap[x][y] != Cell.PLAYER || gridMap[x][y] != Cell.EMPTY){
-			return false;
+		if (gridMap[x][y] == Cell.CONCRETE || gridMap[x][y] == Cell.BRICK || gridMap[x][y] == Cell.POWERUPS ||  gridMap[x][y] == Cell.ENEMY || gridMap[x][y] == Cell.BRICKANDPOWERUPS || gridMap[x][y] == Cell.BOMB){
+			return true;
 		}
-		return true;
+		
+		return false;
 	}
 
 

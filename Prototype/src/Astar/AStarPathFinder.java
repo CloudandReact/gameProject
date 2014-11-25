@@ -57,9 +57,9 @@ public class AStarPathFinder implements PathFinder {
 	public Path findPath(Mover mover, int sx, int sy, int tx, int ty) {
 		// easy first check, if the destination is blocked, we can't get there
 
-		if (map.blocked(mover, tx, ty)) {
-			return null;
-		}
+//		if (map.blocked(mover, tx, ty)) {
+//			return null;
+//		}
 		
 		// initial state for A*. The closed group is empty. Only the starting
 
@@ -261,8 +261,9 @@ public class AStarPathFinder implements PathFinder {
 	 * @param y The y coordinate of the location to check
 	 * @return True if the location is valid for the given mover
 	 */
-	protected boolean isValidLocation(Mover mover, int sx, int sy, int x, int y) {
-		boolean invalid = (x < 0) || (y < 0) || (x >= map.getWidthInTiles()) || (y >= map.getHeightInTiles());
+	protected boolean isValidLocation(Mover mover, int sx, int sy, int x, int y) {	
+		
+		boolean invalid =  (x < 0) || (y < 0) || (x >= map.getWidthInTiles()) || (y >= map.getHeightInTiles());
 		
 		if ((!invalid) && ((sx != x) || (sy != y))) {
 			invalid = map.blocked(mover, x, y);

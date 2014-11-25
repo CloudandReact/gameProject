@@ -37,6 +37,8 @@ public class Render extends JPanel implements ActionListener {
 	Boolean isNew;
 
 	private Boolean pauseMenuOpen;
+	private int count;
+	
 	// private String username;
 	// Concrete
 	// private String concrete = "concrete.png";
@@ -51,6 +53,7 @@ public class Render extends JPanel implements ActionListener {
 		System.out.println("HELLO MY NAME IS...: " + PlayerInfo.getUsername());
 
 		initialize();
+		
 
 		numberOfLives = 3;
 		addKeyListener(new TAdapter());
@@ -62,7 +65,8 @@ public class Render extends JPanel implements ActionListener {
 	}
 
 	public void initialize() {
-
+		
+		count = 0;
 		grid.initializeGridMap();
 		GameState.setState(State.RUNNING);
 		brick = new Brick(grid);
@@ -173,8 +177,10 @@ public class Render extends JPanel implements ActionListener {
 					}
 				}
 			}
-
-			enemy.aStarMovement(player.getX()/Bomberman.TILE_SIZE, player.getY()/Bomberman.TILE_SIZE);
+			if(count%5==0){
+				enemy.aStarMovement(player.getX()/Bomberman.TILE_SIZE, player.getY()/Bomberman.TILE_SIZE);
+			}
+			count++;
 			
 			
 			if (isPlayerAlive == false) {
