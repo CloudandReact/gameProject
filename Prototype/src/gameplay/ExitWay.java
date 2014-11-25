@@ -57,9 +57,9 @@ public class ExitWay {
 	}
 	
 	public static void exitWayAccessible(){
-		if(Enemy.getNumberOfEnemies() == Bomb.getNumberOfEnemiesKilled()){
-			access = true;
-		}
+//		if(Enemy.getNumberOfEnemies() == Bomb.getNumberOfEnemiesKilled()){
+//			access = true;
+//		}
 		
 	}
 	public static boolean getExitWayAccessible(){
