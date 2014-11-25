@@ -179,44 +179,44 @@ public class FileWriting {
 		
 	//write to statistics check if already has a score
 	public void writeToStatisticsFile(String username , int score , int levelUnlocked,int currentGameOfUser) throws IOException{
-	String fileName = System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userStatistics.csv");
-	File userInfo = new File(fileName);
-	// check if file exists otherwise create new file...
-	if (userInfo.exists()) {
-	} else {
-		userInfo.createNewFile();
-	}
-	int gamesStored=1;
-	FileWriter fileWriter = new FileWriter(fileName, false);
-	CSVPrinter writer = new CSVPrinter(fileWriter, CSVFormat.DEFAULT);
-	if(currentGameOfUser==0){
-		writer.printRecord(username, score, levelUnlocked);
-	}
-	for(int i=0;i<userStatistics.size();i++){
-		if(PlayerInfo.usernameStatic.equals(userStatistics.get(i).get(0))&& currentGameOfUser!=gamesStored){
-			writer.printRecord(userStatistics.get(i));
-			currentGameOfUser++;
-		
+		String fileName = System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userStatistics.csv");
+		File userInfo = new File(fileName);
+		// check if file exists otherwise create new file...
+		if (userInfo.exists()) {
+		} else {
+			userInfo.createNewFile();
 		}
-		else if(PlayerInfo.usernameStatic.equals(userStatistics.get(i).get(0))&& currentGameOfUser==gamesStored)
-		{
+		int gamesStored=1;
+		FileWriter fileWriter = new FileWriter(fileName, false);
+		CSVPrinter writer = new CSVPrinter(fileWriter, CSVFormat.DEFAULT);
+		if(currentGameOfUser==0){
 			writer.printRecord(username, score, levelUnlocked);
 		}
-		else{
-			writer.printRecord(userStatistics.get(i));
+		for(int i=0;i<userStatistics.size();i++){
+			//checks to see if the current game is already stored in the file
+			if(PlayerInfo.usernameStatic.equals(userStatistics.get(i).get(0))&& currentGameOfUser!=gamesStored){
+				writer.printRecord(userStatistics.get(i));
+				currentGameOfUser++;
+			
+			}
+			else if(PlayerInfo.usernameStatic.equals(userStatistics.get(i).get(0))&& currentGameOfUser==gamesStored)
+			{
+				writer.printRecord(username, score, levelUnlocked);
+			}
+			else{
+				writer.printRecord(userStatistics.get(i));
+			}
 		}
+		
+		writer.printRecord(username, score, levelUnlocked);
+		
+		writer.close();
+
 	}
 	
-	writer.printRecord(username, score, levelUnlocked);
-	// writer.newLine();
-	// writer.flush();
-	writer.close();
-
-}
-	
 
 	
-
+	// creates validate object to check if everything is right in validate
 	Validate checkInfo = new Validate();
 
 	public boolean checkIfValid(String realName, String username,
@@ -236,7 +236,7 @@ public class FileWriting {
 	public ArrayList<CSVRecord> allPlayersStats(){
 		return userStatistics;
 		
-	}
+	}//returns booleans checking if all inputs are valid
 	public boolean isRealNameValid() {
 		return checkInfo.isRealNameValid();
 	}

@@ -69,8 +69,7 @@ public class Login {
 				System.out.println("username" + username + "password " + password);
 				FileWriting loginValidity = new FileWriting();
 				loginValidity.openFile();
-				//String error = "Error";
-				//String success = "Success";
+				
 
 				if (loginValidity.loginIsValid(username, password)) {
 					// go to menu
