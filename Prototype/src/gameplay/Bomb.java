@@ -4,7 +4,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class Bomb implements Runnable {
+public class Bomb {
 
 	private int range;
 	private int currentRange;
@@ -24,9 +24,7 @@ public class Bomb implements Runnable {
 	private Image explode;
 	private Image bombandexitway;
 
-	Player player;
-	long startTime;
-	long currentTime;
+
 	
 	private Grid grid;
 	
@@ -34,22 +32,20 @@ public class Bomb implements Runnable {
 	 * RANGE IS DEFAULTED TO 1 IN CONSTRUCTORS. TO SET RANGE USE SETTER ON BOMB OBJECT. USE THE SAME BOMB OBJECT SUPPLIED TO THE THREAD. 
 	 */
 
-	public Bomb() {
+	public Bomb(Grid grid) {
 		loadImage();
 		this.range = 1;
-	}
-
-	public Bomb(int posX, int posY, Grid grid, Player player) {
 		this.grid = grid;
-		this.player = player;
-		this.posX = posX;
-		this.posY = posY;
-		this.range = 1;
-		this.currentRange = 0;
 	}
 	
 	public void setRange(int range){
 		this.range = range;
+	}
+	
+	public void setPosition(int posX, int posY) {
+		this.posX = posX;
+		this.posY = posY;
+		
 	}
 
 	private void loadImage() {
@@ -88,25 +84,15 @@ public class Bomb implements Runnable {
 	public static int getNumberOfEnemiesKilled() {
 		return numberOfEnemiesKilled;
 	}
-
-	@Override
-	public void run() {
+	
+	public void explode(){
 		
-
-		startTime = System.currentTimeMillis();
-
 		currentRange = 0;
-		// wait before exploding
-		while(true){
-			
-			if ((currentTime = System.currentTimeMillis()) - startTime >= 2000) {
-				break;
-			}
-		}
+		System.out.println("Explode method");
 		
-			
 		while (currentRange <= range) {
-
+			System.out.println("PosX is ..:" + posX + "PosY is. ..: " + posY);
+			System.out.println(currentRange);
 			if (grid.getContents(posX + currentRange,posY) != Cell.CONCRETE) {
 				
 				if (grid.getContents(posX + currentRange,posY) == Cell.BRICKANDPOWERUPS) {
@@ -255,9 +241,7 @@ public class Bomb implements Runnable {
 			}
 		}
 			
-		player.setBombStatus(false);
 		currentRange = 0;
-				
 	}
 
 }

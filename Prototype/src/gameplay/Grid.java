@@ -22,11 +22,6 @@ public class Grid implements TileBasedMap {
 	}
     
    
-    
-//	public void setGrid(int x, int y, Cell cell){
-//		gridMap[x][y] = cell;
-//	}
-	
 	public Cell[][] initializeGridMap(){
 		for(int i = 0; i < Bomberman.WIDTH; i++){
 			for(int j = 0; j < Bomberman.HEIGHT; j++){
@@ -68,7 +63,7 @@ public class Grid implements TileBasedMap {
 	@Override
 	public boolean blocked(Mover mover, int x, int y) {
 		
-		if (gridMap[x][y] == Cell.CONCRETE || gridMap[x][y] == Cell.BRICK || gridMap[x][y] == Cell.POWERUPS ||  gridMap[x][y] == Cell.ENEMY || gridMap[x][y] == Cell.BRICKANDPOWERUPS || gridMap[x][y] == Cell.BOMB){
+		if (gridMap[x][y] == Cell.CONCRETE || gridMap[x][y] == Cell.BRICK || gridMap[x][y] == Cell.POWERUPS ||  gridMap[x][y] == Cell.ENEMY || gridMap[x][y] == Cell.BRICKANDPOWERUPS || gridMap[x][y] == Cell.BOMB || gridMap[x][y] == Cell.PLAYERANDBOMB){
 			return true;
 		}
 		

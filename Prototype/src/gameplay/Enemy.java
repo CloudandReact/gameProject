@@ -78,7 +78,7 @@ public class Enemy implements Mover {
 	// }
 
 	public void aStarMovement(int targetX, int targetY) {
-		finder = new AStarPathFinder(grid, 5);
+		finder = new AStarPathFinder(grid, 2);
 
 		for (int posX = 1; posX < Bomberman.WIDTH - 1; posX++) {
 			for (int posY = 1; posY < Bomberman.HEIGHT - 1; posY++) {
@@ -102,7 +102,7 @@ public class Enemy implements Mover {
 					}
 
 					else {
-						System.out.println("Path is null");
+						//System.out.println("Path is null");
 					}
 				}
 			}

@@ -21,20 +21,23 @@ public class Player {
 	private Image image;
 	Grid grid;
 	private Bomb bomb;
-
+	
+	private long startTime;
+	
 	private Boolean isBombPlaced;
 
 	public Player() {
 
 	}
 
-	public Player(Grid grid) {
+	public Player(Grid grid, Bomb bomb) {
 		loadImage();
 		this.setX(25);
 		this.setY(25);
 		this.posX = 1;
 		this.posY = 1;
 		this.grid = grid;
+		this.bomb = bomb;
 		this.grid.setContents(1, 1, Cell.PLAYER);
 		setScore(0);
 		this.isBombPlaced = false;
@@ -228,18 +231,16 @@ public class Player {
 		if (key == KeyEvent.VK_X) {
 			if (GameState.getState() == State.RUNNING && isBombPlaced == false) {
 				if (grid.getContents(posX, posY) != Cell.PLAYERANDBOMB) {
-					System.out
-							.println("BOMBAMAN<>BOMBAMAN FRENLY NEIGBOHUD BOMBAMAN");
 
 					grid.setContents(posX, posY, Cell.PLAYERANDBOMB);
 
-					bomb = new Bomb(posX, posY, grid, this);
 					// THIS IS WHERE WE SET THE RANGE!!!!!!!!!!!!!!!!!!! SET IT
 					// AS HIGH AS YOU WANT, FRIENDS
-					bomb.setRange(1);
-					Thread t = new Thread(bomb);
-					t.start();
+
 					isBombPlaced = true;
+					bomb.setRange(1);
+					bomb.setPosition(posX, posY);
+					initializeTimer();
 				}
 			}
 
@@ -291,6 +292,14 @@ public class Player {
 
 	public static int getScore() {
 		return score;
+	}
+	
+	public void initializeTimer(){
+		startTime = System.currentTimeMillis();
+	}
+	
+	public long getInitialTime(){
+		return startTime;
 	}
 
 	public static void setScore(int score) {

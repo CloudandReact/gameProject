@@ -39,6 +39,9 @@ public class Render extends JPanel implements ActionListener {
 	private Boolean pauseMenuOpen;
 	private int count;
 	
+	private long startTime;
+	private long currentTime;
+	
 	// private String username;
 	// Concrete
 	// private String concrete = "concrete.png";
@@ -53,7 +56,6 @@ public class Render extends JPanel implements ActionListener {
 		System.out.println("HELLO MY NAME IS...: " + PlayerInfo.getUsername());
 
 		initialize();
-		
 
 		numberOfLives = 3;
 		addKeyListener(new TAdapter());
@@ -70,16 +72,16 @@ public class Render extends JPanel implements ActionListener {
 		grid.initializeGridMap();
 		GameState.setState(State.RUNNING);
 		brick = new Brick(grid);
-		bomb = new Bomb();
+		bomb = new Bomb(grid);
 		enemy = new Enemy(grid);
 		concrete = new Concrete(grid);
 		powerups = new PowerUps(grid);
 		exitway = new ExitWay(grid);
-		player = new Player(grid); 
+		player = new Player(grid,bomb); 
 
 		isPlayerAlive = true; 
 		pauseMenuOpen = false;
-		timer = new Timer(100, this);
+		timer = new Timer(150, this);
 		timer.start();
 	}
 
@@ -101,16 +103,23 @@ public class Render extends JPanel implements ActionListener {
 			rightMostVisibleCell = 30;
 		}
 
-		//System.out.println(leftMostVisibleCell + " " + rightMostVisibleCell);
+	
 
 		g2d = (Graphics2D) g;
 		g2d.setColor(Color.darkGray);
 
-		// System.out.println("Your score is.... : " + Player.getScore());
-
+		if(player.getBombStatus() && (currentTime = System.currentTimeMillis()) - player.getInitialTime() >= 2000) {
+				
+				bomb.explode();
+				player.setBombStatus(false);
+			}
+		
+		
+		
 		if (GameState.getState() == State.PAUSE) {
 
-		} else {
+		} 
+		else {
 			isPlayerAlive = false;
 			for (int i = leftMostVisibleCell; i <= rightMostVisibleCell; i++) {
 				for (int j = 0; j < Bomberman.HEIGHT; j++) {
@@ -177,8 +186,9 @@ public class Render extends JPanel implements ActionListener {
 					}
 				}
 			}
-			if(count%5==0){
+			if(count == 5){
 				enemy.aStarMovement(player.getX()/Bomberman.TILE_SIZE, player.getY()/Bomberman.TILE_SIZE);
+				count = 0;
 			}
 			count++;
 			
@@ -199,13 +209,6 @@ public class Render extends JPanel implements ActionListener {
 				}
 
 				initialize();
-
-				//
-				// if(isNew == false){
-				// g2d.dispose();
-				// new Bomberman();
-				// isNew = true;
-				// }
 			}
 
 		}
