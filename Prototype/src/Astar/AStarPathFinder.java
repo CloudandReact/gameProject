@@ -36,10 +36,11 @@ public class AStarPathFinder implements PathFinder {
 	 * @param maxSearchDistance The maximum depth we'll search before giving up
 	 * @param allowDiagMovement True if the search should try diaganol movement
 	 */
-	public AStarPathFinder(TileBasedMap map) {
+	
+	public AStarPathFinder(TileBasedMap map, int maxSearchDistance) {
 		this.heuristic = new ClosestHeuristic();
 		this.map = map;
-		this.maxSearchDistance = 2;
+		this.maxSearchDistance = maxSearchDistance;
 		this.allowDiagMovement = false;
 		
 		nodes = new Node[map.getWidthInTiles()][map.getHeightInTiles()];
@@ -68,12 +69,13 @@ public class AStarPathFinder implements PathFinder {
 		closed.clear();
 		open.clear();
 		open.add(nodes[sx][sy]);
-		
 		nodes[tx][ty].parent = null;
 		
 		// while we haven'n't exceeded our max search depth
 		int maxDepth = 0;
+		
 		while ((maxDepth < maxSearchDistance) && (open.size() != 0)) {
+			
 			// pull out the first node in our open list, this is determined to 
 
 			// be the most likely to be the next step based on our heuristic
@@ -86,7 +88,7 @@ public class AStarPathFinder implements PathFinder {
 			removeFromOpen(current);
 			addToClosed(current);
 			
-			// search through all the neighbours of the current node evaluating
+			// search through all the neighbors of the current node evaluating
 
 			// them as next steps
 

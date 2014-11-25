@@ -19,6 +19,7 @@ public class ClosestHeuristic implements AStarHeuristic {
 	    float result = dx+dy;
 	    
 	    return result;
+	    
 	}
 
 }

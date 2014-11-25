@@ -16,6 +16,9 @@ public class Enemy implements Mover {
 	
 	private int enemyDirection;
 	private static int numberOfEnemies;
+	
+	private Path path;
+	PathFinder finder;
 
 	public Enemy(Grid grid) {
 		loadImage();
@@ -26,17 +29,21 @@ public class Enemy implements Mover {
 	}
 
 	private void placeEnemies() {
-		for (int i = 2; i < Bomberman.WIDTH; i++) {
-			for (int j = 2; j < Bomberman.HEIGHT; j++) {
-				int rand = randInt(1, 55);
-				if (rand == 5) {
-					if(grid.getContents(i,j) == Cell.EMPTY){
-						grid.setContents(i, j, Cell.ENEMY);
-						numberOfEnemies++;					
-					}
-				}
-			}		
-		}
+		
+		grid.setContents(11, 10, Cell.ENEMY);
+		
+//		for (int i = 2; i < Bomberman.WIDTH; i++) {
+//			for (int j = 2; j < Bomberman.HEIGHT; j++) {
+//				int rand = randInt(1, 55);
+//				if (rand == 5) {
+//					if(grid.getContents(i,j) == Cell.EMPTY){
+//						grid.setContents(i, j, Cell.ENEMY);
+//						numberOfEnemies++;					
+//					}
+//				}
+//			}		
+//		}
+		
 		System.out.println("Number of Enemies..: " + numberOfEnemies);
 
 	}
@@ -72,6 +79,33 @@ public class Enemy implements Mover {
 //		
 //	}
 	
+	public void aStarMovement(int targetX, int targetY){
+		finder = new AStarPathFinder(grid, 2);
+		
+		for (int posX = 1; posX < Bomberman.WIDTH-1; posX++) {
+			for (int posY = 1; posY < Bomberman.HEIGHT-1; posY++) {
+				if (grid.getContents(posX,posY) == Cell.ENEMY) {
+					
+					path = finder.findPath(this, posX, posY, targetX, targetY);
+					
+					if(path != null){
+						int i = 1;
+						
+						
+						
+						grid.setContents(posX,posY,Cell.EMPTY);
+						System.out.println("Player position: X: " + targetX + " Y: " + targetY + " xTarget IS: " + path.getX(1) + " yTarget IS: " + path.getY(1));
+						grid.setContents(path.getX(1), path.getY(1), Cell.ENEMY);
+						path = null;
+						
+					}	
+				}
+			}
+		}
+		
+		
+				
+	}
 	
 	public void move() {
 

@@ -73,7 +73,7 @@ public class Render extends JPanel implements ActionListener {
 		exitway = new ExitWay(grid);
 		player = new Player(grid); 
 
-		isPlayerAlive = true;
+		isPlayerAlive = true; 
 		pauseMenuOpen = false;
 		timer = new Timer(100, this);
 		timer.start();
@@ -174,7 +174,9 @@ public class Render extends JPanel implements ActionListener {
 				}
 			}
 
-			enemy.move();
+			enemy.aStarMovement(player.getX()/Bomberman.TILE_SIZE, player.getY()/Bomberman.TILE_SIZE);
+			
+			
 			if (isPlayerAlive == false) {
 				GameState.setState(State.PLAYERDEAD);
 				GameState.setState(State.RUNNING);
@@ -183,7 +185,9 @@ public class Render extends JPanel implements ActionListener {
 					System.out.println("No more lives left sorry friend");
 					// START FROM LEVEL 1... ADD LEVEL LOGIC, NEXT LEVEL LIVES
 					// RESTORED TO 3
-				} else {
+				} 
+				
+				else {
 					System.out.println("Lives Left...: ");
 					player.setLivesLeft(--numberOfLives);
 				}
