@@ -9,7 +9,9 @@ public class Grid implements TileBasedMap {
 //	private int gridSizeX;
 //	private int gridSizeY;
 //	private int dimension;
-    private Cell[][] gridMap;
+    
+	
+	private Cell[][] gridMap;
     
     
     public Grid() {

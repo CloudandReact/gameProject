@@ -2,6 +2,7 @@ package menu;
 
 import gameplay.Bomberman;
 import gameplay.GameState;
+import gameplay.Player;
 import gameplay.PlayerInfo;
 import gameplay.Render;
 import gameplay.State;
@@ -29,12 +30,15 @@ public class PauseMenu extends JFrame{
 	//JButton loadLevelButton = new JButton("Load Level");
 	Render render;
 	GameState state;
+	Player player;
 	
 	String playersName;
 	
-	public PauseMenu(Render r, GameState x){
-		state = x; 
-		render = r;
+	public PauseMenu(Render r,  GameState s, Player p){
+		this.state = s; 
+		this.render = r;
+		this.player = p;
+		
 		setSize(325, 230);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -100,6 +104,7 @@ public class PauseMenu extends JFrame{
 				// Execute when button is pressed
 				getContentPane().removeAll();
 				dispose();
+				player.initializeTimer();
 				render.setPauseMenuState(false);
 				state.setState(State.RUNNING);
 				

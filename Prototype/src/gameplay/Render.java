@@ -31,16 +31,18 @@ public class Render extends JPanel implements ActionListener {
 	private Concrete concrete;
 	private PowerUps powerups;
 	private ExitWay exitway;
+	private Level level;
+	
+	private long currentTime;
+	private int currentLevel;
 	private int numberOfLives;
-
-	private Boolean isPlayerAlive;
-	Boolean isNew;
-
-	private Boolean pauseMenuOpen;
 	private int count;
 
-	private long startTime;
-	private long currentTime;
+
+	private Boolean isPlayerAlive;
+	private Boolean pauseMenuOpen;
+
+
 
 	// private String username;
 	// Concrete
@@ -54,9 +56,8 @@ public class Render extends JPanel implements ActionListener {
 	public Render() {
 
 		System.out.println("HELLO MY NAME IS...: " + PlayerInfo.getUsername());
-
+		this.currentLevel = 0;
 		initialize();
-
 		numberOfLives = 3;
 		addKeyListener(new TAdapter());
 		setFocusable(true);
@@ -78,10 +79,12 @@ public class Render extends JPanel implements ActionListener {
 		powerups = new PowerUps(grid);
 		exitway = new ExitWay(grid);
 		player = new Player(grid, bomb);
+		level = new Level();
 
+		level.setLevel(currentLevel);
 		isPlayerAlive = true;
 		pauseMenuOpen = false;
-		timer = new Timer(150, this);
+		timer = new Timer(125, this);
 		timer.start();
 	}
 
@@ -106,9 +109,7 @@ public class Render extends JPanel implements ActionListener {
 		g2d = (Graphics2D) g;
 		g2d.setColor(Color.darkGray);
 
-		if (player.getBombStatus()
-				&& (currentTime = System.currentTimeMillis())
-						- player.getInitialTime() >= 2000) {
+		if (player.getBombStatus() && (currentTime = System.currentTimeMillis()) - player.getInitialTime() >= 2000) {
 
 			bomb.explode();
 			player.setBombStatus(false);
@@ -124,57 +125,37 @@ public class Render extends JPanel implements ActionListener {
 				for (int j = 0; j < Bomberman.HEIGHT; j++) {
 					switch (grid.getContents(i, j)) {
 					case PLAYER:
-						g2d.drawImage(player.getImage(), Bomberman.TILE_SIZE
-								* (i - leftMostVisibleCell),
-								Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(player.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						isPlayerAlive = true;
 						continue;
 					case BOMB:
-						g2d.drawImage(bomb.getImageBomb(), Bomberman.TILE_SIZE
-								* (i - leftMostVisibleCell),
-								Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(bomb.getImageBomb(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						continue;
 					case CONCRETE:
-						g2d.drawImage(concrete.getImage(), Bomberman.TILE_SIZE
-								* (i - leftMostVisibleCell),
-								Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(concrete.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						continue;
 					case BRICK:
-						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE
-								* (i - leftMostVisibleCell),
-								Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						continue;
 					case PLAYERANDBOMB:
-						g2d.drawImage(
-								bomb.getImageBombPlayer(),
-								Bomberman.TILE_SIZE * (i - leftMostVisibleCell),
-								Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(bomb.getImageBombPlayer(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						isPlayerAlive = true;
 						continue;
 					case BOMBANDEXITWAY:
-						g2d.drawImage(
-								bomb.getImageBombPlayer(),
-								Bomberman.TILE_SIZE * (i - leftMostVisibleCell),
-								Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(bomb.getImageBombPlayer(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						continue;
 					case EXPLODE:
-						g2d.drawImage(
-								bomb.getImageBombExplode(),
-								Bomberman.TILE_SIZE * (i - leftMostVisibleCell),
-								Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(bomb.getImageBombExplode(),Bomberman.TILE_SIZE * (i - leftMostVisibleCell),Bomberman.TILE_SIZE * j, this);
 						grid.setContents(i, j, Cell.EMPTY);
 						continue;
 					case ENEMY:
-						g2d.drawImage(enemy.getImage(), Bomberman.TILE_SIZE
-								* (i - leftMostVisibleCell),
-								Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(enemy.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						continue;
 					case BRICKANDPOWERUPS:
-						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE
-								* (i - leftMostVisibleCell),
-								Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						continue;
 					case POWERUPS:
+						
 						int level = 1;
 
 						// FLAMES
@@ -306,7 +287,7 @@ public class Render extends JPanel implements ActionListener {
 		}
 
 		else if (GameState.getState() == State.PAUSE && pauseMenuOpen == false) {
-			new PauseMenu(this, gameState);
+			new PauseMenu(this, gameState, player);
 			pauseMenuOpen = true;
 		}
 

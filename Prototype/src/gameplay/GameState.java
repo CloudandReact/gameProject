@@ -25,5 +25,7 @@ public class GameState {
 	public static State getState(){
 		return state;
 	}
+	
+	
 }
 
