@@ -14,8 +14,8 @@ public class EnemyTracker {
 		this.setxPosition(xPosition);
 		this.setyPosition(yPosition);
 	
-		setxDirection(0);
-		setyDirection(0);
+		setxDirection(1);
+		setyDirection(1);
 	}
 	
 	public Cell getEnemyType() {

@@ -265,12 +265,15 @@ public class Render extends JPanel implements ActionListener {
 					}
 				}
 			}
-			if (count == 5) {
-				
-				enemy.move(player.getX() / Bomberman.TILE_SIZE, player.getY() / Bomberman.TILE_SIZE);
-				count = 0;
-			}
-			count++;
+			
+			enemy.move(player.getX() / Bomberman.TILE_SIZE, player.getY() / Bomberman.TILE_SIZE);
+
+//			if (count == 5) {
+//				
+//				enemy.move(player.getX() / Bomberman.TILE_SIZE, player.getY() / Bomberman.TILE_SIZE);
+//				count = 0;
+//			}
+//			count++;
 
 		}
 

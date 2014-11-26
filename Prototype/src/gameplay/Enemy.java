@@ -56,6 +56,7 @@ public class Enemy implements Mover {
 	private ArrayList<EnemyTracker> enemiesAlive; 
 	private EnemyTracker livingEnemy;
 
+	private int count = 0;
 
 	
 	public Enemy(Grid grid, Render render, Level level) {
@@ -246,7 +247,7 @@ public class Enemy implements Mover {
 			for (int posY = 0; posY < Bomberman.HEIGHT; posY++) {
 				tempGrid.setContents(posX, posY, grid.getContents(posX, posY));
 				
-				switch (tempGrid.getContents(posX, posY)) {
+				switch (grid.getContents(posX, posY)) {
 				case BALLOOM:
 					verifyTracker(posX, posY, Cell.BALLOOM);
 					continue;
@@ -284,7 +285,7 @@ public class Enemy implements Mover {
 			//System.out.println(i);
 			if(enemiesInitial.get(i).getEnemyType() == enemyType && enemiesInitial.get(i).getxPosition() == posX && enemiesInitial.get(i).getyPosition() == posY ){
 				
-				livingEnemy = new EnemyTracker(posX, posY, enemiesInitial.get(i). getEnemyType());
+				livingEnemy = new EnemyTracker(posX, posY, enemiesInitial.get(i).getEnemyType());
 				livingEnemy.setxDirection(enemiesInitial.get(i).getxDirection());
 				livingEnemy.setyDirection(enemiesInitial.get(i).getyDirection());
 				enemiesAlive.add(livingEnemy);
@@ -293,17 +294,17 @@ public class Enemy implements Mover {
 			}
 		}
 		
-		System.out.println("Size of enemiesAlive list..:" + enemiesAlive.size());
+		
+		//System.out.println("Size of enemiesAlive list..:" + enemiesAlive.size());
 	
 	}
 	
 
 	
 	
-	@SuppressWarnings("unchecked")
 	public void move(int targetX, int targetY) {
 		
-		
+		count++;
 		copyGridAndVerifyTracker();
 		
 		enemiesInitial.clear();
@@ -312,11 +313,11 @@ public class Enemy implements Mover {
 						
 		enemiesAlive.clear();
 		
-		//System.out.println("Size of enemiesAlive list..:" + enemiesAlive.size());
-		System.out.println("Size of enemiesInitial list..:" + enemiesInitial.size());
-
+		//System.out.println("enemiesInitial..:" + enemiesInitial.size());
+		
+		//System.out.println("List size...: " + enemiesInitial.size());
+		
 		for (int i = 0; i < enemiesInitial.size(); i++) {
-			
 			switch (enemiesInitial.get(i).getEnemyType()) {
 			case BALLOOM:
 				lowIntelligenceMove(enemiesInitial.get(i));
@@ -392,7 +393,10 @@ public class Enemy implements Mover {
 	
 	
 	
-	public void lowIntelligenceMove(EnemyTracker tracker){
+	private void lowIntelligenceMove(EnemyTracker tracker){
+		
+		//System.out.println("Size of enemiesAlive list..:" + enemiesAlive.size());
+		//System.out.println("Size of enemiesInitial list..:" + enemiesInitial.size());
 		
 		Boolean canMoveInX = false;
 		Boolean canMoveInY = false;
@@ -401,14 +405,17 @@ public class Enemy implements Mover {
 		int posX = tracker.getxPosition();
 		int posY = tracker.getyPosition();
 		
-		if(tempGrid.getContents(posX + enemyDirectionX,posY) != Cell.BRICK && tempGrid.getContents(posX + enemyDirectionX,posY) != Cell.CONCRETE && tempGrid.getContents(posX + enemyDirectionX,posY) != Cell.EXITWAY && tempGrid.getContents(posX + enemyDirectionX,posY) != Cell.POWERUPS && tempGrid.getContents(posX + enemyDirectionX,posY) != Cell.BALLOOM ){
+		System.out.println();
+		if(grid.getContents(posX + enemyDirectionX,posY) != Cell.BRICK && grid.getContents(posX + enemyDirectionX,posY) != Cell.CONCRETE && grid.getContents(posX + enemyDirectionX,posY) != Cell.EXITWAY && grid.getContents(posX + enemyDirectionX,posY) != Cell.POWERUPS && grid.getContents(posX + enemyDirectionX,posY) != Cell.BALLOOM ){
 			canMoveInX = true;
-			// move in this direction
+			
 		}
 		
-		else if(tempGrid.getContents(posX - enemyDirectionX,posY) != Cell.BALLOOM && tempGrid.getContents(posX - enemyDirectionX,posY) != Cell.BRICK && tempGrid.getContents(posX - enemyDirectionX,posY) != Cell.CONCRETE && tempGrid.getContents(posX - enemyDirectionX,posY) != Cell.EXITWAY && tempGrid.getContents(posX - enemyDirectionX,posY) != Cell.POWERUPS){
+		else if(grid.getContents(posX - enemyDirectionX,posY) != Cell.BALLOOM && grid.getContents(posX - enemyDirectionX,posY) != Cell.BRICK && grid.getContents(posX - enemyDirectionX,posY) != Cell.CONCRETE && grid.getContents(posX - enemyDirectionX,posY) != Cell.EXITWAY && grid.getContents(posX - enemyDirectionX,posY) != Cell.POWERUPS){
 			tracker.setxDirection(-enemyDirectionX); 
 			canMoveInX = true;
+	
+
 			
 		}
 		
@@ -416,14 +423,15 @@ public class Enemy implements Mover {
 			grid.setContents(posX, posY, Cell.EMPTY);
 			grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
 			posX += enemyDirectionX;
+			System.out.println("mOVING");
 		}
 		
-		if(tempGrid.getContents(posX,posY + enemyDirectionY) != Cell.BALLOOM && tempGrid.getContents(posX,posY + enemyDirectionY) != Cell.BRICK && tempGrid.getContents(posX,posY + enemyDirectionY) != Cell.CONCRETE && tempGrid.getContents(posX,posY + enemyDirectionY) != Cell.EXITWAY && tempGrid.getContents(posX,posY + enemyDirectionY) != Cell.POWERUPS){
+		if(grid.getContents(posX,posY + enemyDirectionY) != Cell.BALLOOM && grid.getContents(posX,posY + enemyDirectionY) != Cell.BRICK && grid.getContents(posX,posY + enemyDirectionY) != Cell.CONCRETE && grid.getContents(posX,posY + enemyDirectionY) != Cell.EXITWAY && grid.getContents(posX,posY + enemyDirectionY) != Cell.POWERUPS){
 			canMoveInY = true;
 			// move in this direction
 		}
 		
-		else if(tempGrid.getContents(posX,posY - enemyDirectionY) != Cell.BALLOOM && tempGrid.getContents(posX,posY - enemyDirectionY) != Cell.BRICK && tempGrid.getContents(posX,posY - enemyDirectionY) != Cell.CONCRETE && tempGrid.getContents(posX,posY - enemyDirectionY) != Cell.EXITWAY && tempGrid.getContents(posX,posY - enemyDirectionY) != Cell.POWERUPS){
+		else if(grid.getContents(posX,posY - enemyDirectionY) != Cell.BALLOOM && grid.getContents(posX,posY - enemyDirectionY) != Cell.BRICK && grid.getContents(posX,posY - enemyDirectionY) != Cell.CONCRETE && grid.getContents(posX,posY - enemyDirectionY) != Cell.EXITWAY && grid.getContents(posX,posY - enemyDirectionY) != Cell.POWERUPS){
 			tracker.setyDirection(-enemyDirectionY); 
 			canMoveInY = true;
 			
@@ -431,7 +439,7 @@ public class Enemy implements Mover {
 		
 		if(canMoveInY && !canMoveInX){
 			grid.setContents(posX, posY, Cell.EMPTY);
-			grid.setContents(posX, posY + enemyDirection, tracker.getEnemyType());
+			grid.setContents(posX, posY + enemyDirectionY, tracker.getEnemyType());
 			posY += enemyDirectionY;
 
 		}
