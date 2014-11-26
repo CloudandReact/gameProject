@@ -39,6 +39,7 @@ public class StoreStatistics {
 				int levelInFile= Integer.parseInt(usersStatistics.get(i).get(1));
 				if(levelAvailible<levelInFile){
 					levelAvailible=levelInFile;
+					
 				}
 				
 				numberOfGames++;
