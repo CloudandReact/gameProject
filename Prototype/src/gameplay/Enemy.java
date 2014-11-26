@@ -469,6 +469,13 @@ public class Enemy implements Mover {
 				grid.setContents(posX, posY, Cell.EMPTY);
 				
 				if(canMoveInX){
+					
+					if(grid.getContents(posX + enemyDirectionX, posY) == Cell.PLAYER){
+
+							GameState.setState(State.PLAYERDEAD);
+							render.setIsPlayerAlive(false);
+					}
+
 					grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
 					tracker.setxPosition(posX + enemyDirectionX);
 					tracker.setMovingInX(true);
@@ -479,6 +486,11 @@ public class Enemy implements Mover {
 				}
 				
 				else{
+					if(grid.getContents(posX, posY  + enemyDirectionY) == Cell.PLAYER){
+
+						GameState.setState(State.PLAYERDEAD);
+						render.setIsPlayerAlive(false);
+					}
 					
 					grid.setContents(posX, posY  + enemyDirectionY, tracker.getEnemyType());
 					tracker.setyPosition(posY + enemyDirectionY);
@@ -540,6 +552,12 @@ public class Enemy implements Mover {
 			
 			if(canMoveInX){
 				
+				if(grid.getContents(posX + enemyDirectionX, posY) == Cell.PLAYER){
+
+					GameState.setState(State.PLAYERDEAD);
+					render.setIsPlayerAlive(false);
+				}
+				
 				grid.setContents(posX, posY, Cell.EMPTY);
 				grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
 				tracker.setxPosition(posX + enemyDirectionX);
@@ -550,6 +568,13 @@ public class Enemy implements Mover {
 			}
 			
 			if(canMoveInY && !canMoveInX){
+				
+				if(grid.getContents(posX, posY  + enemyDirectionY) == Cell.PLAYER){
+
+					GameState.setState(State.PLAYERDEAD);
+					render.setIsPlayerAlive(false);
+				}
+				
 				grid.setContents(posX, posY, Cell.EMPTY);
 				grid.setContents(posX, posY + enemyDirectionY, tracker.getEnemyType());
 				tracker.setyPosition(posY + enemyDirectionY);
