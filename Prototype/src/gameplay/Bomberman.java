@@ -18,7 +18,7 @@ public class Bomberman extends JFrame {
 	public Bomberman() {
 		add(new Render());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(HEIGHT * TILE_SIZE, HEIGHT * TILE_SIZE + 22);
+		setSize(15 * TILE_SIZE, HEIGHT * TILE_SIZE + 22);
 		setLocationRelativeTo(null);
 		setTitle("Bomberman");
 		setResizable(false);

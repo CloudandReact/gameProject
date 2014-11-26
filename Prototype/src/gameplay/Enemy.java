@@ -9,17 +9,27 @@ import javax.swing.ImageIcon;
 import Astar.*;
 
 public class Enemy implements Mover {
-	private String enemy = "enemy.png";
+	private String enemy = "Balloom.png";
 	private Image image;
 
 	private Grid grid;
 	private Grid tempGrid;
 	
 	private Render render;	
+	private Level level;
 	
 	private EnemyTracker enemyTracker;
 	
 	private static int enemyCount;
+	
+	private int nEnemy1;
+	private int nEnemy2;
+	private int nEnemy3;
+	private int nEnemy4;
+	private int nEnemy5;
+	private int nEnemy6;
+	private int nEnemy7;
+	private int nEnemy8;
 	
 	
 	
@@ -27,13 +37,24 @@ public class Enemy implements Mover {
 	PathFinder finder;
 
 	public Enemy(Grid grid, Render render, Level level) {
-		
+		this.level = level;
 		enemyCount = 0;
 		this.render = render;
 		loadImage();
 		this.grid = grid;
 		this.tempGrid = new Grid();
 		placeEnemies();
+		
+		this.nEnemy1 = level.getnEnemy1();
+		this.nEnemy2 = level.getnEnemy2();
+		this.nEnemy3 = level.getnEnemy3();
+		this.nEnemy4 = level.getnEnemy4();
+		this.nEnemy5 = level.getnEnemy5();
+		this.nEnemy6 = level.getnEnemy6();
+		this.nEnemy7 = level.getnEnemy7();
+		this.nEnemy8 = level.getnEnemy8();
+		
+
 		
 
 	}
@@ -42,6 +63,7 @@ public class Enemy implements Mover {
 
 		
 		grid.setContents(1,11,Cell.ENEMY);
+		grid.setContents(2,11,Cell.ENEMY);
 		
 		System.out.println("Number of Enemies..: " + enemyCount);
 
@@ -70,12 +92,6 @@ public class Enemy implements Mover {
 		return enemyCount;
 	}
 
-	//
-	// public void move(){
-	// Grid grid = null;
-	// AStarPathFinder finder = new AStarPathFinder(grid);
-	//
-	// }
 	
 	public void copyGrid(){
 		for (int posX = 0; posX < Bomberman.WIDTH; posX++) {
@@ -83,6 +99,28 @@ public class Enemy implements Mover {
 				tempGrid.setContents(posX,posY,grid.getContents(posX,posY));
 			}
 		}		
+	}
+	
+	public void move(int targetX, int targetY){
+		copyGrid();
+		
+		
+		
+		for (int posX = 1; posX < Bomberman.WIDTH - 1; posX++) {
+			for (int posY = 1; posY < Bomberman.HEIGHT - 1; posY++) {
+				
+				switch(tempGrid.getContents(posX,posY)) {
+				case ENEMY: // Call move method for this enemy
+					continue;
+					
+				default:
+					break;
+				}		
+					
+			}
+		}
+		
+		
 	}
 
 	public void aStarMovement(int targetX, int targetY) {
