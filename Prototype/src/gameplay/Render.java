@@ -301,6 +301,10 @@ public class Render extends JPanel implements ActionListener {
 			GameState.setState(State.PLAYERDEAD);
 			GameState.setState(State.RUNNING);
 			timer.stop();
+			powerups.setWallpass(false);
+			powerups.setBombpass(false);
+			powerups.setWallpass(false);
+			powerups.setDetonate(false);
 			
 			if (player.getLivesLeft() == 0) {
 				System.out.println("No more lives left sorry friend");

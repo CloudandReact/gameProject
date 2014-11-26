@@ -132,6 +132,46 @@ public class PowerUps {
 	public Image getFlamePassImage() {
 		return imageFP;
 	}
+
+
+	public static Boolean getWallpass() {
+		return wallpass;
+	}
+
+
+	public void setWallpass(Boolean wallpass) {
+		PowerUps.wallpass = wallpass;
+	}
+
+
+	public static Boolean getBombpass() {
+		return bombpass;
+	}
+
+
+	public void setBombpass(Boolean bombpass) {
+		PowerUps.bombpass = bombpass;
+	}
+
+
+	public static Boolean getFlamepass() {
+		return flamepass;
+	}
+
+
+	public void setFlamepass(Boolean flamepass) {
+		PowerUps.flamepass = flamepass;
+	}
+
+
+	public static Boolean getDetonate() {
+		return detonate;
+	}
+
+
+	public void setDetonate(Boolean detonate) {
+		PowerUps.detonate = detonate;
+	}
 	
 	
 }
