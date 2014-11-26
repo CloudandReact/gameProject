@@ -65,10 +65,12 @@ public class Grid implements TileBasedMap {
 	@Override
 	public boolean blocked(Mover mover, int x, int y) {
 		
-		if (gridMap[x][y] == Cell.CONCRETE || gridMap[x][y] == Cell.BRICK || gridMap[x][y] == Cell.POWERUPS ||  gridMap[x][y] == Cell.ENEMY || gridMap[x][y] == Cell.BRICKANDPOWERUPS || gridMap[x][y] == Cell.BOMB || gridMap[x][y] == Cell.PLAYERANDBOMB || gridMap[x][y] == Cell.BALLOOM || gridMap[x][y] == Cell.ONEAL || gridMap[x][y] == Cell.DOLL || gridMap[x][y] == Cell.MINVO || gridMap[x][y] == Cell.KONDORIA || gridMap[x][y] == Cell.OVAPI  || gridMap[x][y] == Cell.PASS  || gridMap[x][y] == Cell.PONTAN){
+		if (gridMap[x][y] == Cell.BRICKANDPOWERUPS || gridMap[x][y] == Cell.BRICKANDEXITWAY || gridMap[x][y] == Cell.CONCRETE || gridMap[x][y] == Cell.BRICK || gridMap[x][y] == Cell.POWERUPS ||  gridMap[x][y] == Cell.ENEMY || gridMap[x][y] == Cell.BRICKANDPOWERUPS || gridMap[x][y] == Cell.BOMB || gridMap[x][y] == Cell.PLAYERANDBOMB || gridMap[x][y] == Cell.BALLOOM || gridMap[x][y] == Cell.ONEAL || gridMap[x][y] == Cell.DOLL || gridMap[x][y] == Cell.MINVO || gridMap[x][y] == Cell.KONDORIA || gridMap[x][y] == Cell.OVAPI  || gridMap[x][y] == Cell.PASS  || gridMap[x][y] == Cell.PONTAN){
 			return true;
 		}
 
+		
+		
 		
 	/*	if(gridMap[x][y] != Cell.EMPTY || gridMap[x][y] != Cell.PLAYER){
 			System.out.println("true");

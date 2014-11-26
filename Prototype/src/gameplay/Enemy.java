@@ -432,6 +432,7 @@ public class Enemy implements Mover {
 		boolean canMoveInX = false;
 		boolean canMoveInY = false;
 		boolean usingAStar = false;
+	
 		int enemyDirectionX = tracker.getxDirection();
 		int enemyDirectionY = tracker.getyDirection();
 		int posX = tracker.getxPosition();
@@ -447,7 +448,7 @@ public class Enemy implements Mover {
 
 			
 			if(path!=null){
-				System.out.println("path isnt null");
+				
 				usingAStar = true;
 				
 			
@@ -472,7 +473,8 @@ public class Enemy implements Mover {
 					tracker.setxPosition(posX + enemyDirectionX);
 					tracker.setMovingInX(true);
 					tracker.setMovingInY(false);
-					tracker.setxDirection(enemyDirectionX);
+				
+					//tracker.setxDirection(enemyDirectionX);
 					
 				}
 				
@@ -482,7 +484,7 @@ public class Enemy implements Mover {
 					tracker.setyPosition(posY + enemyDirectionY);
 					tracker.setMovingInY(true);
 					tracker.setMovingInX(false);
-					tracker.setyDirection(enemyDirectionY);
+					//tracker.setyDirection(enemyDirectionY);
 								
 				}
 				
@@ -558,6 +560,8 @@ public class Enemy implements Mover {
 			}
 			
 		}
+		
+		
 		
 		
 	

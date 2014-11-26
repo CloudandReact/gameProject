@@ -58,7 +58,7 @@ public class Render extends JPanel implements ActionListener {
 	public Render() {
 
 		System.out.println("HELLO MY NAME IS...: " + PlayerInfo.getUsername());
-		this.currentLevel = 40;
+		this.currentLevel = 50;
 		initialize();
 		numberOfLives = 3;
 		addKeyListener(new TAdapter());
