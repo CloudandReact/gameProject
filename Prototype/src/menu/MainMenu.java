@@ -132,7 +132,13 @@ public class MainMenu extends JFrame{
 					JOptionPane.showMessageDialog(null,"Please start a new game no levels availible", "Error", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else{
-					
+					try {
+						
+						new LoadLevel(panelL);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 				
 			}

@@ -90,7 +90,8 @@ private static final long serialVersionUID = 1L;
 					JOptionPane.showMessageDialog(null,"Please enter smaller number than equal to "+levelAvailible+ " ", "Error", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else{
-					
+					//assigns player current Level to different level
+					PlayerInfo.currentLevel=levelSelected;
 				}
 				//new Game()
 			}

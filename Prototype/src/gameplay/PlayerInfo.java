@@ -15,7 +15,8 @@ public class PlayerInfo {
 	// if new game zero user can have multiple games stored
 	public static int gameOfuser;
 	//stores current level in game
-	public static int currentLevel;
+	//starts at 1 assignms other when level updates
+	public static int currentLevel=1;
 	public static ArrayList<CSVRecord> allUserStatistics=new ArrayList<CSVRecord>();
 	boolean gameStarted;
 	
