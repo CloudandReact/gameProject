@@ -225,7 +225,7 @@ public class Enemy implements Mover {
 
 	private void placeEnemies(Cell enemyType, int numberToPlace) {
 
-/*		int numberOfEnemies = 0;
+		int numberOfEnemies = 0;
 		while (numberOfEnemies < numberToPlace) {
 			int randX = randInt(4, 30);
 			int randY = randInt(1, 12);
@@ -240,9 +240,9 @@ public class Enemy implements Mover {
 			}
 			
 		}
-		*/
 		
-		grid.setContents(1,11,Cell.KONDORIA);
+		
+	
 		
 		//enemyCount += numberOfEnemies;
 		
@@ -285,6 +285,17 @@ public class Enemy implements Mover {
 			}
 		}
 	}
+	
+	private void copyGrid() {
+		for (int posX = 0; posX < Bomberman.WIDTH; posX++) {
+			for (int posY = 0; posY < Bomberman.HEIGHT; posY++) {
+				tempGrid.setContents(posX, posY, grid.getContents(posX, posY));
+							
+			}
+		}
+	}
+	
+	
 	
 	private void verifyTracker(int posX, int posY, Cell enemyType){
 		
@@ -366,20 +377,21 @@ public class Enemy implements Mover {
 
 	
 	public void aStarMovement(int targetX, int targetY, Cell cellType) {
-
-		finder = new AStarPathFinder(grid, 3);
+		
+		finder = new AStarPathFinder(grid, 10);
 
 		// Create the needed enemy types, when we find an enemy on the grid we
 		// call the appropriate move method.. Kappa
 
-		copyGridAndVerifyTracker();
+		copyGrid();
+		
 
 		for (int posX = 1; posX < Bomberman.WIDTH - 1; posX++) {
 			for (int posY = 1; posY < Bomberman.HEIGHT - 1; posY++) {
 				if (tempGrid.getContents(posX, posY) == cellType) {
 
 					path = finder.findPath(this, posX, posY, targetX, targetY);
-
+					
 					if (path != null) {
 
 						grid.setContents(posX, posY, Cell.EMPTY);
@@ -389,8 +401,7 @@ public class Enemy implements Mover {
 						
 						// player killing
 						if (grid.getContents(path.getX(1), path.getY(1)) == Cell.PLAYER) {
-							grid.setContents(path.getX(1), path.getY(1),
-									cellType);
+							grid.setContents(path.getX(1), path.getY(1), cellType);
 							GameState.setState(State.PLAYERDEAD);
 							render.setIsPlayerAlive(false);
 						}
@@ -438,16 +449,20 @@ public class Enemy implements Mover {
 			if(path!=null){
 				System.out.println("path isnt null");
 				usingAStar = true;
-				enemyDirectionX = path.getX(1)/Math.abs(path.getX(1));
-				enemyDirectionY = path.getY(1)/Math.abs(path.getY(1));
-				tracker.setxDirection(enemyDirectionX);
-				tracker.setyDirection(enemyDirectionY);
+				
+			
 				
 				if(posX == path.getX(1)){
 					canMoveInY = true;
-				}
+					enemyDirectionY = path.getY(1) - posY;
+					tracker.setyDirection(enemyDirectionY);
+
+				}	
 				else{
 					canMoveInX = true;
+					enemyDirectionX =  path.getX(1) - posX;
+					tracker.setxDirection(enemyDirectionX);
+					
 				}
 				
 				grid.setContents(posX, posY, Cell.EMPTY);
@@ -473,7 +488,6 @@ public class Enemy implements Mover {
 				
 			}
 		}
-		usingAStar = true;
 		
 		if(!usingAStar){
 			
