@@ -59,6 +59,18 @@ public class FileWriting {
 		// match them..
 		String filename = System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userInfo.csv");
 		System.getProperty("user.dir" + "\\" + "userInfo.csv");
+		String filename1=System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userInfo.csv");
+		File userInfo = new File(filename1);
+		// check if file exists otherwise create new file...
+		if (userInfo.exists()) {
+		} else {
+			try {
+				userInfo.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		//File userInfo = new File((filename));
 
 		/*if (userInfo.exists()) {
@@ -155,20 +167,21 @@ public class FileWriting {
 		// find the directory eclipse is in System.getProperty("user.dir") and
 		// match them..
 		String filename = System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userStatistics.csv");
-		
-		//File userInfo = new File((filename));
+		String filename1=System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userStatistics.csv");
+		File userInfo = new File((filename1));
 
-		/*if (userInfo.exists()) {
+		if (userInfo.exists()) {
 			System.out.println("File exists");
 		} else {
 			System.out.println("File not found");
-		}*/
+		}
 
 		
 			// userFileInfo1 = new ArrayList<String>();
 
 			// Scanner input= new Scanner(userInfo);
 			// String line= input.readLine();
+	
 			CSVParser parser = new CSVParser(new FileReader(filename),
 					CSVFormat.DEFAULT);
 			userStatistics= (ArrayList<CSVRecord>) parser.getRecords();
