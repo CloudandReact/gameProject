@@ -11,14 +11,14 @@ public class Level {
 	private int nEnemy7;
 	private int nEnemy8;
 
-	private int currentLevel = 1;
+	private int currentLevel = 0;
 
-	public Level() {
-		currentLevel = 1;
+	public Level(int currentLevel) {
+		this.currentLevel = currentLevel;
 		setNumberOfEnemies();
 	}
 
-	public void setNumberOfEnemies() {
+	private void setNumberOfEnemies() {
 
 		if (currentLevel == 1) {
 			nEnemy1 = 6;
@@ -379,6 +379,7 @@ public class Level {
 			nEnemy4 = 2;
 			nEnemy5 = 3;
 			nEnemy6 = 0;
+			System.out.println("Reaching where we need to");
 			nEnemy7 = 4;
 			nEnemy8 = 0;
 		} else if (currentLevel == 41) {

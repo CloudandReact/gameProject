@@ -58,7 +58,7 @@ public class Render extends JPanel implements ActionListener {
 	public Render() {
 
 		System.out.println("HELLO MY NAME IS...: " + PlayerInfo.getUsername());
-		this.currentLevel = 0;
+		this.currentLevel = 40;
 		initialize();
 		numberOfLives = 3;
 		addKeyListener(new TAdapter());
@@ -77,16 +77,16 @@ public class Render extends JPanel implements ActionListener {
 		
 		grid.initializeGridMap();
 		
-		level = new Level();
-		level.setLevel(currentLevel);	
+		level = new Level(currentLevel);
+		
 		brick = new Brick(grid);
 		bomb = new Bomb(grid);
-		enemy = new Enemy(grid,this, level);
 		concrete = new Concrete(grid);
 		powerups = new PowerUps(grid);
 		exitway = new ExitWay(grid);
 		player = new Player(grid, bomb);
-		
+		enemy = new Enemy(grid,this, level);
+
 		isPlayerAlive = true;
 		pauseMenuOpen = false;
 		timer = new Timer(100, this);
@@ -142,9 +142,30 @@ public class Render extends JPanel implements ActionListener {
 						g2d.drawImage(bomb.getImageBombExplode(),Bomberman.TILE_SIZE * (i - leftMostVisibleCell),Bomberman.TILE_SIZE * j, this);
 						grid.setContents(i, j, Cell.EMPTY);
 						continue;
-					case ENEMY:
-						g2d.drawImage(enemy.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+					case BALLOOM:
+						g2d.drawImage(enemy.getImageBalloom(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						continue;
+					case ONEAL:
+						g2d.drawImage(enemy.getImageOneal(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						continue;
+					case DOLL:
+						g2d.drawImage(enemy.getImageDoll(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						continue;	
+					case MINVO:
+						g2d.drawImage(enemy.getImageMinvo(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						continue;		
+					case KONDORIA:
+						g2d.drawImage(enemy.getImageKondoria(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						continue;	
+					case OVAPI:
+						g2d.drawImage(enemy.getImageOvapi(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						continue;	
+					case PASS:
+						g2d.drawImage(enemy.getImagePass(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						continue;		   
+					case PONTAN:
+						g2d.drawImage(enemy.getImagePontan(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						continue;			  
 					case BRICKANDPOWERUPS:
 						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						continue;
@@ -243,8 +264,8 @@ public class Render extends JPanel implements ActionListener {
 				}
 			}
 			if (count == 5) {
-				enemy.aStarMovement(player.getX() / Bomberman.TILE_SIZE,
-						player.getY() / Bomberman.TILE_SIZE);
+				
+				enemy.move(player.getX() / Bomberman.TILE_SIZE, player.getY() / Bomberman.TILE_SIZE);
 				count = 0;
 			}
 			count++;

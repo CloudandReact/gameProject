@@ -24,12 +24,11 @@ public class Bomb {
 	private Image explode;
 	private Image bombandexitway;
 
-
-	
 	private Grid grid;
-	
+
 	/*
-	 * RANGE IS DEFAULTED TO 1 IN CONSTRUCTORS. TO SET RANGE USE SETTER ON BOMB OBJECT. USE THE SAME BOMB OBJECT SUPPLIED TO THE THREAD. 
+	 * RANGE IS DEFAULTED TO 1 IN CONSTRUCTORS. TO SET RANGE USE SETTER ON BOMB
+	 * OBJECT. USE THE SAME BOMB OBJECT SUPPLIED TO THE THREAD.
 	 */
 
 	public Bomb(Grid grid) {
@@ -37,15 +36,15 @@ public class Bomb {
 		this.range = 1;
 		this.grid = grid;
 	}
-	
-	public void setRange(int range){
+
+	public void setRange(int range) {
 		this.range = range;
 	}
-	
+
 	public void setPosition(int posX, int posY) {
 		this.posX = posX;
 		this.posY = posY;
-		
+
 	}
 
 	private void loadImage() {
@@ -80,167 +79,193 @@ public class Bomb {
 		return bombandexitway;
 	}
 
-
 	public static int getNumberOfEnemiesKilled() {
 		return numberOfEnemiesKilled;
 	}
-	
-	public void explode(){
-		
+
+	public void explode() {
+
 		currentRange = 0;
 		System.out.println("Explode method");
-		
+
 		while (currentRange <= range) {
 			System.out.println("PosX is ..:" + posX + "PosY is. ..: " + posY);
 			System.out.println(currentRange);
-			if (grid.getContents(posX + currentRange,posY) != Cell.CONCRETE) {
-				
-				if (grid.getContents(posX + currentRange,posY) == Cell.BRICKANDPOWERUPS) {
-					grid.setContents(posX + currentRange,posY,Cell.POWERUPS);
+			if (grid.getContents(posX + currentRange, posY) != Cell.CONCRETE) {
 
-				} 
-				else if (grid.getContents(posX + currentRange,posY) == Cell.BRICKANDEXITWAY) {
-					grid.setContents(posX + currentRange,posY,Cell.EXITWAY);
-				} 
-				else if (grid.getContents(posX + currentRange,posY) == Cell.EXITWAY) {
-					grid.setContents(posX + currentRange,posY,Cell.EXITWAY);
-				} 
-				else if (grid.getContents(posX + currentRange,posY) == Cell.ENEMY) {
+				if (grid.getContents(posX + currentRange, posY) == Cell.BRICKANDPOWERUPS) {
+					grid.setContents(posX + currentRange, posY, Cell.POWERUPS);
+
+				} else if (grid.getContents(posX + currentRange, posY) == Cell.BRICKANDEXITWAY) {
+					grid.setContents(posX + currentRange, posY, Cell.EXITWAY);
+				} else if (grid.getContents(posX + currentRange, posY) == Cell.EXITWAY) {
+					grid.setContents(posX + currentRange, posY, Cell.EXITWAY);
+				}
+
+				else if (grid.getContents(posX + currentRange, posY) == Cell.BALLOOM
+						|| grid.getContents(posX + currentRange, posY) == Cell.ONEAL
+						|| grid.getContents(posX + currentRange, posY) == Cell.DOLL
+						|| grid.getContents(posX + currentRange, posY) == Cell.MINVO
+						|| grid.getContents(posX + currentRange, posY) == Cell.KONDORIA
+						|| grid.getContents(posX + currentRange, posY) == Cell.OVAPI
+						|| grid.getContents(posX + currentRange, posY) == Cell.PASS
+						|| grid.getContents(posX + currentRange, posY) == Cell.PONTAN) {
 
 					numberOfEnemiesKilled++;
 					System.out.println(numberOfEnemiesKilled);
 					Player.setScore(Player.getScore() + 100);
-					grid.setContents(posX + currentRange,posY,Cell.EXPLODE);
+					grid.setContents(posX + currentRange, posY, Cell.EXPLODE);
 
-				} 
-				else {
-					grid.setContents(posX + currentRange,posY, Cell.EXPLODE);
+				} else {
+					grid.setContents(posX + currentRange, posY, Cell.EXPLODE);
 				}
-				
+
 				currentRange++;
-			} 
-			
-			else if(grid.getContents(posX + currentRange,posY) == Cell.CONCRETE) {
+			}
+
+			else if (grid.getContents(posX + currentRange, posY) == Cell.CONCRETE) {
 				// Come out of the loop, we don't want to explode across the
 				// concrete
 				break;
 			}
 		}
-		
+
 		currentRange = 0;
-		
+
 		while (currentRange <= range) {
 
-			if (grid.getContents(posX - currentRange,posY) != Cell.CONCRETE) {
-				
-				if (grid.getContents(posX - currentRange,posY) == Cell.BRICKANDPOWERUPS) {
-					grid.setContents(posX - currentRange,posY,Cell.POWERUPS);
+			if (grid.getContents(posX - currentRange, posY) != Cell.CONCRETE) {
 
+				if (grid.getContents(posX - currentRange, posY) == Cell.BRICKANDPOWERUPS) {
+					grid.setContents(posX - currentRange, posY, Cell.POWERUPS);
+
+				} else if (grid.getContents(posX - currentRange, posY) == Cell.BRICKANDEXITWAY) {
+					grid.setContents(posX - currentRange, posY, Cell.EXITWAY);
+				} else if (grid.getContents(posX - currentRange, posY) == Cell.EXITWAY) {
+					grid.setContents(posX - currentRange, posY, Cell.EXITWAY);
 				} 
-				else if (grid.getContents(posX - currentRange,posY) == Cell.BRICKANDEXITWAY) {
-					grid.setContents(posX - currentRange,posY, Cell.EXITWAY);
-				} 
-				else if (grid.getContents(posX - currentRange,posY) == Cell.EXITWAY) {
-					grid.setContents(posX - currentRange,posY,Cell.EXITWAY);
-				} 
-				else if (grid.getContents(posX - currentRange,posY) == Cell.ENEMY) {
+							
+				
+				else if (grid.getContents(posX - currentRange, posY) == Cell.BALLOOM
+						|| grid.getContents(posX - currentRange, posY) == Cell.ONEAL
+						|| grid.getContents(posX - currentRange, posY) == Cell.DOLL
+						|| grid.getContents(posX - currentRange, posY) == Cell.MINVO
+						|| grid.getContents(posX - currentRange, posY) == Cell.KONDORIA
+						|| grid.getContents(posX - currentRange, posY) == Cell.OVAPI
+						|| grid.getContents(posX - currentRange, posY) == Cell.PASS
+						|| grid.getContents(posX - currentRange, posY) == Cell.PONTAN) {
 
 					numberOfEnemiesKilled++;
 					System.out.println(numberOfEnemiesKilled);
 					Player.setScore(Player.getScore() + 100);
-					grid.setContents(posX - currentRange,posY, Cell.EXPLODE);
-
-				} 
-				else {
-					grid.setContents(posX - currentRange,posY, Cell.EXPLODE);
+					grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
 				}
 				
+				else {
+					grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
+				}
+
 				currentRange++;
-			} 
-			
-			else if(grid.getContents(posX - currentRange,posY) == Cell.CONCRETE) {
+			}
+
+			else if (grid.getContents(posX - currentRange, posY) == Cell.CONCRETE) {
 				// Come out of the loop, we don't want to explode across the
 				// concrete
 				break;
 			}
 		}
-		
+
 		currentRange = 0;
-		
+
 		while (currentRange <= range) {
 			System.out.println("CURRENT RANGE IN Y: ..." + currentRange);
-			if (grid.getContents(posX,posY + currentRange) != Cell.CONCRETE) {
-				
-				if (grid.getContents(posX,posY + currentRange) == Cell.BRICKANDPOWERUPS) {
-					grid.setContents(posX,posY + currentRange, Cell.POWERUPS);
+			if (grid.getContents(posX, posY + currentRange) != Cell.CONCRETE) {
 
+				if (grid.getContents(posX, posY + currentRange) == Cell.BRICKANDPOWERUPS) {
+					grid.setContents(posX, posY + currentRange, Cell.POWERUPS);
+
+				} else if (grid.getContents(posX, posY + currentRange) == Cell.BRICKANDEXITWAY) {
+					grid.setContents(posX, posY + currentRange, Cell.EXITWAY);
+				} else if (grid.getContents(posX, posY + currentRange) == Cell.EXITWAY) {
+					grid.setContents(posX, posY + currentRange, Cell.EXITWAY);
 				} 
-				else if (grid.getContents(posX,posY + currentRange) == Cell.BRICKANDEXITWAY) {
-					grid.setContents(posX,posY + currentRange,Cell.EXITWAY);
-				} 
-				else if (grid.getContents(posX,posY + currentRange) == Cell.EXITWAY) {
-					grid.setContents(posX,posY + currentRange,Cell.EXITWAY);
-				} 
-				else if (grid.getContents(posX,posY + currentRange) == Cell.ENEMY) {
+				
+				else if (grid.getContents(posX, posY + currentRange) == Cell.BALLOOM
+						|| grid.getContents(posX, posY + currentRange) == Cell.ONEAL
+						|| grid.getContents(posX, posY + currentRange) == Cell.DOLL
+						|| grid.getContents(posX, posY + currentRange) == Cell.MINVO
+						|| grid.getContents(posX, posY + currentRange) == Cell.KONDORIA
+						|| grid.getContents(posX, posY + currentRange) == Cell.OVAPI
+						|| grid.getContents(posX, posY + currentRange) == Cell.PASS
+						|| grid.getContents(posX, posY + currentRange) == Cell.PONTAN) {
 
 					numberOfEnemiesKilled++;
-					System.out.println("Killed one!");
 					System.out.println(numberOfEnemiesKilled);
 					Player.setScore(Player.getScore() + 100);
-					grid.setContents(posX,posY + currentRange,Cell.EXPLODE);
-
-				} 
+					grid.setContents(posX, posY + currentRange, Cell.EXPLODE);
+				}
+				
+				
 				else {
-					grid.setContents(posX,posY + currentRange,Cell.EXPLODE);
+					grid.setContents(posX, posY + currentRange, Cell.EXPLODE);
 				}
 				currentRange++;
-			} 
-			
-			else if(grid.getContents(posX,posY + currentRange) == Cell.CONCRETE) {
+			}
+
+			else if (grid.getContents(posX, posY + currentRange) == Cell.CONCRETE) {
 				// Come out of the loop, we don't want to explode across the
 				// concrete
 				break;
 			}
 		}
-		
-		currentRange = 0;
-		
-		while (currentRange <= range) {
-			if (grid.getContents(posX,posY - currentRange) != Cell.CONCRETE) {
-				
-				if (grid.getContents(posX,posY - currentRange) == Cell.BRICKANDPOWERUPS) {
-					grid.setContents(posX,posY - currentRange,Cell.POWERUPS);
 
+		currentRange = 0;
+
+		while (currentRange <= range) {
+			if (grid.getContents(posX, posY - currentRange) != Cell.CONCRETE) {
+
+				if (grid.getContents(posX, posY - currentRange) == Cell.BRICKANDPOWERUPS) {
+					grid.setContents(posX, posY - currentRange, Cell.POWERUPS);
+
+				} else if (grid.getContents(posX, posY - currentRange) == Cell.BRICKANDEXITWAY) {
+					grid.setContents(posX, posY - currentRange, Cell.EXITWAY);
+				} else if (grid.getContents(posX, posY - currentRange) == Cell.EXITWAY) {
+					grid.setContents(posX, posY - currentRange, Cell.EXITWAY);
 				} 
-				else if (grid.getContents(posX,posY - currentRange) == Cell.BRICKANDEXITWAY) {
-					grid.setContents(posX,posY - currentRange,Cell.EXITWAY);
-				} 
-				else if (grid.getContents(posX,posY - currentRange) == Cell.EXITWAY) {
-					grid.setContents(posX,posY - currentRange,Cell.EXITWAY);
-				} 
-				else if (grid.getContents(posX,posY - currentRange) == Cell.ENEMY) {
+				
+				else if (grid.getContents(posX, posY - currentRange) == Cell.BALLOOM
+						|| grid.getContents(posX, posY - currentRange) == Cell.ONEAL
+						|| grid.getContents(posX, posY - currentRange) == Cell.DOLL
+						|| grid.getContents(posX, posY - currentRange) == Cell.MINVO
+						|| grid.getContents(posX, posY - currentRange) == Cell.KONDORIA
+						|| grid.getContents(posX, posY - currentRange) == Cell.OVAPI
+						|| grid.getContents(posX, posY - currentRange) == Cell.PASS
+						|| grid.getContents(posX, posY - currentRange) == Cell.PONTAN) {
 
 					numberOfEnemiesKilled++;
-					System.out.println("Killed one!");
 					System.out.println(numberOfEnemiesKilled);
 					Player.setScore(Player.getScore() + 100);
-					grid.setContents(posX,posY - currentRange,Cell.EXPLODE);
-
-				} 
-				else {
-					grid.setContents(posX,posY - currentRange,Cell.EXPLODE);
-					System.out.println("HERE");
+					grid.setContents(posX, posY - currentRange, Cell.EXPLODE);
 				}
 				
-				currentRange++;
-			} 
 			
-			else if(grid.getContents(posX,posY - currentRange) == Cell.CONCRETE) {
-				// Come out of the loop, we don't want to explode across the concrete
+				
+				
+				else {
+					grid.setContents(posX, posY - currentRange, Cell.EXPLODE);
+					System.out.println("HERE");
+				}
+
+				currentRange++;
+			}
+
+			else if (grid.getContents(posX, posY - currentRange) == Cell.CONCRETE) {
+				// Come out of the loop, we don't want to explode across the
+				// concrete
 				break;
 			}
 		}
-			
+
 		currentRange = 0;
 	}
 

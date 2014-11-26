@@ -48,7 +48,14 @@ public class Player {
 		if (dx != 0) {
 
 			// Player dies if walking into enemy
-			if (grid.getContents(posX + (dx / 25), posY) == Cell.ENEMY) {
+			if (grid.getContents(posX + (dx / 25), posY) == Cell.BALLOOM
+					|| grid.getContents(posX + (dx / 25), posY) == Cell.ONEAL
+					|| grid.getContents(posX + (dx / 25), posY) == Cell.DOLL
+					|| grid.getContents(posX + (dx / 25), posY) == Cell.MINVO
+					|| grid.getContents(posX + (dx / 25), posY) == Cell.KONDORIA
+					|| grid.getContents(posX + (dx / 25), posY) == Cell.OVAPI
+					|| grid.getContents(posX + (dx / 25), posY) == Cell.PASS
+					|| grid.getContents(posX + (dx / 25), posY) == Cell.PONTAN) {
 				grid.setContents(posX, posY, Cell.EMPTY);
 			}
 
@@ -59,43 +66,49 @@ public class Player {
 
 				if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
 					grid.setContents(posX, posY, Cell.BOMB);
-		
-				} 
-				
+
+				}
+
 				else if (grid.getContents(posX, posY) == Cell.PLAYERANDEXITWAY) {
 					grid.setContents(posX, posY, Cell.EXITWAY);
-				} 
-				
-				else if (grid.getContents(posX+(dx/25), posY) == Cell.EXITWAY) {
-					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
-					
-				} 
-							
+				}
+
 				else {
 					grid.setContents(posX, posY, Cell.EMPTY);
 				}
-				
-				if(dx < 0){
+
+				if (dx < 0) {
 					posX--;
-				}
-				else{
+				} else {
 					posX++;
 				}
-				
+
 				x += dx;
-				grid.setContents(posX, posY, Cell.PLAYER);
+
+				if (grid.getContents(posX, posY) == Cell.EXITWAY) {
+					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
+
+				} else {
+					grid.setContents(posX, posY, Cell.PLAYER);
+
+				}
 
 			}
 		}
 
-
 		if (dy != 0) {
-			
+
 			// Player dies if walking into enemy
-			if (grid.getContents(posX , posY + (dy / 25)) == Cell.ENEMY) {
+			if (grid.getContents(posX, posY + (dy / 25)) == Cell.BALLOOM
+					|| grid.getContents(posX, posY + (dy / 25)) == Cell.ONEAL
+					|| grid.getContents(posX, posY + (dy / 25)) == Cell.DOLL
+					|| grid.getContents(posX, posY + (dy / 25)) == Cell.MINVO
+					|| grid.getContents(posX, posY + (dy / 25)) == Cell.KONDORIA
+					|| grid.getContents(posX, posY + (dy / 25)) == Cell.OVAPI
+					|| grid.getContents(posX, posY + (dy / 25)) == Cell.PASS
+					|| grid.getContents(posX, posY + (dy / 25)) == Cell.PONTAN) {
 				grid.setContents(posX, posY, Cell.EMPTY);
 			}
-
 			//
 			if (grid.getContents(posX, posY + (dy / 25)) == Cell.EMPTY
 					|| grid.getContents(posX, posY + (dy / 25)) == Cell.POWERUPS
@@ -103,35 +116,36 @@ public class Player {
 
 				if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
 					grid.setContents(posX, posY, Cell.BOMB);
-		
-				} 
-				
+
+				}
+
 				else if (grid.getContents(posX, posY) == Cell.PLAYERANDEXITWAY) {
 					grid.setContents(posX, posY, Cell.EXITWAY);
-				} 
-				
-				else if (grid.getContents(posX+(dx/25), posY) == Cell.EXITWAY) {
-					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
-					
-				} 
-							
+				}
+
 				else {
 					grid.setContents(posX, posY, Cell.EMPTY);
 				}
-				
-				if(dy < 0){
+
+				if (dy < 0) {
 					posY--;
 				}
-				
-				else{
+
+				else {
 					posY++;
 				}
 				y += dy;
-				grid.setContents(posX, posY, Cell.PLAYER);
+
+				if (grid.getContents(posX, posY) == Cell.EXITWAY) {
+					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
+
+				} else {
+					grid.setContents(posX, posY, Cell.PLAYER);
+
+				}
 
 			}
 		}
-	
 
 	}
 
@@ -189,7 +203,8 @@ public class Player {
 		// Bomb Logic
 		if (key == KeyEvent.VK_X) {
 			if (GameState.getState() == State.RUNNING && isBombPlaced == false) {
-				if (grid.getContents(posX, posY) != Cell.PLAYERANDBOMB) {
+				if (grid.getContents(posX, posY) != Cell.PLAYERANDBOMB
+						&& (grid.getContents(posX, posY) != Cell.PLAYERANDEXITWAY)) {
 
 					grid.setContents(posX, posY, Cell.PLAYERANDBOMB);
 
