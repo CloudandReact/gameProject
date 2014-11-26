@@ -2,19 +2,44 @@ package gameplay;
 
 public class EnemyTracker {
 	
-	private int enemyID;
 	private int xPosition;
 	private int yPosition;
 	private int xDirection;
 	private int yDirection;
+	private Cell enemyType;
 	
-	public EnemyTracker(int enemyID, int xPosition, int yPosition) {
+	public EnemyTracker(int xPosition, int yPosition, Cell enemyType) {
 		
-		this.enemyID = enemyID;
+		this.setEnemyType(enemyType);
 		this.setxPosition(xPosition);
 		this.setyPosition(yPosition);
+	
 		setxDirection(0);
-		yDirection = 0;
+		setyDirection(0);
+	}
+	
+	public Cell getEnemyType() {
+		return enemyType;
+	}
+
+
+	public void setEnemyType(Cell enemyType) {
+		this.enemyType = enemyType;
+	}
+
+
+	public int getyDirection() {
+		return yDirection;
+	}
+	
+	public void updateTracker(int xPosition, int yPosition){
+		this.xPosition = xPosition;
+		this.yPosition = xPosition;
+	}
+
+
+	public void setyDirection(int yDirection) {
+		this.yDirection = yDirection;
 	}
 
 	public int getxPosition() {
@@ -40,6 +65,8 @@ public class EnemyTracker {
 	public void setxDirection(int xDirection) {
 		this.xDirection = xDirection;
 	}
+
+
 	
 
 }

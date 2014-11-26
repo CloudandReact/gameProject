@@ -58,7 +58,7 @@ public class Render extends JPanel implements ActionListener {
 	public Render() {
 
 		System.out.println("HELLO MY NAME IS...: " + PlayerInfo.getUsername());
-		this.currentLevel = 40;
+		this.currentLevel = 1;
 		initialize();
 		numberOfLives = 3;
 		addKeyListener(new TAdapter());
@@ -100,7 +100,9 @@ public class Render extends JPanel implements ActionListener {
 		g2d.setColor(Color.darkGray);
 		
 		getVisibleRange();
+		
 		checkIfPlayerAlive();
+		
 		
 
 		if (player.getBombStatus() && (currentTime = System.currentTimeMillis()) - player.getInitialTime() >= 2000) {
@@ -295,6 +297,7 @@ public class Render extends JPanel implements ActionListener {
 		
 		
 	}
+	
 	private void checkIfPlayerAlive() {
 		
 		if (isPlayerAlive == false) {

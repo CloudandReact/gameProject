@@ -34,7 +34,7 @@ public class Enemy implements Mover {
 	private Render render;
 	private Level level;
 
-	private static int enemyCount;
+	private int enemyCount;
 
 	private int nEnemy1;
 	private int nEnemy2;
@@ -44,17 +44,31 @@ public class Enemy implements Mover {
 	private int nEnemy6;
 	private int nEnemy7;
 	private int nEnemy8;
+	
+	private int enemyDirection;
 
 	private Path path;
 	PathFinder finder;
 
+	private ArrayList<EnemyTracker> enemiesInitial; 
+	private EnemyTracker tracker;
+	
+	private ArrayList<EnemyTracker> enemiesAlive; 
+	private EnemyTracker livingEnemy;
+
+
+	
 	public Enemy(Grid grid, Render render, Level level) {
 		this.level = level;
-		enemyCount = 0;
+		this.enemyCount = 0;
 		this.render = render;
-		loadImage();
+		this.loadImage();
 		this.grid = grid;
 		this.tempGrid = new Grid();
+		
+		enemiesInitial = new ArrayList<EnemyTracker>();
+		enemiesAlive = new ArrayList<EnemyTracker>();
+		
 
 		System.out.println("Current Level..: " + level.getLevel());
 
@@ -83,6 +97,8 @@ public class Enemy implements Mover {
 		System.out.println("Number of enemyType8..: " + level.getnEnemy8());
 
 		validateEnemies();
+		
+		System.out.println("Number of Enemies..: " + enemyCount);
 
 	}
 
@@ -123,23 +139,10 @@ public class Enemy implements Mover {
 		// grid.setContents(1,11,Cell.ENEMY);
 		// grid.setContents(2,11,Cell.ENEMY);
 
-		System.out.println("Number of Enemies..: " + enemyCount);
+	
 
 	}
 
-	private void placeEnemies(Cell enemyType, int numberToPlace) {
-
-		int numberOfEnemies = 0;
-		while (numberOfEnemies < numberToPlace) {
-			int randX = randInt(4, 30);
-			int randY = randInt(1, 12);
-
-			if (grid.getContents(randX, randY) == Cell.EMPTY) {
-				grid.setContents(randX, randY, enemyType);
-				numberOfEnemies++;
-			}
-		}
-	}
 
 	public static int randInt(int min, int max) {
 
@@ -149,6 +152,7 @@ public class Enemy implements Mover {
 
 		return randomNum;
 	}
+	 
 
 	private void loadImage() {
 		ImageIcon first = new ImageIcon(getClass().getResource(Balloom));
@@ -209,50 +213,137 @@ public class Enemy implements Mover {
 		return enemy8;
 	}
 
-	public static int getEnemyCount() {
+	public int getEnemyCount() {
 		return enemyCount;
 	}
 
-	public void copyGrid() {
+	private void placeEnemies(Cell enemyType, int numberToPlace) {
+
+		int numberOfEnemies = 0;
+		while (numberOfEnemies < numberToPlace) {
+			int randX = randInt(4, 30);
+			int randY = randInt(1, 12);
+
+			if (grid.getContents(randX, randY) == Cell.EMPTY) {
+				
+				grid.setContents(randX, randY, enemyType);
+				tracker = new EnemyTracker(randX, randY, enemyType);
+				enemiesInitial.add(tracker);
+				
+				numberOfEnemies++;
+			}
+			
+		}
+		
+
+		enemyCount += numberOfEnemies;
+		
+	}
+	
+	
+	private void copyGridAndVerifyTracker() {
 		for (int posX = 0; posX < Bomberman.WIDTH; posX++) {
 			for (int posY = 0; posY < Bomberman.HEIGHT; posY++) {
 				tempGrid.setContents(posX, posY, grid.getContents(posX, posY));
-			}
-		}
-	}
-
-	public void move(int targetX, int targetY) {
-		copyGrid();
-
-		for (int posX = 1; posX < Bomberman.WIDTH - 1; posX++) {
-			for (int posY = 1; posY < Bomberman.HEIGHT - 1; posY++) {
-
+				
 				switch (tempGrid.getContents(posX, posY)) {
 				case BALLOOM:
+					verifyTracker(posX, posY, Cell.BALLOOM);
 					continue;
 				case ONEAL:
+					verifyTracker(posX, posY, Cell.ONEAL);
 					continue;
 				case DOLL:
+					verifyTracker(posX, posY, Cell.DOLL);
 					continue;
 				case MINVO:
+					verifyTracker(posX, posY, Cell.MINVO);
 					continue;
 				case KONDORIA:
+					verifyTracker(posX, posY, Cell.KONDORIA);
 					continue;
 				case OVAPI:
+					verifyTracker(posX, posY, Cell.OVAPI);
 					continue;
 				case PASS:
+					verifyTracker(posX, posY, Cell.PASS);
 					continue;
 				case PONTAN:
+					verifyTracker(posX, posY, Cell.PONTAN);
 					continue;
 				default:
 					break;
-				}
-
+				}						
 			}
+		}
+	}
+	
+	private void verifyTracker(int posX, int posY, Cell enemyType){
+		
+		for(int i = 0; i < enemiesInitial.size(); i++){	
+			//System.out.println(i);
+			if(enemiesInitial.get(i).getEnemyType() == enemyType && enemiesInitial.get(i).getxPosition() == posX && enemiesInitial.get(i).getyPosition() == posY ){
+				
+				livingEnemy = new EnemyTracker(posX, posY, enemiesInitial.get(i). getEnemyType());
+				livingEnemy.setxDirection(enemiesInitial.get(i).getxDirection());
+				livingEnemy.setyDirection(enemiesInitial.get(i).getyDirection());
+				enemiesAlive.add(livingEnemy);
+				
+	
+			}
+		}
+		
+		System.out.println("Size of enemiesAlive list..:" + enemiesAlive.size());
+	
+	}
+	
+
+	
+	
+	@SuppressWarnings("unchecked")
+	public void move(int targetX, int targetY) {
+		
+		
+		copyGridAndVerifyTracker();
+		
+		enemiesInitial.clear();
+		
+		enemiesInitial.addAll(enemiesAlive);
+						
+		enemiesAlive.clear();
+		
+		//System.out.println("Size of enemiesAlive list..:" + enemiesAlive.size());
+		System.out.println("Size of enemiesInitial list..:" + enemiesInitial.size());
+
+		for (int i = 0; i < enemiesInitial.size(); i++) {
+			
+			switch (enemiesInitial.get(i).getEnemyType()) {
+			case BALLOOM:
+				lowIntelligenceMove(enemiesInitial.get(i));
+				continue;
+			case ONEAL:
+				continue;
+			case DOLL:
+				continue;
+			case MINVO:
+				continue;
+			case KONDORIA:
+				continue;
+			case OVAPI:
+				continue;
+			case PASS:
+				continue;
+			case PONTAN:
+				continue;
+			default:
+				break;
+			}		
+			
 		}
 
 	}
 
+	
 	public void aStarMovement(int targetX, int targetY, Cell cellType) {
 
 		finder = new AStarPathFinder(grid, 3);
@@ -260,7 +351,7 @@ public class Enemy implements Mover {
 		// Create the needed enemy types, when we find an enemy on the grid we
 		// call the appropriate move method.. Kappa
 
-		copyGrid();
+		copyGridAndVerifyTracker();
 
 		for (int posX = 1; posX < Bomberman.WIDTH - 1; posX++) {
 			for (int posY = 1; posY < Bomberman.HEIGHT - 1; posY++) {
@@ -297,53 +388,107 @@ public class Enemy implements Mover {
 			}
 		}
 	}
+	
+	
+	
+	
+	public void lowIntelligenceMove(EnemyTracker tracker){
+		
+		Boolean canMoveInX = false;
+		Boolean canMoveInY = false;
+		int enemyDirectionX = tracker.getxDirection();
+		int enemyDirectionY = tracker.getyDirection();
+		int posX = tracker.getxPosition();
+		int posY = tracker.getyPosition();
+		
+		if(tempGrid.getContents(posX + enemyDirectionX,posY) != Cell.BRICK && tempGrid.getContents(posX + enemyDirectionX,posY) != Cell.CONCRETE && tempGrid.getContents(posX + enemyDirectionX,posY) != Cell.EXITWAY && tempGrid.getContents(posX + enemyDirectionX,posY) != Cell.POWERUPS && tempGrid.getContents(posX + enemyDirectionX,posY) != Cell.BALLOOM ){
+			canMoveInX = true;
+			// move in this direction
+		}
+		
+		else if(tempGrid.getContents(posX - enemyDirectionX,posY) != Cell.BALLOOM && tempGrid.getContents(posX - enemyDirectionX,posY) != Cell.BRICK && tempGrid.getContents(posX - enemyDirectionX,posY) != Cell.CONCRETE && tempGrid.getContents(posX - enemyDirectionX,posY) != Cell.EXITWAY && tempGrid.getContents(posX - enemyDirectionX,posY) != Cell.POWERUPS){
+			tracker.setxDirection(-enemyDirectionX); 
+			canMoveInX = true;
+			
+		}
+		
+		if(canMoveInX){
+			grid.setContents(posX, posY, Cell.EMPTY);
+			grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
+			posX += enemyDirectionX;
+		}
+		
+		if(tempGrid.getContents(posX,posY + enemyDirectionY) != Cell.BALLOOM && tempGrid.getContents(posX,posY + enemyDirectionY) != Cell.BRICK && tempGrid.getContents(posX,posY + enemyDirectionY) != Cell.CONCRETE && tempGrid.getContents(posX,posY + enemyDirectionY) != Cell.EXITWAY && tempGrid.getContents(posX,posY + enemyDirectionY) != Cell.POWERUPS){
+			canMoveInY = true;
+			// move in this direction
+		}
+		
+		else if(tempGrid.getContents(posX,posY - enemyDirectionY) != Cell.BALLOOM && tempGrid.getContents(posX,posY - enemyDirectionY) != Cell.BRICK && tempGrid.getContents(posX,posY - enemyDirectionY) != Cell.CONCRETE && tempGrid.getContents(posX,posY - enemyDirectionY) != Cell.EXITWAY && tempGrid.getContents(posX,posY - enemyDirectionY) != Cell.POWERUPS){
+			tracker.setyDirection(-enemyDirectionY); 
+			canMoveInY = true;
+			
+		}
+		
+		if(canMoveInY && !canMoveInX){
+			grid.setContents(posX, posY, Cell.EMPTY);
+			grid.setContents(posX, posY + enemyDirection, tracker.getEnemyType());
+			posY += enemyDirectionY;
 
-	// public void move() {
-	//
-	// // for (int posX = 1; posX < Bomberman.WIDTH - 1; posX++) {
-	// // for (int posY = 1; posY < Bomberman.HEIGHT - 1; posY++) {
-	// // if (grid.getContents(posX, posY) == Cell.ENEMY) {
-	// // int rand = randInt(1, 2);
-	// // if (rand == 1) {
-	// // if (grid.getContents(posX + enemyDirection, posY) != Cell.BRICK
-	// // && grid.getContents(posX + enemyDirection, posY) != Cell.CONCRETE) {
-	// // enemyDirection = 1;
-	// // // System.out.println("X IS POSITIVE");
-	// // } else {
-	// // enemyDirection = -1;
-	// // // System.out.println("X IS NEGATIVE");
-	// // }
-	// //
-	// // if (grid.getContents(posX + enemyDirection, posY) == Cell.EMPTY
-	// // || grid.getContents(posX + enemyDirection, posY) == Cell.PLAYER) {
-	// // grid.setContents(posX, posY, Cell.EMPTY);
-	// // grid.setContents(posX + enemyDirection, posY,
-	// // Cell.ENEMY);
-	// // }
-	// //
-	// // }
-	// //
-	// // else {
-	// // if (grid.getContents(posX, posY + enemyDirection) != Cell.BRICK
-	// // && grid.getContents(posX, posY + enemyDirection) != Cell.CONCRETE) {
-	// //
-	// // enemyDirection = 1;
-	// // // System.out.println("Y IS POSITIVE");
-	// //
-	// // } else {
-	// // enemyDirection = -1;
-	// // // System.out.println("Y IS NEGATIVE");
-	// //
-	// // }
-	// // if (grid.getContents(posX, posY + enemyDirection) == Cell.EMPTY
-	// // || grid.getContents(posX, posY + enemyDirection) == Cell.PLAYER) {
-	// // grid.setContents(posX, posY, Cell.EMPTY);
-	// // grid.setContents(posX, posY + enemyDirection,
-	// // Cell.ENEMY);
-	// // }
-	// // }
-	// // }
-	// // }
-	// }
-	// }
+		}
+		
+		tracker.updateTracker(posX, posY);
+
+		
+	}
+	
+	
+
+//	 public void move() {
+//	
+//	 // for (int posX = 1; posX < Bomberman.WIDTH - 1; posX++) {
+//	 // for (int posY = 1; posY < Bomberman.HEIGHT - 1; posY++) {
+//	 // if (grid.getContents(posX, posY) == Cell.ENEMY) {
+//	 // int rand = randInt(1, 2);
+//	 // if (rand == 1) {
+//	 // if (grid.getContents(posX + enemyDirection, posY) != Cell.BRICK
+//	 // && grid.getContents(posX + enemyDirection, posY) != Cell.CONCRETE) {
+//	 // enemyDirection = 1;
+//	 // // System.out.println("X IS POSITIVE");
+//	 // } else {
+//	 // enemyDirection = -1;
+//	 // // System.out.println("X IS NEGATIVE");
+//	 // }
+//	 //
+//	 // if (grid.getContents(posX + enemyDirection, posY) == Cell.EMPTY
+//	 // || grid.getContents(posX + enemyDirection, posY) == Cell.PLAYER) {
+//	 // grid.setContents(posX, posY, Cell.EMPTY);
+//	 // grid.setContents(posX + enemyDirection, posY,
+//	 // Cell.ENEMY);
+//	 // }
+//	 //
+//	 // }
+//	 //
+//	 // else {
+//	 // if (grid.getContents(posX, posY + enemyDirection) != Cell.BRICK
+//	 // && grid.getContents(posX, posY + enemyDirection) != Cell.CONCRETE) {
+//	 //
+//	 // enemyDirection = 1;
+//	 // // System.out.println("Y IS POSITIVE");
+//	 //
+//	 // } else {
+//	 // enemyDirection = -1;
+//	 // // System.out.println("Y IS NEGATIVE");
+//	 //
+//	 // }
+//	 // if (grid.getContents(posX, posY + enemyDirection) == Cell.EMPTY
+//	 // || grid.getContents(posX, posY + enemyDirection) == Cell.PLAYER) {
+//	 // grid.setContents(posX, posY, Cell.EMPTY);
+//	 // grid.setContents(posX, posY + enemyDirection,
+//	 // Cell.ENEMY);
+//	 // }
+//	 // }
+//	 // }
+//	 // }
+//	 }
+//	 }
 }
