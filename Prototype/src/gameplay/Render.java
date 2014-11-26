@@ -77,16 +77,16 @@ public class Render extends JPanel implements ActionListener {
 		
 		grid.initializeGridMap();
 		
+		level = new Level();
+		level.setLevel(currentLevel);	
 		brick = new Brick(grid);
 		bomb = new Bomb(grid);
-		enemy = new Enemy(grid,this);
+		enemy = new Enemy(grid,this, level);
 		concrete = new Concrete(grid);
 		powerups = new PowerUps(grid);
 		exitway = new ExitWay(grid);
 		player = new Player(grid, bomb);
-		level = new Level();
-
-		level.setLevel(currentLevel);
+		
 		isPlayerAlive = true;
 		pauseMenuOpen = false;
 		timer = new Timer(100, this);
@@ -255,6 +255,7 @@ public class Render extends JPanel implements ActionListener {
 		g.dispose();
 
 	}
+	
 	private void getVisibleRange(){
 		
 		leftMostVisibleCell = player.getX() / 25 - 7;

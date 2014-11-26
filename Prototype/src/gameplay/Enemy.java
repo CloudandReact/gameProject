@@ -26,7 +26,8 @@ public class Enemy implements Mover {
 	private Path path;
 	PathFinder finder;
 
-	public Enemy(Grid grid, Render render) {
+	public Enemy(Grid grid, Render render, Level level) {
+		
 		enemyCount = 0;
 		this.render = render;
 		loadImage();
@@ -39,21 +40,9 @@ public class Enemy implements Mover {
 
 	private void placeEnemies() {
 
-	/*	for (int i = 2; i < Bomberman.WIDTH; i++) {
-			for (int j = 2; j < Bomberman.HEIGHT; j++) {
-				int rand = randInt(1, 55);
-				if (rand == 5) {
-					if (grid.getContents(i, j) == Cell.EMPTY) {
-						grid.setContents(i, j, Cell.ENEMY);
-						enemyTracker = new EnemyTracker(enemyCount, i, j);
-						enemies.add(enemyTracker);
-						enemyCount++;
-					}
-				}
-			}
-		}*/
 		
 		grid.setContents(1,11,Cell.ENEMY);
+		
 		System.out.println("Number of Enemies..: " + enemyCount);
 
 	}

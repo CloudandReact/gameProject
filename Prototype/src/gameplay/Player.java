@@ -21,9 +21,9 @@ public class Player {
 	private Image image;
 	Grid grid;
 	private Bomb bomb;
-	
+
 	private long startTime;
-	
+
 	private Boolean isBombPlaced;
 
 	public Player() {
@@ -45,134 +45,93 @@ public class Player {
 
 	public void move() {
 
-		if (dx > 0) {
-			if(grid.getContents(posX + (dx / 25), posY) == Cell.ENEMY){
+		if (dx != 0) {
+
+			// Player dies if walking into enemy
+			if (grid.getContents(posX + (dx / 25), posY) == Cell.ENEMY) {
 				grid.setContents(posX, posY, Cell.EMPTY);
 			}
-			if (grid.getContents(posX + (dx / 25), posY) == Cell.EMPTY 
-					|| grid.getContents(posX + (dx / 25), posY) == Cell.POWERUPS 
-					|| grid.getContents(posX + (dx / 25), posY) == Cell.EXITWAY
-					) {
-				
-				if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
-					grid.setContents(posX, posY, Cell.BOMB);
-				}
-				else if (grid.getContents(posX, posY) == Cell.EXITWAY) {
-					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
-				}
-				else if (grid.getContents(posX, posY) == Cell.PLAYERANDEXITWAY) {
-					grid.setContents(posX, posY, Cell.EXITWAY);
-				}
-				else {
-					grid.setContents(posX, posY, Cell.EMPTY);
-				}
-				posX++;
-				if(grid.getContents(posX, posY) == Cell.EXITWAY){
-					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
-				}
-				else{
-				grid.setContents(posX, posY, Cell.PLAYER);
-				}
-				x += dx;
-			}
-		}
-		if (dx < 0) {
-			if(grid.getContents(posX - (dx / 25), posY) == Cell.ENEMY){
-				grid.setContents(posX, posY, Cell.EMPTY);
-			}
-			if (grid.getContents(posX + (dx / 25), posY) == Cell.EMPTY 
+
+			//
+			if (grid.getContents(posX + (dx / 25), posY) == Cell.EMPTY
 					|| grid.getContents(posX + (dx / 25), posY) == Cell.POWERUPS
-					|| grid.getContents(posX + (dx / 25), posY) == Cell.EXITWAY
-					) {
-				
+					|| grid.getContents(posX + (dx / 25), posY) == Cell.EXITWAY) {
+
 				if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
 					grid.setContents(posX, posY, Cell.BOMB);
-				}
-				else if (grid.getContents(posX, posY) == Cell.EXITWAY) {
-					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
-				}
-				else if (grid.getContents(posX, posY) == Cell.PLAYERANDEXITWAY) {
-					grid.setContents(posX, posY, Cell.EXITWAY);
-				}
-				else {
-					grid.setContents(posX, posY, Cell.EMPTY);
-				}
-				posX--;
-				if(grid.getContents(posX, posY) == Cell.EXITWAY){
-					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
-				}
-				else{
-				grid.setContents(posX, posY, Cell.PLAYER);
-				}
-				x += dx;
-			}
-
-		}
-
-		if (dy > 0) {
-			if(grid.getContents(posX, posY + (dy / 25)) == Cell.ENEMY){
-				grid.setContents(posX, posY, Cell.EMPTY);
-			}
-			if (grid.getContents(posX, posY + (dy / 25)) == Cell.EMPTY 
-					|| grid.getContents(posX, posY + (dy / 25)) == Cell.POWERUPS
-					||grid.getContents(posX, posY + (dy / 25)) == Cell.EXITWAY
-					) {
-				if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
-					grid.setContents(posX, posY, Cell.BOMB);
-				}
-				else if (grid.getContents(posX, posY) == Cell.EXITWAY) {
-					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
-				}
-				else if (grid.getContents(posX, posY) == Cell.PLAYERANDEXITWAY) {
-					grid.setContents(posX, posY, Cell.EXITWAY);
-				}
-				else {
-					grid.setContents(posX, posY, Cell.EMPTY);
-				}
-				posY++;
-				if(grid.getContents(posX, posY) == Cell.EXITWAY){
-					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
-				}
-				else{
-				grid.setContents(posX, posY, Cell.PLAYER);
-				}
-				y += dy;
-			}
-		}
-		if (dy < 0) {
-			// Dealing with enemy collisions. If theres an enemy, remove player from the grid so he is set to dead on the next paint. 
-			if(grid.getContents(posX, posY - (dy / 25)) == Cell.ENEMY){
-				grid.setContents(posX, posY, Cell.EMPTY);
-			}
-			if (grid.getContents(posX, posY + (dy / 25)) == Cell.EMPTY 
-					|| grid.getContents(posX, posY + (dy / 25)) == Cell.POWERUPS
-					|| grid.getContents(posX, posY + (dy / 25)) == Cell.EXITWAY
-					) {
-				if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
-					grid.setContents(posX, posY, Cell.BOMB);
-				}
-				else if (grid.getContents(posX, posY) == Cell.EXITWAY) {
-					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
-				}
-				else if (grid.getContents(posX, posY) == Cell.PLAYERANDEXITWAY) {
-					grid.setContents(posX, posY, Cell.EXITWAY);
-				}
-				else {
-					grid.setContents(posX, posY, Cell.EMPTY);
-				}
-				posY--;
-				if(grid.getContents(posX, posY) == Cell.EXITWAY){
-					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
-				}
-				else {
-				grid.setContents(posX, posY, Cell.PLAYER);
-				}
-				y += dy;
-			}
-
-		}
-
 		
+				} 
+				
+				else if (grid.getContents(posX, posY) == Cell.PLAYERANDEXITWAY) {
+					grid.setContents(posX, posY, Cell.EXITWAY);
+				} 
+				
+				else if (grid.getContents(posX+(dx/25), posY) == Cell.EXITWAY) {
+					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
+					
+				} 
+							
+				else {
+					grid.setContents(posX, posY, Cell.EMPTY);
+				}
+				
+				if(dx < 0){
+					posX--;
+				}
+				else{
+					posX++;
+				}
+				
+				x += dx;
+				grid.setContents(posX, posY, Cell.PLAYER);
+
+			}
+		}
+
+
+		if (dy != 0) {
+			
+			// Player dies if walking into enemy
+			if (grid.getContents(posX , posY + (dy / 25)) == Cell.ENEMY) {
+				grid.setContents(posX, posY, Cell.EMPTY);
+			}
+
+			//
+			if (grid.getContents(posX, posY + (dy / 25)) == Cell.EMPTY
+					|| grid.getContents(posX, posY + (dy / 25)) == Cell.POWERUPS
+					|| grid.getContents(posX, posY + (dy / 25)) == Cell.EXITWAY) {
+
+				if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
+					grid.setContents(posX, posY, Cell.BOMB);
+		
+				} 
+				
+				else if (grid.getContents(posX, posY) == Cell.PLAYERANDEXITWAY) {
+					grid.setContents(posX, posY, Cell.EXITWAY);
+				} 
+				
+				else if (grid.getContents(posX+(dx/25), posY) == Cell.EXITWAY) {
+					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
+					
+				} 
+							
+				else {
+					grid.setContents(posX, posY, Cell.EMPTY);
+				}
+				
+				if(dy < 0){
+					posY--;
+				}
+				
+				else{
+					posY++;
+				}
+				y += dy;
+				grid.setContents(posX, posY, Cell.PLAYER);
+
+			}
+		}
+	
 
 	}
 
@@ -293,12 +252,12 @@ public class Player {
 	public static int getScore() {
 		return score;
 	}
-	
-	public void initializeTimer(){
+
+	public void initializeTimer() {
 		startTime = System.currentTimeMillis();
 	}
-	
-	public long getInitialTime(){
+
+	public long getInitialTime() {
 		return startTime;
 	}
 
