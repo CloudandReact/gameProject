@@ -1,5 +1,9 @@
 package gameplay;
 
+import java.util.ArrayList;
+
+import org.apache.commons.csv.CSVRecord;
+
 public class PlayerInfo {
 	//we need to have all player data that needs to be saved
 	public static String usernameStatic = "";
@@ -12,6 +16,8 @@ public class PlayerInfo {
 	public static int gameOfuser;
 	//stores current level in game
 	public static int currentLevel;
+	public static ArrayList<CSVRecord> allUserStatistics=new ArrayList<CSVRecord>();
+	boolean gameStarted;
 	
 	
 	public PlayerInfo(){
@@ -27,6 +33,10 @@ public class PlayerInfo {
 	}
 	public static int getUnlockedLevel(){
 		return unlockedLevel;
+	}
+	 public static ArrayList<CSVRecord> allPlayersStats(){
+		return allUserStatistics;
+		
 	}
 	
 	

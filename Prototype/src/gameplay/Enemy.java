@@ -56,8 +56,9 @@ public class Enemy implements Mover {
 	private ArrayList<EnemyTracker> enemiesAlive; 
 	private EnemyTracker livingEnemy;
 
-	private int count = 0;
-
+	private int countSlow;
+	private int countNormal;
+	private int countFast;
 	
 	public Enemy(Grid grid, Render render, Level level) {
 		this.level = level;
@@ -66,6 +67,10 @@ public class Enemy implements Mover {
 		this.loadImage();
 		this.grid = grid;
 		this.tempGrid = new Grid();
+		
+		countSlow = 0;
+		countNormal = 0;
+		countFast = 0;
 		
 		enemiesInitial = new ArrayList<EnemyTracker>();
 		enemiesAlive = new ArrayList<EnemyTracker>();
@@ -304,7 +309,6 @@ public class Enemy implements Mover {
 	
 	public void move(int targetX, int targetY) {
 		
-		count++;
 		copyGridAndVerifyTracker();
 		
 		enemiesInitial.clear();
@@ -320,6 +324,7 @@ public class Enemy implements Mover {
 		for (int i = 0; i < enemiesInitial.size(); i++) {
 			switch (enemiesInitial.get(i).getEnemyType()) {
 			case BALLOOM:
+				//if(countLow )
 				lowIntelligenceMove(enemiesInitial.get(i));
 				continue;
 			case ONEAL:

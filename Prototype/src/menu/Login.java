@@ -10,9 +10,9 @@ import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 import javax.swing.*;
-
 
 import gameplay.Player;
 import gameplay.PlayerInfo;
@@ -81,6 +81,15 @@ public class Login {
 					storingIntoPlayer.checkNumberOfGames();
 					//this line just for test will see if to make it void and store all info in player
 					int jar=storingIntoPlayer.numberOfGames();
+					try {
+						//store all player statistics which is required for leaderboards
+						loginValidity.openStatistics();
+						PlayerInfo.allUserStatistics=loginValidity.allPlayersStats();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
 					
 	
 				} else {
