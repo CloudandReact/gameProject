@@ -34,7 +34,7 @@ public class EnemyTracker {
 	
 	public void updateTracker(int xPosition, int yPosition){
 		this.xPosition = xPosition;
-		this.yPosition = xPosition;
+		this.yPosition = yPosition;
 	}
 
 
