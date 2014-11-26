@@ -7,6 +7,8 @@ public class EnemyTracker {
 	private int xDirection;
 	private int yDirection;
 	private Cell enemyType;
+	private boolean movingInX;
+	private boolean movingInY;
 	
 	public EnemyTracker(int xPosition, int yPosition, Cell enemyType) {
 		
@@ -16,6 +18,8 @@ public class EnemyTracker {
 	
 		setxDirection(1);
 		setyDirection(1);
+		setMovingInX(false);
+		setMovingInY(false);
 	}
 	
 	public Cell getEnemyType() {
@@ -64,6 +68,22 @@ public class EnemyTracker {
 
 	public void setxDirection(int xDirection) {
 		this.xDirection = xDirection;
+	}
+
+	public boolean isMovingInY() {
+		return movingInY;
+	}
+
+	public void setMovingInY(boolean movingInY) {
+		this.movingInY = movingInY;
+	}
+
+	public boolean isMovingInX() {
+		return movingInX;
+	}
+
+	public void setMovingInX(boolean movingInX) {
+		this.movingInX = movingInX;
 	}
 
 

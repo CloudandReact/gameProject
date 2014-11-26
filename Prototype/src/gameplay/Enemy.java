@@ -225,7 +225,7 @@ public class Enemy implements Mover {
 
 	private void placeEnemies(Cell enemyType, int numberToPlace) {
 
-		int numberOfEnemies = 0;
+/*		int numberOfEnemies = 0;
 		while (numberOfEnemies < numberToPlace) {
 			int randX = randInt(4, 30);
 			int randY = randInt(1, 12);
@@ -240,9 +240,11 @@ public class Enemy implements Mover {
 			}
 			
 		}
+		*/
 		
-
-		enemyCount += numberOfEnemies;
+		grid.setContents(1,11,Cell.KONDORIA);
+		
+		//enemyCount += numberOfEnemies;
 		
 	}
 	
@@ -293,6 +295,8 @@ public class Enemy implements Mover {
 				livingEnemy = new EnemyTracker(posX, posY, enemiesInitial.get(i).getEnemyType());
 				livingEnemy.setxDirection(enemiesInitial.get(i).getxDirection());
 				livingEnemy.setyDirection(enemiesInitial.get(i).getyDirection());
+				livingEnemy.setMovingInX(enemiesInitial.get(i).isMovingInX());
+				livingEnemy.setMovingInY(enemiesInitial.get(i).isMovingInY());
 				enemiesAlive.add(livingEnemy);
 				
 	
@@ -321,31 +325,42 @@ public class Enemy implements Mover {
 		
 		//System.out.println("List size...: " + enemiesInitial.size());
 		
+		
+		
 		for (int i = 0; i < enemiesInitial.size(); i++) {
 			switch (enemiesInitial.get(i).getEnemyType()) {
 			case BALLOOM:
-				//if(countLow )
-				lowIntelligenceMove(enemiesInitial.get(i));
+				moveWithChance(enemiesInitial.get(i), targetX, targetY, 0, 0);
 				continue;
 			case ONEAL:
+				moveWithChance(enemiesInitial.get(i), targetX, targetY, 10, 2);
 				continue;
 			case DOLL:
+				moveWithChance(enemiesInitial.get(i), targetX, targetY, 0, 0);
 				continue;
 			case MINVO:
+				moveWithChance(enemiesInitial.get(i), targetX, targetY, 10, 2);
 				continue;
 			case KONDORIA:
+				moveWithChance(enemiesInitial.get(i), targetX, targetY, 2, 3);
 				continue;
 			case OVAPI:
+				moveWithChance(enemiesInitial.get(i), targetX, targetY, 10, 2);
 				continue;
 			case PASS:
+				moveWithChance(enemiesInitial.get(i), targetX, targetY, 2, 3);
 				continue;
 			case PONTAN:
+				moveWithChance(enemiesInitial.get(i), targetX, targetY, 2, 2);
 				continue;
 			default:
 				break;
-			}		
+			}
+					
 			
 		}
+		
+		countSlow++;
 
 	}
 
@@ -398,57 +413,139 @@ public class Enemy implements Mover {
 	
 	
 	
-	private void lowIntelligenceMove(EnemyTracker tracker){
+	private void moveWithChance(EnemyTracker tracker, int targetX, int targetY, int chance, int aStarRange){
 		
 		//System.out.println("Size of enemiesAlive list..:" + enemiesAlive.size());
 		//System.out.println("Size of enemiesInitial list..:" + enemiesInitial.size());
 		
 		boolean canMoveInX = false;
 		boolean canMoveInY = false;
+		boolean usingAStar = false;
 		int enemyDirectionX = tracker.getxDirection();
 		int enemyDirectionY = tracker.getyDirection();
 		int posX = tracker.getxPosition();
 		int posY = tracker.getyPosition();
+		int randChance = 0;
 		
+		
+		if(aStarRange > 0){
+			finder = new AStarPathFinder(grid, aStarRange);
+			path = finder.findPath(this, posX, posY, targetX, targetY);
+			System.out.println( "Target X...: " +targetX + " Target Y...: " + targetY);
+			System.out.println( "EnemyX...: " +posX + " EnemyY...: " + posY);
 
-		
-		if(grid.getContents(posX + enemyDirectionX,posY) == Cell.EMPTY || grid.getContents(posX + enemyDirectionX,posY) == Cell.PLAYER){
-			canMoveInX = true;
 			
+			if(path!=null){
+				System.out.println("path isnt null");
+				usingAStar = true;
+				enemyDirectionX = path.getX(1)/Math.abs(path.getX(1));
+				enemyDirectionY = path.getY(1)/Math.abs(path.getY(1));
+				tracker.setxDirection(enemyDirectionX);
+				tracker.setyDirection(enemyDirectionY);
+				
+				if(posX == path.getX(1)){
+					canMoveInY = true;
+				}
+				else{
+					canMoveInX = true;
+				}
+				
+				grid.setContents(posX, posY, Cell.EMPTY);
+				
+				if(canMoveInX){
+					grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
+					tracker.setxPosition(posX + enemyDirectionX);
+					tracker.setMovingInX(true);
+					tracker.setMovingInY(false);
+					tracker.setxDirection(enemyDirectionX);
+					
+				}
+				
+				else{
+					
+					grid.setContents(posX, posY  + enemyDirectionY, tracker.getEnemyType());
+					tracker.setyPosition(posY + enemyDirectionY);
+					tracker.setMovingInY(true);
+					tracker.setMovingInX(false);
+					tracker.setyDirection(enemyDirectionY);
+								
+				}
+				
+			}
 		}
+		usingAStar = true;
 		
-		else if(grid.getContents(posX - enemyDirectionX,posY) == Cell.EMPTY || grid.getContents(posX - enemyDirectionX,posY) == Cell.PLAYER){
-			tracker.setxDirection(-enemyDirectionX); 
-			enemyDirectionX = tracker.getxDirection();
-			canMoveInX = true;
+		if(!usingAStar){
 			
-		}
-		
-		if(canMoveInX){
-			grid.setContents(posX, posY, Cell.EMPTY);
-			grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
-			tracker.setxPosition(posX + enemyDirectionX);
+			if(chance!=0){
+				randChance = randInt(1, chance);
+			}
 			
-		}
-		
-		if(grid.getContents(posX,posY + enemyDirectionY) == Cell.EMPTY || grid.getContents(posX,posY + enemyDirectionY) == Cell.PLAYER){
-			canMoveInY = true;
-			// move in this direction
-		}
-		
-		else if(grid.getContents(posX,posY - enemyDirectionY) == Cell.EMPTY || grid.getContents(posX,posY - enemyDirectionY) == Cell.PLAYER){
-			tracker.setyDirection(-enemyDirectionY); 
-			enemyDirectionY = tracker.getyDirection();
-			canMoveInY = true;
 			
-		}
-		
-		if(canMoveInY && !canMoveInX){
-			grid.setContents(posX, posY, Cell.EMPTY);
-			grid.setContents(posX, posY + enemyDirectionY, tracker.getEnemyType());
-			tracker.setyPosition(posY + enemyDirectionY);
+			if(grid.getContents(posX + enemyDirectionX,posY) == Cell.EMPTY || grid.getContents(posX + enemyDirectionX,posY) == Cell.PLAYER){
+				canMoveInX = true;
+				
+			}
+			
+			else if(grid.getContents(posX - enemyDirectionX,posY) == Cell.EMPTY || grid.getContents(posX - enemyDirectionX,posY) == Cell.PLAYER){
+				tracker.setxDirection(-enemyDirectionX); 
+				enemyDirectionX = tracker.getxDirection();
+				canMoveInX = true;
+				
+			}
+			
+			
+			
+			if(grid.getContents(posX,posY + enemyDirectionY) == Cell.EMPTY || grid.getContents(posX,posY + enemyDirectionY) == Cell.PLAYER){
+				canMoveInY = true;
+				// move in this direction
+			}
+			
+			else if(grid.getContents(posX,posY - enemyDirectionY) == Cell.EMPTY || grid.getContents(posX,posY - enemyDirectionY) == Cell.PLAYER){
+				tracker.setyDirection(-enemyDirectionY); 
+				enemyDirectionY = tracker.getyDirection();
+				canMoveInY = true;
+				
+			}
+			// x% chance randChance is 1, and check if at intersection)
+			if(randChance == 1 && canMoveInX && canMoveInY){
+				if(tracker.isMovingInX()){
+					canMoveInX = false;
+					//System.out.println("PLS");
+					
+				}
+				else if(tracker.isMovingInY()){
+					canMoveInY = false;
+				}
+				else{
+					System.out.println("HOW");
+				}
+			}
+			
+			if(canMoveInX){
+				
+				grid.setContents(posX, posY, Cell.EMPTY);
+				grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
+				tracker.setxPosition(posX + enemyDirectionX);
+				tracker.setMovingInX(true);
+				tracker.setMovingInY(false);
 
+				
+			}
+			
+			if(canMoveInY && !canMoveInX){
+				grid.setContents(posX, posY, Cell.EMPTY);
+				grid.setContents(posX, posY + enemyDirectionY, tracker.getEnemyType());
+				tracker.setyPosition(posY + enemyDirectionY);
+				tracker.setMovingInY(true);
+				tracker.setMovingInX(false);
+
+
+			}
+			
 		}
+		
+		
 	
 		
 	}
