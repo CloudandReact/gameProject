@@ -15,12 +15,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class PauseMenu extends JFrame{
+public class PauseMenu {
 	
 	/**
 	 * 
 	 */
+	
+	
 	private static final long serialVersionUID = 1L;
+	JFrame frame = new JFrame();
 	JPanel panel = new JPanel();
 	JButton viewLeaderboards = new JButton("View Leaderboards");
 	JButton saveGame = new JButton("Save Game");
@@ -35,17 +38,17 @@ public class PauseMenu extends JFrame{
 	
 	String playersName;
 	
-	public PauseMenu(Render r,  GameState s, Player p){
+	public PauseMenu(Render r,  GameState s, Player p, final Bomberman bomberman){
 		this.state = s; 
 		this.render = r;
 		this.player = p;
 		
-		setSize(325, 230);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
-		add(panel);
-		setLocationRelativeTo(null);
-		setVisible(true);
+		frame.setSize(325, 230);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setResizable(false);
+		frame.add(panel);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
 
 		panel.removeAll();
 		panel.setLayout(null);
@@ -83,6 +86,7 @@ public class PauseMenu extends JFrame{
 				
 				render.destroyPanel();
 				new MainMenu(panel, PlayerInfo.getUsername());
+				bomberman.dispose();//frame.destroyFrame();
 					
 				
 			}
@@ -103,8 +107,8 @@ public class PauseMenu extends JFrame{
 		resumeGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
-				getContentPane().removeAll();
-				dispose();
+				frame.getContentPane().removeAll();
+				frame.dispose();
 				player.initializeTimer();
 				render.setPauseMenuState(false);
 				state.setState(State.RUNNING);

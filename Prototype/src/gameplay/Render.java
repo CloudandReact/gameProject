@@ -44,7 +44,8 @@ public class Render extends JPanel implements ActionListener {
 	private Boolean isPlayerAlive;
 	private Boolean pauseMenuOpen;
 
-
+	
+	private Bomberman bomberman;
 
 	// private String username;
 	// Concrete
@@ -55,10 +56,11 @@ public class Render extends JPanel implements ActionListener {
 
 	Graphics2D g2d;
 
-	public Render() {
-
+	public Render(Bomberman bomberman) {
+		
+		this.bomberman = bomberman;
 		System.out.println("HELLO MY NAME IS...: " + PlayerInfo.getUsername());
-		this.currentLevel = 50;
+		this.currentLevel = 1;
 		initialize();
 		numberOfLives = 2;
 		addKeyListener(new TAdapter());
@@ -69,7 +71,8 @@ public class Render extends JPanel implements ActionListener {
 
 	}
 	
-	public Render(int level) {
+	public Render(int level, Bomberman bomberman) {
+		this.bomberman = bomberman;
 		this.currentLevel = level;
 		initialize();
 		numberOfLives = 2;
@@ -369,7 +372,7 @@ public class Render extends JPanel implements ActionListener {
 		}
 
 		else if (GameState.getState() == State.PAUSE && pauseMenuOpen == false) {
-			new PauseMenu(this, gameState, player);
+			new PauseMenu(this, gameState, player,bomberman);
 			pauseMenuOpen = true;
 		}
 

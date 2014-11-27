@@ -16,7 +16,7 @@ public class Bomberman extends JFrame {
 	
 
 	public Bomberman() {
-		add(new Render());
+		add(new Render(this));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(15 * TILE_SIZE, HEIGHT * TILE_SIZE + 22);
 		setLocationRelativeTo(null);
@@ -26,7 +26,7 @@ public class Bomberman extends JFrame {
 	}
 	
 	public Bomberman(int level){
-		add(new Render(level));
+		add(new Render(level, this));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(15 * TILE_SIZE, HEIGHT * TILE_SIZE + 22);
 		setLocationRelativeTo(null);
@@ -35,6 +35,10 @@ public class Bomberman extends JFrame {
 		setVisible(true);
 	}
 	
+	public void destroyFrame(){
+		setVisible(false);
+		dispose();
+	}
 		
 	public static void main(String[] args) {
 		new Bomberman();
