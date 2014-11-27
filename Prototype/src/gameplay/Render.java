@@ -61,6 +61,7 @@ public class Render extends JPanel implements ActionListener {
 		this.bomberman = bomberman;
 		System.out.println("HELLO MY NAME IS...: " + PlayerInfo.getUsername());
 		this.currentLevel = 1;
+		PowerUps.setClevel(1);
 		initialize();
 		numberOfLives = 2;
 		addKeyListener(new TAdapter());
