@@ -522,9 +522,9 @@ public class Enemy implements Mover {
 				if(canMoveInX){
 					
 					if(grid.getContents(posX + enemyDirectionX, posY) == Cell.PLAYER){
-
-							GameState.setState(State.PLAYERDEAD);
-							render.setIsPlayerAlive(false);
+						grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());	
+						GameState.setState(State.PLAYERDEAD);
+						render.setIsPlayerAlive(false);
 					}
 
 					grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
@@ -538,7 +538,7 @@ public class Enemy implements Mover {
 				
 				else{
 					if(grid.getContents(posX, posY  + enemyDirectionY) == Cell.PLAYER){
-
+						grid.setContents(posX, posY  + enemyDirectionY, tracker.getEnemyType());	
 						GameState.setState(State.PLAYERDEAD);
 						render.setIsPlayerAlive(false);
 					}
@@ -604,7 +604,7 @@ public class Enemy implements Mover {
 			if(canMoveInX){
 				
 				if(grid.getContents(posX + enemyDirectionX, posY) == Cell.PLAYER){
-
+					grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());	
 					GameState.setState(State.PLAYERDEAD);
 					render.setIsPlayerAlive(false);
 				}
@@ -621,7 +621,7 @@ public class Enemy implements Mover {
 			if(canMoveInY && !canMoveInX){
 				
 				if(grid.getContents(posX, posY  + enemyDirectionY) == Cell.PLAYER){
-
+					grid.setContents(posX, posY  + enemyDirectionY, tracker.getEnemyType());	
 					GameState.setState(State.PLAYERDEAD);
 					render.setIsPlayerAlive(false);
 				}
@@ -890,7 +890,7 @@ public class Enemy implements Mover {
 			if(canMoveInX){
 				
 				if(grid.getContents(posX + enemyDirectionX, posY) == Cell.PLAYER){
-
+					grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
 					GameState.setState(State.PLAYERDEAD);
 					render.setIsPlayerAlive(false);
 				}
@@ -975,7 +975,7 @@ public class Enemy implements Mover {
 			if(canMoveInY && !canMoveInX){
 				
 				if(grid.getContents(posX, posY  + enemyDirectionY) == Cell.PLAYER){
-
+					grid.setContents(posX, posY  + enemyDirectionY, tracker.getEnemyType());
 					GameState.setState(State.PLAYERDEAD);
 					render.setIsPlayerAlive(false);
 				}
