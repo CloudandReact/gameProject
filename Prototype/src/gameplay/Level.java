@@ -11,7 +11,7 @@ public class Level {
 	private int nEnemy7;
 	private int nEnemy8;
 
-	private int currentLevel = 0;
+	private static int currentLevel = 0;
 
 	public Level(int currentLevel) {
 		this.currentLevel = currentLevel;
@@ -515,4 +515,12 @@ public class Level {
 		return nEnemy8;
 	}
 
+	public static int getCurrentLevel() {
+		return currentLevel;
+	}
+
+
+	public void setCurrentLevel( int level) {
+		Level.currentLevel = level;
+	}
 }
