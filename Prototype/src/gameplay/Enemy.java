@@ -79,32 +79,32 @@ public class Enemy implements Mover {
 		System.out.println("Current Level..: " + level.getLevel());
 
 		nEnemy1 = level.getnEnemy1();
-		System.out.println("Number of enemyType1..: " + level.getnEnemy1());
+		//System.out.println("Number of enemyType1..: " + level.getnEnemy1());
 
 		nEnemy2 = level.getnEnemy2();
-		System.out.println("Number of enemyType2..: " + level.getnEnemy2());
+		//System.out.println("Number of enemyType2..: " + level.getnEnemy2());
 
 		nEnemy3 = level.getnEnemy3();
-		System.out.println("Number of enemyType3..: " + level.getnEnemy3());
+		//System.out.println("Number of enemyType3..: " + level.getnEnemy3());
 
 		nEnemy4 = level.getnEnemy4();
-		System.out.println("Number of enemyType4..: " + level.getnEnemy4());
+		//System.out.println("Number of enemyType4..: " + level.getnEnemy4());
 
 		nEnemy5 = level.getnEnemy5();
-		System.out.println("Number of enemyType5..: " + level.getnEnemy5());
+		//System.out.println("Number of enemyType5..: " + level.getnEnemy5());
 
 		nEnemy6 = level.getnEnemy6();
-		System.out.println("Number of enemyType6..: " + level.getnEnemy6());
+		//System.out.println("Number of enemyType6..: " + level.getnEnemy6());
 
 		nEnemy7 = level.getnEnemy7();
-		System.out.println("Number of enemyType7..: " + level.getnEnemy7());
+		//System.out.println("Number of enemyType7..: " + level.getnEnemy7());
 
 		nEnemy8 = level.getnEnemy8();
-		System.out.println("Number of enemyType8..: " + level.getnEnemy8());
+		//System.out.println("Number of enemyType8..: " + level.getnEnemy8());
 
 		validateEnemies();
 		
-		System.out.println("Number of Enemies..: " + enemyCount);
+		//System.out.println("Number of Enemies..: " + enemyCount);
 
 	}
 
@@ -443,9 +443,10 @@ public class Enemy implements Mover {
 		if(aStarRange > 0){
 			finder = new AStarPathFinder(grid, aStarRange);
 			path = finder.findPath(this, posX, posY, targetX, targetY);
-			System.out.println( "Target X...: " +targetX + " Target Y...: " + targetY);
+			
+/*			System.out.println( "Target X...: " +targetX + " Target Y...: " + targetY);
 			System.out.println( "EnemyX...: " +posX + " EnemyY...: " + posY);
-
+*/
 			
 			if(path!=null){
 				

@@ -58,9 +58,9 @@ public class Render extends JPanel implements ActionListener {
 	public Render() {
 
 		System.out.println("HELLO MY NAME IS...: " + PlayerInfo.getUsername());
-		this.currentLevel = 10;
+		this.currentLevel = 1;
 		initialize();
-		numberOfLives = 3;
+		numberOfLives = 2;
 		addKeyListener(new TAdapter());
 		setFocusable(true);
 		setBackground(Color.darkGray);
@@ -303,7 +303,7 @@ public class Render extends JPanel implements ActionListener {
 	}
 	
 	private void checkIfPlayerAlive() {
-		
+		Player.setLivesLeft(numberOfLives);
 		if (isPlayerAlive == false) {
 			GameState.setState(State.PLAYERDEAD);
 			GameState.setState(State.RUNNING);
@@ -313,19 +313,24 @@ public class Render extends JPanel implements ActionListener {
 			powerups.setWallpass(false);
 			powerups.setDetonate(false);
 			
-			if (player.getLivesLeft() == 0) {
+			System.out.println("Lives Left...: " + Player.getLivesLeft());
+			if (Player.getLivesLeft() == 0) {
 				System.out.println("No more lives left sorry friend");
 				// START FROM LEVEL 1... ADD LEVEL LOGIC, NEXT LEVEL LIVES
 				// RESTORED TO 3
 			}
 
 			else {
-				System.out.println("Lives Left...: ");
-				player.setLivesLeft(--numberOfLives);
-			}
+				numberOfLives--;
+				Player.setLivesLeft(numberOfLives);
 
+			}
+			
 			initialize();
 		}
+		
+		//System.out.println("number of lives..." + numberOfLives);
+
 		
 		
 	}

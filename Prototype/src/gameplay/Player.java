@@ -16,7 +16,7 @@ public class Player {
 	private int posX;
 	private int posY;
 	private static int score;
-	private int livesLeft;
+	private static int livesLeft;
 
 	private Image image;
 	Grid grid;
@@ -26,11 +26,12 @@ public class Player {
 
 	private Boolean isBombPlaced;
 
-	public Player() {
+	public Player() { 
 
 	}
 
 	public Player(Grid grid, Bomb bomb) {
+		livesLeft = 2;
 		loadImage();
 		this.setX(25);
 		this.setY(25);
@@ -280,12 +281,12 @@ public class Player {
 		Player.score = score;
 	}
 
-	public int getLivesLeft() {
-		return livesLeft;
+	public static int getLivesLeft() {
+		return Player.livesLeft;
 	}
 
-	public void setLivesLeft(int livesLeft) {
-		this.livesLeft = livesLeft;
+	public static void setLivesLeft(int livesLeft) {
+		Player.livesLeft = livesLeft;
 	}
 
 	// public void setUsername(String name) {
