@@ -82,7 +82,7 @@ public class Render extends JPanel implements ActionListener {
 		brick = new Brick(grid);
 		bomb = new Bomb(grid);
 		concrete = new Concrete(grid);
-		powerups = new PowerUps(grid);
+		powerups = new PowerUps(grid, player);
 		exitway = new ExitWay(grid);
 		player = new Player(grid, bomb);
 		enemy = new Enemy(grid,this, level);

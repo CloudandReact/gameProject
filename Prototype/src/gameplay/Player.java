@@ -17,13 +17,16 @@ public class Player {
 	private int posY;
 	private static int score;
 	private static int livesLeft;
+	
+	private int range;
+	private int bombs;
 
 	private Image image;
 	Grid grid;
 	private Bomb bomb;
 
 	private long startTime;
-
+	private PowerUps powerup;
 	private Boolean isBombPlaced;
 
 	public Player() { 
@@ -42,6 +45,8 @@ public class Player {
 		this.grid.setContents(1, 1, Cell.PLAYER);
 		setScore(0);
 		this.isBombPlaced = false;
+		powerup = new PowerUps(grid, this);
+		this.range = 1;
 	}
 
 	public void move() {
@@ -89,7 +94,14 @@ public class Player {
 				if (grid.getContents(posX, posY) == Cell.EXITWAY) {
 					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
 
-				} else {
+				} else if(grid.getContents(posX, posY) == Cell.POWERUPS){
+					grid.setContents(posX, posY, Cell.PLAYER);
+					powerup.setGotPowerup(true);
+					System.out.println("Got the powerup!!!!!!");
+					powerup.givePowerUp();
+				}
+				
+				else {
 					grid.setContents(posX, posY, Cell.PLAYER);
 
 				}
@@ -140,7 +152,14 @@ public class Player {
 				if (grid.getContents(posX, posY) == Cell.EXITWAY) {
 					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
 
-				} else {
+				} else if(grid.getContents(posX, posY) == Cell.POWERUPS){
+					grid.setContents(posX, posY, Cell.PLAYER);
+					powerup.setGotPowerup(true);
+					System.out.println("Got the powerup!!!!!!");
+					powerup.givePowerUp();
+				}
+				
+				else {
 					grid.setContents(posX, posY, Cell.PLAYER);
 
 				}
@@ -213,7 +232,9 @@ public class Player {
 					// AS HIGH AS YOU WANT, FRIENDS
 
 					isBombPlaced = true;
-					bomb.setRange(1);
+					//bomb.setRange(1);
+					System.out.println(range);
+					bomb.setRange(range);
 					bomb.setPosition(posX, posY);
 					initializeTimer();
 				}
@@ -287,6 +308,22 @@ public class Player {
 
 	public static void setLivesLeft(int livesLeft) {
 		Player.livesLeft = livesLeft;
+	}
+
+	public int getRange() {
+		return range;
+	}
+
+	public void setRange(int range) {
+		this.range = range;
+	}
+	
+	public int getBombs() {
+		return bombs;
+	}
+
+	public void setBombs(int bombs) {
+		this.bombs = bombs;
 	}
 
 	// public void setUsername(String name) {

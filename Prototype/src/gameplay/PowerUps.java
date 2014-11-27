@@ -18,6 +18,7 @@ public class PowerUps {
 	private static Boolean bombpass = false; 
 	private static Boolean flamepass = false;
 	private static Boolean detonate = false; 
+	private static Boolean gotPowerup= false; //remember to set this to false when player moves to next level
 	//String [] powerups = {"bombsP.png","flamesP.png","speedP.png","detonatorsP.png","bombPassP.png","wallPassP.png","flamePassP.png"};
 	
 	private Image imageb;
@@ -29,47 +30,84 @@ public class PowerUps {
 	private Image imageFP;
 	
 	private Grid grid;
+	private Player player;
 	
 	
-	public PowerUps(Grid grid){
+	public PowerUps(Grid grid, Player player){
 		this.grid = grid;
+		this.player = player;
 		loadImage();
 		placePowerups();
-
+		givePowerUp();
+		gotPowerup = false;
 	}
 	
-	
+	public void givePowerUp(){
+		int level = 1;
+		if(gotPowerup == true){
+			
+			// FLAMES
+			if (level == 1 || level == 7 || level == 15
+					|| level == 27 || level == 38) {
+				int currentRange = player.getRange();
+				player.setRange(currentRange+1);
+			}
+
+			// BOMB
+			else if (level == 2 || level == 5
+					|| level == 6 || level == 11 || level == 12
+					|| level == 17 || level == 19 || level == 23
+					|| level == 28 || level == 32) {
+				int currentBomb = player.getBombs();
+				player.setBombs(currentBomb + 1);
+				
+			}
+			// SPEED
+			else if (level == 4) {
+				
+			}
+			// DETONATOR
+			else if (level == 3 || level == 8 || level == 13
+					|| level == 20 || level == 22 || level == 24
+					|| level == 29 || level == 33 || level == 27
+					|| level == 41 || level == 44 || level == 48) {
+				
+			}
+			// BOMBPASS
+			else if (level == 9 || level == 14 || level == 18
+					|| level == 21 || level == 25 || level == 35
+					|| level == 43 || level == 47) {
+				
+			}
+			// WALLPASS
+			else if (level == 10 || level == 16 || level == 31
+					|| level == 39 || level == 42 || level == 46) {
+				
+			}
+			// FLAMEPASS
+			else if (level == 30 || level == 36 || level == 49) {
+				
+			}
+			// MYSTERY
+			else if (level == 26 || level == 34 || level == 40
+					|| level == 45 || level == 50) {
+				// g2d.drawImage(powerups.getMysteryImage(),
+				// Bomberman.TILE_SIZE * i, Bomberman.TILE_SIZE * j, this);
+				// continue;
+				// becomes immune to monsters and explosions
+				// (not included in our gameplay so I dont know what
+				// to do with this)
+			}
+			PowerUps.setGotPowerup(false);
+		}
+	}
 	private void placePowerups(){
 		
 		int randX = randInt(2,31);
-		int randY = randInt(2,13); 
+		int randY = randInt(2,12); 
 		
-		grid.setContents(1,3,Cell.BRICKANDPOWERUPS);
-		/*
-		switch(level) {
-		case 1:
-		   	g2d.drawImage(powerups.getBombsImage(), dimension * i, dimension * j, this);
-		    continue;
-		case 2:
-		   	g2d.drawImage(powerups.getFlamesImage(), dimension * i, dimension * j, this);
-		    continue;
-		case 3:
-		   	g2d.drawImage(powerups.getBombsImage(), dimension * i, dimension * j, this);
-		    continue;
-		case 4:
-		   	g2d.drawImage(powerups.getBombsImage(), dimension * i, dimension * j, this);
-		    continue;
-		case 5:
-		   	g2d.drawImage(powerups.getBombsImage(), dimension * i, dimension * j, this);
-		    continue;
-		case 6:
-		   	g2d.drawImage(powerups.getBombsImage(), dimension * i, dimension * j, this);
-		    continue;
-		case 7:
-		   	g2d.drawImage(powerups.getBombsImage(), dimension * i, dimension * j, this);
-		    continue;
-		}
-		*/
+		grid.setContents(1,4,Cell.BRICKANDPOWERUPS);
+		
 	}
 	
 	
@@ -172,6 +210,17 @@ public class PowerUps {
 	public void setDetonate(Boolean detonate) {
 		PowerUps.detonate = detonate;
 	}
+
+
+	public Boolean getGotPowerup() {
+		return gotPowerup;
+	}
+
+
+	public static void setGotPowerup(Boolean gotpowerup) {
+		PowerUps.gotPowerup = gotpowerup;
+	}
+
 	
 	
 }
