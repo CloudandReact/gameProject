@@ -56,7 +56,10 @@ public class Player {
 					|| grid.getContents(posX + (dx / 25), posY) == Cell.KONDORIA
 					|| grid.getContents(posX + (dx / 25), posY) == Cell.OVAPI
 					|| grid.getContents(posX + (dx / 25), posY) == Cell.PASS
-					|| grid.getContents(posX + (dx / 25), posY) == Cell.PONTAN) {
+					|| grid.getContents(posX + (dx / 25), posY) == Cell.PONTAN
+					|| grid.getContents(posX + (dx / 25), posY) == Cell.KONDORIAANDBRICK
+					|| grid.getContents(posX + (dx / 25), posY) == Cell.OVAPIANDBRICK
+					|| grid.getContents(posX + (dx / 25), posY) == Cell.PONTANANDBRICK) {
 				grid.setContents(posX, posY, Cell.EMPTY);
 			}
 
@@ -107,7 +110,10 @@ public class Player {
 					|| grid.getContents(posX, posY + (dy / 25)) == Cell.KONDORIA
 					|| grid.getContents(posX, posY + (dy / 25)) == Cell.OVAPI
 					|| grid.getContents(posX, posY + (dy / 25)) == Cell.PASS
-					|| grid.getContents(posX, posY + (dy / 25)) == Cell.PONTAN) {
+					|| grid.getContents(posX, posY + (dy / 25)) == Cell.PONTAN
+					|| grid.getContents(posX, posY + (dy / 25)) == Cell.KONDORIAANDBRICK
+					|| grid.getContents(posX, posY + (dy / 25)) == Cell.OVAPIANDBRICK
+					|| grid.getContents(posX, posY + (dy / 25)) == Cell.PONTANANDBRICK) {
 				grid.setContents(posX, posY, Cell.EMPTY);
 			}
 			//

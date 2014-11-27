@@ -15,9 +15,13 @@ public class Enemy implements Mover {
 	private String Doll = "Doll.png";
 	private String Minvo = "Minvo.png";
 	private String Kondoria = "Kondoria.png";
+	private String KondoriaAndBrick = "KondoriaAndBrick.png";
 	private String Ovapi = "Ovapi.png";
+	private String OvapiAndBrick = "OvapiAndBrick.png";
 	private String Pass = "Pass.png";
 	private String Pontan = "Pontan.png";
+	private String PontanAndBrick = "PontanAndBrick.png";
+
 
 	private Image enemy1;
 	private Image enemy2;
@@ -27,6 +31,10 @@ public class Enemy implements Mover {
 	private Image enemy6;
 	private Image enemy7;
 	private Image enemy8;
+	private Image enemy9;
+	private Image enemy10;
+	private Image enemy11;
+
 
 	private Grid grid;
 	private Grid tempGrid;
@@ -45,8 +53,6 @@ public class Enemy implements Mover {
 	private int nEnemy7;
 	private int nEnemy8;
 	
-	private int enemyDirection;
-
 	private Path path;
 	PathFinder finder;
 
@@ -90,7 +96,9 @@ public class Enemy implements Mover {
 		nEnemy4 = level.getnEnemy4();
 		//System.out.println("Number of enemyType4..: " + level.getnEnemy4());
 
-		nEnemy5 = level.getnEnemy5();
+		//nEnemy5 = level.getnEnemy5();
+		nEnemy5 = 1;
+
 		//System.out.println("Number of enemyType5..: " + level.getnEnemy5());
 
 		nEnemy6 = level.getnEnemy6();
@@ -109,8 +117,9 @@ public class Enemy implements Mover {
 	}
 
 	private void validateEnemies() {
+		boolean fa = true;
 
-		if (nEnemy1 > 0) {
+/*		if (nEnemy1 > 0) {
 			placeEnemies(Cell.BALLOOM, nEnemy1);
 		}
 
@@ -125,12 +134,16 @@ public class Enemy implements Mover {
 		if (nEnemy4 > 0) {
 			placeEnemies(Cell.MINVO, nEnemy4);
 		}
-
+*/
 		if (nEnemy5 > 0) {
-			placeEnemies(Cell.KONDORIA, nEnemy5);
+			if(fa){
+				placeEnemies(Cell.KONDORIA, nEnemy5);
+				fa = false;
+			}
+			
 		}
 
-		if (nEnemy6 > 0) {
+		/*if (nEnemy6 > 0) {
 			placeEnemies(Cell.OVAPI, nEnemy6);
 		}
 
@@ -140,7 +153,7 @@ public class Enemy implements Mover {
 
 		if (nEnemy8 > 0) {
 			placeEnemies(Cell.PONTAN, nEnemy8);
-		}
+		}*/
 
 		// grid.setContents(1,11,Cell.ENEMY);
 		// grid.setContents(2,11,Cell.ENEMY);
@@ -184,13 +197,26 @@ public class Enemy implements Mover {
 
 		ImageIcon eighth = new ImageIcon(getClass().getResource(Pontan));
 		enemy8 = eighth.getImage();
+		
+		
+		// Change to AndBrick
+		ImageIcon nine = new ImageIcon(getClass().getResource(Kondoria));
+		enemy9 = nine.getImage();
+		
+		ImageIcon ten = new ImageIcon(getClass().getResource(Ovapi));
+		enemy10 = ten.getImage();
+		
+		ImageIcon eleven = new ImageIcon(getClass().getResource(Pontan));
+		enemy11 = eleven.getImage();
+		
 
 	}
 
 	public Image getImageBalloom() {
 		return enemy1;
 	}
-
+	
+	
 	public Image getImageOneal() {
 		return enemy2;
 	}
@@ -206,10 +232,19 @@ public class Enemy implements Mover {
 	public Image getImageKondoria() {
 		return enemy5;
 	}
+	
+	public Image getImageKondoriaAndBrick() {
+		return enemy5;
+	}
 
 	public Image getImageOvapi() {
 		return enemy6;
 	}
+	
+	public Image getImageOvapiAndBrick() {
+		return enemy6;
+	}
+
 
 	public Image getImagePass() {
 		return enemy7;
@@ -218,7 +253,11 @@ public class Enemy implements Mover {
 	public Image getImagePontan() {
 		return enemy8;
 	}
-
+	
+	public Image getImagePontanAndBrick() {
+		return enemy8;
+	}
+	
 	public int getEnemyCount() {
 		return enemyCount;
 	}
@@ -226,7 +265,7 @@ public class Enemy implements Mover {
 	private void placeEnemies(Cell enemyType, int numberToPlace) {
 
 		int numberOfEnemies = 0;
-		while (numberOfEnemies < numberToPlace) {
+		/*while (numberOfEnemies < numberToPlace) {
 			int randX = randInt(4, 30);
 			int randY = randInt(1, 12);
 
@@ -239,9 +278,13 @@ public class Enemy implements Mover {
 				numberOfEnemies++;
 			}
 			
-		}
+		}*/
 		
+		grid.setContents(1, 11, enemyType);
+		tracker = new EnemyTracker(1, 11, enemyType);
+		enemiesInitial.add(tracker);
 		
+		numberOfEnemies++;
 	
 		
 		//enemyCount += numberOfEnemies;
@@ -270,8 +313,14 @@ public class Enemy implements Mover {
 				case KONDORIA:
 					verifyTracker(posX, posY, Cell.KONDORIA);
 					continue;
+				case KONDORIAANDBRICK:
+					verifyTracker(posX, posY, Cell.KONDORIAANDBRICK);
+					continue;
 				case OVAPI:
 					verifyTracker(posX, posY, Cell.OVAPI);
+					continue;
+				case OVAPIANDBRICK:
+					verifyTracker(posX, posY, Cell.OVAPIANDBRICK);
 					continue;
 				case PASS:
 					verifyTracker(posX, posY, Cell.PASS);
@@ -279,6 +328,9 @@ public class Enemy implements Mover {
 				case PONTAN:
 					verifyTracker(posX, posY, Cell.PONTAN);
 					continue;
+				case PONTANANDBRICK:
+					verifyTracker(posX, posY, Cell.PONTANANDBRICK);
+					continue;					
 				default:
 					break;
 				}						
@@ -355,13 +407,22 @@ public class Enemy implements Mover {
 			case KONDORIA:
 				moveWithChance(enemiesInitial.get(i), targetX, targetY, 2, 3);
 				continue;
+			case KONDORIAANDBRICK:
+				moveWithChance(enemiesInitial.get(i), targetX, targetY, 2, 3);
+				continue;
 			case OVAPI:
+				moveWithChance(enemiesInitial.get(i), targetX, targetY, 10, 2);
+				continue;
+			case OVAPIANDBRICK:
 				moveWithChance(enemiesInitial.get(i), targetX, targetY, 10, 2);
 				continue;
 			case PASS:
 				moveWithChance(enemiesInitial.get(i), targetX, targetY, 2, 3);
 				continue;
 			case PONTAN:
+				moveWithChance(enemiesInitial.get(i), targetX, targetY, 2, 2);
+				continue;
+			case PONTANANDBRICK:
 				moveWithChance(enemiesInitial.get(i), targetX, targetY, 2, 2);
 				continue;
 			default:
@@ -390,11 +451,19 @@ public class Enemy implements Mover {
 			for (int posY = 1; posY < Bomberman.HEIGHT - 1; posY++) {
 				if (tempGrid.getContents(posX, posY) == cellType) {
 
-					path = finder.findPath(this, posX, posY, targetX, targetY);
+					path = finder.findPath(cellType, posX, posY, targetX, targetY);
 					
 					if (path != null) {
+						
+						if(grid.getContents(posX, posY) == Cell.KONDORIAANDBRICK || grid.getContents(posX, posY) == Cell.OVAPIANDBRICK || grid.getContents(posX, posY) == Cell.PONTANANDBRICK){
+							grid.setContents(posX,posY,Cell.BRICK);
+						}
+						
+						else{
+							grid.setContents(posX, posY, Cell.EMPTY);
 
-						grid.setContents(posX, posY, Cell.EMPTY);
+						}
+						
 						// System.out.println("Player position: X: " + targetX +
 						// " Y: " + targetY + " xTarget IS: " + path.getX(1) +
 						// " yTarget IS: " + path.getY(1));
@@ -442,7 +511,7 @@ public class Enemy implements Mover {
 		
 		if(aStarRange > 0){
 			finder = new AStarPathFinder(grid, aStarRange);
-			path = finder.findPath(this, posX, posY, targetX, targetY);
+			path = finder.findPath(tracker.getEnemyType(), posX, posY, targetX, targetY);
 			
 /*			System.out.println( "Target X...: " +targetX + " Target Y...: " + targetY);
 			System.out.println( "EnemyX...: " +posX + " EnemyY...: " + posY);
@@ -458,7 +527,6 @@ public class Enemy implements Mover {
 					canMoveInY = true;
 					enemyDirectionY = path.getY(1) - posY;
 					tracker.setyDirection(enemyDirectionY);
-
 				}	
 				else{
 					canMoveInX = true;
@@ -467,17 +535,44 @@ public class Enemy implements Mover {
 					
 				}
 				
-				grid.setContents(posX, posY, Cell.EMPTY);
+				if(grid.getContents(posX, posY) == Cell.KONDORIAANDBRICK || grid.getContents(posX, posY) == Cell.OVAPIANDBRICK || grid.getContents(posX, posY) == Cell.PONTANANDBRICK){
+					grid.setContents(posX,posY,Cell.BRICK);
+				}
+				
+				else{
+					grid.setContents(posX, posY, Cell.EMPTY);
+
+				}
 				
 				if(canMoveInX){
 					
 					if(grid.getContents(posX + enemyDirectionX, posY) == Cell.PLAYER){
-
+							
+							grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
 							GameState.setState(State.PLAYERDEAD);
 							render.setIsPlayerAlive(false);
 					}
+					
+					else if(tracker.getEnemyType() == Cell.KONDORIA || tracker.getEnemyType() == Cell.OVAPI || tracker.getEnemyType() == Cell.PONTAN ){
+						
+						if(grid.getContents(posX + enemyDirectionX, posY) == Cell.BRICK){
+							switch(tracker.getEnemyType()){
+							case KONDORIA:
+								grid.setContents(posX + enemyDirectionX, posY, Cell.KONDORIAANDBRICK);
+							case OVAPI:
+								grid.setContents(posX + enemyDirectionX, posY, Cell.OVAPIANDBRICK);
+							case PONTAN:
+								grid.setContents(posX + enemyDirectionX, posY, Cell.PONTANANDBRICK);
+							default:
+								break;
+							}
+						}													
+					}
 
-					grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
+					else{
+						grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
+					}
+					
 					tracker.setxPosition(posX + enemyDirectionX);
 					tracker.setMovingInX(true);
 					tracker.setMovingInY(false);
@@ -488,12 +583,33 @@ public class Enemy implements Mover {
 				
 				else{
 					if(grid.getContents(posX, posY  + enemyDirectionY) == Cell.PLAYER){
-
+						grid.setContents(posX, posY  + enemyDirectionY, tracker.getEnemyType());
 						GameState.setState(State.PLAYERDEAD);
 						render.setIsPlayerAlive(false);
 					}
 					
-					grid.setContents(posX, posY  + enemyDirectionY, tracker.getEnemyType());
+					else if(tracker.getEnemyType() == Cell.KONDORIA || tracker.getEnemyType() == Cell.OVAPI || tracker.getEnemyType() == Cell.PONTAN ){
+						
+						if(grid.getContents(posX, posY + enemyDirectionY) == Cell.BRICK){
+							switch(tracker.getEnemyType()){
+							case KONDORIA:
+								grid.setContents(posX, posY + enemyDirectionY, Cell.KONDORIAANDBRICK);
+							case OVAPI:
+								grid.setContents(posX, posY + enemyDirectionY, Cell.OVAPIANDBRICK);
+							case PONTAN:
+								grid.setContents(posX, posY + enemyDirectionY, Cell.PONTANANDBRICK);
+							default:
+								break;
+							}
+						}													
+					}
+
+					else{
+						grid.setContents(posX, posY + enemyDirectionY, tracker.getEnemyType());
+						System.out.println(tracker.getEnemyType());
+					}
+					
+					
 					tracker.setyPosition(posY + enemyDirectionY);
 					tracker.setMovingInY(true);
 					tracker.setMovingInX(false);
@@ -503,15 +619,30 @@ public class Enemy implements Mover {
 				
 			}
 		}
-		
+		usingAStar = true;
 		if(!usingAStar){
 			
 			if(chance!=0){
 				randChance = randInt(1, chance);
 			}
 			
+			if(tracker.getEnemyType() == Cell.KONDORIA || tracker.getEnemyType() == Cell.OVAPI || tracker.getEnemyType() == Cell.PONTAN){
+				if(grid.getContents(posX + enemyDirectionX,posY) == Cell.EMPTY || grid.getContents(posX + enemyDirectionX,posY) == Cell.PLAYER || grid.getContents(posX + enemyDirectionX,posY) == Cell.BRICK){
+					canMoveInX = true;
+				}
+				else if(grid.getContents(posX - enemyDirectionX,posY) == Cell.EMPTY || grid.getContents(posX - enemyDirectionX,posY) == Cell.PLAYER || grid.getContents(posX - enemyDirectionX,posY) == Cell.BRICK ){
+					canMoveInX = true;
+				}
+				
+				if(grid.getContents(posX,posY + enemyDirectionY) == Cell.EMPTY || grid.getContents(posX,posY + enemyDirectionY) == Cell.PLAYER || grid.getContents(posX,posY + enemyDirectionY) == Cell.BRICK){
+					canMoveInY = true;
+				}
+				else if(grid.getContents(posX,posY - enemyDirectionY) == Cell.EMPTY || grid.getContents(posX,posY - enemyDirectionY) == Cell.PLAYER || grid.getContents(posX,posY - enemyDirectionY) == Cell.BRICK ){
+					canMoveInY = true;
+				}
+			}
 			
-			if(grid.getContents(posX + enemyDirectionX,posY) == Cell.EMPTY || grid.getContents(posX + enemyDirectionX,posY) == Cell.PLAYER){
+			else if(grid.getContents(posX + enemyDirectionX,posY) == Cell.EMPTY || grid.getContents(posX + enemyDirectionX,posY) == Cell.PLAYER){
 				canMoveInX = true;
 				
 			}
@@ -523,9 +654,8 @@ public class Enemy implements Mover {
 				
 			}
 			
-			
-			
-			if(grid.getContents(posX,posY + enemyDirectionY) == Cell.EMPTY || grid.getContents(posX,posY + enemyDirectionY) == Cell.PLAYER){
+	
+			else if(grid.getContents(posX,posY + enemyDirectionY) == Cell.EMPTY || grid.getContents(posX,posY + enemyDirectionY) == Cell.PLAYER){
 				canMoveInY = true;
 				// move in this direction
 			}
@@ -559,7 +689,15 @@ public class Enemy implements Mover {
 					render.setIsPlayerAlive(false);
 				}
 				
-				grid.setContents(posX, posY, Cell.EMPTY);
+				if(grid.getContents(posX, posY) == Cell.KONDORIAANDBRICK || grid.getContents(posX, posY) == Cell.OVAPIANDBRICK || grid.getContents(posX, posY) == Cell.PONTANANDBRICK){
+					grid.setContents(posX,posY,Cell.BRICK);
+				}
+				
+				else{
+					grid.setContents(posX, posY, Cell.EMPTY);
+
+				}
+				
 				grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
 				tracker.setxPosition(posX + enemyDirectionX);
 				tracker.setMovingInX(true);
@@ -576,7 +714,14 @@ public class Enemy implements Mover {
 					render.setIsPlayerAlive(false);
 				}
 				
-				grid.setContents(posX, posY, Cell.EMPTY);
+				if(grid.getContents(posX, posY) == Cell.KONDORIAANDBRICK || grid.getContents(posX, posY) == Cell.OVAPIANDBRICK || grid.getContents(posX, posY) == Cell.PONTANANDBRICK){
+					grid.setContents(posX,posY,Cell.BRICK);
+				}
+				
+				else{
+					grid.setContents(posX, posY, Cell.EMPTY);
+
+				}
 				grid.setContents(posX, posY + enemyDirectionY, tracker.getEnemyType());
 				tracker.setyPosition(posY + enemyDirectionY);
 				tracker.setMovingInY(true);

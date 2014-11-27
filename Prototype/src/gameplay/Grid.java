@@ -63,13 +63,20 @@ public class Grid implements TileBasedMap {
 	
 
 	@Override
-	public boolean blocked(Mover mover, int x, int y) {
+	public boolean blocked(Cell cellType, int x, int y) {
 		
-		if (gridMap[x][y] == Cell.BRICKANDPOWERUPS || gridMap[x][y] == Cell.BRICKANDEXITWAY || gridMap[x][y] == Cell.CONCRETE || gridMap[x][y] == Cell.BRICK || gridMap[x][y] == Cell.POWERUPS ||  gridMap[x][y] == Cell.ENEMY || gridMap[x][y] == Cell.BRICKANDPOWERUPS || gridMap[x][y] == Cell.BOMB || gridMap[x][y] == Cell.PLAYERANDBOMB || gridMap[x][y] == Cell.BALLOOM || gridMap[x][y] == Cell.ONEAL || gridMap[x][y] == Cell.DOLL || gridMap[x][y] == Cell.MINVO || gridMap[x][y] == Cell.KONDORIA || gridMap[x][y] == Cell.OVAPI  || gridMap[x][y] == Cell.PASS  || gridMap[x][y] == Cell.PONTAN){
+		if(cellType == Cell.KONDORIA || cellType == Cell.OVAPI || cellType == Cell.PONTAN ||cellType == Cell.KONDORIAANDBRICK || cellType == Cell.OVAPIANDBRICK || cellType == Cell.PONTANANDBRICK){
+			if (gridMap[x][y] == Cell.PONTANANDBRICK ||gridMap[x][y] == Cell.OVAPIANDBRICK || gridMap[x][y] == Cell.KONDORIAANDBRICK || gridMap[x][y] == Cell.BRICKANDPOWERUPS || gridMap[x][y] == Cell.BRICKANDEXITWAY || gridMap[x][y] == Cell.CONCRETE  || gridMap[x][y] == Cell.POWERUPS ||  gridMap[x][y] == Cell.ENEMY || gridMap[x][y] == Cell.BRICKANDPOWERUPS || gridMap[x][y] == Cell.BOMB || gridMap[x][y] == Cell.PLAYERANDBOMB || gridMap[x][y] == Cell.BALLOOM || gridMap[x][y] == Cell.ONEAL || gridMap[x][y] == Cell.DOLL || gridMap[x][y] == Cell.MINVO || gridMap[x][y] == Cell.KONDORIA || gridMap[x][y] == Cell.OVAPI  || gridMap[x][y] == Cell.PASS  || gridMap[x][y] == Cell.PONTAN){
+				return true;
+			}
+			return false;
+		}
+		
+		else if (gridMap[x][y] == Cell.PONTANANDBRICK ||gridMap[x][y] == Cell.OVAPIANDBRICK || gridMap[x][y] == Cell.KONDORIAANDBRICK || gridMap[x][y] == Cell.BRICKANDPOWERUPS || gridMap[x][y] == Cell.BRICKANDEXITWAY || gridMap[x][y] == Cell.CONCRETE || gridMap[x][y] == Cell.BRICK || gridMap[x][y] == Cell.POWERUPS ||  gridMap[x][y] == Cell.ENEMY || gridMap[x][y] == Cell.BRICKANDPOWERUPS || gridMap[x][y] == Cell.BOMB || gridMap[x][y] == Cell.PLAYERANDBOMB || gridMap[x][y] == Cell.BALLOOM || gridMap[x][y] == Cell.ONEAL || gridMap[x][y] == Cell.DOLL || gridMap[x][y] == Cell.MINVO || gridMap[x][y] == Cell.KONDORIA || gridMap[x][y] == Cell.OVAPI  || gridMap[x][y] == Cell.PASS  || gridMap[x][y] == Cell.PONTAN){
 			return true;
 		}
 
-		
+		return false;
 		
 		
 	/*	if(gridMap[x][y] != Cell.EMPTY || gridMap[x][y] != Cell.PLAYER){
@@ -77,15 +84,15 @@ public class Grid implements TileBasedMap {
 			return true;
 		}*/
 		
-		return false;
+		
 	}
 
 
 
 	@Override
-	public float getCost(Mover mover, int sx, int sy, int tx, int ty) {
+	public float getCost(Cell cellType, int sx, int sy, int tx, int ty) {
 		ClosestHeuristic manhattan = new ClosestHeuristic();
-		return manhattan.getCost(mover, sx, sy, tx, ty);
+		return manhattan.getCost(cellType, sx, sy, tx, ty);
 		
 	}
 	
