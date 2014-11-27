@@ -1,5 +1,7 @@
 package menu;
+import gameplay.Bomberman;
 import gameplay.PlayerInfo;
+import gameplay.Render;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -41,8 +43,8 @@ private static final long serialVersionUID = 1L;
 		
 		//open statistics read user games and display
 		numberOfGames=checkStats.numberOfGames();
-		if(levelAvailible>1) 
-			{ 
+		//if(levelAvailible>1) 
+		if(true)	{ 
 			JLabel gameNumberLabel= new JLabel("Level availible "+ levelAvailible);
 			gameNumberLabel.setBounds(40,60,120,25);
 			panel.add(gameNumberLabel);
@@ -84,15 +86,16 @@ private static final long serialVersionUID = 1L;
 				// Execute when button is pressed
 				getContentPane().removeAll();
 				int levelSelected=Integer.parseInt(gameToPlayText.getText());
-				if(levelSelected>levelAvailible){
-					//alert error reenter else iniatilize constructor for game play
-				//constructur 
-					JOptionPane.showMessageDialog(null,"Please enter smaller number than equal to "+levelAvailible+ " ", "Error", JOptionPane.INFORMATION_MESSAGE);
-				}
-				else{
-					//assigns player current Level to different level
-					PlayerInfo.currentLevel=levelSelected;
-				}
+				new Bomberman(levelSelected);
+//				if(levelSelected>levelAvailible){
+//					//alert error reenter else iniatilize constructor for game play
+//				//constructur 
+//					JOptionPane.showMessageDialog(null,"Please enter smaller number than equal to "+levelAvailible+ " ", "Error", JOptionPane.INFORMATION_MESSAGE);
+//				}
+//				else{
+//					//assigns player current Level to different level
+//					PlayerInfo.currentLevel=levelSelected;
+//				}
 				//new Game()
 			}
 		});

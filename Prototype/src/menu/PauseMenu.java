@@ -113,6 +113,7 @@ public class PauseMenu extends JFrame{
 			}
 			
 		});
+		
 		saveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed

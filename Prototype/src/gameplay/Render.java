@@ -68,6 +68,18 @@ public class Render extends JPanel implements ActionListener {
 		setFocusable(true);
 
 	}
+	
+	public Render(int level) {
+		this.currentLevel = level;
+		initialize();
+		numberOfLives = 2;
+		addKeyListener(new TAdapter());
+		setFocusable(true);
+		setBackground(Color.darkGray);
+		setDoubleBuffered(true);
+		setFocusable(true);
+		
+	}
 
 	public void initialize() {
 
@@ -91,6 +103,7 @@ public class Render extends JPanel implements ActionListener {
 		pauseMenuOpen = false;
 		timer = new Timer(100, this);
 		timer.start();
+		
 	}
 
 	public void paint(Graphics g) {
@@ -278,7 +291,7 @@ public class Render extends JPanel implements ActionListener {
 			//enemy.move(player.getX() / Bomberman.TILE_SIZE, player.getY() / Bomberman.TILE_SIZE);
 			//\enemy.aStarMovement(player.getX() / Bomberman.TILE_SIZE, player.getY() / Bomberman.TILE_SIZE, Cell.KONDORIA);
 			
-			if (count == 5) {
+			if (count == 3) {
 				
 				enemy.move(player.getX() / Bomberman.TILE_SIZE, player.getY() / Bomberman.TILE_SIZE);
 				count = 0;
