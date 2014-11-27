@@ -15,9 +15,13 @@ public class Enemy implements Mover {
 	private String Doll = "Doll.png";
 	private String Minvo = "Minvo.png";
 	private String Kondoria = "Kondoria.png";
+	private String KondoriaAndBrick = "KondoriaAndBrick.jpg";
 	private String Ovapi = "Ovapi.png";
+	private String OvapiAndBrick = "OvapiAndBrick.jpg";
 	private String Pass = "Pass.png";
 	private String Pontan = "Pontan.png";
+	private String PontanAndBrick = "PontanAndBrick.jpg";
+
 
 	private Image enemy1;
 	private Image enemy2;
@@ -27,6 +31,10 @@ public class Enemy implements Mover {
 	private Image enemy6;
 	private Image enemy7;
 	private Image enemy8;
+	private Image enemy9;
+	private Image enemy10;
+	private Image enemy11;
+
 
 	private Grid grid;
 	private Grid tempGrid;
@@ -45,8 +53,6 @@ public class Enemy implements Mover {
 	private int nEnemy7;
 	private int nEnemy8;
 	
-	private int enemyDirection;
-
 	private Path path;
 	PathFinder finder;
 
@@ -55,10 +61,8 @@ public class Enemy implements Mover {
 	
 	private ArrayList<EnemyTracker> enemiesAlive; 
 	private EnemyTracker livingEnemy;
-
-	private int countSlow;
-	private int countNormal;
-	private int countFast;
+	
+	private int count;
 	
 	public Enemy(Grid grid, Render render, Level level) {
 		this.level = level;
@@ -68,9 +72,7 @@ public class Enemy implements Mover {
 		this.grid = grid;
 		this.tempGrid = new Grid();
 		
-		countSlow = 0;
-		countNormal = 0;
-		countFast = 0;
+		count = 0;
 		
 		enemiesInitial = new ArrayList<EnemyTracker>();
 		enemiesAlive = new ArrayList<EnemyTracker>();
@@ -90,7 +92,8 @@ public class Enemy implements Mover {
 		nEnemy4 = level.getnEnemy4();
 		//System.out.println("Number of enemyType4..: " + level.getnEnemy4());
 
-		nEnemy5 = level.getnEnemy5();
+		nEnemy5 = level.getnEnemy5();	
+
 		//System.out.println("Number of enemyType5..: " + level.getnEnemy5());
 
 		nEnemy6 = level.getnEnemy6();
@@ -128,6 +131,7 @@ public class Enemy implements Mover {
 
 		if (nEnemy5 > 0) {
 			placeEnemies(Cell.KONDORIA, nEnemy5);
+			
 		}
 
 		if (nEnemy6 > 0) {
@@ -141,11 +145,6 @@ public class Enemy implements Mover {
 		if (nEnemy8 > 0) {
 			placeEnemies(Cell.PONTAN, nEnemy8);
 		}
-
-		// grid.setContents(1,11,Cell.ENEMY);
-		// grid.setContents(2,11,Cell.ENEMY);
-
-	
 
 	}
 
@@ -184,13 +183,26 @@ public class Enemy implements Mover {
 
 		ImageIcon eighth = new ImageIcon(getClass().getResource(Pontan));
 		enemy8 = eighth.getImage();
+		
+		
+		// Change to AndBrick
+		ImageIcon nine = new ImageIcon(getClass().getResource(KondoriaAndBrick));
+		enemy9 = nine.getImage();
+		
+		ImageIcon ten = new ImageIcon(getClass().getResource(OvapiAndBrick));
+		enemy10 = ten.getImage();
+		
+		ImageIcon eleven = new ImageIcon(getClass().getResource(PontanAndBrick));
+		enemy11 = eleven.getImage();
+		
 
 	}
 
 	public Image getImageBalloom() {
 		return enemy1;
 	}
-
+	
+	
 	public Image getImageOneal() {
 		return enemy2;
 	}
@@ -206,10 +218,19 @@ public class Enemy implements Mover {
 	public Image getImageKondoria() {
 		return enemy5;
 	}
+	
+	public Image getImageKondoriaAndBrick() {
+		return enemy9;
+	}
 
 	public Image getImageOvapi() {
 		return enemy6;
 	}
+	
+	public Image getImageOvapiAndBrick() {
+		return enemy10;
+	}
+
 
 	public Image getImagePass() {
 		return enemy7;
@@ -218,11 +239,15 @@ public class Enemy implements Mover {
 	public Image getImagePontan() {
 		return enemy8;
 	}
-
+	
+	public Image getImagePontanAndBrick() {
+		return enemy11;
+	}
+	
 	public int getEnemyCount() {
 		return enemyCount;
 	}
-
+					
 	private void placeEnemies(Cell enemyType, int numberToPlace) {
 
 		int numberOfEnemies = 0;
@@ -240,8 +265,6 @@ public class Enemy implements Mover {
 			}
 			
 		}
-		
-		
 	
 		
 		//enemyCount += numberOfEnemies;
@@ -270,8 +293,14 @@ public class Enemy implements Mover {
 				case KONDORIA:
 					verifyTracker(posX, posY, Cell.KONDORIA);
 					continue;
+				case KONDORIAANDBRICK:
+					verifyTracker(posX, posY, Cell.KONDORIAANDBRICK);
+					continue;
 				case OVAPI:
 					verifyTracker(posX, posY, Cell.OVAPI);
+					continue;
+				case OVAPIANDBRICK:
+					verifyTracker(posX, posY, Cell.OVAPIANDBRICK);
 					continue;
 				case PASS:
 					verifyTracker(posX, posY, Cell.PASS);
@@ -279,6 +308,9 @@ public class Enemy implements Mover {
 				case PONTAN:
 					verifyTracker(posX, posY, Cell.PONTAN);
 					continue;
+				case PONTANANDBRICK:
+					verifyTracker(posX, posY, Cell.PONTANANDBRICK);
+					continue;					
 				default:
 					break;
 				}						
@@ -341,37 +373,67 @@ public class Enemy implements Mover {
 		for (int i = 0; i < enemiesInitial.size(); i++) {
 			switch (enemiesInitial.get(i).getEnemyType()) {
 			case BALLOOM:
-				moveWithChance(enemiesInitial.get(i), targetX, targetY, 0, 0);
+				if(count%3 == 0){
+					moveWithChance(enemiesInitial.get(i), targetX, targetY, 0, 0);
+				}
 				continue;
 			case ONEAL:
-				moveWithChance(enemiesInitial.get(i), targetX, targetY, 10, 2);
+				if(count%2 == 0){
+					moveWithChance(enemiesInitial.get(i), targetX, targetY, 10, 2);
+				}
 				continue;
 			case DOLL:
-				moveWithChance(enemiesInitial.get(i), targetX, targetY, 0, 0);
+				if(count%2 == 0){
+					moveWithChance(enemiesInitial.get(i), targetX, targetY, 0, 0);
+				}
 				continue;
 			case MINVO:
-				moveWithChance(enemiesInitial.get(i), targetX, targetY, 10, 2);
+				//if(count%2 == 0){
+					moveWithChance(enemiesInitial.get(i), targetX, targetY, 10, 2);
+				//}
 				continue;
 			case KONDORIA:
-				moveWithChance(enemiesInitial.get(i), targetX, targetY, 2, 3);
+				if(count%4 == 0){
+					wallPassMove(enemiesInitial.get(i), targetX, targetY, 2, 3);
+				}
+				continue;
+			case KONDORIAANDBRICK:
+				if(count%4 == 0){
+					wallPassMove(enemiesInitial.get(i), targetX, targetY, 2, 3);
+				}
 				continue;
 			case OVAPI:
-				moveWithChance(enemiesInitial.get(i), targetX, targetY, 10, 2);
+				if(count%3 == 0){
+					wallPassMove(enemiesInitial.get(i), targetX, targetY, 10, 2);
+				}
+				continue;
+			case OVAPIANDBRICK:
+				if(count%3 == 0){
+					wallPassMove(enemiesInitial.get(i), targetX, targetY, 10, 2);
+				}
 				continue;
 			case PASS:
-				moveWithChance(enemiesInitial.get(i), targetX, targetY, 2, 3);
+				//if(count%2 == 0){
+					moveWithChance(enemiesInitial.get(i), targetX, targetY, 2, 3);
+				//}
 				continue;
 			case PONTAN:
-				moveWithChance(enemiesInitial.get(i), targetX, targetY, 2, 2);
+				//if(count%2 == 0){
+					wallPassMove(enemiesInitial.get(i), targetX, targetY, 2, 2);
+				//}
+				continue;
+			case PONTANANDBRICK:
+				//if(count%2 == 0){
+					wallPassMove(enemiesInitial.get(i), targetX, targetY, 2, 2);
+				//}
 				continue;
 			default:
 				break;
-			}
-					
-			
+			}	
 		}
 		
-		countSlow++;
+		count++;
+		
 
 	}
 
@@ -390,11 +452,19 @@ public class Enemy implements Mover {
 			for (int posY = 1; posY < Bomberman.HEIGHT - 1; posY++) {
 				if (tempGrid.getContents(posX, posY) == cellType) {
 
-					path = finder.findPath(this, posX, posY, targetX, targetY);
+					path = finder.findPath(cellType, posX, posY, targetX, targetY);
 					
 					if (path != null) {
+						
+						if(grid.getContents(posX, posY) == Cell.KONDORIAANDBRICK || grid.getContents(posX, posY) == Cell.OVAPIANDBRICK || grid.getContents(posX, posY) == Cell.PONTANANDBRICK){
+							grid.setContents(posX,posY,Cell.BRICK);
+						}
+						
+						else{
+							grid.setContents(posX, posY, Cell.EMPTY);
 
-						grid.setContents(posX, posY, Cell.EMPTY);
+						}
+						
 						// System.out.println("Player position: X: " + targetX +
 						// " Y: " + targetY + " xTarget IS: " + path.getX(1) +
 						// " yTarget IS: " + path.getY(1));
@@ -421,9 +491,6 @@ public class Enemy implements Mover {
 		}
 	}
 	
-	
-	
-	
 	private void moveWithChance(EnemyTracker tracker, int targetX, int targetY, int chance, int aStarRange){
 		
 		//System.out.println("Size of enemiesAlive list..:" + enemiesAlive.size());
@@ -442,7 +509,7 @@ public class Enemy implements Mover {
 		
 		if(aStarRange > 0){
 			finder = new AStarPathFinder(grid, aStarRange);
-			path = finder.findPath(this, posX, posY, targetX, targetY);
+			path = finder.findPath(tracker.getEnemyType(), posX, posY, targetX, targetY);
 			
 /*			System.out.println( "Target X...: " +targetX + " Target Y...: " + targetY);
 			System.out.println( "EnemyX...: " +posX + " EnemyY...: " + posY);
@@ -472,9 +539,9 @@ public class Enemy implements Mover {
 				if(canMoveInX){
 					
 					if(grid.getContents(posX + enemyDirectionX, posY) == Cell.PLAYER){
-
-							GameState.setState(State.PLAYERDEAD);
-							render.setIsPlayerAlive(false);
+						grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());	
+						GameState.setState(State.PLAYERDEAD);
+						render.setIsPlayerAlive(false);
 					}
 
 					grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
@@ -488,7 +555,7 @@ public class Enemy implements Mover {
 				
 				else{
 					if(grid.getContents(posX, posY  + enemyDirectionY) == Cell.PLAYER){
-
+						grid.setContents(posX, posY  + enemyDirectionY, tracker.getEnemyType());	
 						GameState.setState(State.PLAYERDEAD);
 						render.setIsPlayerAlive(false);
 					}
@@ -554,7 +621,7 @@ public class Enemy implements Mover {
 			if(canMoveInX){
 				
 				if(grid.getContents(posX + enemyDirectionX, posY) == Cell.PLAYER){
-
+					grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());	
 					GameState.setState(State.PLAYERDEAD);
 					render.setIsPlayerAlive(false);
 				}
@@ -571,7 +638,7 @@ public class Enemy implements Mover {
 			if(canMoveInY && !canMoveInX){
 				
 				if(grid.getContents(posX, posY  + enemyDirectionY) == Cell.PLAYER){
-
+					grid.setContents(posX, posY  + enemyDirectionY, tracker.getEnemyType());	
 					GameState.setState(State.PLAYERDEAD);
 					render.setIsPlayerAlive(false);
 				}
@@ -594,54 +661,430 @@ public class Enemy implements Mover {
 		
 	}
 	
+	private void wallPassMove(EnemyTracker tracker, int targetX, int targetY, int chance, int aStarRange){
+		
+		//System.out.println("Size of enemiesAlive list..:" + enemiesAlive.size());
+		//System.out.println("Size of enemiesInitial list..:" + enemiesInitial.size());
+		
+		boolean canMoveInX = false;
+		boolean canMoveInY = false;
+		boolean usingAStar = false;
+	
+		int enemyDirectionX = tracker.getxDirection();
+		int enemyDirectionY = tracker.getyDirection();
+		int posX = tracker.getxPosition();
+		int posY = tracker.getyPosition();
+		int randChance = 0;
+		
+		
+		if(aStarRange > 0){
+			finder = new AStarPathFinder(grid, aStarRange);
+			path = finder.findPath(tracker.getEnemyType(), posX, posY, targetX, targetY);
+			
+
+			if(path!=null){
+				
+				usingAStar = true;
+				
+			
+				
+				if(posX == path.getX(1)){
+					canMoveInY = true;
+					enemyDirectionY = path.getY(1) - posY;
+					tracker.setyDirection(enemyDirectionY);
+				}	
+				else{
+					canMoveInX = true;
+					enemyDirectionX =  path.getX(1) - posX;
+					tracker.setxDirection(enemyDirectionX);
+					
+				}
+				
+				if(grid.getContents(posX, posY) == Cell.KONDORIAANDBRICK || grid.getContents(posX, posY) == Cell.OVAPIANDBRICK || grid.getContents(posX, posY) == Cell.PONTANANDBRICK){
+					grid.setContents(posX,posY,Cell.BRICK);					
+					
+				}
+				
+				else{
+					grid.setContents(posX, posY, Cell.EMPTY);
+
+				}
+				
+				if(canMoveInX){
+					
+			
+					if(grid.getContents(posX + enemyDirectionX, posY) == Cell.PLAYER){
+				
+						grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
+						GameState.setState(State.PLAYERDEAD);
+						render.setIsPlayerAlive(false);
+					}
+					
+				
+					else if(grid.getContents(posX + enemyDirectionX, posY) == Cell.BRICK){
+						switch(tracker.getEnemyType()){
+							case KONDORIA:
+								grid.setContents(posX + enemyDirectionX, posY, Cell.KONDORIAANDBRICK);
+								tracker.setEnemyType(Cell.KONDORIAANDBRICK);
+								break;
+							case OVAPI:
+								grid.setContents(posX + enemyDirectionX, posY, Cell.OVAPIANDBRICK);
+								tracker.setEnemyType(Cell.OVAPIANDBRICK);
+
+								break;
+							case PONTAN:
+								grid.setContents(posX + enemyDirectionX, posY, Cell.PONTANANDBRICK);
+								tracker.setEnemyType(Cell.PONTANANDBRICK);
+								break;
+								
+							case KONDORIAANDBRICK:
+								grid.setContents(posX + enemyDirectionX, posY, Cell.KONDORIAANDBRICK);
+								tracker.setEnemyType(Cell.KONDORIAANDBRICK);
+								break;
+							case OVAPIANDBRICK:
+								grid.setContents(posX + enemyDirectionX, posY, Cell.OVAPIANDBRICK);
+								tracker.setEnemyType(Cell.OVAPIANDBRICK);
+
+								break;
+							case PONTANANDBRICK:
+								grid.setContents(posX + enemyDirectionX, posY, Cell.PONTANANDBRICK);
+								tracker.setEnemyType(Cell.PONTANANDBRICK);
+								break;
+								
+								
+							default:
+								break;
+						}
+																		
+					}
+					
+					else{
+						// we've set initial pos to brick, next pos tile isnt a brick, so if kondoriaandbrick ... we set back to condoria
+						switch(tracker.getEnemyType()){
+						case KONDORIAANDBRICK:
+							grid.setContents(posX + enemyDirectionX, posY, Cell.KONDORIA);
+							tracker.setEnemyType(Cell.KONDORIA);
+							break;
+						case OVAPIANDBRICK:
+							grid.setContents(posX + enemyDirectionX, posY, Cell.OVAPI);
+							tracker.setEnemyType(Cell.OVAPI);
+
+							break;
+						case PONTANANDBRICK:
+							grid.setContents(posX + enemyDirectionX, posY, Cell.PONTAN);
+							tracker.setEnemyType(Cell.PONTAN);
+
+							break;
+						default:
+							break;
+						}
+						grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
+					}
+					
+					tracker.setxPosition(posX + enemyDirectionX);
+					tracker.setMovingInX(true);
+					tracker.setMovingInY(false);
+				
+					//tracker.setxDirection(enemyDirectionX);
+					
+				}
+				
+				else{
+					if(grid.getContents(posX, posY  + enemyDirectionY) == Cell.PLAYER){
+						grid.setContents(posX, posY  + enemyDirectionY, tracker.getEnemyType());
+						GameState.setState(State.PLAYERDEAD);
+						render.setIsPlayerAlive(false);
+					}
+					
+						
+					else if(grid.getContents(posX, posY + enemyDirectionY) == Cell.BRICK){
+						switch(tracker.getEnemyType()){
+						case KONDORIA:
+							grid.setContents(posX, posY + enemyDirectionY, Cell.KONDORIAANDBRICK);
+							tracker.setEnemyType(Cell.KONDORIAANDBRICK);
+							break;
+						case OVAPI:
+							grid.setContents(posX, posY + enemyDirectionY, Cell.OVAPIANDBRICK);
+							tracker.setEnemyType(Cell.OVAPIANDBRICK);
+							break;
+						case PONTAN:
+							grid.setContents(posX, posY + enemyDirectionY, Cell.PONTANANDBRICK);
+							tracker.setEnemyType(Cell.PONTANANDBRICK);	
+							break;
+						case KONDORIAANDBRICK:
+							grid.setContents(posX, posY + enemyDirectionY, Cell.KONDORIAANDBRICK);
+							tracker.setEnemyType(Cell.KONDORIAANDBRICK);
+							break;
+						case OVAPIANDBRICK:
+							grid.setContents(posX, posY + enemyDirectionY, Cell.OVAPIANDBRICK);
+							tracker.setEnemyType(Cell.OVAPIANDBRICK);
+							break;
+						case PONTANANDBRICK:
+							grid.setContents(posX, posY + enemyDirectionY, Cell.PONTANANDBRICK);
+							tracker.setEnemyType(Cell.PONTANANDBRICK);	
+							break;					
+						default:
+							break;
+						}
+																			
+					}
+
+					else{
+						
+						switch(tracker.getEnemyType()){
+						case KONDORIAANDBRICK:
+							grid.setContents(posX, posY + enemyDirectionY, Cell.KONDORIA);
+							tracker.setEnemyType(Cell.KONDORIA);
+							break;
+						case OVAPIANDBRICK:
+							grid.setContents(posX, posY + enemyDirectionY, Cell.OVAPI);
+							tracker.setEnemyType(Cell.OVAPI);
+							break;
+						case PONTANANDBRICK:
+							grid.setContents(posX, posY + enemyDirectionY, Cell.PONTAN);
+							tracker.setEnemyType(Cell.PONTAN);	
+							break;
+						default:
+							break;
+						}
+						
+						
+						grid.setContents(posX, posY + enemyDirectionY, tracker.getEnemyType());
+						//System.out.println(tracker.getEnemyType());
+					}
+					
+					
+					tracker.setyPosition(posY + enemyDirectionY);
+					tracker.setMovingInY(true);
+					tracker.setMovingInX(false);
+					//tracker.setyDirection(enemyDirectionY);
+								
+				}
+				
+			}
+		}
+		if(!usingAStar){
+			
+			if(chance!=0){
+				randChance = randInt(1, chance);
+			}
+			
+			if(grid.getContents(posX + enemyDirectionX,posY) == Cell.EMPTY || grid.getContents(posX + enemyDirectionX,posY) == Cell.PLAYER || grid.getContents(posX + enemyDirectionX,posY) == Cell.BRICK){
+					canMoveInX = true;
+			}
+			else if(grid.getContents(posX - enemyDirectionX,posY) == Cell.EMPTY || grid.getContents(posX - enemyDirectionX,posY) == Cell.PLAYER || grid.getContents(posX - enemyDirectionX,posY) == Cell.BRICK ){
+				tracker.setxDirection(-enemyDirectionX); 
+				enemyDirectionX = tracker.getxDirection();	
+				canMoveInX = true;
+			}
+				
+			if(grid.getContents(posX,posY + enemyDirectionY) == Cell.EMPTY || grid.getContents(posX,posY + enemyDirectionY) == Cell.PLAYER || grid.getContents(posX,posY + enemyDirectionY) == Cell.BRICK){
+					canMoveInY = true;
+			}
+			else if(grid.getContents(posX,posY - enemyDirectionY) == Cell.EMPTY || grid.getContents(posX,posY - enemyDirectionY) == Cell.PLAYER || grid.getContents(posX,posY - enemyDirectionY) == Cell.BRICK ){
+				tracker.setyDirection(-enemyDirectionY); 
+				enemyDirectionY = tracker.getyDirection();
+				canMoveInY = true;
+			}
+			
+
+		
+			// x% chance randChance is 1, and check if at intersection)
+			if(randChance == 1 && canMoveInX && canMoveInY){
+				if(tracker.isMovingInX()){
+					canMoveInX = false;
+					//System.out.println("PLS");
+					
+				}
+				else if(tracker.isMovingInY()){
+					canMoveInY = false;
+				}
+				else{
+					System.out.println("HOW");
+				}
+			}
+			
+			if(canMoveInX){
+				
+				if(grid.getContents(posX + enemyDirectionX, posY) == Cell.PLAYER){
+					grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
+					GameState.setState(State.PLAYERDEAD);
+					render.setIsPlayerAlive(false);
+				}
+				
+				if(grid.getContents(posX, posY) == Cell.KONDORIAANDBRICK || grid.getContents(posX, posY) == Cell.OVAPIANDBRICK || grid.getContents(posX, posY) == Cell.PONTANANDBRICK){
+					grid.setContents(posX,posY,Cell.BRICK);
+				}
+				
+				else{
+					grid.setContents(posX, posY, Cell.EMPTY);
+
+				}
+				
+				if(grid.getContents(posX + enemyDirectionX, posY) == Cell.BRICK){
+						switch(tracker.getEnemyType()){
+						case KONDORIA:
+							grid.setContents(posX + enemyDirectionX, posY, Cell.KONDORIAANDBRICK);
+							tracker.setEnemyType(Cell.KONDORIAANDBRICK);
+							break;
+						case OVAPI:
+							grid.setContents(posX + enemyDirectionX, posY, Cell.OVAPIANDBRICK);
+							tracker.setEnemyType(Cell.OVAPIANDBRICK);
+
+							break;
+						case PONTAN:
+							grid.setContents(posX + enemyDirectionX, posY, Cell.PONTANANDBRICK);
+							tracker.setEnemyType(Cell.PONTANANDBRICK);
+							break;
+						case KONDORIAANDBRICK:
+							grid.setContents(posX + enemyDirectionX, posY, Cell.KONDORIAANDBRICK);
+							tracker.setEnemyType(Cell.KONDORIAANDBRICK);
+							break;
+						case OVAPIANDBRICK:
+							grid.setContents(posX + enemyDirectionX, posY, Cell.OVAPIANDBRICK);
+							tracker.setEnemyType(Cell.OVAPIANDBRICK);
+
+							break;
+						case PONTANANDBRICK:
+							grid.setContents(posX + enemyDirectionX, posY, Cell.PONTANANDBRICK);
+							tracker.setEnemyType(Cell.PONTANANDBRICK);
+							break;
+							
+						default:
+							break;
+					}
+																	
+				}
+				
+				else{
+					// we've set initial pos to brick or empty, next pos tile isnt a brick, so if kondoriaandbrick ... we set back to kondoria
+					switch(tracker.getEnemyType()){
+					case KONDORIAANDBRICK:
+						grid.setContents(posX + enemyDirectionX, posY, Cell.KONDORIA);
+						tracker.setEnemyType(Cell.KONDORIA);
+						break;
+					case OVAPIANDBRICK:
+						grid.setContents(posX + enemyDirectionX, posY, Cell.OVAPI);
+						tracker.setEnemyType(Cell.OVAPI);
+
+						break;
+					case PONTANANDBRICK:
+						grid.setContents(posX + enemyDirectionX, posY, Cell.PONTAN);
+						tracker.setEnemyType(Cell.PONTAN);
+
+						break;
+					default:
+						break;
+					}
+					grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
+				}
+				
+				tracker.setxPosition(posX + enemyDirectionX);
+				tracker.setMovingInX(true);
+				tracker.setMovingInY(false);
+				
+				
 	
 
-//	 public void move() {
-//	
-//	 // for (int posX = 1; posX < Bomberman.WIDTH - 1; posX++) {
-//	 // for (int posY = 1; posY < Bomberman.HEIGHT - 1; posY++) {
-//	 // if (grid.getContents(posX, posY) == Cell.ENEMY) {
-//	 // int rand = randInt(1, 2);
-//	 // if (rand == 1) {
-//	 // if (grid.getContents(posX + enemyDirection, posY) != Cell.BRICK
-//	 // && grid.getContents(posX + enemyDirection, posY) != Cell.CONCRETE) {
-//	 // enemyDirection = 1;
-//	 // // System.out.println("X IS POSITIVE");
-//	 // } else {
-//	 // enemyDirection = -1;
-//	 // // System.out.println("X IS NEGATIVE");
-//	 // }
-//	 //
-//	 // if (grid.getContents(posX + enemyDirection, posY) == Cell.EMPTY
-//	 // || grid.getContents(posX + enemyDirection, posY) == Cell.PLAYER) {
-//	 // grid.setContents(posX, posY, Cell.EMPTY);
-//	 // grid.setContents(posX + enemyDirection, posY,
-//	 // Cell.ENEMY);
-//	 // }
-//	 //
-//	 // }
-//	 //
-//	 // else {
-//	 // if (grid.getContents(posX, posY + enemyDirection) != Cell.BRICK
-//	 // && grid.getContents(posX, posY + enemyDirection) != Cell.CONCRETE) {
-//	 //
-//	 // enemyDirection = 1;
-//	 // // System.out.println("Y IS POSITIVE");
-//	 //
-//	 // } else {
-//	 // enemyDirection = -1;
-//	 // // System.out.println("Y IS NEGATIVE");
-//	 //
-//	 // }
-//	 // if (grid.getContents(posX, posY + enemyDirection) == Cell.EMPTY
-//	 // || grid.getContents(posX, posY + enemyDirection) == Cell.PLAYER) {
-//	 // grid.setContents(posX, posY, Cell.EMPTY);
-//	 // grid.setContents(posX, posY + enemyDirection,
-//	 // Cell.ENEMY);
-//	 // }
-//	 // }
-//	 // }
-//	 // }
-//	 }
-//	 }
+				
+			}
+			
+			if(canMoveInY && !canMoveInX){
+				
+				if(grid.getContents(posX, posY  + enemyDirectionY) == Cell.PLAYER){
+					grid.setContents(posX, posY  + enemyDirectionY, tracker.getEnemyType());
+					GameState.setState(State.PLAYERDEAD);
+					render.setIsPlayerAlive(false);
+				}
+				
+				if(grid.getContents(posX, posY) == Cell.KONDORIAANDBRICK || grid.getContents(posX, posY) == Cell.OVAPIANDBRICK || grid.getContents(posX, posY) == Cell.PONTANANDBRICK){
+					grid.setContents(posX,posY,Cell.BRICK);
+				}
+				
+				else{
+					grid.setContents(posX, posY, Cell.EMPTY);
+
+				}
+				
+				
+				if(grid.getContents(posX, posY  + enemyDirectionY) == Cell.PLAYER){
+					grid.setContents(posX, posY  + enemyDirectionY, tracker.getEnemyType());
+					GameState.setState(State.PLAYERDEAD);
+					render.setIsPlayerAlive(false);
+				}
+				
+					
+				else if(grid.getContents(posX, posY + enemyDirectionY) == Cell.BRICK){
+					switch(tracker.getEnemyType()){
+					case KONDORIA:
+						grid.setContents(posX, posY + enemyDirectionY, Cell.KONDORIAANDBRICK);
+						tracker.setEnemyType(Cell.KONDORIAANDBRICK);
+						break;
+					case OVAPI:
+						grid.setContents(posX, posY + enemyDirectionY, Cell.OVAPIANDBRICK);
+						tracker.setEnemyType(Cell.OVAPIANDBRICK);
+						break;
+					case PONTAN:
+						grid.setContents(posX, posY + enemyDirectionY, Cell.PONTANANDBRICK);
+						tracker.setEnemyType(Cell.PONTANANDBRICK);	
+						break;
+					case KONDORIAANDBRICK:
+						grid.setContents(posX, posY + enemyDirectionY, Cell.KONDORIAANDBRICK);
+						tracker.setEnemyType(Cell.KONDORIAANDBRICK);
+						break;
+					case OVAPIANDBRICK:
+						grid.setContents(posX, posY + enemyDirectionY, Cell.OVAPIANDBRICK);
+						tracker.setEnemyType(Cell.OVAPIANDBRICK);
+						break;
+					case PONTANANDBRICK:
+						grid.setContents(posX, posY + enemyDirectionY, Cell.PONTANANDBRICK);
+						tracker.setEnemyType(Cell.PONTANANDBRICK);	
+						break;				
+					default:
+						break;
+					}
+																		
+				}
+
+				else{
+					
+					switch(tracker.getEnemyType()){
+					case KONDORIAANDBRICK:
+						grid.setContents(posX, posY + enemyDirectionY, Cell.KONDORIA);
+						tracker.setEnemyType(Cell.KONDORIA);
+						break;
+					case OVAPIANDBRICK:
+						grid.setContents(posX, posY + enemyDirectionY, Cell.OVAPI);
+						tracker.setEnemyType(Cell.OVAPI);
+						break;
+					case PONTANANDBRICK:
+						grid.setContents(posX, posY + enemyDirectionY, Cell.PONTAN);
+						tracker.setEnemyType(Cell.PONTAN);	
+						break;
+					default:
+						break;
+					}
+					
+					
+					grid.setContents(posX, posY + enemyDirectionY, tracker.getEnemyType());
+					//System.out.println(tracker.getEnemyType());
+				}
+				
+				
+				tracker.setyPosition(posY + enemyDirectionY);
+				tracker.setMovingInY(true);
+				tracker.setMovingInX(false);
+				
+
+
+			}
+			
+		}
+		
+		
+		
+	}
+	
+	
+
 }

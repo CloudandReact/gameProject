@@ -58,7 +58,7 @@ public class Render extends JPanel implements ActionListener {
 	public Render() {
 
 		System.out.println("HELLO MY NAME IS...: " + PlayerInfo.getUsername());
-		this.currentLevel = 1;
+		this.currentLevel = 50;
 		initialize();
 		numberOfLives = 2;
 		addKeyListener(new TAdapter());
@@ -159,15 +159,24 @@ public class Render extends JPanel implements ActionListener {
 					case KONDORIA:
 						g2d.drawImage(enemy.getImageKondoria(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						continue;	
+					case KONDORIAANDBRICK:
+						g2d.drawImage(enemy.getImageKondoriaAndBrick(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						continue;	
 					case OVAPI:
 						g2d.drawImage(enemy.getImageOvapi(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						continue;	
+					case OVAPIANDBRICK:
+						g2d.drawImage(enemy.getImageOvapiAndBrick(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						continue;
 					case PASS:
 						g2d.drawImage(enemy.getImagePass(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						continue;		   
 					case PONTAN:
 						g2d.drawImage(enemy.getImagePontan(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
-						continue;			  
+						continue;		
+					case PONTANANDBRICK:
+						g2d.drawImage(enemy.getImagePontanAndBrick(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						continue;
 					case BRICKANDPOWERUPS:
 						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						continue;

@@ -5,6 +5,7 @@ import Astar.Mover;
 import Astar.TileBasedMap;
 
 public enum Cell {
+	
 	EMPTY, 
 	PLAYER, 
 	CONCRETE,
@@ -26,9 +27,12 @@ public enum Cell {
     DOLL,
     MINVO,
     KONDORIA,
+    KONDORIAANDBRICK,
     OVAPI,
+    OVAPIANDBRICK,
     PASS,
-    PONTAN;
+    PONTAN,
+    PONTANANDBRICK;
 	
 
 }
