@@ -66,6 +66,8 @@ public class Enemy implements Mover {
 	private int countNormal;
 	private int countFast;
 	
+	private int count;
+	
 	public Enemy(Grid grid, Render render, Level level) {
 		this.level = level;
 		this.enemyCount = 0;
@@ -74,9 +76,7 @@ public class Enemy implements Mover {
 		this.grid = grid;
 		this.tempGrid = new Grid();
 		
-		countSlow = 0;
-		countNormal = 0;
-		countFast = 0;
+		count = 0;
 		
 		enemiesInitial = new ArrayList<EnemyTracker>();
 		enemiesAlive = new ArrayList<EnemyTracker>();
@@ -251,7 +251,7 @@ public class Enemy implements Mover {
 	public int getEnemyCount() {
 		return enemyCount;
 	}
-
+					
 	private void placeEnemies(Cell enemyType, int numberToPlace) {
 
 		int numberOfEnemies = 0;
@@ -377,46 +377,67 @@ public class Enemy implements Mover {
 		for (int i = 0; i < enemiesInitial.size(); i++) {
 			switch (enemiesInitial.get(i).getEnemyType()) {
 			case BALLOOM:
-				moveWithChance(enemiesInitial.get(i), targetX, targetY, 0, 0);
+				if(count%3 == 0){
+					moveWithChance(enemiesInitial.get(i), targetX, targetY, 0, 0);
+				}
 				continue;
 			case ONEAL:
-				moveWithChance(enemiesInitial.get(i), targetX, targetY, 10, 2);
+				if(count%2 == 0){
+					moveWithChance(enemiesInitial.get(i), targetX, targetY, 10, 2);
+				}
 				continue;
 			case DOLL:
-				moveWithChance(enemiesInitial.get(i), targetX, targetY, 0, 0);
+				if(count%2 == 0){
+					moveWithChance(enemiesInitial.get(i), targetX, targetY, 0, 0);
+				}
 				continue;
 			case MINVO:
-				moveWithChance(enemiesInitial.get(i), targetX, targetY, 10, 2);
+				//if(count%2 == 0){
+					moveWithChance(enemiesInitial.get(i), targetX, targetY, 10, 2);
+				//}
 				continue;
 			case KONDORIA:
-				wallPassMove(enemiesInitial.get(i), targetX, targetY, 2, 3);
+				if(count%4 == 0){
+					wallPassMove(enemiesInitial.get(i), targetX, targetY, 2, 3);
+				}
 				continue;
 			case KONDORIAANDBRICK:
-				wallPassMove(enemiesInitial.get(i), targetX, targetY, 2, 3);
+				if(count%4 == 0){
+					wallPassMove(enemiesInitial.get(i), targetX, targetY, 2, 3);
+				}
 				continue;
 			case OVAPI:
-				wallPassMove(enemiesInitial.get(i), targetX, targetY, 10, 2);
+				if(count%3 == 0){
+					wallPassMove(enemiesInitial.get(i), targetX, targetY, 10, 2);
+				}
 				continue;
 			case OVAPIANDBRICK:
-				wallPassMove(enemiesInitial.get(i), targetX, targetY, 10, 2);
+				if(count%3 == 0){
+					wallPassMove(enemiesInitial.get(i), targetX, targetY, 10, 2);
+				}
 				continue;
 			case PASS:
-				moveWithChance(enemiesInitial.get(i), targetX, targetY, 2, 3);
+				//if(count%2 == 0){
+					moveWithChance(enemiesInitial.get(i), targetX, targetY, 2, 3);
+				//}
 				continue;
 			case PONTAN:
-				wallPassMove(enemiesInitial.get(i), targetX, targetY, 2, 2);
+				//if(count%2 == 0){
+					wallPassMove(enemiesInitial.get(i), targetX, targetY, 2, 2);
+				//}
 				continue;
 			case PONTANANDBRICK:
-				wallPassMove(enemiesInitial.get(i), targetX, targetY, 2, 2);
+				//if(count%2 == 0){
+					wallPassMove(enemiesInitial.get(i), targetX, targetY, 2, 2);
+				//}
 				continue;
 			default:
 				break;
-			}
-					
-			
+			}	
 		}
 		
-		countSlow++;
+		count++;
+		
 
 	}
 
