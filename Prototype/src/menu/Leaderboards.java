@@ -21,8 +21,8 @@ public class Leaderboards extends JFrame {
 	private static final long serialVersionUID = 1L;
 	JButton backButton = new JButton("Back");
 	JPanel panel = new JPanel();
-	JLabel usernameLabel = new JLabel("Username");
-	JLabel scoreLabel = new JLabel("Score");
+	JLabel usernameLabel = new JLabel("Username:");
+	JLabel scoreLabel = new JLabel("Score:");
 
 	JLabel user1Label;
 	JLabel user2Label;
@@ -48,8 +48,8 @@ public class Leaderboards extends JFrame {
 		panel.setLayout(null);
 		setLocationRelativeTo(null);
 		AccountMenu.setFrameTitle("Leaderboards");
-		usernameLabel.setFont(new Font("Serif", Font.PLAIN, 20));
-		scoreLabel.setFont(new Font("Serif", Font.PLAIN, 20));
+		usernameLabel.setFont(new Font("Helvetica", Font.PLAIN, 20));
+		scoreLabel.setFont(new Font("Helvetica", Font.PLAIN, 20));
 		compareLeaderboards.placeInMap();
 		compareLeaderboards.sortPlayers();
 		// compareLeaderboards.setArrayLists();
@@ -59,11 +59,13 @@ public class Leaderboards extends JFrame {
 		ArrayList<Integer> userScores = compareLeaderboards.getUserScores();
 		// u guys can modify the styling if u want
 
-		backButton.setBounds(130, 400, 80, 25);
+		backButton.setBounds(185, 390, 80, 25);
 		panel.add(backButton);
-		usernameLabel.setBounds(90, 10, 100, 25);
+		
+		usernameLabel.setBounds(73, 10, 100, 25);
 		panel.add(usernameLabel);
-		scoreLabel.setBounds(188, 10, 100, 25);
+		
+		scoreLabel.setBounds(287, 10, 100, 25);
 		panel.add(scoreLabel);
 
 		// we need to check the strings
