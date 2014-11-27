@@ -15,12 +15,12 @@ public class Enemy implements Mover {
 	private String Doll = "Doll.png";
 	private String Minvo = "Minvo.png";
 	private String Kondoria = "Kondoria.png";
-	private String KondoriaAndBrick = "KondoriaAndBrick.png";
+	private String KondoriaAndBrick = "KondoriaAndBrick.jpg";
 	private String Ovapi = "Ovapi.png";
-	private String OvapiAndBrick = "OvapiAndBrick.png";
+	private String OvapiAndBrick = "OvapiAndBrick.jpg";
 	private String Pass = "Pass.png";
 	private String Pontan = "Pontan.png";
-	private String PontanAndBrick = "PontanAndBrick.png";
+	private String PontanAndBrick = "PontanAndBrick.jpg";
 
 
 	private Image enemy1;
@@ -61,10 +61,6 @@ public class Enemy implements Mover {
 	
 	private ArrayList<EnemyTracker> enemiesAlive; 
 	private EnemyTracker livingEnemy;
-
-	private int countSlow;
-	private int countNormal;
-	private int countFast;
 	
 	private int count;
 	
@@ -190,13 +186,13 @@ public class Enemy implements Mover {
 		
 		
 		// Change to AndBrick
-		ImageIcon nine = new ImageIcon(getClass().getResource(Kondoria));
+		ImageIcon nine = new ImageIcon(getClass().getResource(KondoriaAndBrick));
 		enemy9 = nine.getImage();
 		
-		ImageIcon ten = new ImageIcon(getClass().getResource(Ovapi));
+		ImageIcon ten = new ImageIcon(getClass().getResource(OvapiAndBrick));
 		enemy10 = ten.getImage();
 		
-		ImageIcon eleven = new ImageIcon(getClass().getResource(Pontan));
+		ImageIcon eleven = new ImageIcon(getClass().getResource(PontanAndBrick));
 		enemy11 = eleven.getImage();
 		
 
@@ -1091,52 +1087,4 @@ public class Enemy implements Mover {
 	
 	
 
-//	 public void move() {
-//	
-//	 // for (int posX = 1; posX < Bomberman.WIDTH - 1; posX++) {
-//	 // for (int posY = 1; posY < Bomberman.HEIGHT - 1; posY++) {
-//	 // if (grid.getContents(posX, posY) == Cell.ENEMY) {
-//	 // int rand = randInt(1, 2);
-//	 // if (rand == 1) {
-//	 // if (grid.getContents(posX + enemyDirection, posY) != Cell.BRICK
-//	 // && grid.getContents(posX + enemyDirection, posY) != Cell.CONCRETE) {
-//	 // enemyDirection = 1;
-//	 // // System.out.println("X IS POSITIVE");
-//	 // } else {
-//	 // enemyDirection = -1;
-//	 // // System.out.println("X IS NEGATIVE");
-//	 // }
-//	 //
-//	 // if (grid.getContents(posX + enemyDirection, posY) == Cell.EMPTY
-//	 // || grid.getContents(posX + enemyDirection, posY) == Cell.PLAYER) {
-//	 // grid.setContents(posX, posY, Cell.EMPTY);
-//	 // grid.setContents(posX + enemyDirection, posY,
-//	 // Cell.ENEMY);
-//	 // }
-//	 //
-//	 // }
-//	 //
-//	 // else {
-//	 // if (grid.getContents(posX, posY + enemyDirection) != Cell.BRICK
-//	 // && grid.getContents(posX, posY + enemyDirection) != Cell.CONCRETE) {
-//	 //
-//	 // enemyDirection = 1;
-//	 // // System.out.println("Y IS POSITIVE");
-//	 //
-//	 // } else {
-//	 // enemyDirection = -1;
-//	 // // System.out.println("Y IS NEGATIVE");
-//	 //
-//	 // }
-//	 // if (grid.getContents(posX, posY + enemyDirection) == Cell.EMPTY
-//	 // || grid.getContents(posX, posY + enemyDirection) == Cell.PLAYER) {
-//	 // grid.setContents(posX, posY, Cell.EMPTY);
-//	 // grid.setContents(posX, posY + enemyDirection,
-//	 // Cell.ENEMY);
-//	 // }
-//	 // }
-//	 // }
-//	 // }
-//	 }
-//	 }
 }
