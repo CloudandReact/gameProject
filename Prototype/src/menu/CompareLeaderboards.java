@@ -102,7 +102,12 @@ public class CompareLeaderboards {
 			//store in hashmap
 			statsFormatted.put(Integer.parseInt(allUsersStatistics.get(i).get(2)),(allUsersStatistics.get(i).get(0)));
 			userNames.add(allUsersStatistics.get(i).get(0));
+			
 			userScores.add(Integer.parseInt(allUsersStatistics.get(i).get(2)));
+			if(PlayerInfo.usernameStatic.equals(userNames.get(i))&&!PlayerInfo.viewedLeaderBoard){
+				PlayerInfo.playerScore+=userScores.get(i);
+				PlayerInfo.viewedLeaderBoard=true;
+			}
 		}
 		//store the stats in asceding order
 		statsAscending= new TreeMap<Integer , String>(statsFormatted);
@@ -144,6 +149,16 @@ public class CompareLeaderboards {
 		}
 		System.out.println(userNames);
 		System.out.println(userScores);
+	}
+	int Score=0;
+	public int  setPlayerScore(){
+		for(int i=0;i<userNames.size();i++){
+			if(PlayerInfo.usernameStatic.equals(userNames.get(i))){
+				Score=PlayerInfo.playerScore+userScores.get(i);
+			}
+			
+		}
+		return Score;
 	}
 	public ArrayList<Integer> getUserScores(){
 		return userScores;

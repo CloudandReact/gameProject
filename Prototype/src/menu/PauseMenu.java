@@ -121,12 +121,16 @@ public class PauseMenu {
 		saveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
-				try {
-					new SaveGame();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				render.destroyPanel();
+				new MainMenu(panel, PlayerInfo.getUsername());
+				bomberman.dispose();//frame.destroyFrame();
+				
+//				try {
+//					//new SaveGame();
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
 				
 				
 			}

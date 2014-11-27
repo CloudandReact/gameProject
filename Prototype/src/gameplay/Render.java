@@ -62,6 +62,7 @@ public class Render extends JPanel implements ActionListener {
 		System.out.println("HELLO MY NAME IS...: " + PlayerInfo.getUsername());
 		this.currentLevel = 1;
 		PowerUps.setClevel(1);
+		
 		initialize();
 		numberOfLives = 2;
 		addKeyListener(new TAdapter());
@@ -102,7 +103,7 @@ public class Render extends JPanel implements ActionListener {
 		exitway = new ExitWay(grid);
 		player = new Player(grid, bomb);
 		enemy = new Enemy(grid,this, level);
-
+		PowerUps.setClevel(currentLevel);
 		isPlayerAlive = true;
 		pauseMenuOpen = false;
 		timer = new Timer(100, this);

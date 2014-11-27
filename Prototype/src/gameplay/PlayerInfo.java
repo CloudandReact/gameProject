@@ -19,6 +19,7 @@ public class PlayerInfo {
 	public static int currentLevel=1;
 	public static ArrayList<CSVRecord> allUserStatistics=new ArrayList<CSVRecord>();
 	boolean gameStarted;
+	public static boolean viewedLeaderBoard=false;
 	
 	
 	public PlayerInfo(){

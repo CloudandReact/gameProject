@@ -114,7 +114,7 @@ public class PowerUps {
 			grid.setContents(5,4,Cell.BRICKANDPOWERUPS);
 		}
 		else if(cclevel == 10){
-			grid.setContents(11,4,Cell.BRICKANDPOWERUPS);
+			//grid.setContents(11,4,Cell.BRICKANDPOWERUPS);
 		} else{
 		
 			grid.setContents(11,6,Cell.BRICKANDPOWERUPS);

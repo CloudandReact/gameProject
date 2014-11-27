@@ -74,11 +74,15 @@ public class Leaderboards extends JFrame {
 			topScores = userScores.size();
 		}
 		boolean scorePlaced = false;
+		int scorePlayer;
 		for (int i = 0; i < topScores; i++) {
 			// if player score then
-			if (PlayerInfo.playerScore > userScores.get(i) && !scorePlaced) {
+			if (PlayerInfo.playerScore >=userScores.get(i) && !scorePlaced) {
 				JLabel user1Label = new JLabel(PlayerInfo.usernameStatic
 						+ "        " + PlayerInfo.playerScore);
+				user1Label.setBounds(132, 50 + i * 20, 115, 25);
+				panel.add(user1Label);
+				
 				topScores = topScores - 1;
 				scorePlaced = true;
 			}
