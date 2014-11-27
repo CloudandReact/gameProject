@@ -7,7 +7,7 @@ import org.apache.commons.csv.CSVRecord;
 public class PlayerInfo {
 	//we need to have all player data that needs to be saved
 	public static String usernameStatic = "";
-	public static int playerScore=100;
+	public static int playerScore=0;
 	public static int unlockedLevel=1;
 	public static String passwordStatic;
 	//number of games to check if loadable

@@ -2,6 +2,9 @@ package gameplay;
 
 import java.awt.Image;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 
 public class Bomb {
@@ -18,11 +21,25 @@ public class Bomb {
 	private String bombExploding = "explosion.png";
 	private String bombAndExitways = "bombandexitway.png";
 	private static int numberOfEnemiesKilled;
+	
+	List<Integer> scores; 
 
 	private Image image;
 	private Image image2;
 	private Image explode;
 	private Image bombandexitway;
+	
+	private static final int BALLOOM_SCORE = 100;
+	private static final int ONEAL_SCORE = 200;
+	private static final int DOLL_SCORE = 400;
+	private static final int MINVO_SCORE = 800;
+	private static final int KONDORIA_SCORE = 1000;
+	private static final int OVAPI_SCORE = 2000;
+	private static final int PASS_SCORE = 4000;
+	private static final int PONTAN_SCORE = 8000;
+	
+	private int currentGameScore;
+	private int totalGameScore;
 
 	private Grid grid;
 
@@ -32,6 +49,8 @@ public class Bomb {
 	 */
 
 	public Bomb(Grid grid) {
+		setTotalGameScore(0);
+		scores = new ArrayList<Integer>();
 		loadImage();
 		this.range = 1;
 		this.grid = grid;
@@ -84,6 +103,10 @@ public class Bomb {
 	}
 
 	public void explode() {
+		
+		currentGameScore = 0;
+		
+		
 
 		currentRange = 0;
 		System.out.println("Explode method");
@@ -91,17 +114,18 @@ public class Bomb {
 		while (currentRange <= range) {
 			System.out.println("PosX is ..:" + posX + "PosY is. ..: " + posY);
 			System.out.println(currentRange);
+			
 			if (grid.getContents(posX + currentRange, posY) != Cell.CONCRETE) {
 
 				if (grid.getContents(posX + currentRange, posY) == Cell.BRICKANDPOWERUPS) {
 					grid.setContents(posX + currentRange, posY, Cell.POWERUPS);
-
-				} else if (grid.getContents(posX + currentRange, posY) == Cell.BRICKANDEXITWAY) {
+				} 
+				else if (grid.getContents(posX + currentRange, posY) == Cell.BRICKANDEXITWAY) {
 					grid.setContents(posX + currentRange, posY, Cell.EXITWAY);
-				} else if (grid.getContents(posX + currentRange, posY) == Cell.EXITWAY) {
+				} 
+				else if (grid.getContents(posX + currentRange, posY) == Cell.EXITWAY) {
 					grid.setContents(posX + currentRange, posY, Cell.EXITWAY);
-				}
-
+				} 
 				else if (grid.getContents(posX + currentRange, posY) == Cell.BALLOOM
 						|| grid.getContents(posX + currentRange, posY) == Cell.ONEAL
 						|| grid.getContents(posX + currentRange, posY) == Cell.DOLL
@@ -110,13 +134,51 @@ public class Bomb {
 						|| grid.getContents(posX + currentRange, posY) == Cell.OVAPI
 						|| grid.getContents(posX + currentRange, posY) == Cell.PASS
 						|| grid.getContents(posX + currentRange, posY) == Cell.PONTAN) {
-
-					numberOfEnemiesKilled++;
-					System.out.println(numberOfEnemiesKilled);
-					Player.setScore(Player.getScore() + 100);
-					grid.setContents(posX + currentRange, posY, Cell.EXPLODE);
-
-				} else {
+					
+					if (grid.getContents(posX + currentRange, posY) == Cell.BALLOOM) {
+						numberOfEnemiesKilled++;
+						scores.add(BALLOOM_SCORE);
+						grid.setContents(posX + currentRange, posY, Cell.EXPLODE);
+					}
+					if (grid.getContents(posX + currentRange, posY) == Cell.ONEAL) {
+						numberOfEnemiesKilled++;
+						scores.add(ONEAL_SCORE);
+						grid.setContents(posX + currentRange, posY, Cell.EXPLODE);
+					}
+					if (grid.getContents(posX + currentRange, posY) == Cell.DOLL) {
+						numberOfEnemiesKilled++;
+						scores.add(DOLL_SCORE);
+						grid.setContents(posX + currentRange, posY, Cell.EXPLODE);
+					}
+					if (grid.getContents(posX + currentRange, posY) == Cell.MINVO) {
+						numberOfEnemiesKilled++;
+						scores.add(MINVO_SCORE);
+						grid.setContents(posX + currentRange, posY, Cell.EXPLODE);
+					}
+					if (grid.getContents(posX + currentRange, posY) == Cell.KONDORIA) {
+						numberOfEnemiesKilled++;
+						scores.add(KONDORIA_SCORE);
+						grid.setContents(posX + currentRange, posY, Cell.EXPLODE);
+					} 
+					if (grid.getContents(posX + currentRange, posY) == Cell.OVAPI) {
+						numberOfEnemiesKilled++;
+						scores.add(OVAPI_SCORE);
+						grid.setContents(posX + currentRange, posY, Cell.EXPLODE);
+					} 
+					if (grid.getContents(posX + currentRange, posY) == Cell.PASS) {
+						numberOfEnemiesKilled++;
+						scores.add(PASS_SCORE);
+						grid.setContents(posX + currentRange, posY, Cell.EXPLODE);
+					}  
+					if (grid.getContents(posX + currentRange, posY) == Cell.PONTAN) {
+						numberOfEnemiesKilled++;
+						scores.add(PONTAN_SCORE);
+						grid.setContents(posX + currentRange, posY, Cell.EXPLODE);
+					} 
+					
+				}
+				
+				else {
 					grid.setContents(posX + currentRange, posY, Cell.EXPLODE);
 				}
 
@@ -139,13 +201,13 @@ public class Bomb {
 				if (grid.getContents(posX - currentRange, posY) == Cell.BRICKANDPOWERUPS) {
 					grid.setContents(posX - currentRange, posY, Cell.POWERUPS);
 
-				} else if (grid.getContents(posX - currentRange, posY) == Cell.BRICKANDEXITWAY) {
-					grid.setContents(posX - currentRange, posY, Cell.EXITWAY);
-				} else if (grid.getContents(posX - currentRange, posY) == Cell.EXITWAY) {
+				} 
+				else if (grid.getContents(posX - currentRange, posY) == Cell.BRICKANDEXITWAY) {
 					grid.setContents(posX - currentRange, posY, Cell.EXITWAY);
 				} 
-							
-				
+				else if (grid.getContents(posX - currentRange, posY) == Cell.EXITWAY) {
+					grid.setContents(posX - currentRange, posY, Cell.EXITWAY);
+				} 
 				else if (grid.getContents(posX - currentRange, posY) == Cell.BALLOOM
 						|| grid.getContents(posX - currentRange, posY) == Cell.ONEAL
 						|| grid.getContents(posX - currentRange, posY) == Cell.DOLL
@@ -155,15 +217,52 @@ public class Bomb {
 						|| grid.getContents(posX - currentRange, posY) == Cell.PASS
 						|| grid.getContents(posX - currentRange, posY) == Cell.PONTAN) {
 
-					numberOfEnemiesKilled++;
-					System.out.println(numberOfEnemiesKilled);
-					Player.setScore(Player.getScore() + 100);
-					grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
-				}
-				
+					if (grid.getContents(posX - currentRange, posY) == Cell.BALLOOM) {
+						numberOfEnemiesKilled++;
+						scores.add(BALLOOM_SCORE);
+						grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
+					}
+					if (grid.getContents(posX - currentRange, posY) == Cell.ONEAL) {
+						numberOfEnemiesKilled++;
+						scores.add(ONEAL_SCORE);
+						grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
+					}
+					if (grid.getContents(posX - currentRange, posY) == Cell.DOLL) {
+						numberOfEnemiesKilled++;
+						scores.add(DOLL_SCORE);
+						grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
+					}
+					if (grid.getContents(posX - currentRange, posY) == Cell.MINVO) {
+						numberOfEnemiesKilled++;
+						scores.add(MINVO_SCORE);
+						grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
+					}
+					if (grid.getContents(posX - currentRange, posY) == Cell.KONDORIA) {
+						numberOfEnemiesKilled++;
+						scores.add(KONDORIA_SCORE);
+						grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
+					} 
+					if (grid.getContents(posX - currentRange, posY) == Cell.OVAPI) {
+						numberOfEnemiesKilled++;
+						scores.add(OVAPI_SCORE);
+						grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
+					} 
+					if (grid.getContents(posX - currentRange, posY) == Cell.PASS) {
+						numberOfEnemiesKilled++;
+						scores.add(PASS_SCORE);
+						grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
+					}  
+					if (grid.getContents(posX - currentRange, posY) == Cell.PONTAN) {
+						numberOfEnemiesKilled++;
+						scores.add(PONTAN_SCORE);
+						grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
+					}
+					
+				} 
 				else {
 					grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
 				}
+				
 
 				currentRange++;
 			}
@@ -184,12 +283,13 @@ public class Bomb {
 				if (grid.getContents(posX, posY + currentRange) == Cell.BRICKANDPOWERUPS) {
 					grid.setContents(posX, posY + currentRange, Cell.POWERUPS);
 
-				} else if (grid.getContents(posX, posY + currentRange) == Cell.BRICKANDEXITWAY) {
-					grid.setContents(posX, posY + currentRange, Cell.EXITWAY);
-				} else if (grid.getContents(posX, posY + currentRange) == Cell.EXITWAY) {
+				} 
+				else if (grid.getContents(posX, posY + currentRange) == Cell.BRICKANDEXITWAY) {
 					grid.setContents(posX, posY + currentRange, Cell.EXITWAY);
 				} 
-				
+				else if (grid.getContents(posX, posY + currentRange) == Cell.EXITWAY) {
+					grid.setContents(posX, posY + currentRange, Cell.EXITWAY);
+				} 
 				else if (grid.getContents(posX, posY + currentRange) == Cell.BALLOOM
 						|| grid.getContents(posX, posY + currentRange) == Cell.ONEAL
 						|| grid.getContents(posX, posY + currentRange) == Cell.DOLL
@@ -199,16 +299,51 @@ public class Bomb {
 						|| grid.getContents(posX, posY + currentRange) == Cell.PASS
 						|| grid.getContents(posX, posY + currentRange) == Cell.PONTAN) {
 
-					numberOfEnemiesKilled++;
-					System.out.println(numberOfEnemiesKilled);
-					Player.setScore(Player.getScore() + 100);
+					if (grid.getContents(posX, posY + currentRange) == Cell.BALLOOM) {
+						numberOfEnemiesKilled++;
+						scores.add(BALLOOM_SCORE);
+						grid.setContents(posX, posY + currentRange, Cell.EXPLODE);
+					}
+					if (grid.getContents(posX, posY + currentRange) == Cell.ONEAL) {
+						numberOfEnemiesKilled++;
+						scores.add(ONEAL_SCORE);
+						grid.setContents(posX, posY + currentRange, Cell.EXPLODE);
+					}
+					if (grid.getContents(posX, posY + currentRange) == Cell.DOLL) {
+						numberOfEnemiesKilled++;
+						scores.add(DOLL_SCORE);
+						grid.setContents(posX, posY + currentRange, Cell.EXPLODE);
+					}
+					if (grid.getContents(posX, posY + currentRange) == Cell.MINVO) {
+						numberOfEnemiesKilled++;
+						scores.add(MINVO_SCORE);
+						grid.setContents(posX, posY + currentRange, Cell.EXPLODE);
+					}
+					if (grid.getContents(posX, posY + currentRange) == Cell.KONDORIA) {
+						numberOfEnemiesKilled++;
+						scores.add(KONDORIA_SCORE);
+						grid.setContents(posX, posY + currentRange, Cell.EXPLODE);
+					} 
+					if (grid.getContents(posX, posY + currentRange) == Cell.OVAPI) {
+						numberOfEnemiesKilled++;
+						scores.add(OVAPI_SCORE);
+						grid.setContents(posX, posY + currentRange, Cell.EXPLODE);
+					} 
+					if (grid.getContents(posX, posY + currentRange) == Cell.PASS) {
+						numberOfEnemiesKilled++;
+						scores.add(PASS_SCORE);
+						grid.setContents(posX, posY + currentRange, Cell.EXPLODE);
+					}  
+					if (grid.getContents(posX, posY + currentRange) == Cell.PONTAN) {
+						numberOfEnemiesKilled++;
+						scores.add(PONTAN_SCORE);
+						grid.setContents(posX, posY + currentRange, Cell.EXPLODE);
+					}
+				} else {
 					grid.setContents(posX, posY + currentRange, Cell.EXPLODE);
 				}
 				
 				
-				else {
-					grid.setContents(posX, posY + currentRange, Cell.EXPLODE);
-				}
 				currentRange++;
 			}
 
@@ -227,9 +362,11 @@ public class Bomb {
 				if (grid.getContents(posX, posY - currentRange) == Cell.BRICKANDPOWERUPS) {
 					grid.setContents(posX, posY - currentRange, Cell.POWERUPS);
 
-				} else if (grid.getContents(posX, posY - currentRange) == Cell.BRICKANDEXITWAY) {
+				} 
+				else if (grid.getContents(posX, posY - currentRange) == Cell.BRICKANDEXITWAY) {
 					grid.setContents(posX, posY - currentRange, Cell.EXITWAY);
-				} else if (grid.getContents(posX, posY - currentRange) == Cell.EXITWAY) {
+				} 
+				else if (grid.getContents(posX, posY - currentRange) == Cell.EXITWAY) {
 					grid.setContents(posX, posY - currentRange, Cell.EXITWAY);
 				} 
 				
@@ -242,10 +379,47 @@ public class Bomb {
 						|| grid.getContents(posX, posY - currentRange) == Cell.PASS
 						|| grid.getContents(posX, posY - currentRange) == Cell.PONTAN) {
 
-					numberOfEnemiesKilled++;
-					System.out.println(numberOfEnemiesKilled);
-					Player.setScore(Player.getScore() + 100);
-					grid.setContents(posX, posY - currentRange, Cell.EXPLODE);
+					if (grid.getContents(posX, posY - currentRange) == Cell.BALLOOM) {
+						numberOfEnemiesKilled++;
+						scores.add(BALLOOM_SCORE);
+						grid.setContents(posX, posY - currentRange, Cell.EXPLODE);
+						
+					}
+					if (grid.getContents(posX, posY - currentRange) == Cell.ONEAL) {
+						numberOfEnemiesKilled++;
+						scores.add(ONEAL_SCORE);
+						grid.setContents(posX, posY - currentRange, Cell.EXPLODE);
+					}
+					if (grid.getContents(posX, posY - currentRange) == Cell.DOLL) {
+						numberOfEnemiesKilled++;
+						scores.add(DOLL_SCORE);
+						grid.setContents(posX, posY - currentRange, Cell.EXPLODE);
+					}
+					if (grid.getContents(posX, posY - currentRange) == Cell.MINVO) {
+						numberOfEnemiesKilled++;
+						scores.add(MINVO_SCORE);
+						grid.setContents(posX, posY - currentRange, Cell.EXPLODE);
+					}
+					if (grid.getContents(posX, posY - currentRange) == Cell.KONDORIA) {
+						numberOfEnemiesKilled++;
+						scores.add(KONDORIA_SCORE);
+						grid.setContents(posX, posY - currentRange, Cell.EXPLODE);
+					} 
+					if (grid.getContents(posX, posY - currentRange) == Cell.OVAPI) {
+						numberOfEnemiesKilled++;
+						scores.add(OVAPI_SCORE);
+						grid.setContents(posX, posY - currentRange, Cell.EXPLODE);
+					} 
+					if (grid.getContents(posX, posY - currentRange) == Cell.PASS) {
+						numberOfEnemiesKilled++;
+						scores.add(PASS_SCORE);
+						grid.setContents(posX, posY - currentRange, Cell.EXPLODE);
+					}  
+					if (grid.getContents(posX, posY - currentRange) == Cell.PONTAN) {
+						numberOfEnemiesKilled++;
+						scores.add(PONTAN_SCORE);
+						grid.setContents(posX, posY - currentRange, Cell.EXPLODE);
+					}
 				}
 				
 			
@@ -267,6 +441,58 @@ public class Bomb {
 		}
 
 		currentRange = 0;
+		
+		if (scores.size() == 1) {
+			currentGameScore = scores.get(0);
+		}
+		else if (scores.size() == 2) {
+			int temp = scores.get(0);
+			if (temp < scores.get(1)) {
+				currentGameScore = temp * 2 + scores.get(1);
+			}
+			else {
+				currentGameScore = temp + 2 * scores.get(1);
+			}
+			
+		}
+		else {
+			for (int i = 0; i < scores.size(); i++) {
+				int temp = (int) ((int) scores.get(i) * Math.pow(2,i)); 
+				//setCurrentGameScore(getCurrentGameScore() + temp);
+				currentGameScore += temp;
+			}
+			
+		}
+		
+		setTotalGameScore(getTotalGameScore() + currentGameScore);
+		
+		PlayerInfo.playerScore += getCurrentGameScore();
+		System.out.println(PlayerInfo.playerScore); 
+		
+		System.out.println(scores.size());
+		
+
+		scores.clear();
+		
+		System.out.println(scores.size());
+		
+		
+	}
+
+	public int getCurrentGameScore() {
+		return currentGameScore;
+	}
+
+	public void setCurrentGameScore(int currentGameScore) {
+		this.currentGameScore = currentGameScore;
+	}
+
+	public int getTotalGameScore() {
+		return totalGameScore;
+	}
+
+	public void setTotalGameScore(int totalGameScore) {
+		this.totalGameScore = totalGameScore;
 	}
 
 }

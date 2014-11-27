@@ -297,8 +297,7 @@ public class Render extends JPanel implements ActionListener {
 			leftMostVisibleCell = leftMostVisibleCell
 					- (rightMostVisibleCell - 30);
 			rightMostVisibleCell = 30;
-		}
-		
+		} 
 		
 	}
 	
@@ -318,6 +317,8 @@ public class Render extends JPanel implements ActionListener {
 				System.out.println("No more lives left sorry friend");
 				// START FROM LEVEL 1... ADD LEVEL LOGIC, NEXT LEVEL LIVES
 				// RESTORED TO 3
+				PlayerInfo.playerScore -= bomb.getTotalGameScore();
+				bomb.setTotalGameScore(0);
 			}
 
 			else {
