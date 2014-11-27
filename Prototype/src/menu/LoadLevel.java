@@ -87,6 +87,8 @@ private static final long serialVersionUID = 1L;
 				getContentPane().removeAll();
 				int levelSelected=Integer.parseInt(gameToPlayText.getText());
 				new Bomberman(levelSelected);
+				AccountMenu.destroyFrame();
+
 //				if(levelSelected>levelAvailible){
 //					//alert error reenter else iniatilize constructor for game play
 //				//constructur 

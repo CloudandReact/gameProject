@@ -130,12 +130,14 @@ public class MainMenu extends JFrame{
 				//
 				
 				try {
-					
+					PlayerInfo.setUsername(playersName);
 					new LoadLevel(panelL);
+
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
 				
 //				if(PlayerInfo.unlockedLevel==1){
 //					JOptionPane.showMessageDialog(null,"Please start a new game no levels availible", "Error", JOptionPane.INFORMATION_MESSAGE);
