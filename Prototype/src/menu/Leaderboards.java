@@ -82,7 +82,7 @@ public class Leaderboards extends JFrame {
 			if (PlayerInfo.playerScore >=userScores.get(i) && !scorePlaced) {
 				JLabel user1Label = new JLabel(PlayerInfo.usernameStatic
 						+ "        " + PlayerInfo.playerScore);
-				user1Label.setBounds(132, 50 + i * 20, 115, 25);
+				user1Label.setBounds(132, 50 + i * 20, 150, 25);
 				panel.add(user1Label);
 				
 				topScores = topScores - 1;
@@ -93,7 +93,7 @@ public class Leaderboards extends JFrame {
 			else {
 				JLabel user1Label = new JLabel(usernames.get(i) + "        "
 						+ userScores.get(i));
-				user1Label.setBounds(132, 50 + i * 20, 115, 25);
+				user1Label.setBounds(132, 50 + i * 20, 150, 25);
 				panel.add(user1Label);
 			}
 
@@ -101,7 +101,7 @@ public class Leaderboards extends JFrame {
 
 		JLabel user1Label = new JLabel(PlayerInfo.usernameStatic + "        "
 				+ PlayerInfo.playerScore);
-		user1Label.setBounds(132, 320, 115, 25);
+		user1Label.setBounds(132, 320, 150, 25);
 		panel.add(user1Label);
 
 		/*
