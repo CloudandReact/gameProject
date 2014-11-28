@@ -338,7 +338,7 @@ public class Player {
 	}
 
 	public static int getLivesLeft() {
-		return Player.livesLeft;
+		return livesLeft;
 	}
 
 	public static void setLivesLeft(int livesLeft) {

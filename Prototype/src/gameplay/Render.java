@@ -1,5 +1,6 @@
 package gameplay;
 
+import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,10 +14,12 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
 import javax.swing.Timer;
 
 import menu.MainMenu;
 import menu.PauseMenu;
+import menu.TimeOverMenu;
 
 public class Render extends JPanel implements ActionListener {
 
@@ -43,7 +46,7 @@ public class Render extends JPanel implements ActionListener {
 
 	private Boolean isPlayerAlive;
 	private Boolean pauseMenuOpen;
-
+	private Boolean timeOverMenuOpen;
 	
 	private Bomberman bomberman;
 
@@ -61,7 +64,7 @@ public class Render extends JPanel implements ActionListener {
 		this.bomberman = bomberman;
 		System.out.println("HELLO MY NAME IS...: " + PlayerInfo.getUsername());
 		this.currentLevel = 1;
-		PowerUps.setClevel(1);
+		
 		
 		initialize();
 		numberOfLives = 2;
@@ -104,10 +107,32 @@ public class Render extends JPanel implements ActionListener {
 		this.isPlayerAlive = true;
 		PowerUps.setClevel(currentLevel);
 		pauseMenuOpen = false;
+		timeOverMenuOpen = false;
 		timer = new Timer(100, this);
 		timer.start();
 		
 
+//        JFrame frameTimer = new JFrame("Counter");
+//        frameTimer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frameTimer.setLayout(new FlowLayout());
+//
+//
+//        JLabel label = new JLabel("Count: 0");
+//        frameTimer.add(label);
+//
+//        //pass the label into the MyListener constructor
+//        GameTimer listener = new GameTimer(label);
+//
+//        //the timer fires every 1000 MS (1 second)
+//        //when it does, it calls the actionPerformed() method of MyListener
+//        Timer timerG = new Timer(1000, listener);
+//
+//        //start the timer
+//        timerG.start();
+//        
+//        frameTimer.setSize(225, 100);
+//        frameTimer.setVisible(true);
+		
 	}
 
 	public void initialize() {
@@ -130,8 +155,10 @@ public class Render extends JPanel implements ActionListener {
 		PowerUps.setClevel(currentLevel);
 		isPlayerAlive = true;
 		pauseMenuOpen = false;
+		timeOverMenuOpen = false;
 		timer = new Timer(100, this);
 		timer.start();
+		
 		
 	}
 
@@ -146,7 +173,8 @@ public class Render extends JPanel implements ActionListener {
 		checkIfPlayerAlive();
 		
 		checkIfAllEnemiesDead();
-		
+		bomberman.setLivesLeft(numberOfLives);
+		bomberman.setScore(Player.getScore());
 		
 		if ( player.getBombStatus() && (currentTime = System.currentTimeMillis()) - player.getInitialTime() >= 2000) {
 
@@ -161,6 +189,9 @@ public class Render extends JPanel implements ActionListener {
 
 		} 
 		
+		if(GameState.getState() == State.TIMEOVER){
+			
+		}
 		else {
 			isPlayerAlive = false;
 			for (int i = leftMostVisibleCell; i <= rightMostVisibleCell; i++) {
@@ -416,7 +447,10 @@ public class Render extends JPanel implements ActionListener {
 			new PauseMenu(grid, this, gameState, player, bomberman);
 			pauseMenuOpen = true;
 		}
-
+		else if(GameState.getState() == State.TIMEOVER && timeOverMenuOpen == false){
+			new TimeOverMenu(grid, this, gameState, player, bomberman);
+			timeOverMenuOpen = true;
+		}
 	}
 
 	private class TAdapter extends KeyAdapter {
@@ -440,6 +474,9 @@ public class Render extends JPanel implements ActionListener {
 	public void setPauseMenuState(boolean isPauseMenuOpen) {
 		this.pauseMenuOpen = isPauseMenuOpen;
 
+	}
+	public void setTimeOverState(boolean isTimeOverMenuOpen){
+		this.timeOverMenuOpen = isTimeOverMenuOpen;
 	}
 
 }
