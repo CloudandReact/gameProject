@@ -73,6 +73,7 @@ public class Render extends JPanel implements ActionListener {
 
 	}
 	
+	// Load from a level
 	public Render(int level, Bomberman bomberman) {
 		this.bomberman = bomberman;
 		this.currentLevel = level;
@@ -85,6 +86,28 @@ public class Render extends JPanel implements ActionListener {
 		setDoubleBuffered(true);
 		setFocusable(true);
 		
+	}
+	
+	// Load from a game
+	public Render(Grid grid, int level, Bomberman bomberman){
+		GameState.setState(State.RUNNING);
+		count = 0;
+		this.grid = grid;
+		this.level = new Level(level);
+		this.brick = new Brick(grid);
+		this.bomb = new Bomb(grid);
+		this.concrete = new Concrete(grid);
+		this.powerups = new PowerUps(grid, player);
+		this.exitway = new ExitWay(grid);
+		this.player = new Player(grid, bomb);
+		this.enemy = new Enemy(grid, this, this.level);
+		this.isPlayerAlive = true;
+		PowerUps.setClevel(currentLevel);
+		pauseMenuOpen = false;
+		timer = new Timer(100, this);
+		timer.start();
+		
+
 	}
 
 	public void initialize() {

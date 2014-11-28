@@ -105,6 +105,8 @@ private static final long serialVersionUID = 1L;
 					savingTheGame.saveGame(gameName,grid,PlayerInfo.playerScore,PlayerInfo.currentLevel);
 					System.out.println("succes");
 					System.out.println(render);
+					getContentPane().removeAll();
+					dispose();
 					
 					
 				} catch (IOException e1) {
