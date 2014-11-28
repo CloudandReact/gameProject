@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 public class Bomb {
 
 	private int range;
+	private int bombs;
 	private int currentRange;
 	private int counter;
 
@@ -53,6 +54,7 @@ public class Bomb {
 		scores = new ArrayList<Integer>();
 		loadImage();
 		this.range = 1;
+		this.setBombs(2);
 		this.grid = grid;
 	}
 
@@ -512,6 +514,14 @@ public class Bomb {
 
 	public void setTotalGameScore(int totalGameScore) {
 		this.totalGameScore = totalGameScore;
+	}
+
+	public int getBombs() {
+		return bombs;
+	}
+
+	public void setBombs(int bombs) {
+		this.bombs = bombs;
 	}
 
 }

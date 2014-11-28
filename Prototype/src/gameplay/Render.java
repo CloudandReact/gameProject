@@ -123,13 +123,17 @@ public class Render extends JPanel implements ActionListener {
 		checkIfPlayerAlive();
 		
 		checkIfAllEnemiesDead();
-
-		if (player.getBombStatus() && (currentTime = System.currentTimeMillis()) - player.getInitialTime() >= 2000) {
+		
+		
+		if ( player.getBombStatus() && (currentTime = System.currentTimeMillis()) - player.getInitialTime() >= 2000) {
 
 			bomb.explode();
 			player.setBombStatus(false);
+			System.out.println("decrease bombs on ground");
+			player.setBombsOnGround(player.getBombsOnGround() - 1);
+			//decrease bombs on ground
 		}
-
+		
 		if (GameState.getState() == State.PAUSE) {
 
 		} 

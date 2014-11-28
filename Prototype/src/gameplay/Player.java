@@ -20,6 +20,7 @@ public class Player {
 	
 	private int range;
 	private int bombs;
+	private int bombsOnGround;
 
 	private Image image;
 	Grid grid;
@@ -47,6 +48,8 @@ public class Player {
 		this.isBombPlaced = false;
 		powerup = new PowerUps(grid, this);
 		this.range = 1;
+		this.bombs = 2;
+		this.bombsOnGround = 0;
 	}
 	
 //	public void exitWayLogic(int posX, int posY){
@@ -250,21 +253,25 @@ public class Player {
 
 		// Bomb Logic
 		if (key == KeyEvent.VK_X) {
-			if ((GameState.getState() == State.RUNNING || GameState.getState() == State.RUNNINGANDLEVELOVER) && isBombPlaced == false) {
+			if ((GameState.getState() == State.RUNNING || GameState.getState() == State.RUNNINGANDLEVELOVER)) {
 				if (grid.getContents(posX, posY) != Cell.PLAYERANDBOMB
 						&& (grid.getContents(posX, posY) != Cell.PLAYERANDEXITWAY)) {
-
+					if(getBombsOnGround() < getBombs()){
 					grid.setContents(posX, posY, Cell.PLAYERANDBOMB);
 
 					// THIS IS WHERE WE SET THE RANGE!!!!!!!!!!!!!!!!!!! SET IT
 					// AS HIGH AS YOU WANT, FRIENDS
-
+					
 					isBombPlaced = true;
 					//bomb.setRange(1);
+					
+					setBombsOnGround(getBombsOnGround() + 1);
 					System.out.println(range);
 					bomb.setRange(range);
+					bomb.setBombs(bombs);
 					bomb.setPosition(posX, posY);
 					initializeTimer();
+					}
 				}
 			}
 
@@ -352,6 +359,14 @@ public class Player {
 
 	public void setBombs(int bombs) {
 		this.bombs = bombs;
+	}
+
+	public int getBombsOnGround() {
+		return bombsOnGround;
+	}
+
+	public void setBombsOnGround(int bombsOnGround) {
+		this.bombsOnGround = bombsOnGround;
 	}
 
 	// public void setUsername(String name) {
