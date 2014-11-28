@@ -20,7 +20,7 @@ public class Bomb {
 	private String bombPlayer = "bomb&Bomberman.jpg";
 	private String bombExploding = "explosion.png";
 	private String bombAndExitways = "bombandexitway.png";
-	private static int numberOfEnemiesKilled;
+	private int numberOfEnemiesKilled;
 	
 	List<Integer> scores; 
 
@@ -98,7 +98,7 @@ public class Bomb {
 		return bombandexitway;
 	}
 
-	public static int getNumberOfEnemiesKilled() {
+	public int getNumberOfEnemiesKilled() {
 		return numberOfEnemiesKilled;
 	}
 
@@ -215,7 +215,10 @@ public class Bomb {
 						|| grid.getContents(posX - currentRange, posY) == Cell.KONDORIA
 						|| grid.getContents(posX - currentRange, posY) == Cell.OVAPI
 						|| grid.getContents(posX - currentRange, posY) == Cell.PASS
-						|| grid.getContents(posX - currentRange, posY) == Cell.PONTAN) {
+						|| grid.getContents(posX - currentRange, posY) == Cell.PONTAN
+						|| grid.getContents(posX - currentRange, posY) == Cell.KONDORIAANDBRICK
+						|| grid.getContents(posX - currentRange, posY) == Cell.OVAPIANDBRICK
+						|| grid.getContents(posX - currentRange, posY) == Cell.PONTANANDBRICK) {
 
 					if (grid.getContents(posX - currentRange, posY) == Cell.BALLOOM) {
 						numberOfEnemiesKilled++;
@@ -258,6 +261,22 @@ public class Bomb {
 						grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
 					}
 					
+					
+					if (grid.getContents(posX - currentRange, posY) == Cell.KONDORIAANDBRICK) {
+						numberOfEnemiesKilled++;
+						scores.add(KONDORIA_SCORE);
+						grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
+					}
+					if (grid.getContents(posX - currentRange, posY) == Cell.OVAPIANDBRICK) {
+						numberOfEnemiesKilled++;
+						scores.add(OVAPI_SCORE);
+						grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
+					}
+					if (grid.getContents(posX - currentRange, posY) == Cell.PONTANANDBRICK) {
+						numberOfEnemiesKilled++;
+						scores.add(PONTAN_SCORE);
+						grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
+					}
 				} 
 				else {
 					grid.setContents(posX - currentRange, posY, Cell.EXPLODE);

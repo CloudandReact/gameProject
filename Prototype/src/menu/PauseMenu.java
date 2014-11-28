@@ -2,6 +2,7 @@ package menu;
 
 import gameplay.Bomberman;
 import gameplay.GameState;
+import gameplay.Grid;
 import gameplay.Player;
 import gameplay.PlayerInfo;
 import gameplay.Render;
@@ -35,12 +36,13 @@ public class PauseMenu {
 	Render render;
 	GameState state;
 	Player player;
+	Grid grid;
 	
 	String playersName;
 	
-	public PauseMenu(Render r,  GameState s, Player p, final Bomberman bomberman){
+	public PauseMenu(Grid grid,  GameState s, Player p, final Bomberman bomberman){
 		this.state = s; 
-		this.render = r;
+		this.grid = grid;
 		this.player = p;
 		
 		frame.setSize(325, 230);

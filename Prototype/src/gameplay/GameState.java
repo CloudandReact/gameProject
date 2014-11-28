@@ -4,6 +4,7 @@ public class GameState {
 	
 
 	private static State state;
+	private static int numberOfEnemiesleft;
 
 	
 	public static void setState(State newState){
@@ -19,7 +20,14 @@ public class GameState {
 			//new Bomberman();	
 		}	
 	}
-
+	
+	public static void setNumberOfEnemiesLeft(int numberOfEnemiesLeft){
+		GameState.numberOfEnemiesleft = numberOfEnemiesLeft;
+	}
+	public static int getNumberOfEnemiesLeft(){
+		return GameState.numberOfEnemiesleft;
+	}
+	
 	public static State getState(){
 		return state;
 	}

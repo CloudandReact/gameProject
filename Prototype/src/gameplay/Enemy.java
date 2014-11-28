@@ -54,7 +54,7 @@ public class Enemy implements Mover {
 	private int nEnemy8;
 	
 	private Path path;
-	PathFinder finder;
+	private PathFinder finder;
 
 	private ArrayList<EnemyTracker> enemiesInitial; 
 	private EnemyTracker tracker;
@@ -259,15 +259,16 @@ public class Enemy implements Mover {
 				
 				grid.setContents(randX, randY, enemyType);
 				tracker = new EnemyTracker(randX, randY, enemyType);
-				enemiesInitial.add(tracker);
-				
+				enemiesInitial.add(tracker);				
 				numberOfEnemies++;
+				System.out.println("Enemy " +numberOfEnemies+ enemyType);
+
 			}
 			
 		}
 	
 		
-		//enemyCount += numberOfEnemies;
+		enemyCount += numberOfEnemies;
 		
 	}
 	
