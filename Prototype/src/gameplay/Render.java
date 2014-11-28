@@ -386,7 +386,7 @@ public class Render extends JPanel implements ActionListener {
 
 		else if (GameState.getState() == State.PAUSE && pauseMenuOpen == false) {
 
-			new PauseMenu(grid, gameState, player, bomberman);
+			new PauseMenu(grid, this, gameState, player, bomberman);
 			pauseMenuOpen = true;
 		}
 
@@ -410,8 +410,8 @@ public class Render extends JPanel implements ActionListener {
 		// setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 
-	public void setPauseMenuState(boolean x) {
-		pauseMenuOpen = x;
+	public void setPauseMenuState(boolean isPauseMenuOpen) {
+		this.pauseMenuOpen = isPauseMenuOpen;
 
 	}
 
