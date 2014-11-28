@@ -21,7 +21,6 @@ public class MainMenu extends JFrame{
 	JButton newGameButton = new JButton("New game");
 	JButton loadGameButton = new JButton("Load Game");
 	JButton loadLevelButton = new JButton("Load Level");
-	JButton controlsButton = new JButton("Controls");
 	JButton accountManagementButton = new JButton("Account Management");
 	JButton leaderboardsButton = new JButton("Leaderboards");
 	JButton logOutButton = new JButton("Log out");
@@ -36,28 +35,25 @@ public class MainMenu extends JFrame{
 		panel.setLayout(null);
 		AccountMenu.setFrameTitle("Main Menu");
 		
-		newGameButton.setBounds(72, 5, 180, 25);
+		newGameButton.setBounds(72, 10, 180, 25);
 		panel.add(newGameButton);
 		
-		loadGameButton.setBounds(72, 30, 180, 25);
+		loadGameButton.setBounds(72, 35, 180, 25);
 		panel.add(loadGameButton);
 
-		loadLevelButton.setBounds(72, 55 , 180, 25);
+		loadLevelButton.setBounds(72, 60 , 180, 25);
 		panel.add(loadLevelButton);
 		
-		controlsButton.setBounds(72, 80, 180, 25);
-		panel.add(controlsButton);
-		
-		accountManagementButton.setBounds(72, 105, 180, 25);
+		accountManagementButton.setBounds(72, 85, 180, 25);
 		panel.add(accountManagementButton);
 		
-		leaderboardsButton.setBounds(72, 130, 180, 25);
+		leaderboardsButton.setBounds(72, 110, 180, 25);
 		panel.add(leaderboardsButton);
 		
-		logOutButton.setBounds(72, 155, 180, 25);
+		logOutButton.setBounds(72, 135, 180, 25);
 		panel.add(logOutButton);
 		
-		quitButton.setBounds(72, 180, 180, 25);
+		quitButton.setBounds(72, 160, 180, 25);
 		panel.add(quitButton);
 		
 		
