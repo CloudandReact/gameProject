@@ -91,7 +91,7 @@ public class Render extends JPanel implements ActionListener {
 		
 	}
 	
-	// Load from a game
+	// Load from a previous saved game
 	public Render(Grid grid, int level, Bomberman bomberman){
 		GameState.setState(State.RUNNING);
 		count = 0;

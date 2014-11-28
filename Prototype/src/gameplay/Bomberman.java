@@ -134,6 +134,17 @@ public class Bomberman extends JFrame {
 		
 		
 	}
+	//changes
+	public Bomberman(Grid grid, int level){
+		add(new Render(grid,level, this));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(15 * TILE_SIZE, HEIGHT * TILE_SIZE + 22);
+		setLocationRelativeTo(null);
+		setTitle("Bomberman");
+		setResizable(false);
+		setVisible(true);
+		
+	}
 	
 	public void destroyFrame(){
 		setVisible(false);
