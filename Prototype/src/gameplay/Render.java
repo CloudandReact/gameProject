@@ -374,7 +374,7 @@ public class Render extends JPanel implements ActionListener {
 		}
 
 		else if (GameState.getState() == State.PAUSE && pauseMenuOpen == false) {
-			new PauseMenu(this, gameState, player,bomberman);
+			new PauseMenu(grid,this, gameState, player);
 			pauseMenuOpen = true;
 		}
 
