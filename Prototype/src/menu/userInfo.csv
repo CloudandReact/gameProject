@@ -12,4 +12,8 @@ mcgill,Demo10,Dem@Us3R10
 random,Demo11,Aabc123$
 tester,birdman,mcgill123A//
 mcgillb,mcgill1,mcgill123A//
+<<<<<<< HEAD
 rakinul huq,rakinul,Aabc123$
+=======
+nardo,lsirac,Aabc123$
+>>>>>>> branch 'master' of https://github.com/mcgill-ecse321/team-2.git

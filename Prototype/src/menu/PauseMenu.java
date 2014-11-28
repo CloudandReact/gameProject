@@ -40,11 +40,11 @@ public class PauseMenu extends JFrame{
 	String playersName;
 	
 
-	public PauseMenu(final Grid grid,  GameState s, Player p, final Bomberman bomberman){
+	public PauseMenu(final Grid grid, Render r,   GameState s, Player p, final Bomberman bomberman){
 		this.state = s; 
 		this.grid = grid;
 		this.player = p;
-		
+		this.render = r;
 		setSize(325, 230);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -88,7 +88,7 @@ public class PauseMenu extends JFrame{
 				
 				render.destroyPanel();
 				new MainMenu(panel, PlayerInfo.getUsername());
-					
+				bomberman.dispose();	
 				
 			}
 			
@@ -112,7 +112,7 @@ public class PauseMenu extends JFrame{
 				dispose();
 				player.initializeTimer();
 				render.setPauseMenuState(false);
-				state.setState(State.RUNNING);
+				GameState.setState(State.RUNNING);
 				
 				
 			}

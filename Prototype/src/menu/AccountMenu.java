@@ -33,6 +33,7 @@ public class AccountMenu {
 	public static void destroyFrame(){
 		frame.setVisible(false);
 		frame.dispose();
+		System.out.println("DIsp");
 	}
 
 	public static void main(String[] args) {
