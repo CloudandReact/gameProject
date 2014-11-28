@@ -17,6 +17,7 @@ public class Level {
 
 	public Level(int currentLevel) {
 		this.currentLevel = currentLevel;
+		
 		setNumberOfEnemies();
 	}
 

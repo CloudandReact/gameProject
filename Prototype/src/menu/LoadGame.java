@@ -4,7 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +17,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import org.apache.commons.csv.CSVRecord;
+
+import gameplay.Bomberman;
+import gameplay.Cell;
+import gameplay.Grid;
 import gameplay.PlayerInfo;
 
 public class LoadGame extends JFrame {
@@ -22,20 +29,21 @@ public class LoadGame extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	JLabel noGamesFound= new JLabel("Error no loaded games please go back");
-	
-	JButton backButton= new JButton("Back");
-	JButton playButton= new JButton("Play");
-	
+
+	JLabel noGamesFound = new JLabel("Error no loaded games please go back");
+
+	JButton backButton = new JButton("Back");
+	JButton playButton = new JButton("Play");
+
 	// load how many games then have a textbox to enter
-	JTextField gameToPlayText= new JTextField();
+	JTextField gameToPlayText = new JTextField();
 	JPanel panelA;
-	StoreStatistics checkStats= new StoreStatistics();
+	StoreStatistics checkStats = new StoreStatistics();
 	int numberOfGames;
-	
-	
-	
+	ArrayList<CSVRecord> loadedGameArrayList;
+	//grid loadedGrid
+	Grid loadedGrid = new Grid();
+
 	public LoadGame(JPanel panel) throws IOException {
 		checkStats.checkNumberOfGames();
 		panel.removeAll();
@@ -45,10 +53,10 @@ public class LoadGame extends JFrame {
 		numberOfGames=checkStats.numberOfGames();
 		if(numberOfGames>0) 
 			{ 
-			JLabel gameNumberLabel= new JLabel("load Game number "+ numberOfGames);
+			JLabel gameNumberLabel= new JLabel("Enter game name");
 			gameNumberLabel.setBounds(40,60,120,25);
 			panel.add(gameNumberLabel);
-			gameToPlayText.setBounds(165,60,25,25);
+			gameToPlayText.setBounds(165,60,80,25);
 			playButton.setBounds(165,105,80,25);
 			backButton.setBounds(80, 105, 80, 25);
 			panel.add(backButton);
@@ -81,21 +89,52 @@ public class LoadGame extends JFrame {
 		});
 		
 		playButton.addActionListener(new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
-				// Execute when button is pressed
-				getContentPane().removeAll();
-				int gameNumberSelected=Integer.parseInt(gameToPlayText.getText());
-				if(gameNumberSelected>numberOfGames){
-					//alert error reenter else iniatilize constructor for game play
-				//constructur 
-					JOptionPane.showMessageDialog(null,"Please enter smaller number than equal to "+ numberOfGames+ " ", "Error", JOptionPane.INFORMATION_MESSAGE);
-				}
-				else{
+				
+				
+					// Execute when button is pressed
+					getContentPane().removeAll();
+					String gameName=gameToPlayText.getText();
+					File gameFile= new File(gameName);
+					if(gameFile.exists()){
+						FileWriting openGameFile= new FileWriting();
+						openGameFile.loadGame(gameName);
+						loadedGameArrayList=openGameFile.loadedGame();
+						int playerLevel;
+						int playerScore;
+						//change loaded game to type cell
+						for(int i=0;i<31;i++){
+							for(int j=0;j<13;j++){
+								//change to multiply...
+								
+								//System.out.println(Cell.valueOf(loadedGameArrayList.get(i).get(0))+ "  C1`134Type");
+								
+								System.out.println(Cell.valueOf(loadedGameArrayList.get(i+31*j).get(0)));
+								//loadedGrid.setContents(i+j*31, j, Cell.CONCRETE);
+								loadedGrid.setContents(i,j, Cell.valueOf(loadedGameArrayList.get(i+31*j).get(0)));
+							}
+							
+						}
+						//player lives
+						playerLevel=Integer.parseInt(loadedGameArrayList.get(403).get(0));
+						playerScore=Integer.parseInt(loadedGameArrayList.get(404).get(0));
+						//load the game
+						getContentPane().removeAll();
+						new Bomberman(loadedGrid,playerLevel);
+						AccountMenu.destroyFrame();
+					}
+					else{
+						//error
+						JOptionPane.showMessageDialog(null,"Please enter correct fileName not found ", "Error", JOptionPane.INFORMATION_MESSAGE);
+					}
 					
+					//new Game()
 				}
-				//new Game()
-			}
+				
+			
+			
+	
+	
 		});
 		panel.setVisible(true);
 		
@@ -103,4 +142,44 @@ public class LoadGame extends JFrame {
 		
 		
 }
+	public Cell setGridType(String positionType)
+	{
+		
+		System.out.println(positionType);
+		Cell typeOfCell=Cell.valueOf(positionType);
+		System.out.println(typeOfCell +"Celltype");
+		return typeOfCell;
+		/*if(positionType.equals("CONCRETE")){
+			typeOfCell=Cell.CONCRETE;
+		}
+		else if(positionType.equals("BRICK")){
+			typeOfCell=Cell.BRICK;
+		}
+		else if(positionType.equals("PLAYER")){
+			typeOfCell=Cell.PLAYER;
+		}
+		else if(positionType.equals("EMPTY")){
+			typeOfCell=Cell.EMPTY;
+		}
+		else if(positionType.equals("BOMB")){
+			typeOfCell=Cell.BOMB;
+		}
+		else if(positionType.equals("EXITWAY")){
+			typeOfCell=Cell.EXITWAY;
+		}
+		else if(positionType.equals("EXITWAY")){
+			typeOfCell=Cell.EXITWAY;
+		}
+		else if(positionType.equals("EXITWAY")){
+			typeOfCell=Cell.EXITWAY;
+		}
+		else if(positionType.equals("EXITWAY")){
+			typeOfCell=Cell.EXITWAY;
+		}
+		return typeOfCell;
+		PLAYERANDBOMB*/
+	
 }
+	}
+
+
