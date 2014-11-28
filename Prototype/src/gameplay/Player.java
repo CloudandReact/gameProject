@@ -48,11 +48,21 @@ public class Player {
 		powerup = new PowerUps(grid, this);
 		this.range = 1;
 	}
-
+	
+//	public void exitWayLogic(int posX, int posY){
+//		
+//		if(grid.getContents(posX, posY) == Cell.EXITWAY && GameState.getState() == State.RUNNINGANDLEVELOVER){
+//			level.loadnextLevel();
+//		}
+//		
+//	}
 	public void move() {
 
 		if (dx != 0) {
-
+			
+			//exitWayLogic(dx/25, 0);
+		
+			
 			// Player dies if walking into enemy
 			if (grid.getContents(posX + (dx / 25), posY) == Cell.BALLOOM
 					|| grid.getContents(posX + (dx / 25), posY) == Cell.ONEAL
@@ -113,6 +123,8 @@ public class Player {
 		}
 
 		if (dy != 0) {
+			
+			//exitWayLogic(0, dy/25);
 
 			// Player dies if walking into enemy
 			if (grid.getContents(posX, posY + (dy / 25)) == Cell.BALLOOM
@@ -220,15 +232,25 @@ public class Player {
 		if (key == KeyEvent.VK_SPACE) {
 			if (GameState.getState() == State.RUNNING) {
 				GameState.setState(State.PAUSE);
-			} else {
+			} 
+			
+			else if(GameState.getState() == State.PAUSE) {
 				GameState.setState(State.RUNNING);
 			}
+			
+			if(GameState.getState() == State.RUNNINGANDLEVELOVER){
+				GameState.setState(State.PAUSEANDLEVELOVER);
+			}
+			else if(GameState.getState() == State.PAUSEANDLEVELOVER) {
+				GameState.setState(State.RUNNINGANDLEVELOVER);
+			}
+			
 			System.out.println("STATE: " + GameState.getState());
 		}
 
 		// Bomb Logic
 		if (key == KeyEvent.VK_X) {
-			if (GameState.getState() == State.RUNNING && isBombPlaced == false) {
+			if ((GameState.getState() == State.RUNNING || GameState.getState() == State.RUNNINGANDLEVELOVER) && isBombPlaced == false) {
 				if (grid.getContents(posX, posY) != Cell.PLAYERANDBOMB
 						&& (grid.getContents(posX, posY) != Cell.PLAYERANDEXITWAY)) {
 

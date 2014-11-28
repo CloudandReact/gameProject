@@ -2,6 +2,8 @@ package gameplay;
 
 public class Level {
 
+
+
 	private int nEnemy1;
 	private int nEnemy2;
 	private int nEnemy3;
@@ -11,7 +13,7 @@ public class Level {
 	private int nEnemy7;
 	private int nEnemy8;
 
-	private static int currentLevel = 0;
+	private static int currentLevel = 1;
 
 	public Level(int currentLevel) {
 		this.currentLevel = currentLevel;
@@ -515,7 +517,7 @@ public class Level {
 		return nEnemy8;
 	}
 
-	public static int getCurrentLevel() {
+	public int getCurrentLevel() {
 		return currentLevel;
 	}
 

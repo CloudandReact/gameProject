@@ -18,7 +18,7 @@ public class PowerUps {
 	private static Boolean bombpass = false; 
 	private static Boolean flamepass = false;
 	private static Boolean detonate = false; 
-	private static Boolean gotPowerup= false; //remember to set this to false when player moves to next level
+	private static Boolean gotPowerup= false; //remember to set this to false when player moves to next clevel
 	//String [] powerups = {"bombsP.png","flamesP.png","speedP.png","detonatorsP.png","bombPassP.png","wallPassP.png","flamePassP.png"};
 	
 	private Image imageb;
@@ -28,12 +28,15 @@ public class PowerUps {
 	private Image imageBP;
 	private Image imageWP;
 	private Image imageFP;
+	private static int cclevel;
 	
 	private Grid grid;
 	private Player player;
+	private Level level;
 	
 	
 	public PowerUps(Grid grid, Player player){
+		//cclevel = clevel.getCurrentclevel();
 		this.grid = grid;
 		this.player = player;
 		loadImage();
@@ -43,54 +46,55 @@ public class PowerUps {
 	}
 	
 	public void givePowerUp(){
-		int level = 1;
+		int clevel = PowerUps.getClevel();
+		//int clevel = 1;
 		if(gotPowerup == true){
 			
 			// FLAMES
-			if (level == 1 || level == 7 || level == 15
-					|| level == 27 || level == 38) {
+			if (clevel == 1 || clevel == 7 || clevel == 15
+					|| clevel == 27 || clevel == 38) {
 				int currentRange = player.getRange();
 				player.setRange(currentRange+1);
 			}
 
 			// BOMB
-			else if (level == 2 || level == 5
-					|| level == 6 || level == 11 || level == 12
-					|| level == 17 || level == 19 || level == 23
-					|| level == 28 || level == 32) {
+			else if (clevel == 2 || clevel == 5
+					|| clevel == 6 || clevel == 11 || clevel == 12
+					|| clevel == 17 || clevel == 19 || clevel == 23
+					|| clevel == 28 || clevel == 32) {
 				int currentBomb = player.getBombs();
 				player.setBombs(currentBomb + 1);
 				
 			}
 			// SPEED
-			else if (level == 4) {
+			else if (clevel == 4) {
 				
 			}
 			// DETONATOR
-			else if (level == 3 || level == 8 || level == 13
-					|| level == 20 || level == 22 || level == 24
-					|| level == 29 || level == 33 || level == 27
-					|| level == 41 || level == 44 || level == 48) {
+			else if (clevel == 3 || clevel == 8 || clevel == 13
+					|| clevel == 20 || clevel == 22 || clevel == 24
+					|| clevel == 29 || clevel == 33 || clevel == 27
+					|| clevel == 41 || clevel == 44 || clevel == 48) {
 				
 			}
 			// BOMBPASS
-			else if (level == 9 || level == 14 || level == 18
-					|| level == 21 || level == 25 || level == 35
-					|| level == 43 || level == 47) {
+			else if (clevel == 9 || clevel == 14 || clevel == 18
+					|| clevel == 21 || clevel == 25 || clevel == 35
+					|| clevel == 43 || clevel == 47) {
 				
 			}
 			// WALLPASS
-			else if (level == 10 || level == 16 || level == 31
-					|| level == 39 || level == 42 || level == 46) {
+			else if (clevel == 10 || clevel == 16 || clevel == 31
+					|| clevel == 39 || clevel == 42 || clevel == 46) {
 				
 			}
 			// FLAMEPASS
-			else if (level == 30 || level == 36 || level == 49) {
+			else if (clevel == 30 || clevel == 36 || clevel == 49) {
 				
 			}
 			// MYSTERY
-			else if (level == 26 || level == 34 || level == 40
-					|| level == 45 || level == 50) {
+			else if (clevel == 26 || clevel == 34 || clevel == 40
+					|| clevel == 45 || clevel == 50) {
 				// g2d.drawImage(powerups.getMysteryImage(),
 				// Bomberman.TILE_SIZE * i, Bomberman.TILE_SIZE * j, this);
 				// continue;
@@ -103,11 +107,18 @@ public class PowerUps {
 	}
 	private void placePowerups(){
 		
-		int randX = randInt(2,31);
-		int randY = randInt(2,12); 
+		//int randX = randInt(2,31);
+		//int randY = randInt(2,12); 
+		//int clevel = 1;
+		if(cclevel == 1){
+			grid.setContents(5,4,Cell.BRICKANDPOWERUPS);
+		}
+		else if(cclevel == 10){
+			//grid.setContents(11,4,Cell.BRICKANDPOWERUPS);
+		} else{
 		
-		grid.setContents(1,4,Cell.BRICKANDPOWERUPS);
-		
+			grid.setContents(11,6,Cell.BRICKANDPOWERUPS);
+		}
 	}
 	
 	
@@ -219,6 +230,14 @@ public class PowerUps {
 
 	public static void setGotPowerup(Boolean gotpowerup) {
 		PowerUps.gotPowerup = gotpowerup;
+	}
+
+	public static int getClevel() {
+		return cclevel;
+	}
+
+	public static void setClevel(int clevel) {
+		PowerUps.cclevel = clevel;
 	}
 
 	

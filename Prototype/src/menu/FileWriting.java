@@ -4,6 +4,14 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+
+import javax.swing.JOptionPane;
+
+import gameplay.Grid;
+import gameplay.Player;
+import gameplay.Render;
+
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -19,6 +27,8 @@ public class FileWriting {
 	String lineOfFile[] = new String[100];
 	ArrayList<CSVRecord> userFileInfo1;
 	ArrayList<CSVRecord> userStatistics;
+	ArrayList<CSVRecord> loadedGame;
+	
 
 	public boolean loginIsValid(String username, String password) {
 
@@ -57,10 +67,11 @@ public class FileWriting {
 		// File(userInfo.csv) works otherwise
 		// find the directory eclipse is in System.getProperty("user.dir") and
 		// match them..
-		String filename = System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userInfo.csv");
+		String filename = System.getProperty("user.dir")+"//" +"src" +"//"+"menu"+ "//"+ ("userInfo.csv");
+		//String fileName = System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userInfo.csv");
 		System.getProperty("user.dir" + "\\" + "userInfo.csv");
-		String filename1=System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userInfo.csv");
-		File userInfo = new File(filename1);
+		String checkIfFileExists=System.getProperty("user.dir")+"//" +"src" +"//"+"menu"+ "//"+ ("userInfo.csv");
+		File userInfo = new File(checkIfFileExists);
 		// check if file exists otherwise create new file...
 		if (userInfo.exists()) {
 		} else {
@@ -117,7 +128,8 @@ public class FileWriting {
 
 	public void writeToFile(String realName, String username, String password,
 		String retypePassword) throws IOException {
-		String fileName = System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userInfo.csv");
+		String fileName = System.getProperty("user.dir")+"//" +"src" +"//"+"menu"+ "//"+ ("userInfo.csv");
+		//String fileName = System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userInfo.csv");
 		// String fileName=("userInfo.csv");
 		File userInfo = new File(fileName);
 		// check if file exists otherwise create new file...
@@ -134,7 +146,8 @@ public class FileWriting {
 
 	}
 	public void overwriteToFileString (String realName, String username, String password,String retypePassword) throws IOException {
-	String fileName = System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userInfo.csv");
+	String fileName = System.getProperty("user.dir")+"//" +"src" +"//"+"menu"+ "//"+ ("userInfo.csv");
+	//String fileName = System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userInfo.csv");
 	// String fileName=("userInfo.csv");
 	File userInfo = new File(fileName);
 	// check if file exists otherwise create new file...
@@ -166,9 +179,9 @@ public class FileWriting {
 		// File(userInfo.csv) works otherwise
 		// find the directory eclipse is in System.getProperty("user.dir") and
 		// match them..
-		String filename = System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userStatistics.csv");
-		String filename1=System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userStatistics.csv");
-		File userInfo = new File((filename1));
+		String filename = System.getProperty("user.dir")+"//" +"src" +"//"+"menu"+ "//"+ ("userStatistics.csv");
+		String checkIfFileExists=System.getProperty("user.dir")+"//" +"src" +"//"+"menu"+ "//"+ ("userStatistics.csv");
+		File userInfo = new File((checkIfFileExists));
 
 		if (userInfo.exists()) {
 			System.out.println("File exists");
@@ -191,8 +204,10 @@ public class FileWriting {
 			
 		
 	//write to statistics check if already has a score
+	//Libraries/Documents
 	public void writeToStatisticsFile(String username , int score , int levelUnlocked,int currentGameOfUser) throws IOException{
-		String fileName = System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userStatistics.csv");
+		///String fileName = System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userStatistics.csv");
+		String fileName = System.getProperty("user.dir")+"//" +"src" +"//"+"menu"+ "//"+ ("userStatistics.csv");
 		File userInfo = new File(fileName);
 		// check if file exists otherwise create new file...
 		if (userInfo.exists()) {
@@ -200,6 +215,7 @@ public class FileWriting {
 			userInfo.createNewFile();
 		}
 		int gamesStored=1;
+		//false overwrites
 		FileWriter fileWriter = new FileWriter(fileName, false);
 		CSVPrinter writer = new CSVPrinter(fileWriter, CSVFormat.DEFAULT);
 		if(currentGameOfUser==0){
@@ -227,6 +243,66 @@ public class FileWriting {
 
 	}
 	
+	
+	public void saveGame(String fileName,Grid grid,int score,int level) throws IOException{
+		File savingFile= new File(fileName);
+		if(savingFile.exists()){
+			JOptionPane.showMessageDialog(null,"would you like to overwrite file", "error", JOptionPane.INFORMATION_MESSAGE);
+		}
+		else{
+			
+		}
+		/*FileOutputStream fos = new FileOutputStream(fileName);
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(sg);
+		oos.writeInt(score);
+		oos.writeInt(level);
+		oos.close();
+		fos.close();*/
+		//FileWriter fw = new FileWriter(savingFile);
+		FileWriter fileWriter = new FileWriter(fileName, false);
+		//ObjectOutputStream objectStream = new ObjectOutputStream(fileWriter); 
+		//how to write csv parser with objects
+		CSVPrinter writer = new CSVPrinter(fileWriter, CSVFormat.DEFAULT);
+		for(int i=0;i<31;i++){
+			for(int j=0;j<13;j++){
+				writer.printRecord(grid.gridMap[i][j]);	
+			}
+		}
+		writer.printRecord(score);
+		writer.printRecord(level);
+		//remember to flush
+		writer.flush();
+		writer.close();
+		
+		
+		
+	}
+	public void loadGame(String fileName){
+		File loadingFile= new File(fileName);
+		if(loadingFile.exists()){
+			
+		}
+		else{
+			JOptionPane.showMessageDialog(null,"file doesnt exist", "error", JOptionPane.INFORMATION_MESSAGE);
+			return;
+		}
+
+		try {
+			CSVParser parser = new CSVParser(new FileReader(fileName),
+					CSVFormat.DEFAULT);
+			loadedGame= (ArrayList<CSVRecord>) parser.getRecords();
+			parser.close();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 	
 	// creates validate object to check if everything is right in validate
@@ -264,6 +340,9 @@ public class FileWriting {
 
 	public boolean arePasswordSame() {
 		return checkInfo.arePasswordSame();
+	}
+	public ArrayList<CSVRecord> loadedGame(){
+		return  loadedGame;
 	}
 	
 }

@@ -1,11 +1,15 @@
 package menu;
 
+import gameplay.Grid;
+import gameplay.Player;
 import gameplay.PlayerInfo;
+import gameplay.Render;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,10 +18,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class SaveGame extends JFrame{
+import gameplay.PlayerInfo;
+
+
+public class SaveGame extends JFrame implements Serializable {
 
 private static final long serialVersionUID = 1L;
-		JPanel panel = new JPanel();
+	JPanel panel = new JPanel();
 		
 	
 	JLabel noGamesFound= new JLabel("Error cannot save game");
@@ -25,15 +32,20 @@ private static final long serialVersionUID = 1L;
 	JButton backButton= new JButton("Back");
 	JButton saveButton= new JButton("Save");
 	
+	private Render render;
+	
+	
 	// load how many games then have a textbox to enter
 	JTextField saveGameText= new JTextField(30);
 	JPanel panelA;
 	StoreStatistics checkStats= new StoreStatistics();
 	int numberOfGames;
 	
+	Grid grid;
 	
 	
-	public SaveGame () throws IOException {
+	public SaveGame (final Grid grid) throws IOException {
+		this.grid=grid;
 		checkStats.checkNumberOfGames();
 		setSize(450, 450);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,9 +95,24 @@ private static final long serialVersionUID = 1L;
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
 				getContentPane().removeAll();
-				String gameNumberSelected=(saveGameText.getText());
+				//create savin game object
+				String gameName=(saveGameText.getText());
+				
+				
 								///need to write to file
-				FileWriting savingGame= new FileWriting();
+				FileWriting savingTheGame= new FileWriting();
+				try {
+					savingTheGame.saveGame(gameName,grid,PlayerInfo.playerScore,PlayerInfo.currentLevel);
+					System.out.println("succes");
+					System.out.println(render);
+					
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+									
+			
 				
 				//new Game()
 			}
@@ -100,3 +127,4 @@ private static final long serialVersionUID = 1L;
 		
 }
 }
+
