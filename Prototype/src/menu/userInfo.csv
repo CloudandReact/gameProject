@@ -1,19 +1,1 @@
-mcgill,Demo01,Dem@Us3R01
-mcgill,Demo02,Dem@Us3R02
-mcgill,Demo03,Dem@Us3R03
-mcgill,Demo04,Dem@Us3R04
-mcgill,Demo05,Dem@Us3R05
-mcgill,Demo06,Dem@Us3R06
-mcgill,mcgill,Demo07,Dem@Us3R07
-mcgill,Demo08,Dem@Us3R08
-mcgill,Demo09,Dem@Us3R09
-mcgill,Demo10,Dem@Us3R10
-
-random,Demo11,Aabc123$
-tester,birdman,mcgill123A//
-mcgillb,mcgill1,mcgill123A//
-<<<<<<< HEAD
-rakinul huq,rakinul,Aabc123$
-=======
-nardo,lsirac,Aabc123$
->>>>>>> branch 'master' of https://github.com/mcgill-ecse321/team-2.git
+mcgill,Demo01,Dem@Us3R01,mcgill,Demo02,Dem@Us3R02,mcgill,Demo03,Dem@Us3R03,mcgill,Demo04,Dem@Us3R04,mcgill,Demo05,Dem@Us3R05,mcgill,Demo06,Dem@Us3R06,mcgill,mcgill,Demo07,Dem@Us3R07mcgill,Demo08,Dem@Us3R08,mcgill,Demo09,Dem@Us3R09,mcgill,Demo10,Dem@Us3R10,,,,random,Demo11,Aabc123$,tester,birdman,mcgill123A//,mcgillb,mcgill1,mcgill123A//,,,,rakinul huq,rakinul,Aabc123$,,,,nardo,lsirac,Aabc123$,,,,,,,,,,,,,,,,,,,,,, 
