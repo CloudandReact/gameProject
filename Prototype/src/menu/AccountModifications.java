@@ -17,8 +17,6 @@ public class AccountModifications extends JFrame{
 	JLabel userRealNameLabel = new JLabel("Real Name");
 	// note changed could modify
 	JTextField realNameText = new JTextField();
-	//JLabel usernameLabel = new JLabel("Username");
-	//JTextField userText = new JTextField();
 	JLabel passwordLabel = new JLabel("Password");
 	JPasswordField passwordText = new JPasswordField();
 	JLabel verifyPasswordLabel = new JLabel("Verify Password");

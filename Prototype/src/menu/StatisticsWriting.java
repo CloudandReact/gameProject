@@ -4,15 +4,14 @@ import gameplay.PlayerInfo;
 
 public class StatisticsWriting {
 	public int score = PlayerInfo.playerScore;
-	public int unlockedLeve= PlayerInfo.unlockedLevel;
-	public String username=PlayerInfo.usernameStatic;
+	public int unlockedLeve = PlayerInfo.unlockedLevel;
+	public String username = PlayerInfo.usernameStatic;
 	public int gameOfUser;
-	FileWriting writeStatistics= new FileWriting();
-	//when game is saved
-	//writeStatistics.
-	
-    //read the scores
-	//write the scores
-	
-	
-}   
+	FileWriting writeStatistics = new FileWriting();
+	// when game is saved
+	// writeStatistics.
+
+	// read the scores
+	// write the scores
+
+}
