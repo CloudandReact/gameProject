@@ -34,7 +34,7 @@ public class Login {
 
 		panel.removeAll();
 		panel.setLayout(null);
-		
+
 		AccountMenu.setFrameTitle("Login");
 
 		usernameLabel.setBounds(10, 40, 80, 25);
@@ -54,46 +54,48 @@ public class Login {
 
 		createAccountButton.setBounds(140, 135, 125, 25);
 		panel.add(createAccountButton);
-		
+
 		panel.repaint();
 		panelL = panel;
 
 		loginButton.addActionListener(new ActionListener() {
 
-		public void actionPerformed(ActionEvent e) {
-				// Execute when button is pressed
+			public void actionPerformed(ActionEvent e) {
+				
 				username = userText.getText();
-				// makes password into a string converts from char array
-				// check that username and password arent null
+				
 				password = String.valueOf(passwordText.getPassword());
-				System.out.println("username" + username + "password " + password);
+				System.out.println("username" + username + "password "
+						+ password);
 				FileWriting loginValidity = new FileWriting();
 				loginValidity.openFile();
-				
 
 				if (loginValidity.loginIsValid(username, password)) {
-					// go to menu
+					
 					new MainMenu(panelL, username);
-					//added storing of username and password
-					PlayerInfo.usernameStatic=username;
-					PlayerInfo.passwordStatic=password;
-					StoreStatistics storingIntoPlayer= new StoreStatistics();
+					 
+					PlayerInfo.usernameStatic = username;
+					PlayerInfo.passwordStatic = password;
+					StoreStatistics storingIntoPlayer = new StoreStatistics();
 					storingIntoPlayer.checkNumberOfGames();
-					//this line just for test will see if to make it void and store all info in player
-					int jar=storingIntoPlayer.numberOfGames();
+					// this line just for test will see if to make it void and
+					// store all info in player
+					int jar = storingIntoPlayer.numberOfGames();
 					try {
-						//store all player statistics which is required for leaderboards
+						// store all player statistics which is required for
+						// leaderboards
 						loginValidity.openStatistics();
-						PlayerInfo.allUserStatistics=loginValidity.allPlayersStats();
+						PlayerInfo.allUserStatistics = loginValidity
+								.allPlayersStats();
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					
-					
-	
+
 				} else {
-					JOptionPane.showMessageDialog(null,"Incorrect username or password. Please retry.",password, JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null,
+							"Incorrect username or password. Please retry.",
+							password, JOptionPane.INFORMATION_MESSAGE);
 
 				}
 

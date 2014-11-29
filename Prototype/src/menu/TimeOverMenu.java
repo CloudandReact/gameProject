@@ -17,9 +17,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class TimeOverMenu extends JFrame{
+public class TimeOverMenu extends JFrame {
 
-	
 	/**
 	 * 
 	 */
@@ -31,18 +30,18 @@ public class TimeOverMenu extends JFrame{
 	JButton exitToMain = new JButton("Exit to main menu");
 	JButton restartLevel = new JButton("Restart Level");
 
-	//JButton loadLevelButton = new JButton("Load Level");
-	
+	// JButton loadLevelButton = new JButton("Load Level");
+
 	public Render render;
 	GameState state;
 	Player player;
 	Grid grid;
-	
-	String playersName;
-	
 
-	public TimeOverMenu(final Grid grid, Render r,   GameState s, Player p, final Bomberman bomberman){
-		this.state = s; 
+	String playersName;
+
+	public TimeOverMenu(final Grid grid, Render r, GameState s, Player p,
+			final Bomberman bomberman) {
+		this.state = s;
 		this.grid = grid;
 		this.player = p;
 		this.render = r;
@@ -56,81 +55,76 @@ public class TimeOverMenu extends JFrame{
 		panel.removeAll();
 		panel.setLayout(null);
 		AccountMenu.setFrameTitle("Time Over Menu");
-		
+
 		viewLeaderboards.setBounds(72, 5, 180, 25);
 		panel.add(viewLeaderboards);
-		
+
 		saveGame.setBounds(72, 30, 180, 25);
 		panel.add(saveGame);
-		
+
 		quitGame.setBounds(72, 55, 180, 25);
 		panel.add(quitGame);
-		
+
 		exitToMain.setBounds(72, 80, 180, 25);
 		panel.add(exitToMain);
-		
+
 		restartLevel.setBounds(72, 105, 180, 25);
 		panel.add(restartLevel);
-		
+
 		quitGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
 				AccountMenu.destroyFrame();
-				System.exit(0);	
+				System.exit(0);
 			}
-			
+
 		});
-		
-		
+
 		exitToMain.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
-				//getContentPane().removeAll();
-				
+				// getContentPane().removeAll();
+
 				render.destroyPanel();
 				new MainMenu(panel, PlayerInfo.getUsername());
-				bomberman.dispose();	
-				
+				bomberman.dispose();
+
 			}
-			
+
 		});
-		
-		
+
 		viewLeaderboards.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
-				//getContentPane().removeAll();
+				// getContentPane().removeAll();
 				new Leaderboards();
-									
+
 			}
-			
+
 		});
-		
+
 		restartLevel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PlayerInfo.setUsername(playersName);
-				
+
 				getContentPane().removeAll();
 				dispose();
 				render.initialize();
-				//render.setPauseMenuState(false);
+				// render.setPauseMenuState(false);
 				GameState.setState(State.RUNNING);
 				GameTimer.restartTimer();
-				
-				
+
 				// Execute when button is pressed
-//				getContentPane().removeAll();
-//				dispose();
-//				player.initializeTimer();
-//				render.setPauseMenuState(false);
-//				GameState.setState(State.RUNNING);
-				
-					// Execute when button is pressed
-						
-				
-				
+				// getContentPane().removeAll();
+				// dispose();
+				// player.initializeTimer();
+				// render.setPauseMenuState(false);
+				// GameState.setState(State.RUNNING);
+
+				// Execute when button is pressed
+
 			}
-			
+
 		});
 		saveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -141,18 +135,11 @@ public class TimeOverMenu extends JFrame{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-				
+
 			}
-			
+
 		});
-		
-		
-		
+
 	}
-	
-	
-	
-	
-	
+
 }

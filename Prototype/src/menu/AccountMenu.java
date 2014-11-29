@@ -25,12 +25,10 @@ public class AccountMenu {
 		frame.setLocationRelativeTo(null);
 		new Login(panel);
 		frame.setVisible(true);
-		
 
 	}
-	
 
-	public static void destroyFrame(){
+	public static void destroyFrame() {
 		frame.setVisible(false);
 		frame.dispose();
 		System.out.println("DIsp");
@@ -43,10 +41,9 @@ public class AccountMenu {
 	public class LoginButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			JOptionPane.showMessageDialog(null, "login button has been pressed");
+			JOptionPane
+					.showMessageDialog(null, "login button has been pressed");
 		}
 	}
-	
-	
 
 }

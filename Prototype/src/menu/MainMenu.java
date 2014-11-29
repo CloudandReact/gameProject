@@ -1,6 +1,7 @@
 package menu;
 
 import gameplay.Bomberman;
+import gameplay.GameTimer;
 import gameplay.PlayerInfo;
 
 import java.awt.event.ActionEvent;
@@ -75,6 +76,7 @@ public class MainMenu extends JFrame{
 				// Execute when button is pressed
 				AccountMenu.destroyFrame();
 				PlayerInfo.setUsername(playersName);
+				GameTimer.restartTimer();
 				new Bomberman();	
 			}
 			
@@ -133,21 +135,7 @@ public class MainMenu extends JFrame{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-				
-//				if(PlayerInfo.unlockedLevel==1){
-//					JOptionPane.showMessageDialog(null,"Please start a new game no levels availible", "Error", JOptionPane.INFORMATION_MESSAGE);
-//				}
-//				else{
-//					try {
-//						
-//						new LoadLevel(panelL);
-//					} catch (IOException e1) {
-//						// TODO Auto-generated catch block
-//						e1.printStackTrace();
-//					}
-//				}
-				
+						
 			}
 			
 		});

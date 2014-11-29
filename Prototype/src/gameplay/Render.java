@@ -179,7 +179,7 @@ public class Render extends JPanel implements ActionListener {
 		
 		checkIfAllEnemiesDead();
 		bomberman.setLivesLeft(numberOfLives);
-		bomberman.setScore(Player.getScore());
+		bomberman.setScore(PlayerInfo.playerScore);
 		
 		if ( player.getBombStatus() && (currentTime = System.currentTimeMillis()) - player.getInitialTime() >= 2000) {
 			/*System.out.println("BOOOOOOOOOOOOOOOOOOOOOOOOm");

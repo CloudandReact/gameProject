@@ -24,7 +24,7 @@ public class Bomberman extends JFrame {
 	private GameTimer listener;
 
 	public Bomberman() {
-		JFrame frameTimer = new JFrame("Counter");
+		JFrame frameTimer = new JFrame("Bomberman");
         frameTimer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameTimer.setLayout(new FlowLayout());
         JPanel pane1 = new JPanel();
@@ -61,7 +61,7 @@ public class Bomberman extends JFrame {
         //start the timer
         timerG.start();
         
-        frameTimer.setSize(270, 100);
+        frameTimer.setSize(300, 100);
         frameTimer.setVisible(true);
 		
 		add(new Render(this));
@@ -85,7 +85,7 @@ public class Bomberman extends JFrame {
 		listener.setTimeOver("Time Over");
 	}
 	public Bomberman(int level){
-		JFrame frameTimer = new JFrame("Counter");
+		JFrame frameTimer = new JFrame("Bomberman");
         frameTimer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameTimer.setLayout(new FlowLayout());
         JPanel pane1 = new JPanel();
@@ -121,7 +121,7 @@ public class Bomberman extends JFrame {
         //start the timer
         timerG.start();
         
-        frameTimer.setSize(270, 100);
+        frameTimer.setSize(300, 100);
         frameTimer.setVisible(true);
 		
 		add(new Render(level, this));
