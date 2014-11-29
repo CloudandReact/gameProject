@@ -102,12 +102,14 @@ public class Render extends JPanel implements ActionListener {
 		this.grid = grid;
 		this.level = new Level(level);
 		this.brick = new Brick(grid);
-		this.bomb = new Bomb(grid);
+		
 		this.concrete = new Concrete(grid);
 		this.powerups = new PowerUps(grid, player,this.level);
 		this.exitway = new ExitWay(grid);
-		this.player = new Player(grid, bomb,powerups);
 		this.enemy = new Enemy(grid, this, this.level);
+		this.bomb = new Bomb(grid, this.enemy);
+		this.player = new Player(grid, bomb,powerups);
+
 		this.isPlayerAlive = true;
 		PowerUps.setClevel(currentLevel);
 		pauseMenuOpen = false;
@@ -149,12 +151,12 @@ public class Render extends JPanel implements ActionListener {
 		level = new Level(currentLevel);
 		
 		brick = new Brick(grid);
-		bomb = new Bomb(grid);
 		concrete = new Concrete(grid);
 		powerups = new PowerUps(grid, player,this.level);
 		exitway = new ExitWay(grid);
-		player = new Player(grid, bomb,powerups);
 		enemy = new Enemy(grid,this, level);
+		bomb = new Bomb(grid, this.enemy);
+		player = new Player(grid, bomb,powerups);
 		PowerUps.setClevel(currentLevel);
 		isPlayerAlive = true;
 		pauseMenuOpen = false;
@@ -177,7 +179,7 @@ public class Render extends JPanel implements ActionListener {
 		
 		checkIfAllEnemiesDead();
 		bomberman.setLivesLeft(numberOfLives);
-		bomberman.setScore(Player.getScore());
+		bomberman.setScore(PlayerInfo.playerScore);
 		
 		if ( player.getBombStatus() && (currentTime = System.currentTimeMillis()) - player.getInitialTime() >= 2000) {
 			/*System.out.println("BOOOOOOOOOOOOOOOOOOOOOOOOm");

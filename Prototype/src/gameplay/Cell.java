@@ -1,7 +1,6 @@
 package gameplay;
 
 import Astar.ClosestHeuristic;
-import Astar.Mover;
 import Astar.TileBasedMap;
 
 public enum Cell {

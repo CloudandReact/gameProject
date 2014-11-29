@@ -48,13 +48,16 @@ public class Bomb implements Runnable {
 	private long startTime;
 	private long currentTime;
 	
+	private Enemy enemy;
+	
 
 	/*
 	 * RANGE IS DEFAULTED TO 1 IN CONSTRUCTORS. TO SET RANGE USE SETTER ON BOMB
 	 * OBJECT. USE THE SAME BOMB OBJECT SUPPLIED TO THE THREAD.
 	 */
 
-	public Bomb(Grid grid) {
+	public Bomb(Grid grid, Enemy enemy) {
+		this.enemy = enemy;
 		setTotalGameScore(0);
 		scores = new ArrayList<Integer>();
 		loadImage();
@@ -123,6 +126,7 @@ public class Bomb implements Runnable {
 			System.out.println(currentRange);
 			
 			if (grid.getContents(posX + currentRange, posY) != Cell.CONCRETE) {
+				
 
 				if (grid.getContents(posX + currentRange, posY) == Cell.BRICKANDPOWERUPS) {
 					grid.setContents(posX + currentRange, posY, Cell.POWERUPS);
@@ -131,7 +135,8 @@ public class Bomb implements Runnable {
 					grid.setContents(posX + currentRange, posY, Cell.EXITWAY);
 				} 
 				else if (grid.getContents(posX + currentRange, posY) == Cell.EXITWAY) {
-					grid.setContents(posX + currentRange, posY, Cell.EXITWAY);
+					grid.setContents(posX + currentRange, posY, Cell.EMPTY);
+					enemy.setIsExitwayBlownUp(true);
 				} 
 				else if (grid.getContents(posX + currentRange, posY) == Cell.BALLOOM
 						|| grid.getContents(posX + currentRange, posY) == Cell.ONEAL
@@ -220,9 +225,12 @@ public class Bomb implements Runnable {
 				} 
 				else if (grid.getContents(posX - currentRange, posY) == Cell.BRICKANDEXITWAY) {
 					grid.setContents(posX - currentRange, posY, Cell.EXITWAY);
+					
 				} 
 				else if (grid.getContents(posX - currentRange, posY) == Cell.EXITWAY) {
 					grid.setContents(posX - currentRange, posY, Cell.EXITWAY);
+					enemy.setIsExitwayBlownUp(true);
+
 				} 
 				else if (grid.getContents(posX - currentRange, posY) == Cell.BALLOOM
 						|| grid.getContents(posX - currentRange, posY) == Cell.ONEAL
@@ -332,6 +340,8 @@ public class Bomb implements Runnable {
 				} 
 				else if (grid.getContents(posX, posY + currentRange) == Cell.EXITWAY) {
 					grid.setContents(posX, posY + currentRange, Cell.EXITWAY);
+					enemy.setIsExitwayBlownUp(true);
+
 				} 
 				else if (grid.getContents(posX, posY + currentRange) == Cell.BALLOOM
 						|| grid.getContents(posX, posY + currentRange) == Cell.ONEAL
@@ -421,6 +431,8 @@ public class Bomb implements Runnable {
 				} 
 				else if (grid.getContents(posX, posY - currentRange) == Cell.EXITWAY) {
 					grid.setContents(posX, posY - currentRange, Cell.EXITWAY);
+					enemy.setIsExitwayBlownUp(true);
+
 				} 
 				
 				else if (grid.getContents(posX, posY - currentRange) == Cell.BALLOOM

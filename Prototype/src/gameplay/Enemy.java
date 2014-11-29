@@ -8,7 +8,7 @@ import javax.swing.ImageIcon;
 
 import Astar.*;
 
-public class Enemy implements Mover {
+public class Enemy {
 
 	private String Balloom = "Balloom.png";
 	private String Oneal = "Oneal.png";
@@ -34,6 +34,7 @@ public class Enemy implements Mover {
 	private Image imageKondoriaAndBrick;
 	private Image imageOvapiAndBrick;
 	private Image imagePontanAndBrick;
+	
 
 
 	private Grid grid;
@@ -64,6 +65,11 @@ public class Enemy implements Mover {
 	
 	private int count;
 	
+	private boolean isExitwayBlownUp;
+	private Cell highestLevelEnemy;
+	
+	
+	
 	public Enemy(Grid grid, Render render, Level level) {
 		this.level = level;
 		this.enemyCount = 0;
@@ -71,6 +77,7 @@ public class Enemy implements Mover {
 		this.loadImage();
 		this.grid = grid;
 		this.tempGrid = new Grid();
+		this.isExitwayBlownUp = false;
 		
 		count = 0;
 		
@@ -115,35 +122,50 @@ public class Enemy implements Mover {
 
 		if (numberOfBallooms > 0) {
 			placeEnemies(Cell.BALLOOM, numberOfBallooms);
+			highestLevelEnemy = Cell.BALLOOM;
 		}
 
 		if (numberOfOneals > 0) {
 			placeEnemies(Cell.ONEAL, numberOfOneals);
+			highestLevelEnemy = Cell.ONEAL;
+
 		}
 
 		if (numberOfDolls > 0) {
 			placeEnemies(Cell.DOLL, numberOfDolls);
+			highestLevelEnemy = Cell.DOLL;
+
 		}
 
 		if (numberOfMinvos > 0) {
 			placeEnemies(Cell.MINVO, numberOfMinvos);
+			highestLevelEnemy = Cell.MINVO;
+
 		}
 
 		if (numberOfKondorias > 0) {
 			placeEnemies(Cell.KONDORIA, numberOfKondorias);
+			highestLevelEnemy = Cell.KONDORIA;
+
 			
 		}
 
 		if (numberOfOvapis > 0) {
 			placeEnemies(Cell.OVAPI, numberOfOvapis);
+			highestLevelEnemy = Cell.OVAPI;
+
 		}
 
 		if (numberOfPasses > 0) {
 			placeEnemies(Cell.PASS, numberOfPasses);
+			highestLevelEnemy = Cell.PASS;
+
 		}
 
 		if (numberOfPontans > 0) {
 			placeEnemies(Cell.PONTAN, numberOfPontans);
+			highestLevelEnemy = Cell.PONTAN;
+
 		}
 
 	}
@@ -279,8 +301,8 @@ public class Enemy implements Mover {
 				tempGrid.setContents(posX, posY, grid.getContents(posX, posY));
 				
 				switch (grid.getContents(posX, posY)) {
-				case BALLOOM:
-					verifyTracker(posX, posY, Cell.BALLOOM);
+				case BALLOOM:						
+					verifyTracker(posX, posY, Cell.BALLOOM);	
 					continue;
 				case ONEAL:
 					verifyTracker(posX, posY, Cell.ONEAL);
@@ -317,6 +339,8 @@ public class Enemy implements Mover {
 				}						
 			}
 		}
+		
+		setIsExitwayBlownUp(false);
 	}
 	
 	private void copyGrid() {
@@ -328,6 +352,47 @@ public class Enemy implements Mover {
 		}
 	}
 	
+	private void exitwayLogic(int index){
+		
+		switch(highestLevelEnemy){
+		case BALLOOM:	
+			System.out.println("Changing enemies");
+			enemiesInitial.get(index).setEnemyType(Cell.ONEAL); 
+			break;
+		case ONEAL:
+			enemiesInitial.get(index).setEnemyType(Cell.DOLL); 
+			break;
+		case DOLL:
+			enemiesInitial.get(index).setEnemyType(Cell.MINVO); 
+			break;
+		case MINVO:
+			enemiesInitial.get(index).setEnemyType(Cell.KONDORIA); 
+			break;
+		case KONDORIA:
+			enemiesInitial.get(index).setEnemyType(Cell.OVAPI); 
+			break;
+		case KONDORIAANDBRICK:
+			enemiesInitial.get(index).setEnemyType(Cell.OVAPI); 
+			break;
+		case OVAPI:
+			enemiesInitial.get(index).setEnemyType(Cell.PASS); 
+			break;
+		case OVAPIANDBRICK:
+			enemiesInitial.get(index).setEnemyType(Cell.PASS); 
+			break;
+		case PASS:
+			enemiesInitial.get(index).setEnemyType(Cell.PONTAN); 
+			break;
+		case PONTAN:
+			enemiesInitial.get(index).setEnemyType(Cell.PONTAN); 
+			break;
+		case PONTANANDBRICK:
+			enemiesInitial.get(index).setEnemyType(Cell.PONTAN); 
+			break;					
+		default:
+			break; 
+		}
+	}
 	
 	
 	private void verifyTracker(int posX, int posY, Cell enemyType){
@@ -335,6 +400,12 @@ public class Enemy implements Mover {
 		for(int i = 0; i < enemiesInitial.size(); i++){	
 			//System.out.println(i);
 			if(enemiesInitial.get(i).getEnemyType() == enemyType && enemiesInitial.get(i).getxPosition() == posX && enemiesInitial.get(i).getyPosition() == posY ){
+						
+				
+				if(isExitwayBlownUp){
+					exitwayLogic(i);
+					System.out.println("yes alllllllllllllllll enemies");
+				}
 				
 				livingEnemy = new EnemyTracker(posX, posY, enemiesInitial.get(i).getEnemyType());
 				livingEnemy.setxDirection(enemiesInitial.get(i).getxDirection());
@@ -343,9 +414,12 @@ public class Enemy implements Mover {
 				livingEnemy.setMovingInY(enemiesInitial.get(i).isMovingInY());
 				enemiesAlive.add(livingEnemy);
 				
+				
+							
 	
 			}
 		}
+		
 		
 		
 		//System.out.println("Size of enemiesAlive list..:" + enemiesAlive.size());
@@ -1083,6 +1157,11 @@ public class Enemy implements Mover {
 		}
 		
 		
+		
+	}
+
+	public void setIsExitwayBlownUp(boolean b) {
+		this.isExitwayBlownUp = b;
 		
 	}
 	
