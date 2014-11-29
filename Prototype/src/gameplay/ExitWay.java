@@ -9,11 +9,13 @@ public class ExitWay {
 
 	private String exitway = "exitway.png";
 	private String playerandexitway = "playerandexitway.png";
+	
 	private Image imageExitway;
 	private Image imagePlayerAndExitway;
+	
 	private static Boolean access = false;
 	
-	Grid grid;
+	private Grid grid;
 	
 	public ExitWay (Grid grid){
 		this.grid = grid;

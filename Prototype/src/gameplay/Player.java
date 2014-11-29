@@ -23,7 +23,9 @@ public class Player {
 	private int range;
 	private int bombs;
 	private static int bombsOnGround;
-	private int count;
+	
+	
+	private int countForMovementSpeed;
 
 	private Image image;
 	private Grid grid;
@@ -64,7 +66,7 @@ public class Player {
 //		
 //	}
 	public void move() {
-		if(count == movementSpeed){	
+		if(countForMovementSpeed == movementSpeed){	
 			if (dx != 0) {		
 				//exitWayLogic(dx/25, 0);
 			
@@ -254,9 +256,9 @@ public class Player {
 			
 			
 			
-			count = 0;
+			countForMovementSpeed = 0;
 		}
-		count++;
+		countForMovementSpeed++;
 		
 	}
 

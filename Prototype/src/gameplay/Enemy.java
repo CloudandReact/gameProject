@@ -23,17 +23,17 @@ public class Enemy implements Mover {
 	private String PontanAndBrick = "PontanAndBrick.jpg";
 
 
-	private Image enemy1;
-	private Image enemy2;
-	private Image enemy3;
-	private Image enemy4;
-	private Image enemy5;
-	private Image enemy6;
-	private Image enemy7;
-	private Image enemy8;
-	private Image enemy9;
-	private Image enemy10;
-	private Image enemy11;
+	private Image imageBalloom;
+	private Image imageOneal;
+	private Image imageDoll;
+	private Image imageMinvo;
+	private Image imageKondoria;
+	private Image imageOvapi;
+	private Image imagePass;
+	private Image imagePontan;
+	private Image imageKondoriaAndBrick;
+	private Image imageOvapiAndBrick;
+	private Image imagePontanAndBrick;
 
 
 	private Grid grid;
@@ -44,14 +44,14 @@ public class Enemy implements Mover {
 
 	private int enemyCount;
 
-	private int nEnemy1;
-	private int nEnemy2;
-	private int nEnemy3;
-	private int nEnemy4;
-	private int nEnemy5;
-	private int nEnemy6;
-	private int nEnemy7;
-	private int nEnemy8;
+	private int numberOfBallooms;
+	private int numberOfOneals;
+	private int numberOfDolls;
+	private int numberOfMinvos;
+	private int numberOfKondorias;
+	private int numberOfOvapis;
+	private int numberOfPasses;
+	private int numberOfPontans;
 	
 	private Path path;
 	private PathFinder finder;
@@ -80,30 +80,30 @@ public class Enemy implements Mover {
 
 		System.out.println("Current Level..: " + level.getLevel());
 
-		nEnemy1 = level.getnEnemy1();
-		//System.out.println("Number of enemyType1..: " + level.getnEnemy1());
+		numberOfBallooms = level.getnumberOfBallooms();
+		//System.out.println("Number of enemyType1..: " + level.getnumberOfBallooms());
 
-		nEnemy2 = level.getnEnemy2();
-		//System.out.println("Number of enemyType2..: " + level.getnEnemy2());
+		numberOfOneals = level.getnumberOfOneals();
+		//System.out.println("Number of enemyType2..: " + level.getnumberOfOneals());
 
-		nEnemy3 = level.getnEnemy3();
-		//System.out.println("Number of enemyType3..: " + level.getnEnemy3());
+		numberOfDolls = level.getnumberOfDolls();
+		//System.out.println("Number of enemyType3..: " + level.getnumberOfDolls());
 
-		nEnemy4 = level.getnEnemy4();
-		//System.out.println("Number of enemyType4..: " + level.getnEnemy4());
+		numberOfMinvos = level.getnumberOfMinvos();
+		//System.out.println("Number of enemyType4..: " + level.getnumberOfMinvos());
 
-		nEnemy5 = level.getnEnemy5();	
+		numberOfKondorias = level.getnumberOfKondorias();	
 
-		//System.out.println("Number of enemyType5..: " + level.getnEnemy5());
+		//System.out.println("Number of enemyType5..: " + level.getnumberOfKondorias());
 
-		nEnemy6 = level.getnEnemy6();
-		//System.out.println("Number of enemyType6..: " + level.getnEnemy6());
+		numberOfOvapis = level.getnumberOfOvapis();
+		//System.out.println("Number of enemyType6..: " + level.getnumberOfOvapis());
 
-		nEnemy7 = level.getnEnemy7();
-		//System.out.println("Number of enemyType7..: " + level.getnEnemy7());
+		numberOfPasses = level.getnumberOfPasses();
+		//System.out.println("Number of enemyType7..: " + level.getnumberOfPasses());
 
-		nEnemy8 = level.getnEnemy8();
-		//System.out.println("Number of enemyType8..: " + level.getnEnemy8());
+		numberOfPontans = level.getnumberOfPontans();
+		//System.out.println("Number of enemyType8..: " + level.getnumberOfPontans());
 
 		validateEnemies();
 		
@@ -113,37 +113,37 @@ public class Enemy implements Mover {
 
 	private void validateEnemies() {
 
-		if (nEnemy1 > 0) {
-			placeEnemies(Cell.BALLOOM, nEnemy1);
+		if (numberOfBallooms > 0) {
+			placeEnemies(Cell.BALLOOM, numberOfBallooms);
 		}
 
-		if (nEnemy2 > 0) {
-			placeEnemies(Cell.ONEAL, nEnemy2);
+		if (numberOfOneals > 0) {
+			placeEnemies(Cell.ONEAL, numberOfOneals);
 		}
 
-		if (nEnemy3 > 0) {
-			placeEnemies(Cell.DOLL, nEnemy3);
+		if (numberOfDolls > 0) {
+			placeEnemies(Cell.DOLL, numberOfDolls);
 		}
 
-		if (nEnemy4 > 0) {
-			placeEnemies(Cell.MINVO, nEnemy4);
+		if (numberOfMinvos > 0) {
+			placeEnemies(Cell.MINVO, numberOfMinvos);
 		}
 
-		if (nEnemy5 > 0) {
-			placeEnemies(Cell.KONDORIA, nEnemy5);
+		if (numberOfKondorias > 0) {
+			placeEnemies(Cell.KONDORIA, numberOfKondorias);
 			
 		}
 
-		if (nEnemy6 > 0) {
-			placeEnemies(Cell.OVAPI, nEnemy6);
+		if (numberOfOvapis > 0) {
+			placeEnemies(Cell.OVAPI, numberOfOvapis);
 		}
 
-		if (nEnemy7 > 0) {
-			placeEnemies(Cell.PASS, nEnemy7);
+		if (numberOfPasses > 0) {
+			placeEnemies(Cell.PASS, numberOfPasses);
 		}
 
-		if (nEnemy8 > 0) {
-			placeEnemies(Cell.PONTAN, nEnemy8);
+		if (numberOfPontans > 0) {
+			placeEnemies(Cell.PONTAN, numberOfPontans);
 		}
 
 	}
@@ -161,87 +161,87 @@ public class Enemy implements Mover {
 
 	private void loadImage() {
 		ImageIcon first = new ImageIcon(getClass().getResource(Balloom));
-		enemy1 = first.getImage();
+		imageBalloom = first.getImage();
 
 		ImageIcon second = new ImageIcon(getClass().getResource(Oneal));
-		enemy2 = second.getImage();
+		imageOneal = second.getImage();
 
 		ImageIcon third = new ImageIcon(getClass().getResource(Doll));
-		enemy3 = third.getImage();
+		imageDoll = third.getImage();
 
 		ImageIcon fourth = new ImageIcon(getClass().getResource(Minvo));
-		enemy4 = fourth.getImage();
+		imageMinvo = fourth.getImage();
 
 		ImageIcon fifth = new ImageIcon(getClass().getResource(Kondoria));
-		enemy5 = fifth.getImage();
+		imageKondoria = fifth.getImage();
 
 		ImageIcon sixth = new ImageIcon(getClass().getResource(Ovapi));
-		enemy6 = sixth.getImage();
+		imageOvapi = sixth.getImage();
 
 		ImageIcon seventh = new ImageIcon(getClass().getResource(Pass));
-		enemy7 = seventh.getImage();
+		imagePass = seventh.getImage();
 
 		ImageIcon eighth = new ImageIcon(getClass().getResource(Pontan));
-		enemy8 = eighth.getImage();
+		imagePontan = eighth.getImage();
 		
 		
 		// Change to AndBrick
 		ImageIcon nine = new ImageIcon(getClass().getResource(KondoriaAndBrick));
-		enemy9 = nine.getImage();
+		imageKondoriaAndBrick = nine.getImage();
 		
 		ImageIcon ten = new ImageIcon(getClass().getResource(OvapiAndBrick));
-		enemy10 = ten.getImage();
+		imageOvapiAndBrick = ten.getImage();
 		
 		ImageIcon eleven = new ImageIcon(getClass().getResource(PontanAndBrick));
-		enemy11 = eleven.getImage();
+		imagePontanAndBrick = eleven.getImage();
 		
 
 	}
 
 	public Image getImageBalloom() {
-		return enemy1;
+		return imageBalloom;
 	}
 	
 	
 	public Image getImageOneal() {
-		return enemy2;
+		return imageOneal;
 	}
 
 	public Image getImageDoll() {
-		return enemy3;
+		return imageDoll;
 	}
 
 	public Image getImageMinvo() {
-		return enemy4;
+		return imageMinvo;
 	}
 
 	public Image getImageKondoria() {
-		return enemy5;
+		return imageKondoria;
 	}
 	
 	public Image getImageKondoriaAndBrick() {
-		return enemy9;
+		return imageKondoriaAndBrick;
 	}
 
 	public Image getImageOvapi() {
-		return enemy6;
+		return imageOvapi;
 	}
 	
 	public Image getImageOvapiAndBrick() {
-		return enemy10;
+		return imageOvapiAndBrick;
 	}
 
 
 	public Image getImagePass() {
-		return enemy7;
+		return imagePass;
 	}
 
 	public Image getImagePontan() {
-		return enemy8;
+		return imagePontan;
 	}
 	
 	public Image getImagePontanAndBrick() {
-		return enemy11;
+		return imagePontanAndBrick;
 	}
 	
 	public int getEnemyCount() {
@@ -374,17 +374,17 @@ public class Enemy implements Mover {
 		for (int i = 0; i < enemiesInitial.size(); i++) {
 			switch (enemiesInitial.get(i).getEnemyType()) {
 			case BALLOOM:
-				if(count%3 == 0){
+				if(count % 3 == 0){
 					moveWithChance(enemiesInitial.get(i), targetX, targetY, 0, 0);
 				}
 				continue;
 			case ONEAL:
-				if(count%2 == 0){
+				if(count % 2 == 0){
 					moveWithChance(enemiesInitial.get(i), targetX, targetY, 10, 2);
 				}
 				continue;
 			case DOLL:
-				if(count%2 == 0){
+				if(count % 2 == 0){
 					moveWithChance(enemiesInitial.get(i), targetX, targetY, 0, 0);
 				}
 				continue;
@@ -394,22 +394,22 @@ public class Enemy implements Mover {
 				//}
 				continue;
 			case KONDORIA:
-				if(count%4 == 0){
+				if(count % 4 == 0){
 					wallPassMove(enemiesInitial.get(i), targetX, targetY, 2, 3);
 				}
 				continue;
 			case KONDORIAANDBRICK:
-				if(count%4 == 0){
+				if(count % 4 == 0){
 					wallPassMove(enemiesInitial.get(i), targetX, targetY, 2, 3);
 				}
 				continue;
 			case OVAPI:
-				if(count%3 == 0){
+				if(count % 3 == 0){
 					wallPassMove(enemiesInitial.get(i), targetX, targetY, 10, 2);
 				}
 				continue;
 			case OVAPIANDBRICK:
-				if(count%3 == 0){
+				if(count % 3 == 0){
 					wallPassMove(enemiesInitial.get(i), targetX, targetY, 10, 2);
 				}
 				continue;
