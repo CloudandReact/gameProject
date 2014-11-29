@@ -103,14 +103,14 @@ public class Player {
 						grid.setContents(posX, posY, Cell.BRICK);
 					}
 					else if (grid.getContents(posX, posY) == Cell.PLAYERANDBRICKANDEXITWAY) {
-						grid.setContents(posX, posY, Cell.BRICK);
+						grid.setContents(posX, posY, Cell.BRICKANDEXITWAY);
 					}
 					else if (grid.getContents(posX, posY) == Cell.PLAYERANDBRICKANDPOWERUPS) {
 						grid.setContents(posX, posY, Cell.BRICKANDPOWERUPS);
 					}
-					else if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
-						grid.setContents(posX, posY, Cell.BOMB);
-					}
+//					else if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
+//						grid.setContents(posX, posY, Cell.BOMB);
+//					}
 					else if (grid.getContents(posX, posY) == Cell.PLAYERANDEXITWAY) {
 						grid.setContents(posX, posY, Cell.EXITWAY);
 					}

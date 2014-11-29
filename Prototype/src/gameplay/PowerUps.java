@@ -48,14 +48,16 @@ public class PowerUps {
 	}
 	
 	public void givePowerUp(){
-		int clevel = PowerUps.getClevel();
-		//int clevel = 1;
+		//int clevel = PowerUps.getClevel();
+		int clevel = 10;
 		if(gotPowerup == true){
 			
 			// FLAMES
 			if (clevel == 1 || clevel == 7 || clevel == 15
 					|| clevel == 27 || clevel == 38) {
+				System.out.println("I AM HEREEES AESGSGSGA GASG  ");
 				int currentRange = player.getRange();
+				System.out.println("current Range is "+currentRange);
 				player.setRange(currentRange+1);
 			}
 
@@ -83,16 +85,16 @@ public class PowerUps {
 			else if (clevel == 9 || clevel == 14 || clevel == 18
 					|| clevel == 21 || clevel == 25 || clevel == 35
 					|| clevel == 43 || clevel == 47) {
-				
+				setBombpass(true);
 			}
 			// WALLPASS
 			else if (clevel == 10 || clevel == 16 || clevel == 31
 					|| clevel == 39 || clevel == 42 || clevel == 46) {
-				
+				setWallpass(true);
 			}
 			// FLAMEPASS
 			else if (clevel == 30 || clevel == 36 || clevel == 49) {
-				
+				setFlamepass(true);
 			}
 			// MYSTERY
 			else if (clevel == 26 || clevel == 34 || clevel == 40
@@ -111,16 +113,8 @@ public class PowerUps {
 		
 		//int randX = randInt(2,31);
 		//int randY = randInt(2,12); 
-		//int clevel = 1;
-		if(level.getCurrentLevel() == 1){
-			grid.setContents(1,4,Cell.BRICKANDPOWERUPS);
-		}
-		else if(level.getCurrentLevel() == 10){
-			//grid.setContents(11,4,Cell.BRICKANDPOWERUPS);
-		} else{
-		
-			grid.setContents(11,6,Cell.BRICKANDPOWERUPS);
-		}
+		//grid.setContents(randX,randY,Cell.BRICKANDPOWERUPS);
+		grid.setContents(1,4,Cell.BRICKANDPOWERUPS);
 	}
 	
 	
