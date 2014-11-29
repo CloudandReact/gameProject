@@ -17,13 +17,16 @@ public class Player {
 	private int posY;
 	private static int score;
 	private static int livesLeft;
+	private int movementSpeed;
+
 	
 	private int range;
 	private int bombs;
 	private int bombsOnGround;
+	private int count;
 
 	private Image image;
-	Grid grid;
+	private Grid grid;
 	private Bomb bomb;
 
 	private long startTime;
@@ -35,6 +38,7 @@ public class Player {
 	}
 
 	public Player(Grid grid, Bomb bomb) {
+		movementSpeed = 2;
 		livesLeft = 2;
 		loadImage();
 		this.setX(25);
@@ -60,192 +64,200 @@ public class Player {
 //		
 //	}
 	public void move() {
-
-		if (dx != 0) {
+		if(count == movementSpeed){	
+			if (dx != 0) {		
+				//exitWayLogic(dx/25, 0);
 			
-			//exitWayLogic(dx/25, 0);
+				
+				// Player dies if walking into enemy
+				if (grid.getContents(posX + (dx / 25), posY) == Cell.BALLOOM
+						|| grid.getContents(posX + (dx / 25), posY) == Cell.ONEAL
+						|| grid.getContents(posX + (dx / 25), posY) == Cell.DOLL
+						|| grid.getContents(posX + (dx / 25), posY) == Cell.MINVO
+						|| grid.getContents(posX + (dx / 25), posY) == Cell.KONDORIA
+						|| grid.getContents(posX + (dx / 25), posY) == Cell.OVAPI
+						|| grid.getContents(posX + (dx / 25), posY) == Cell.PASS
+						|| grid.getContents(posX + (dx / 25), posY) == Cell.PONTAN
+						|| grid.getContents(posX + (dx / 25), posY) == Cell.KONDORIAANDBRICK
+						|| grid.getContents(posX + (dx / 25), posY) == Cell.OVAPIANDBRICK
+						|| grid.getContents(posX + (dx / 25), posY) == Cell.PONTANANDBRICK) {
+					grid.setContents(posX, posY, Cell.EMPTY);
+				}
+
+				//
+				if (grid.getContents(posX + (dx / 25), posY) == Cell.EMPTY
+						|| grid.getContents(posX + (dx / 25), posY) == Cell.POWERUPS
+						|| grid.getContents(posX + (dx / 25), posY) == Cell.EXITWAY
+						|| (grid.getContents(posX + (dx / 25), posY) == Cell.BOMB && PowerUps.getBombpass() == true)
+						|| (grid.getContents(posX + (dx / 25), posY) == Cell.BRICK && PowerUps.getWallpass() == true)
+						|| (grid.getContents(posX + (dx / 25), posY) == Cell.BRICKANDEXITWAY && PowerUps.getWallpass() == true)
+						|| (grid.getContents(posX + (dx / 25), posY) == Cell.BRICKANDPOWERUPS && PowerUps.getWallpass() == true)) {
+
+					if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
+						grid.setContents(posX, posY, Cell.BOMB);
+
+					}
+					else if (grid.getContents(posX, posY) == Cell.PLAYERANDBRICK) {
+						grid.setContents(posX, posY, Cell.BRICK);
+					}
+					else if (grid.getContents(posX, posY) == Cell.PLAYERANDBRICKANDEXITWAY) {
+						grid.setContents(posX, posY, Cell.BRICK);
+					}
+					else if (grid.getContents(posX, posY) == Cell.PLAYERANDBRICKANDPOWERUPS) {
+						grid.setContents(posX, posY, Cell.BRICKANDPOWERUPS);
+					}
+					else if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
+						grid.setContents(posX, posY, Cell.BOMB);
+					}
+					else if (grid.getContents(posX, posY) == Cell.PLAYERANDEXITWAY) {
+						grid.setContents(posX, posY, Cell.EXITWAY);
+					}
+
+					else {
+						grid.setContents(posX, posY, Cell.EMPTY);
+					}
+
+					if (dx < 0) {
+						posX--;
+					} else {
+						posX++;
+					}
+
+					x += dx;
+
+					if (grid.getContents(posX, posY) == Cell.EXITWAY) {
+						grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
+
+					} else if(grid.getContents(posX, posY) == Cell.BOMB && PowerUps.getBombpass() == true){
+						grid.setContents(posX, posY, Cell.PLAYERANDBOMB);
+					}
+					else if(grid.getContents(posX, posY) == Cell.BRICK && PowerUps.getWallpass() == true){
+						grid.setContents(posX, posY, Cell.PLAYERANDBRICK);
+					}
+					else if(grid.getContents(posX, posY) == Cell.BRICKANDEXITWAY && PowerUps.getWallpass() == true){
+						grid.setContents(posX, posY, Cell.PLAYERANDBRICKANDEXITWAY);
+					}
+					else if(grid.getContents(posX, posY) == Cell.BRICKANDPOWERUPS && PowerUps.getWallpass() == true){
+						grid.setContents(posX, posY, Cell.PLAYERANDBRICKANDPOWERUPS);
+					}
+					else if(grid.getContents(posX, posY) == Cell.POWERUPS){
+						grid.setContents(posX, posY, Cell.PLAYER);
+						powerup.setGotPowerup(true);
+						System.out.println("Got the powerup!!!!!!");
+						powerup.givePowerUp();
+					}
+					
+					else {
+						grid.setContents(posX, posY, Cell.PLAYER);
+
+					}
+
+				}
+			}
+
+			if (dy != 0) {
+				
+				//exitWayLogic(0, dy/25);
+
+				// Player dies if walking into enemy
+				if (grid.getContents(posX, posY + (dy / 25)) == Cell.BALLOOM
+						|| grid.getContents(posX, posY + (dy / 25)) == Cell.ONEAL
+						|| grid.getContents(posX, posY + (dy / 25)) == Cell.DOLL
+						|| grid.getContents(posX, posY + (dy / 25)) == Cell.MINVO
+						|| grid.getContents(posX, posY + (dy / 25)) == Cell.KONDORIA
+						|| grid.getContents(posX, posY + (dy / 25)) == Cell.OVAPI
+						|| grid.getContents(posX, posY + (dy / 25)) == Cell.PASS
+						|| grid.getContents(posX, posY + (dy / 25)) == Cell.PONTAN
+						|| grid.getContents(posX, posY + (dy / 25)) == Cell.KONDORIAANDBRICK
+						|| grid.getContents(posX, posY + (dy / 25)) == Cell.OVAPIANDBRICK
+						|| grid.getContents(posX, posY + (dy / 25)) == Cell.PONTANANDBRICK) {
+					grid.setContents(posX, posY, Cell.EMPTY);
+					
+				}
+				//
+				if (grid.getContents(posX, posY + (dy / 25)) == Cell.EMPTY
+						|| grid.getContents(posX, posY + (dy / 25)) == Cell.POWERUPS
+						|| grid.getContents(posX, posY + (dy / 25)) == Cell.EXITWAY
+						|| (grid.getContents(posX, posY + (dy / 25)) == Cell.BOMB && PowerUps.getBombpass() == true)
+						|| (grid.getContents(posX, posY + (dy / 25)) == Cell.BRICK && PowerUps.getWallpass() == true)
+						|| (grid.getContents(posX, posY + (dy / 25)) == Cell.BRICKANDEXITWAY && PowerUps.getWallpass() == true)
+						|| (grid.getContents(posX, posY + (dy / 25)) == Cell.BRICKANDPOWERUPS && PowerUps.getWallpass() == true)) {
+
+					if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
+						grid.setContents(posX, posY, Cell.BOMB);
+
+					}
+					else if (grid.getContents(posX, posY) == Cell.PLAYERANDBRICK) {
+						grid.setContents(posX, posY, Cell.BRICK);
+					}
+					else if (grid.getContents(posX, posY) == Cell.PLAYERANDBRICKANDEXITWAY) {
+						grid.setContents(posX, posY, Cell.BRICKANDEXITWAY);
+					}
+					else if (grid.getContents(posX, posY) == Cell.PLAYERANDBRICKANDPOWERUPS) {
+						grid.setContents(posX, posY, Cell.BRICKANDPOWERUPS);
+					}
+					else if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
+						grid.setContents(posX, posY, Cell.BOMB);
+					}
+					else if (grid.getContents(posX, posY) == Cell.PLAYERANDEXITWAY) {
+						grid.setContents(posX, posY, Cell.EXITWAY);
+					}
+
+					else {
+						grid.setContents(posX, posY, Cell.EMPTY);
+					}
+
+					if (dy < 0) {
+						posY--;
+					}
+
+					else {
+						posY++;
+					}
+					y += dy;
+
+					if (grid.getContents(posX, posY) == Cell.EXITWAY) {
+						grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
+
+					}
+					
+					else if(grid.getContents(posX, posY) == Cell.BOMB && PowerUps.getBombpass() == true){
+						grid.setContents(posX, posY, Cell.PLAYERANDBOMB);
+					}
+					
+					else if(grid.getContents(posX, posY) == Cell.BRICK && PowerUps.getWallpass() == true){
+						grid.setContents(posX, posY, Cell.PLAYERANDBRICK);
+					}
+					else if(grid.getContents(posX, posY) == Cell.BRICKANDEXITWAY && PowerUps.getWallpass() == true){
+						grid.setContents(posX, posY, Cell.PLAYERANDBRICKANDEXITWAY);
+					}
+					else if(grid.getContents(posX, posY) == Cell.BRICKANDPOWERUPS && PowerUps.getWallpass() == true){
+						grid.setContents(posX, posY, Cell.PLAYERANDBRICKANDPOWERUPS);
+					}
+					else if(grid.getContents(posX, posY) == Cell.POWERUPS){
+						grid.setContents(posX, posY, Cell.PLAYER);
+						powerup.setGotPowerup(true);
+						System.out.println("Got the powerup!!!!!!");
+						powerup.givePowerUp();
+					}
+					
+					else {
+						grid.setContents(posX, posY, Cell.PLAYER);
+
+					}
+
+				}
+			}
+
+			
+			
+			
+			
+			
+			count = 0;
+		}
+		count++;
 		
-			
-			// Player dies if walking into enemy
-			if (grid.getContents(posX + (dx / 25), posY) == Cell.BALLOOM
-					|| grid.getContents(posX + (dx / 25), posY) == Cell.ONEAL
-					|| grid.getContents(posX + (dx / 25), posY) == Cell.DOLL
-					|| grid.getContents(posX + (dx / 25), posY) == Cell.MINVO
-					|| grid.getContents(posX + (dx / 25), posY) == Cell.KONDORIA
-					|| grid.getContents(posX + (dx / 25), posY) == Cell.OVAPI
-					|| grid.getContents(posX + (dx / 25), posY) == Cell.PASS
-					|| grid.getContents(posX + (dx / 25), posY) == Cell.PONTAN
-					|| grid.getContents(posX + (dx / 25), posY) == Cell.KONDORIAANDBRICK
-					|| grid.getContents(posX + (dx / 25), posY) == Cell.OVAPIANDBRICK
-					|| grid.getContents(posX + (dx / 25), posY) == Cell.PONTANANDBRICK) {
-				grid.setContents(posX, posY, Cell.EMPTY);
-			}
-
-			//
-			if (grid.getContents(posX + (dx / 25), posY) == Cell.EMPTY
-					|| grid.getContents(posX + (dx / 25), posY) == Cell.POWERUPS
-					|| grid.getContents(posX + (dx / 25), posY) == Cell.EXITWAY
-					|| (grid.getContents(posX + (dx / 25), posY) == Cell.BOMB && PowerUps.getBombpass() == true)
-					|| (grid.getContents(posX + (dx / 25), posY) == Cell.BRICK && PowerUps.getWallpass() == true)
-					|| (grid.getContents(posX + (dx / 25), posY) == Cell.BRICKANDEXITWAY && PowerUps.getWallpass() == true)
-					|| (grid.getContents(posX + (dx / 25), posY) == Cell.BRICKANDPOWERUPS && PowerUps.getWallpass() == true)) {
-
-				if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
-					grid.setContents(posX, posY, Cell.BOMB);
-
-				}
-				else if (grid.getContents(posX, posY) == Cell.PLAYERANDBRICK) {
-					grid.setContents(posX, posY, Cell.BRICK);
-				}
-				else if (grid.getContents(posX, posY) == Cell.PLAYERANDBRICKANDEXITWAY) {
-					grid.setContents(posX, posY, Cell.BRICK);
-				}
-				else if (grid.getContents(posX, posY) == Cell.PLAYERANDBRICKANDPOWERUPS) {
-					grid.setContents(posX, posY, Cell.BRICKANDPOWERUPS);
-				}
-				else if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
-					grid.setContents(posX, posY, Cell.BOMB);
-				}
-				else if (grid.getContents(posX, posY) == Cell.PLAYERANDEXITWAY) {
-					grid.setContents(posX, posY, Cell.EXITWAY);
-				}
-
-				else {
-					grid.setContents(posX, posY, Cell.EMPTY);
-				}
-
-				if (dx < 0) {
-					posX--;
-				} else {
-					posX++;
-				}
-
-				x += dx;
-
-				if (grid.getContents(posX, posY) == Cell.EXITWAY) {
-					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
-
-				} else if(grid.getContents(posX, posY) == Cell.BOMB && PowerUps.getBombpass() == true){
-					grid.setContents(posX, posY, Cell.PLAYERANDBOMB);
-				}
-				else if(grid.getContents(posX, posY) == Cell.BRICK && PowerUps.getWallpass() == true){
-					grid.setContents(posX, posY, Cell.PLAYERANDBRICK);
-				}
-				else if(grid.getContents(posX, posY) == Cell.BRICKANDEXITWAY && PowerUps.getWallpass() == true){
-					grid.setContents(posX, posY, Cell.PLAYERANDBRICKANDEXITWAY);
-				}
-				else if(grid.getContents(posX, posY) == Cell.BRICKANDPOWERUPS && PowerUps.getWallpass() == true){
-					grid.setContents(posX, posY, Cell.PLAYERANDBRICKANDPOWERUPS);
-				}
-				else if(grid.getContents(posX, posY) == Cell.POWERUPS){
-					grid.setContents(posX, posY, Cell.PLAYER);
-					powerup.setGotPowerup(true);
-					System.out.println("Got the powerup!!!!!!");
-					powerup.givePowerUp();
-				}
-				
-				else {
-					grid.setContents(posX, posY, Cell.PLAYER);
-
-				}
-
-			}
-		}
-
-		if (dy != 0) {
-			
-			//exitWayLogic(0, dy/25);
-
-			// Player dies if walking into enemy
-			if (grid.getContents(posX, posY + (dy / 25)) == Cell.BALLOOM
-					|| grid.getContents(posX, posY + (dy / 25)) == Cell.ONEAL
-					|| grid.getContents(posX, posY + (dy / 25)) == Cell.DOLL
-					|| grid.getContents(posX, posY + (dy / 25)) == Cell.MINVO
-					|| grid.getContents(posX, posY + (dy / 25)) == Cell.KONDORIA
-					|| grid.getContents(posX, posY + (dy / 25)) == Cell.OVAPI
-					|| grid.getContents(posX, posY + (dy / 25)) == Cell.PASS
-					|| grid.getContents(posX, posY + (dy / 25)) == Cell.PONTAN
-					|| grid.getContents(posX, posY + (dy / 25)) == Cell.KONDORIAANDBRICK
-					|| grid.getContents(posX, posY + (dy / 25)) == Cell.OVAPIANDBRICK
-					|| grid.getContents(posX, posY + (dy / 25)) == Cell.PONTANANDBRICK) {
-				grid.setContents(posX, posY, Cell.EMPTY);
-				
-			}
-			//
-			if (grid.getContents(posX, posY + (dy / 25)) == Cell.EMPTY
-					|| grid.getContents(posX, posY + (dy / 25)) == Cell.POWERUPS
-					|| grid.getContents(posX, posY + (dy / 25)) == Cell.EXITWAY
-					|| (grid.getContents(posX, posY + (dy / 25)) == Cell.BOMB && PowerUps.getBombpass() == true)
-					|| (grid.getContents(posX, posY + (dy / 25)) == Cell.BRICK && PowerUps.getWallpass() == true)
-					|| (grid.getContents(posX, posY + (dy / 25)) == Cell.BRICKANDEXITWAY && PowerUps.getWallpass() == true)
-					|| (grid.getContents(posX, posY + (dy / 25)) == Cell.BRICKANDPOWERUPS && PowerUps.getWallpass() == true)) {
-
-				if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
-					grid.setContents(posX, posY, Cell.BOMB);
-
-				}
-				else if (grid.getContents(posX, posY) == Cell.PLAYERANDBRICK) {
-					grid.setContents(posX, posY, Cell.BRICK);
-				}
-				else if (grid.getContents(posX, posY) == Cell.PLAYERANDBRICKANDEXITWAY) {
-					grid.setContents(posX, posY, Cell.BRICKANDEXITWAY);
-				}
-				else if (grid.getContents(posX, posY) == Cell.PLAYERANDBRICKANDPOWERUPS) {
-					grid.setContents(posX, posY, Cell.BRICKANDPOWERUPS);
-				}
-				else if (grid.getContents(posX, posY) == Cell.PLAYERANDBOMB) {
-					grid.setContents(posX, posY, Cell.BOMB);
-				}
-				else if (grid.getContents(posX, posY) == Cell.PLAYERANDEXITWAY) {
-					grid.setContents(posX, posY, Cell.EXITWAY);
-				}
-
-				else {
-					grid.setContents(posX, posY, Cell.EMPTY);
-				}
-
-				if (dy < 0) {
-					posY--;
-				}
-
-				else {
-					posY++;
-				}
-				y += dy;
-
-				if (grid.getContents(posX, posY) == Cell.EXITWAY) {
-					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
-
-				}
-				
-				else if(grid.getContents(posX, posY) == Cell.BOMB && PowerUps.getBombpass() == true){
-					grid.setContents(posX, posY, Cell.PLAYERANDBOMB);
-				}
-				
-				else if(grid.getContents(posX, posY) == Cell.BRICK && PowerUps.getWallpass() == true){
-					grid.setContents(posX, posY, Cell.PLAYERANDBRICK);
-				}
-				else if(grid.getContents(posX, posY) == Cell.BRICKANDEXITWAY && PowerUps.getWallpass() == true){
-					grid.setContents(posX, posY, Cell.PLAYERANDBRICKANDEXITWAY);
-				}
-				else if(grid.getContents(posX, posY) == Cell.BRICKANDPOWERUPS && PowerUps.getWallpass() == true){
-					grid.setContents(posX, posY, Cell.PLAYERANDBRICKANDPOWERUPS);
-				}
-				else if(grid.getContents(posX, posY) == Cell.POWERUPS){
-					grid.setContents(posX, posY, Cell.PLAYER);
-					powerup.setGotPowerup(true);
-					System.out.println("Got the powerup!!!!!!");
-					powerup.givePowerUp();
-				}
-				
-				else {
-					grid.setContents(posX, posY, Cell.PLAYER);
-
-				}
-
-			}
-		}
-
 	}
 
 	public Boolean getBombStatus() {
@@ -404,6 +416,15 @@ public class Player {
 
 	public static int getLivesLeft() {
 		return livesLeft;
+	}
+	
+	public void toggleMovementSpeed(){
+		if(movementSpeed == 2){
+			this.movementSpeed = 1;
+		}
+		else{
+			this.movementSpeed = 2;
+		}
 	}
 
 	public static void setLivesLeft(int livesLeft) {

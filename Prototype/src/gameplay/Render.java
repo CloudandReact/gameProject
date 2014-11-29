@@ -42,7 +42,6 @@ public class Render extends JPanel implements ActionListener {
 	private int count;
 	private int leftMostVisibleCell;
 	private int rightMostVisibleCell;
-	private int playerMovementSpeed;
 
 	private int countPlayer = 0;
 
@@ -72,7 +71,6 @@ public class Render extends JPanel implements ActionListener {
 		
 		
 		initialize();
-		playerMovementSpeed = 2;
 		numberOfLives = 2;
 		addKeyListener(new TAdapter());
 		setFocusable(true);
@@ -146,7 +144,6 @@ public class Render extends JPanel implements ActionListener {
 		
 		GameState.setState(State.RUNNING);
 		count = 0;
-		playerMovementSpeed = 2;
 		grid.initializeGridMap();
 		
 		level = new Level(currentLevel);
@@ -390,9 +387,7 @@ public class Render extends JPanel implements ActionListener {
 
 	}
 	
-	public void setPlayerMovementSpeed(int movementSpeed){
-		this.playerMovementSpeed = movementSpeed;
-	}
+
 	
 	private void checkIfAllEnemiesDead() {
 		if (bomb.getNumberOfEnemiesKilled() == enemy.getEnemyCount()){
@@ -461,7 +456,7 @@ public class Render extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 	
-		if ((GameState.getState() == State.RUNNING || GameState.getState() == State.RUNNINGANDLEVELOVER) && countPlayer == playerMovementSpeed) {
+		if ((GameState.getState() == State.RUNNING || GameState.getState() == State.RUNNINGANDLEVELOVER)) {
 			player.move();
 			repaint();
 			countPlayer = 0;

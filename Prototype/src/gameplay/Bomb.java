@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-public class Bomb {
+public class Bomb implements Runnable {
 
 	private int range;
 	private int bombs;
@@ -556,6 +556,12 @@ public class Bomb {
 
 	public void setBombs(int bombs) {
 		this.bombs = bombs;
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

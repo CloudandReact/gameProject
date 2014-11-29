@@ -68,7 +68,7 @@ public class PowerUps {
 			}
 			// SPEED
 			else if (clevel == 4) {
-				
+				player.toggleMovementSpeed();
 			}
 			// DETONATOR
 			else if (clevel == 3 || clevel == 8 || clevel == 13
