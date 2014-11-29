@@ -69,6 +69,8 @@ public class Enemy {
 	private Cell highestLevelEnemy;
 	
 	
+	int dynamicNumberOfEnemies;
+	
 	
 	public Enemy(Grid grid, Render render, Level level) {
 		this.level = level;
@@ -122,43 +124,43 @@ public class Enemy {
 
 		if (numberOfBallooms > 0) {
 			placeEnemies(Cell.BALLOOM, numberOfBallooms);
-			highestLevelEnemy = Cell.BALLOOM;
+			highestLevelEnemy = Cell.ONEAL;
 		}
 
 		if (numberOfOneals > 0) {
 			placeEnemies(Cell.ONEAL, numberOfOneals);
-			highestLevelEnemy = Cell.ONEAL;
+			highestLevelEnemy = Cell.DOLL;
 
 		}
 
 		if (numberOfDolls > 0) {
 			placeEnemies(Cell.DOLL, numberOfDolls);
-			highestLevelEnemy = Cell.DOLL;
+			highestLevelEnemy = Cell.MINVO;
 
 		}
 
 		if (numberOfMinvos > 0) {
 			placeEnemies(Cell.MINVO, numberOfMinvos);
-			highestLevelEnemy = Cell.MINVO;
+			highestLevelEnemy = Cell.KONDORIA;
 
 		}
 
 		if (numberOfKondorias > 0) {
 			placeEnemies(Cell.KONDORIA, numberOfKondorias);
-			highestLevelEnemy = Cell.KONDORIA;
+			highestLevelEnemy = Cell.OVAPI;
 
 			
 		}
 
 		if (numberOfOvapis > 0) {
 			placeEnemies(Cell.OVAPI, numberOfOvapis);
-			highestLevelEnemy = Cell.OVAPI;
+			highestLevelEnemy = Cell.PASS;
 
 		}
 
 		if (numberOfPasses > 0) {
 			placeEnemies(Cell.PASS, numberOfPasses);
-			highestLevelEnemy = Cell.PASS;
+			highestLevelEnemy = Cell.PONTAN;
 
 		}
 
@@ -296,6 +298,7 @@ public class Enemy {
 	
 	
 	private void copyGridAndVerifyTracker() {
+		dynamicNumberOfEnemies = 0;
 		for (int posX = 0; posX < Bomberman.WIDTH; posX++) {
 			for (int posY = 0; posY < Bomberman.HEIGHT; posY++) {
 				tempGrid.setContents(posX, posY, grid.getContents(posX, posY));
@@ -339,8 +342,12 @@ public class Enemy {
 				}						
 			}
 		}
-		
-		setIsExitwayBlownUp(false);
+		if(isExitwayBlownUp){
+			System.out.println("DYNAMIC NUMBER>>>>>>>>" + dynamicNumberOfEnemies);
+			placeEnemies(highestLevelEnemy, 8-dynamicNumberOfEnemies);
+			setIsExitwayBlownUp(false);
+
+		}
 	}
 	
 	private void copyGrid() {
@@ -352,9 +359,12 @@ public class Enemy {
 		}
 	}
 	
-	private void exitwayLogic(int index){
+	private void exitwayLogic(){
 		
-		switch(highestLevelEnemy){
+		
+		
+		
+		/*switch(highestLevelEnemy){
 		case BALLOOM:	
 			System.out.println("Changing enemies");
 			enemiesInitial.get(index).setEnemyType(Cell.ONEAL); 
@@ -391,11 +401,12 @@ public class Enemy {
 			break;					
 		default:
 			break; 
-		}
+		}*/
 	}
 	
 	
 	private void verifyTracker(int posX, int posY, Cell enemyType){
+	
 		
 		for(int i = 0; i < enemiesInitial.size(); i++){	
 			//System.out.println(i);
@@ -403,8 +414,10 @@ public class Enemy {
 						
 				
 				if(isExitwayBlownUp){
-					exitwayLogic(i);
+					System.out.println(highestLevelEnemy + "SLAdpasldlasdas;lkdas;lkdfal;sd");
+					enemiesInitial.get(i).setEnemyType(highestLevelEnemy);
 					System.out.println("yes alllllllllllllllll enemies");
+					
 				}
 				
 				livingEnemy = new EnemyTracker(posX, posY, enemiesInitial.get(i).getEnemyType());
@@ -414,13 +427,15 @@ public class Enemy {
 				livingEnemy.setMovingInY(enemiesInitial.get(i).isMovingInY());
 				enemiesAlive.add(livingEnemy);
 				
-				
+				dynamicNumberOfEnemies++;
 							
 	
 			}
 		}
 		
 		
+		
+
 		
 		//System.out.println("Size of enemiesAlive list..:" + enemiesAlive.size());
 	
