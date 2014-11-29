@@ -44,6 +44,10 @@ public class Bomb implements Runnable {
 	private int totalGameScore;
 
 	private Grid grid;
+	
+	private long startTime;
+	private long currentTime;
+	
 
 	/*
 	 * RANGE IS DEFAULTED TO 1 IN CONSTRUCTORS. TO SET RANGE USE SETTER ON BOMB
@@ -55,7 +59,7 @@ public class Bomb implements Runnable {
 		scores = new ArrayList<Integer>();
 		loadImage();
 		this.range = 1;
-		this.setBombs(2);
+		this.setBombs(1);
 		this.grid = grid;
 	}
 
@@ -405,6 +409,7 @@ public class Bomb implements Runnable {
 		currentRange = 0;
 
 		while (currentRange <= range) {
+			
 			if (grid.getContents(posX, posY - currentRange) != Cell.CONCRETE) {
 
 				if (grid.getContents(posX, posY - currentRange) == Cell.BRICKANDPOWERUPS) {
@@ -560,7 +565,19 @@ public class Bomb implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+
+		startTime = System.currentTimeMillis();
+		
+		while(true){
+			if((currentTime = System.currentTimeMillis()) - startTime >= 2000){
+				Player.setBombsOnGround(Player.getBombsOnGround()-1);
+				System.out.println("BLOWING UP NOW");
+				this.explode();
+				break;
+			}
+				
+			
+		}
 		
 	}
 

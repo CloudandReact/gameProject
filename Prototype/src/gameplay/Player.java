@@ -22,7 +22,7 @@ public class Player {
 	
 	private int range;
 	private int bombs;
-	private int bombsOnGround;
+	private static int bombsOnGround;
 	private int count;
 
 	private Image image;
@@ -37,7 +37,7 @@ public class Player {
 
 	}
 
-	public Player(Grid grid, Bomb bomb) {
+	public Player(Grid grid, Bomb bomb, PowerUps powerup) {
 		movementSpeed = 2;
 		livesLeft = 2;
 		loadImage();
@@ -50,7 +50,7 @@ public class Player {
 		this.grid.setContents(1, 1, Cell.PLAYER);
 		setScore(0);
 		this.isBombPlaced = false;
-		powerup = new PowerUps(grid, this);
+		this.powerup = powerup;
 		this.range = 1;
 		this.bombs = 2;
 		this.bombsOnGround = 0;
@@ -325,22 +325,33 @@ public class Player {
 		if (key == KeyEvent.VK_X) {
 			if ((GameState.getState() == State.RUNNING || GameState.getState() == State.RUNNINGANDLEVELOVER)) {
 				if (grid.getContents(posX, posY) != Cell.PLAYERANDBOMB
-						&& (grid.getContents(posX, posY) != Cell.PLAYERANDEXITWAY)) {
+						&& (grid.getContents(posX, posY) != Cell.PLAYERANDEXITWAY && powerup.getDetonate() == false)) {
 					if(getBombsOnGround() < getBombs()){
-					grid.setContents(posX, posY, Cell.PLAYERANDBOMB);
-
-					// THIS IS WHERE WE SET THE RANGE!!!!!!!!!!!!!!!!!!! SET IT
-					// AS HIGH AS YOU WANT, FRIENDS
+						grid.setContents(posX, posY, Cell.PLAYERANDBOMB);
+						
+						// THIS IS WHERE WE SET THE RANGE!!!!!!!!!!!!!!!!!!! SET IT
+						// AS HIGH AS YOU WANT, FRIENDS
 					
-					isBombPlaced = true;
-					//bomb.setRange(1);
+						isBombPlaced = true;
+						//bomb.setRange(1);
 					
-					setBombsOnGround(getBombsOnGround() + 1);
-					System.out.println(range);
-					bomb.setRange(range);
-					bomb.setBombs(bombs);
-					bomb.setPosition(posX, posY);
-					initializeTimer();
+//						setBombsOnGround(getBombsOnGround() + 1);
+//						System.out.println(range);
+//						bomb.setRange(range);
+//						bomb.setBombs(bombs);
+//						bomb.setPosition(posX, posY);
+//						initializeTimer();
+						
+						setBombsOnGround(getBombsOnGround() + 1);
+						bomb.setBombs(bombs);
+						bomb.setRange(range);
+						bomb.setPosition(posX, posY);
+						//Bomb workPlease = new Bomb(grid);
+						Thread t = new Thread(bomb);
+				        t.start();
+				        //isBombPlaced = true;
+					
+					
 					}
 				}
 			}
@@ -447,12 +458,12 @@ public class Player {
 		this.bombs = bombs;
 	}
 
-	public int getBombsOnGround() {
+	public static int getBombsOnGround() {
 		return bombsOnGround;
 	}
 
-	public void setBombsOnGround(int bombsOnGround) {
-		this.bombsOnGround = bombsOnGround;
+	public static void setBombsOnGround(int bombsOnGround) {
+		Player.bombsOnGround = bombsOnGround;
 	}
 
 	// public void setUsername(String name) {

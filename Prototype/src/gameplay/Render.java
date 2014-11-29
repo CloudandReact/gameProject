@@ -104,9 +104,9 @@ public class Render extends JPanel implements ActionListener {
 		this.brick = new Brick(grid);
 		this.bomb = new Bomb(grid);
 		this.concrete = new Concrete(grid);
-		this.powerups = new PowerUps(grid, player);
+		this.powerups = new PowerUps(grid, player,this.level);
 		this.exitway = new ExitWay(grid);
-		this.player = new Player(grid, bomb);
+		this.player = new Player(grid, bomb,powerups);
 		this.enemy = new Enemy(grid, this, this.level);
 		this.isPlayerAlive = true;
 		PowerUps.setClevel(currentLevel);
@@ -151,9 +151,9 @@ public class Render extends JPanel implements ActionListener {
 		brick = new Brick(grid);
 		bomb = new Bomb(grid);
 		concrete = new Concrete(grid);
-		powerups = new PowerUps(grid, player);
+		powerups = new PowerUps(grid, player,this.level);
 		exitway = new ExitWay(grid);
-		player = new Player(grid, bomb);
+		player = new Player(grid, bomb,powerups);
 		enemy = new Enemy(grid,this, level);
 		PowerUps.setClevel(currentLevel);
 		isPlayerAlive = true;
@@ -180,11 +180,11 @@ public class Render extends JPanel implements ActionListener {
 		bomberman.setScore(Player.getScore());
 		
 		if ( player.getBombStatus() && (currentTime = System.currentTimeMillis()) - player.getInitialTime() >= 2000) {
-
+			/*System.out.println("BOOOOOOOOOOOOOOOOOOOOOOOOm");
 			bomb.explode();
 			player.setBombStatus(false);
 			System.out.println("decrease bombs on ground");
-			player.setBombsOnGround(player.getBombsOnGround() - 1);
+			player.setBombsOnGround(player.getBombsOnGround() - 1);*/
 			//decrease bombs on ground
 		}
 		
@@ -423,7 +423,7 @@ public class Render extends JPanel implements ActionListener {
 			timer.stop();
 			powerups.setWallpass(false);
 			powerups.setBombpass(false);
-			powerups.setWallpass(false);
+			powerups.setFlamepass(false);
 			powerups.setDetonate(false);
 			
 			System.out.println("Lives Left...: " + Player.getLivesLeft());
@@ -459,7 +459,6 @@ public class Render extends JPanel implements ActionListener {
 		if ((GameState.getState() == State.RUNNING || GameState.getState() == State.RUNNINGANDLEVELOVER)) {
 			player.move();
 			repaint();
-			countPlayer = 0;
 		}
 
 		else if (GameState.getState() == State.PAUSE && pauseMenuOpen == false) {
@@ -472,7 +471,6 @@ public class Render extends JPanel implements ActionListener {
 			timeOverMenuOpen = true;
 		}
 		
-		countPlayer++;
 	}
 
 	private class TAdapter extends KeyAdapter {

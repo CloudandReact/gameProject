@@ -14,9 +14,9 @@ public class PowerUps {
 	private String bombPassP = "bombpassp.png";
 	private String wallPassP = "wallpassp.png";
 	private String flamePassP = "flamepassp.png"; 
-	private static Boolean wallpass = true;
-	private static Boolean bombpass = true; 
-	private static Boolean flamepass = true;
+	private static Boolean wallpass = false;
+	private static Boolean bombpass = false; 
+	private static Boolean flamepass = false;
 	private static Boolean detonate = false; 
 	private static Boolean gotPowerup= false; //remember to set this to false when player moves to next clevel
 	//String [] powerups = {"bombsP.png","flamesP.png","speedP.png","detonatorsP.png","bombPassP.png","wallPassP.png","flamePassP.png"};
@@ -34,11 +34,13 @@ public class PowerUps {
 	private Player player;
 	private Level level;
 	
+	// use Level object Rakinul
 	
-	public PowerUps(Grid grid, Player player){
+	public PowerUps(Grid grid, Player player, Level level){
 		//cclevel = clevel.getCurrentclevel();
 		this.grid = grid;
 		this.player = player;
+		this.level = level;
 		loadImage();
 		placePowerups();
 		givePowerUp();
@@ -110,10 +112,10 @@ public class PowerUps {
 		//int randX = randInt(2,31);
 		//int randY = randInt(2,12); 
 		//int clevel = 1;
-		if(cclevel == 1){
-			grid.setContents(5,4,Cell.BRICKANDPOWERUPS);
+		if(level.getCurrentLevel() == 1){
+			grid.setContents(1,4,Cell.BRICKANDPOWERUPS);
 		}
-		else if(cclevel == 10){
+		else if(level.getCurrentLevel() == 10){
 			//grid.setContents(11,4,Cell.BRICKANDPOWERUPS);
 		} else{
 		
@@ -213,7 +215,7 @@ public class PowerUps {
 	}
 
 
-	public static Boolean getDetonate() {
+	public Boolean getDetonate() {
 		return detonate;
 	}
 
