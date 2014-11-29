@@ -216,9 +216,12 @@ public class Player {
 				if (grid.getContents(posX, posY) == Cell.EXITWAY) {
 					grid.setContents(posX, posY, Cell.PLAYERANDEXITWAY);
 
-				} else if(grid.getContents(posX, posY) == Cell.BOMB && PowerUps.getBombpass() == true){
+				}
+				
+				else if(grid.getContents(posX, posY) == Cell.BOMB && PowerUps.getBombpass() == true){
 					grid.setContents(posX, posY, Cell.PLAYERANDBOMB);
 				}
+				
 				else if(grid.getContents(posX, posY) == Cell.BRICK && PowerUps.getWallpass() == true){
 					grid.setContents(posX, posY, Cell.PLAYERANDBRICK);
 				}

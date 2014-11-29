@@ -42,6 +42,9 @@ public class Render extends JPanel implements ActionListener {
 	private int count;
 	private int leftMostVisibleCell;
 	private int rightMostVisibleCell;
+	private int playerMovementSpeed;
+
+	private int countPlayer = 0;
 
 
 	private Boolean isPlayerAlive;
@@ -64,9 +67,12 @@ public class Render extends JPanel implements ActionListener {
 		this.bomberman = bomberman;
 		System.out.println("HELLO MY NAME IS...: " + PlayerInfo.getUsername());
 		this.currentLevel = 1;
+		countPlayer = 0;
+		
 		
 		
 		initialize();
+		playerMovementSpeed = 2;
 		numberOfLives = 2;
 		addKeyListener(new TAdapter());
 		setFocusable(true);
@@ -140,7 +146,7 @@ public class Render extends JPanel implements ActionListener {
 		
 		GameState.setState(State.RUNNING);
 		count = 0;
-		
+		playerMovementSpeed = 2;
 		grid.initializeGridMap();
 		
 		level = new Level(currentLevel);
@@ -384,6 +390,10 @@ public class Render extends JPanel implements ActionListener {
 
 	}
 	
+	public void setPlayerMovementSpeed(int movementSpeed){
+		this.playerMovementSpeed = movementSpeed;
+	}
+	
 	private void checkIfAllEnemiesDead() {
 		if (bomb.getNumberOfEnemiesKilled() == enemy.getEnemyCount()){
 			GameState.setState(State.RUNNINGANDLEVELOVER);				
@@ -450,9 +460,11 @@ public class Render extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (GameState.getState() == State.RUNNING || GameState.getState() == State.RUNNINGANDLEVELOVER) {
+	
+		if ((GameState.getState() == State.RUNNING || GameState.getState() == State.RUNNINGANDLEVELOVER) && countPlayer == playerMovementSpeed) {
 			player.move();
 			repaint();
+			countPlayer = 0;
 		}
 
 		else if (GameState.getState() == State.PAUSE && pauseMenuOpen == false) {
@@ -464,6 +476,8 @@ public class Render extends JPanel implements ActionListener {
 			new TimeOverMenu(grid, this, gameState, player, bomberman);
 			timeOverMenuOpen = true;
 		}
+		
+		countPlayer++;
 	}
 
 	private class TAdapter extends KeyAdapter {
