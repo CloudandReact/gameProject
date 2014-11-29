@@ -22,6 +22,7 @@ public class Bomb {
 	private String bombExploding = "explosion.png";
 	private String bombAndExitways = "bombandexitway.png";
 	private int numberOfEnemiesKilled;
+	private PowerUps powerup;
 	
 	List<Integer> scores; 
 
@@ -179,8 +180,17 @@ public class Bomb {
 					} 
 					
 				}
-				
+				//FLAME PASS POWERUP
+				else if(grid.getContents(posX + currentRange, posY) == Cell.PLAYER){
+					if(PowerUps.getFlamepass() == true){
+						grid.setContents(posX + currentRange, posY, Cell.PLAYER);
+					}
+					else{
+						grid.setContents(posX + currentRange, posY, Cell.EXPLODE);
+					}
+				}
 				else {
+					
 					grid.setContents(posX + currentRange, posY, Cell.EXPLODE);
 				}
 
@@ -280,6 +290,14 @@ public class Bomb {
 						grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
 					}
 				} 
+				else if(grid.getContents(posX - currentRange, posY) == Cell.PLAYER){
+					if(PowerUps.getFlamepass() == true){
+						grid.setContents(posX - currentRange, posY, Cell.PLAYER);
+					}
+					else{
+						grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
+					}
+				}
 				else {
 					grid.setContents(posX - currentRange, posY, Cell.EXPLODE);
 				}
@@ -360,7 +378,16 @@ public class Bomb {
 						scores.add(PONTAN_SCORE);
 						grid.setContents(posX, posY + currentRange, Cell.EXPLODE);
 					}
-				} else {
+				} 
+				else if(grid.getContents(posX, posY + currentRange) == Cell.PLAYER){
+					if(PowerUps.getFlamepass() == true){
+						grid.setContents(posX, posY + currentRange, Cell.PLAYER);
+					}
+					else{
+						grid.setContents(posX, posY + currentRange, Cell.EXPLODE);
+					}
+				}
+				else {
 					grid.setContents(posX, posY + currentRange, Cell.EXPLODE);
 				}
 				
@@ -443,7 +470,14 @@ public class Bomb {
 					}
 				}
 				
-			
+				else if(grid.getContents(posX, posY - currentRange) == Cell.PLAYER){
+					if(PowerUps.getFlamepass() == true){
+						grid.setContents(posX, posY - currentRange, Cell.PLAYER);
+					}
+					else{
+						grid.setContents(posX, posY - currentRange, Cell.EXPLODE);
+					}
+				}
 				
 				
 				else {

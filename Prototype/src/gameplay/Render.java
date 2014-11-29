@@ -210,6 +210,18 @@ public class Render extends JPanel implements ActionListener {
 					case BRICK:
 						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						continue;
+					case PLAYERANDBRICK:
+						g2d.drawImage(player.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						isPlayerAlive = true;
+						continue;
+					case PLAYERANDBRICKANDEXITWAY:
+						g2d.drawImage(player.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						isPlayerAlive = true;
+						continue;
+					case PLAYERANDBRICKANDPOWERUPS:
+						g2d.drawImage(player.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						isPlayerAlive = true;
+						continue;
 					case PLAYERANDBOMB:
 						g2d.drawImage(bomb.getImageBombPlayer(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						isPlayerAlive = true;
@@ -401,6 +413,7 @@ public class Render extends JPanel implements ActionListener {
 		Player.setLivesLeft(numberOfLives);
 		if (isPlayerAlive == false) {
 			GameState.setState(State.PLAYERDEAD);
+			System.out.println("Player dies here!!");
 			GameState.setState(State.RUNNING);
 			timer.stop();
 			powerups.setWallpass(false);

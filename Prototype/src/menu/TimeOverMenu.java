@@ -2,6 +2,7 @@ package menu;
 
 import gameplay.Bomberman;
 import gameplay.GameState;
+import gameplay.GameTimer;
 import gameplay.Grid;
 import gameplay.Player;
 import gameplay.PlayerInfo;
@@ -107,9 +108,16 @@ public class TimeOverMenu extends JFrame{
 		
 		restartLevel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AccountMenu.destroyFrame();
 				PlayerInfo.setUsername(playersName);
-				new Bomberman();
+				
+				getContentPane().removeAll();
+				dispose();
+				render.initialize();
+				//render.setPauseMenuState(false);
+				GameState.setState(State.RUNNING);
+				GameTimer.restartTimer();
+				
+				
 				// Execute when button is pressed
 //				getContentPane().removeAll();
 //				dispose();

@@ -14,9 +14,9 @@ public class PowerUps {
 	private String bombPassP = "bombpassp.png";
 	private String wallPassP = "wallpassp.png";
 	private String flamePassP = "flamepassp.png"; 
-	private static Boolean wallpass = false;
-	private static Boolean bombpass = false; 
-	private static Boolean flamepass = false;
+	private static Boolean wallpass = true;
+	private static Boolean bombpass = true; 
+	private static Boolean flamepass = true;
 	private static Boolean detonate = false; 
 	private static Boolean gotPowerup= false; //remember to set this to false when player moves to next clevel
 	//String [] powerups = {"bombsP.png","flamesP.png","speedP.png","detonatorsP.png","bombPassP.png","wallPassP.png","flamePassP.png"};
@@ -75,7 +75,7 @@ public class PowerUps {
 					|| clevel == 20 || clevel == 22 || clevel == 24
 					|| clevel == 29 || clevel == 33 || clevel == 27
 					|| clevel == 41 || clevel == 44 || clevel == 48) {
-				
+				setDetonate(true);
 			}
 			// BOMBPASS
 			else if (clevel == 9 || clevel == 14 || clevel == 18

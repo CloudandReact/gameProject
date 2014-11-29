@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 
 public class GameTimer implements ActionListener{
 
-    private int count = 10;
+    private static int count = 200;
     private int lives = 2;
     private String over = "Time Over!";
     private JLabel label;
@@ -47,6 +47,9 @@ public class GameTimer implements ActionListener{
     	label2.setText("Lives Left: " + lives);
     }
     
+    public static void restartTimer(){
+    	count = 200;
+    }
     public void setScore(int score){
     	this.score = score;
     	label3.setText("Score: " + score);
