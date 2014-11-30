@@ -14,10 +14,13 @@ public class PowerUps {
 	private String bombPassP = "bombpassp.png";
 	private String wallPassP = "wallpassp.png";
 	private String flamePassP = "flamepassp.png"; 
+	
 	private static Boolean wallpass = false;
 	private static Boolean bombpass = false; 
 	private static Boolean flamepass = false;
 	private static Boolean detonate = true; 
+	
+	
 	private static Boolean gotPowerup= false; //remember to set this to false when player moves to next clevel
 	//String [] powerups = {"bombsP.png","flamesP.png","speedP.png","detonatorsP.png","bombPassP.png","wallPassP.png","flamePassP.png"};
 	
@@ -39,11 +42,9 @@ public class PowerUps {
 		//draw
 		this.grid = grid;
 		this.level = level;
-		loadImage();
-
-
-		
+		loadImage();		
 	}
+	
 	public PowerUps(Grid grid, Player player, Level level){
 		//cclevel = clevel.getCurrentclevel();
 		this.grid = grid;
@@ -108,6 +109,7 @@ public class PowerUps {
 			// MYSTERY
 			else if (clevel == 26 || clevel == 34 || clevel == 40
 					|| clevel == 45 || clevel == 50) {
+				
 				// g2d.drawImage(powerups.getMysteryImage(),
 				// Bomberman.TILE_SIZE * i, Bomberman.TILE_SIZE * j, this);
 				// continue;

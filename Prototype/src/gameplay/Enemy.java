@@ -89,26 +89,19 @@ public class Enemy {
 
 		System.out.println("Current Level..: " + level.getLevel());
 
+		
 		numberOfBallooms = level.getnumberOfBallooms();
-
 		numberOfOneals = level.getnumberOfOneals();
-
 		numberOfDolls = level.getnumberOfDolls();
-
 		numberOfMinvos = level.getnumberOfMinvos();
-
 		numberOfKondorias = level.getnumberOfKondorias();	
-
 		numberOfOvapis = level.getnumberOfOvapis();
-
 		numberOfPasses = level.getnumberOfPasses();
-
 		numberOfPontans = level.getnumberOfPontans();
-
 		validateEnemies();
 		
-
 	}
+	
 
 	private void validateEnemies() {
 
@@ -343,6 +336,8 @@ public class Enemy {
 //		}
 	}
 	
+	
+	
 	private void copyGrid() {
 		for (int posX = 0; posX < Bomberman.WIDTH; posX++) {
 			for (int posY = 0; posY < Bomberman.HEIGHT; posY++) {
@@ -353,6 +348,15 @@ public class Enemy {
 	}
 	
 	private void exitwayLogic(){
+		
+		clearEnemies();
+		placeEnemies(highestLevelEnemy, numberOfEnemiesAfterExitwayIsBlownUp);		
+		setEnemyCount(8);
+		Bomb.setNumberOfEnemiesKilled(0);
+
+	}
+
+	private void clearEnemies(){
 
 		for (int posX = 0; posX < Bomberman.WIDTH; posX++) {
 			for (int posY = 0; posY < Bomberman.HEIGHT; posY++) {
@@ -397,49 +401,6 @@ public class Enemy {
 			}	
 			
 		}
-		
-
-		placeEnemies(highestLevelEnemy, numberOfEnemiesAfterExitwayIsBlownUp);
-		
-		
-		/*switch(highestLevelEnemy){
-		case BALLOOM:	
-			System.out.println("Changing enemies");
-			enemiesInitial.get(index).setEnemyType(Cell.ONEAL); 
-			break;
-		case ONEAL:
-			enemiesInitial.get(index).setEnemyType(Cell.DOLL); 
-			break;
-		case DOLL:
-			enemiesInitial.get(index).setEnemyType(Cell.MINVO); 
-			break;
-		case MINVO:
-			enemiesInitial.get(index).setEnemyType(Cell.KONDORIA); 
-			break;
-		case KONDORIA:
-			enemiesInitial.get(index).setEnemyType(Cell.OVAPI); 
-			break;
-		case KONDORIAANDBRICK:
-			enemiesInitial.get(index).setEnemyType(Cell.OVAPI); 
-			break;
-		case OVAPI:
-			enemiesInitial.get(index).setEnemyType(Cell.PASS); 
-			break;
-		case OVAPIANDBRICK:
-			enemiesInitial.get(index).setEnemyType(Cell.PASS); 
-			break;
-		case PASS:
-			enemiesInitial.get(index).setEnemyType(Cell.PONTAN); 
-			break;
-		case PONTAN:
-			enemiesInitial.get(index).setEnemyType(Cell.PONTAN); 
-			break;
-		case PONTANANDBRICK:
-			enemiesInitial.get(index).setEnemyType(Cell.PONTAN); 
-			break;					
-		default:
-			break; 
-		}*/
 	}
 	
 	
@@ -450,25 +411,15 @@ public class Enemy {
 			//System.out.println(i);
 			if(enemiesInitial.get(i).getEnemyType() == enemyType && enemiesInitial.get(i).getxPosition() == posX && enemiesInitial.get(i).getyPosition() == posY ){
 						
-			
-				
 				livingEnemy = new EnemyTracker(posX, posY, enemiesInitial.get(i).getEnemyType());
 				livingEnemy.setxDirection(enemiesInitial.get(i).getxDirection());
 				livingEnemy.setyDirection(enemiesInitial.get(i).getyDirection());
 				livingEnemy.setMovingInX(enemiesInitial.get(i).isMovingInX());
 				livingEnemy.setMovingInY(enemiesInitial.get(i).isMovingInY());
-				enemiesAlive.add(livingEnemy);
+				enemiesAlive.add(livingEnemy);		
 				
-							
-	
 			}
 		}
-		
-		
-		
-
-		
-		//System.out.println("Size of enemiesAlive list..:" + enemiesAlive.size());
 	
 	}
 	
@@ -780,12 +731,10 @@ public class Enemy {
 			
 		}
 		
-		
-		
-		
-	
-		
 	}
+	
+	
+	
 	
 	private void wallPassMove(EnemyTracker tracker, int targetX, int targetY, int chance, int aStarRange){
 		
@@ -1210,7 +1159,12 @@ public class Enemy {
 		
 		
 	}
-
+	
+	public void setEnemyCount(int newEnemyCount){
+		this.enemyCount = newEnemyCount;
+	}
+	
+	
 	public void setIsExitwayBlownUp(boolean b) {
 		this.isExitwayBlownUp = b;
 		

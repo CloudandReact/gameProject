@@ -21,7 +21,7 @@ public class Bomb implements Runnable {
 	private String bombPlayer = "bomb&Bomberman.jpg";
 	private String bombExploding = "explosion.png";
 	private String bombAndExitways = "bombandexitway.png";
-	private int numberOfEnemiesKilled;
+	private static int numberOfEnemiesKilled;
 	private PowerUps powerup;
 	
 	List<Integer> scores; 
@@ -69,6 +69,8 @@ public class Bomb implements Runnable {
 		this.setBombs(1);
 		this.grid = grid;
 		this.setDenotePressed(false);
+		Bomb.numberOfEnemiesKilled = 0;
+		
 		
 	}
 	
@@ -85,7 +87,6 @@ public class Bomb implements Runnable {
 		this.setBombs(1);
 		this.grid = grid;
 		this.setDenotePressed(false);
-		
 	}
 	
 	
@@ -133,7 +134,7 @@ public class Bomb implements Runnable {
 		return bombandexitway;
 	}
 
-	public int getNumberOfEnemiesKilled() {
+	public static int getNumberOfEnemiesKilled() {
 		return numberOfEnemiesKilled;
 	}
 
@@ -658,6 +659,14 @@ public class Bomb implements Runnable {
 
 	public void setBombNumber(int bombNumber) {
 		this.bombNumber = bombNumber;
+		
+	}
+
+
+
+
+	public static void setNumberOfEnemiesKilled(int i) {
+		Bomb.numberOfEnemiesKilled = i;
 		
 	}
 

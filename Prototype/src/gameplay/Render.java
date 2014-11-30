@@ -180,25 +180,21 @@ public class Render extends JPanel implements ActionListener {
 		checkIfPlayerAlive();
 		
 		checkIfAllEnemiesDead();
+		
+		
 		bomberman.setLivesLeft(numberOfLives);
 		bomberman.setScore(PlayerInfo.playerScore);
 		
-		if ( player.getBombStatus() && (currentTime = System.currentTimeMillis()) - player.getInitialTime() >= 2000) {
-			/*System.out.println("BOOOOOOOOOOOOOOOOOOOOOOOOm");
-			bomb.explode();
-			player.setBombStatus(false);
-			System.out.println("decrease bombs on ground");
-			player.setBombsOnGround(player.getBombsOnGround() - 1);*/
-			//decrease bombs on ground
+		System.out.println("ENEMY COUNT..." + enemy.getEnemyCount() + "KILLED COUNT" + Bomb.getNumberOfEnemiesKilled());
+		if(GameState.getState() == State.TIMEOVER){
+			
 		}
 		
 		if (GameState.getState() == State.PAUSE) {
 
 		} 
 		
-		if(GameState.getState() == State.TIMEOVER){
-			
-		}
+		
 		else {
 			isPlayerAlive = false;
 			for (int i = leftMostVisibleCell; i <= rightMostVisibleCell; i++) {
@@ -295,6 +291,7 @@ public class Render extends JPanel implements ActionListener {
 							* i, Bomberman.TILE_SIZE * j, this);
 					continue;
 				}
+				
 				// SPEED
 				else if (level.getCurrentLevel() == 4) {
 					g2d.drawImage(powerups.getSpeedImage(), Bomberman.TILE_SIZE
@@ -344,13 +341,12 @@ public class Render extends JPanel implements ActionListener {
 
 						continue;
 					case BRICKANDEXITWAY:
-						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE
-								* (i - leftMostVisibleCell),
-								Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						continue;
 					case PLAYERANDEXITWAY:
 						g2d.drawImage(exitway.getImagePlayerAndExitway(),Bomberman.TILE_SIZE * (i - leftMostVisibleCell),Bomberman.TILE_SIZE * j, this);
 						isPlayerAlive = true;
+						
 						if(GameState.getState() == State.RUNNINGANDLEVELOVER){
 							GameState.setState(State.RUNNING);
 							currentLevel++;
@@ -395,8 +391,9 @@ public class Render extends JPanel implements ActionListener {
 
 	
 	private void checkIfAllEnemiesDead() {
-		if (bomb.getNumberOfEnemiesKilled() == enemy.getEnemyCount()){
-			GameState.setState(State.RUNNINGANDLEVELOVER);				
+		if (enemy.getEnemyCount() == Bomb.getNumberOfEnemiesKilled()){
+			GameState.setState(State.RUNNINGANDLEVELOVER);		
+			System.out.println("LEVEL IS OVER HEAD TO THE EXITWAY");
 		}
 		
 	}
@@ -474,7 +471,6 @@ public class Render extends JPanel implements ActionListener {
 			pauseMenuOpen = true;
 		}
 		else if(GameState.getState() == State.TIMEOVER && timeOverMenuOpen == false){
-			System.out.println("wasdasdasdasdasdasdasdasdasdasdasdasd");
 			new TimeOverMenu(grid, this, gameState, player, bomberman);
 			timeOverMenuOpen = true;
 		}
