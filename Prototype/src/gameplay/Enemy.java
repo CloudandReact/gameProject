@@ -44,6 +44,7 @@ public class Enemy {
 	private Level level;
 
 	private int enemyCount;
+	private final int ENEMY_COUNT_EXITWAY = 8; 
 
 	private int numberOfBallooms;
 	private int numberOfOneals;
@@ -87,7 +88,6 @@ public class Enemy {
 		enemiesInitial = new ArrayList<EnemyTracker>();
 		enemiesAlive = new ArrayList<EnemyTracker>();
 
-		System.out.println("Current Level..: " + level.getLevel());
 
 		
 		numberOfBallooms = level.getnumberOfBallooms();
@@ -98,8 +98,10 @@ public class Enemy {
 		numberOfOvapis = level.getnumberOfOvapis();
 		numberOfPasses = level.getnumberOfPasses();
 		numberOfPontans = level.getnumberOfPontans();
-		validateEnemies();
 		
+		validateEnemies();
+
+		System.out.println("Current Level..: " + level.getLevel());
 	}
 	
 
@@ -154,107 +156,7 @@ public class Enemy {
 		}
 
 	}
-
-
-	public static int randInt(int min, int max) {
-
-		Random rand = new Random();
-
-		int randomNum = rand.nextInt((max - min) + 1) + min;
-
-		return randomNum;
-	}
-	 
-
-	private void loadImage() {
-		ImageIcon first = new ImageIcon(getClass().getResource(Balloom));
-		imageBalloom = first.getImage();
-
-		ImageIcon second = new ImageIcon(getClass().getResource(Oneal));
-		imageOneal = second.getImage();
-
-		ImageIcon third = new ImageIcon(getClass().getResource(Doll));
-		imageDoll = third.getImage();
-
-		ImageIcon fourth = new ImageIcon(getClass().getResource(Minvo));
-		imageMinvo = fourth.getImage();
-
-		ImageIcon fifth = new ImageIcon(getClass().getResource(Kondoria));
-		imageKondoria = fifth.getImage();
-
-		ImageIcon sixth = new ImageIcon(getClass().getResource(Ovapi));
-		imageOvapi = sixth.getImage();
-
-		ImageIcon seventh = new ImageIcon(getClass().getResource(Pass));
-		imagePass = seventh.getImage();
-
-		ImageIcon eighth = new ImageIcon(getClass().getResource(Pontan));
-		imagePontan = eighth.getImage();
-		
-		
-		// Change to AndBrick
-		ImageIcon nine = new ImageIcon(getClass().getResource(KondoriaAndBrick));
-		imageKondoriaAndBrick = nine.getImage();
-		
-		ImageIcon ten = new ImageIcon(getClass().getResource(OvapiAndBrick));
-		imageOvapiAndBrick = ten.getImage();
-		
-		ImageIcon eleven = new ImageIcon(getClass().getResource(PontanAndBrick));
-		imagePontanAndBrick = eleven.getImage();
-		
-
-	}
-
-	public Image getImageBalloom() {
-		return imageBalloom;
-	}
 	
-	
-	public Image getImageOneal() {
-		return imageOneal;
-	}
-
-	public Image getImageDoll() {
-		return imageDoll;
-	}
-
-	public Image getImageMinvo() {
-		return imageMinvo;
-	}
-
-	public Image getImageKondoria() {
-		return imageKondoria;
-	}
-	
-	public Image getImageKondoriaAndBrick() {
-		return imageKondoriaAndBrick;
-	}
-
-	public Image getImageOvapi() {
-		return imageOvapi;
-	}
-	
-	public Image getImageOvapiAndBrick() {
-		return imageOvapiAndBrick;
-	}
-
-
-	public Image getImagePass() {
-		return imagePass;
-	}
-
-	public Image getImagePontan() {
-		return imagePontan;
-	}
-	
-	public Image getImagePontanAndBrick() {
-		return imagePontanAndBrick;
-	}
-	
-	public int getEnemyCount() {
-		return enemyCount;
-	}
-					
 	private void placeEnemies(Cell enemyType, int numberToPlace) {
 
 		int numberOfEnemies = 0;
@@ -268,7 +170,6 @@ public class Enemy {
 				tracker = new EnemyTracker(randX, randY, enemyType);
 				enemiesInitial.add(tracker);				
 				numberOfEnemies++;
-				System.out.println("Enemy " +numberOfEnemies+ enemyType);
 
 			}
 			
@@ -278,175 +179,23 @@ public class Enemy {
 		enemyCount += numberOfEnemies;
 		
 	}
-	
-	
-	private void copyGridAndVerifyTracker() {
 
-		for (int posX = 0; posX < Bomberman.WIDTH; posX++) {
-			for (int posY = 0; posY < Bomberman.HEIGHT; posY++) {
-				tempGrid.setContents(posX, posY, grid.getContents(posX, posY));
-				
-				switch (grid.getContents(posX, posY)) {
-				case BALLOOM:						
-					verifyTracker(posX, posY, Cell.BALLOOM);	
-					continue;
-				case ONEAL:
-					verifyTracker(posX, posY, Cell.ONEAL);
-					continue;
-				case DOLL:
-					verifyTracker(posX, posY, Cell.DOLL);
-					continue;
-				case MINVO:
-					verifyTracker(posX, posY, Cell.MINVO);
-					continue;
-				case KONDORIA:
-					verifyTracker(posX, posY, Cell.KONDORIA);
-					continue;
-				case KONDORIAANDBRICK:
-					verifyTracker(posX, posY, Cell.KONDORIAANDBRICK);
-					continue;
-				case OVAPI:
-					verifyTracker(posX, posY, Cell.OVAPI);
-					continue;
-				case OVAPIANDBRICK:
-					verifyTracker(posX, posY, Cell.OVAPIANDBRICK);
-					continue;
-				case PASS:
-					verifyTracker(posX, posY, Cell.PASS);
-					continue;
-				case PONTAN:
-					verifyTracker(posX, posY, Cell.PONTAN);
-					continue;
-				case PONTANANDBRICK:
-					verifyTracker(posX, posY, Cell.PONTANANDBRICK);
-					continue;					
-				default:
-					break;
-				}						
-			}
-		}
-		
-//		if(isExitwayBlownUp){
-//			placeEnemies(highestLevelEnemy, numberOfEnemiesAfterExitwayIsBlownUp-enemyCount);
-//			setIsExitwayBlownUp(false);
-//			
-//			
-//			//(bomb.getNumberOfEnemiesKilled() == enemy.getEnemyCount())
-//
-//		}
-	}
-	
-	
-	
-	private void copyGrid() {
-		for (int posX = 0; posX < Bomberman.WIDTH; posX++) {
-			for (int posY = 0; posY < Bomberman.HEIGHT; posY++) {
-				tempGrid.setContents(posX, posY, grid.getContents(posX, posY));
-							
-			}
-		}
-	}
-	
-	private void exitwayLogic(){
-		
-		clearEnemies();
-		placeEnemies(highestLevelEnemy, numberOfEnemiesAfterExitwayIsBlownUp);		
-		setEnemyCount(8);
-		Bomb.setNumberOfEnemiesKilled(0);
-
-	}
-
-	private void clearEnemies(){
-
-		for (int posX = 0; posX < Bomberman.WIDTH; posX++) {
-			for (int posY = 0; posY < Bomberman.HEIGHT; posY++) {
-				tempGrid.setContents(posX, posY, grid.getContents(posX, posY));
-				switch (grid.getContents(posX, posY)) {
-				case BALLOOM:	
-					grid.setContents(posX, posY, Cell.EMPTY);
-					continue;
-				case ONEAL:
-					grid.setContents(posX, posY, Cell.EMPTY);
-					continue;
-				case DOLL:
-					grid.setContents(posX, posY, Cell.EMPTY);
-					continue;
-				case MINVO:
-					grid.setContents(posX, posY, Cell.EMPTY);
-					continue;
-				case KONDORIA:
-					grid.setContents(posX, posY, Cell.EMPTY);
-					continue;
-				case KONDORIAANDBRICK:
-					grid.setContents(posX, posY, Cell.EMPTY);
-					continue;
-				case OVAPI:
-					grid.setContents(posX, posY, Cell.EMPTY);
-					continue;
-				case OVAPIANDBRICK:
-					grid.setContents(posX, posY, Cell.EMPTY);
-					continue;
-				case PASS:
-					grid.setContents(posX, posY, Cell.EMPTY);
-					continue;
-				case PONTAN:
-					grid.setContents(posX, posY, Cell.EMPTY);
-					continue;
-				case PONTANANDBRICK:
-					grid.setContents(posX, posY, Cell.EMPTY);
-					continue;					
-				default:
-					break;
-				}						
-			}	
-			
-		}
-	}
-	
-	
-	private void verifyTracker(int posX, int posY, Cell enemyType){
-	
-		
-		for(int i = 0; i < enemiesInitial.size(); i++){	
-			//System.out.println(i);
-			if(enemiesInitial.get(i).getEnemyType() == enemyType && enemiesInitial.get(i).getxPosition() == posX && enemiesInitial.get(i).getyPosition() == posY ){
-						
-				livingEnemy = new EnemyTracker(posX, posY, enemiesInitial.get(i).getEnemyType());
-				livingEnemy.setxDirection(enemiesInitial.get(i).getxDirection());
-				livingEnemy.setyDirection(enemiesInitial.get(i).getyDirection());
-				livingEnemy.setMovingInX(enemiesInitial.get(i).isMovingInX());
-				livingEnemy.setMovingInY(enemiesInitial.get(i).isMovingInY());
-				enemiesAlive.add(livingEnemy);		
-				
-			}
-		}
-	
-	}
-	
-
-	
 	
 	public void move(int targetX, int targetY) {
 		
 		if(isExitwayBlownUp){
 			exitwayLogic();
-			System.out.println("I shouldnt be here");
 			isExitwayBlownUp = false;
 		}
+		
 		copyGridAndVerifyTracker();
 		
 		enemiesInitial.clear();
 		
 		enemiesInitial.addAll(enemiesAlive);
 						
-		enemiesAlive.clear();
-		
-		//System.out.println("enemiesInitial..:" + enemiesInitial.size());
-		
-		//System.out.println("List size...: " + enemiesInitial.size());
-		
-		
-		
+		enemiesAlive.clear();			
+				
 		for (int i = 0; i < enemiesInitial.size(); i++) {
 			switch (enemiesInitial.get(i).getEnemyType()) {
 			case BALLOOM:
@@ -509,69 +258,87 @@ public class Enemy {
 			}	
 		}
 		
-		count++;
-		
+		count++;	
 
 	}
 
 	
-	public void aStarMovement(int targetX, int targetY, Cell cellType) {
-		
-		finder = new AStarPathFinder(grid, 10);
 
-		// Create the needed enemy types, when we find an enemy on the grid we
-		// call the appropriate move method.. Kappa
+	
+	private void copyGridAndVerifyTracker() {
 
-		copyGrid();
-		
-
-		for (int posX = 1; posX < Bomberman.WIDTH - 1; posX++) {
-			for (int posY = 1; posY < Bomberman.HEIGHT - 1; posY++) {
-				if (tempGrid.getContents(posX, posY) == cellType) {
-
-					path = finder.findPath(cellType, posX, posY, targetX, targetY);
-					
-					if (path != null) {
-						
-						if(grid.getContents(posX, posY) == Cell.KONDORIAANDBRICK || grid.getContents(posX, posY) == Cell.OVAPIANDBRICK || grid.getContents(posX, posY) == Cell.PONTANANDBRICK){
-							grid.setContents(posX,posY,Cell.BRICK);
-						}
-						
-						else{
-							grid.setContents(posX, posY, Cell.EMPTY);
-
-						}
-						
-						// System.out.println("Player position: X: " + targetX +
-						// " Y: " + targetY + " xTarget IS: " + path.getX(1) +
-						// " yTarget IS: " + path.getY(1));
-						
-						// player killing
-						if (grid.getContents(path.getX(1), path.getY(1)) == Cell.PLAYER) {
-							grid.setContents(path.getX(1), path.getY(1), cellType);
-							GameState.setState(State.PLAYERDEAD);
-							render.setIsPlayerAlive(false);
-						}
-
-						grid.setContents(path.getX(1), path.getY(1), cellType);
-						path = null;
-
-						// ENEMYMOVE
-
-					}
-
-					else {
-						// System.out.println("Path is null");
-					}
-				}
+		for (int posX = 0; posX < Bomberman.WIDTH; posX++) {
+			for (int posY = 0; posY < Bomberman.HEIGHT; posY++) {
+				tempGrid.setContents(posX, posY, grid.getContents(posX, posY));
+				
+				switch (grid.getContents(posX, posY)) {
+				case BALLOOM:						
+					verifyTracker(posX, posY, Cell.BALLOOM);	
+					continue;
+				case ONEAL:
+					verifyTracker(posX, posY, Cell.ONEAL);
+					continue;
+				case DOLL:
+					verifyTracker(posX, posY, Cell.DOLL);
+					continue;
+				case MINVO:
+					verifyTracker(posX, posY, Cell.MINVO);
+					continue;
+				case KONDORIA:
+					verifyTracker(posX, posY, Cell.KONDORIA);
+					continue;
+				case KONDORIAANDBRICK:
+					verifyTracker(posX, posY, Cell.KONDORIAANDBRICK);
+					continue;
+				case OVAPI:
+					verifyTracker(posX, posY, Cell.OVAPI);
+					continue;
+				case OVAPIANDBRICK:
+					verifyTracker(posX, posY, Cell.OVAPIANDBRICK);
+					continue;
+				case PASS:
+					verifyTracker(posX, posY, Cell.PASS);
+					continue;
+				case PONTAN:
+					verifyTracker(posX, posY, Cell.PONTAN);
+					continue;
+				case PONTANANDBRICK:
+					verifyTracker(posX, posY, Cell.PONTANANDBRICK);
+					continue;					
+				default:
+					break;
+				}						
 			}
 		}
+		
 	}
 	
+
+	
+	private void verifyTracker(int posX, int posY, Cell enemyType){
+	
+		
+		for(int i = 0; i < enemiesInitial.size(); i++){	
+			if(enemiesInitial.get(i).getEnemyType() == enemyType && enemiesInitial.get(i).getxPosition() == posX && enemiesInitial.get(i).getyPosition() == posY ){
+						
+				livingEnemy = new EnemyTracker(posX, posY, enemiesInitial.get(i).getEnemyType());
+				livingEnemy.setxDirection(enemiesInitial.get(i).getxDirection());
+				livingEnemy.setyDirection(enemiesInitial.get(i).getyDirection());
+				livingEnemy.setMovingInX(enemiesInitial.get(i).isMovingInX());
+				livingEnemy.setMovingInY(enemiesInitial.get(i).isMovingInY());
+				enemiesAlive.add(livingEnemy);		
+				
+			}
+		}
+	
+	}
+	
+
+	
+	
+
 	private void moveWithChance(EnemyTracker tracker, int targetX, int targetY, int chance, int aStarRange){
 		
-		//System.out.println("Size of enemiesAlive list..:" + enemiesAlive.size());
-		//System.out.println("Size of enemiesInitial list..:" + enemiesInitial.size());
 		
 		boolean canMoveInX = false;
 		boolean canMoveInY = false;
@@ -587,10 +354,6 @@ public class Enemy {
 		if(aStarRange > 0){
 			finder = new AStarPathFinder(grid, aStarRange);
 			path = finder.findPath(tracker.getEnemyType(), posX, posY, targetX, targetY);
-			
-/*			System.out.println( "Target X...: " +targetX + " Target Y...: " + targetY);
-			System.out.println( "EnemyX...: " +posX + " EnemyY...: " + posY);
-*/
 			
 			if(path!=null){
 				
@@ -684,15 +447,12 @@ public class Enemy {
 			if(randChance == 1 && canMoveInX && canMoveInY){
 				if(tracker.isMovingInX()){
 					canMoveInX = false;
-					//System.out.println("PLS");
 					
 				}
 				else if(tracker.isMovingInY()){
 					canMoveInY = false;
 				}
-				else{
-					System.out.println("HOW");
-				}
+				
 			}
 			
 			if(canMoveInX){
@@ -737,9 +497,6 @@ public class Enemy {
 	
 	
 	private void wallPassMove(EnemyTracker tracker, int targetX, int targetY, int chance, int aStarRange){
-		
-		//System.out.println("Size of enemiesAlive list..:" + enemiesAlive.size());
-		//System.out.println("Size of enemiesInitial list..:" + enemiesInitial.size());
 		
 		boolean canMoveInX = false;
 		boolean canMoveInY = false;
@@ -925,7 +682,7 @@ public class Enemy {
 						
 						
 						grid.setContents(posX, posY + enemyDirectionY, tracker.getEnemyType());
-						//System.out.println(tracker.getEnemyType());
+						
 					}
 					
 					
@@ -968,15 +725,12 @@ public class Enemy {
 			if(randChance == 1 && canMoveInX && canMoveInY){
 				if(tracker.isMovingInX()){
 					canMoveInX = false;
-					//System.out.println("PLS");
 					
 				}
 				else if(tracker.isMovingInY()){
 					canMoveInY = false;
 				}
-				else{
-					System.out.println("HOW");
-				}
+				
 			}
 			
 			if(canMoveInX){
@@ -1057,11 +811,6 @@ public class Enemy {
 				tracker.setxPosition(posX + enemyDirectionX);
 				tracker.setMovingInX(true);
 				tracker.setMovingInY(false);
-				
-				
-	
-
-				
 			}
 			
 			if(canMoveInY && !canMoveInX){
@@ -1121,8 +870,7 @@ public class Enemy {
 																		
 				}
 
-				else{
-					
+				else{	
 					switch(tracker.getEnemyType()){
 					case KONDORIAANDBRICK:
 						grid.setContents(posX, posY + enemyDirectionY, Cell.KONDORIA);
@@ -1139,10 +887,7 @@ public class Enemy {
 					default:
 						break;
 					}
-					
-					
 					grid.setContents(posX, posY + enemyDirectionY, tracker.getEnemyType());
-					//System.out.println(tracker.getEnemyType());
 				}
 				
 				
@@ -1150,14 +895,160 @@ public class Enemy {
 				tracker.setMovingInY(true);
 				tracker.setMovingInX(false);
 				
-
-
 			}
 			
 		}
+			
+	}
+	
+	private void exitwayLogic(){
 		
+		clearEnemies();
+		placeEnemies(highestLevelEnemy, numberOfEnemiesAfterExitwayIsBlownUp);		
+		setEnemyCount(ENEMY_COUNT_EXITWAY);
+		Bomb.setNumberOfEnemiesKilled(0);
+	}
+
+	private void clearEnemies(){
+
+		for (int posX = 0; posX < Bomberman.WIDTH; posX++) {
+			for (int posY = 0; posY < Bomberman.HEIGHT; posY++) {
+				tempGrid.setContents(posX, posY, grid.getContents(posX, posY));
+				switch (grid.getContents(posX, posY)) {
+				case BALLOOM:	
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case ONEAL:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case DOLL:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case MINVO:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case KONDORIA:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case KONDORIAANDBRICK:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case OVAPI:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case OVAPIANDBRICK:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case PASS:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case PONTAN:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case PONTANANDBRICK:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;					
+				default:
+					break;
+				}						
+			}	
+			
+		}
+	}
+	public static int randInt(int min, int max) {
+
+		Random rand = new Random();
+		int randomNum = rand.nextInt((max - min) + 1) + min;
+		return randomNum;
 		
+	}
+	
+
+	private void loadImage() {
 		
+		ImageIcon first = new ImageIcon(getClass().getResource(Balloom));
+		imageBalloom = first.getImage();
+
+		ImageIcon second = new ImageIcon(getClass().getResource(Oneal));
+		imageOneal = second.getImage();
+
+		ImageIcon third = new ImageIcon(getClass().getResource(Doll));
+		imageDoll = third.getImage();
+
+		ImageIcon fourth = new ImageIcon(getClass().getResource(Minvo));
+		imageMinvo = fourth.getImage();
+
+		ImageIcon fifth = new ImageIcon(getClass().getResource(Kondoria));
+		imageKondoria = fifth.getImage();
+
+		ImageIcon sixth = new ImageIcon(getClass().getResource(Ovapi));
+		imageOvapi = sixth.getImage();
+
+		ImageIcon seventh = new ImageIcon(getClass().getResource(Pass));
+		imagePass = seventh.getImage();
+
+		ImageIcon eighth = new ImageIcon(getClass().getResource(Pontan));
+		imagePontan = eighth.getImage();
+		
+		ImageIcon nine = new ImageIcon(getClass().getResource(KondoriaAndBrick));
+		imageKondoriaAndBrick = nine.getImage();
+		
+		ImageIcon ten = new ImageIcon(getClass().getResource(OvapiAndBrick));
+		imageOvapiAndBrick = ten.getImage();
+		
+		ImageIcon eleven = new ImageIcon(getClass().getResource(PontanAndBrick));
+		imagePontanAndBrick = eleven.getImage();
+		
+	}
+
+	public Image getImageBalloom() {
+		return imageBalloom;
+	}
+	
+	
+	public Image getImageOneal() {
+		return imageOneal;
+	}
+
+	public Image getImageDoll() {
+		return imageDoll;
+	}
+
+	public Image getImageMinvo() {
+		return imageMinvo;
+	}
+
+	public Image getImageKondoria() {
+		return imageKondoria;
+	}
+	
+	public Image getImageKondoriaAndBrick() {
+		return imageKondoriaAndBrick;
+	}
+
+	public Image getImageOvapi() {
+		return imageOvapi;
+	}
+	
+	public Image getImageOvapiAndBrick() {
+		return imageOvapiAndBrick;
+	}
+
+
+	public Image getImagePass() {
+		return imagePass;
+	}
+
+	public Image getImagePontan() {
+		return imagePontan;
+	}
+	
+	public Image getImagePontanAndBrick() {
+		return imagePontanAndBrick;
+	}
+	
+	public int getEnemyCount() {
+		return enemyCount;
 	}
 	
 	public void setEnemyCount(int newEnemyCount){
@@ -1169,7 +1060,5 @@ public class Enemy {
 		this.isExitwayBlownUp = b;
 		
 	}
-	
-	
-
+					
 }
