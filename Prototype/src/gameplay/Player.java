@@ -18,6 +18,9 @@ public class Player {
 	private static int score;
 	private static int livesLeft;
 	private int movementSpeed;
+	
+	private static int bombNumber;
+	private static int currentBombCounter;
 
 	
 	private int range;
@@ -30,16 +33,19 @@ public class Player {
 	private Image image;
 	private Grid grid;
 	private Bomb bomb;
-
+	private Enemy enemy;
+	
 	private long startTime;
 	private PowerUps powerup;
 	private Boolean isBombPlaced;
-
+	private Boolean detonatePressed;
+	
 	public Player() { 
 
 	}
 
-	public Player(Grid grid, Bomb bomb, PowerUps powerup) {
+	public Player(Grid grid, Bomb bomb, Enemy enemy, Level level) {
+		this.enemy = enemy;
 		movementSpeed = 2;
 		livesLeft = 2;
 		loadImage();
@@ -52,10 +58,15 @@ public class Player {
 		this.grid.setContents(1, 1, Cell.PLAYER);
 		setScore(0);
 		this.isBombPlaced = false;
-		this.powerup = powerup;
+		this.setDetonatePressed(false);
 		this.range = 1;
 		this.bombs = 2;
-		this.bombsOnGround = 0;
+		bombNumber = 10;
+		currentBombCounter = 10;
+		bombsOnGround = 0;
+		
+		this.powerup = new PowerUps(grid, this, level);
+
 	}
 	
 //	public void exitWayLogic(int posX, int posY){
@@ -294,6 +305,23 @@ public class Player {
 	public Image getImage() {
 		return image;
 	}
+	
+	public static int getBombNumber(){
+		return bombNumber;
+	}
+	
+	public static void setBombNumber(int bombNumber){
+		Player.bombNumber = bombNumber;
+	}
+	
+	public static int getCurrentBombCounter(){
+		return currentBombCounter;
+	}
+	
+	public static void setCurrentBombCounter(int currentBombCounter){
+		Player.currentBombCounter = currentBombCounter;
+	}
+	
 
 	public void keyPressed(KeyEvent e) {
 
@@ -326,15 +354,13 @@ public class Player {
 		// Bomb Logic
 		if (key == KeyEvent.VK_X) {
 			if ((GameState.getState() == State.RUNNING || GameState.getState() == State.RUNNINGANDLEVELOVER)) {
-				if (grid.getContents(posX, posY) != Cell.PLAYERANDBOMB
-						&& (grid.getContents(posX, posY) != Cell.PLAYERANDEXITWAY && powerup.getDetonate() == false)) {
+				if (grid.getContents(posX, posY) != Cell.PLAYERANDBOMB && (grid.getContents(posX, posY) != Cell.PLAYERANDEXITWAY)) {
 					if(getBombsOnGround() < getBombs()){
 						grid.setContents(posX, posY, Cell.PLAYERANDBOMB);
 						
 						// THIS IS WHERE WE SET THE RANGE!!!!!!!!!!!!!!!!!!! SET IT
 						// AS HIGH AS YOU WANT, FRIENDS
 					
-						isBombPlaced = true;
 						//bomb.setRange(1);
 					
 //						setBombsOnGround(getBombsOnGround() + 1);
@@ -345,23 +371,37 @@ public class Player {
 //						initializeTimer();
 						
 						setBombsOnGround(getBombsOnGround() + 1);
-						bomb.setBombs(bombs);
-						bomb.setRange(range);
-						bomb.setPosition(posX, posY);
+						//bomb.setBombs(1);
+						//bomb.setRange(range);
+						//bomb.setPosition(posX, posY);
 						//Bomb workPlease = new Bomb(grid);
-						Thread t = new Thread(bomb);
+						Bomb placingBomb = new Bomb(grid, this.enemy, this);
+						placingBomb.setBombs(1);
+						placingBomb.setRange(range);
+						placingBomb.setPosition(posX,posY);
+						
+						if(hasDetonate()){
+							placingBomb.setBombNumber(getCurrentBombCounter());
+							currentBombCounter--;
+						}
+						
+						
+						Thread t = new Thread(placingBomb);
 				        t.start();
-				        //isBombPlaced = true;
+				        isBombPlaced = true;
+				        
+				        System.out.println("DID WE GET HERE");
 					
-					
+				   
 					}
 				}
 			}
 
 		}
 
-		if (key == KeyEvent.VK_C) {
-			//detonate whenever
+		if (key == KeyEvent.VK_B) {
+			setDetonatePressed(true);
+	
 		}
 		
 		if (key == KeyEvent.VK_LEFT) {
@@ -387,8 +427,13 @@ public class Player {
 		if (key == KeyEvent.VK_X) {
 
 		}
-		if (key == KeyEvent.VK_C) {
-
+		if (key == KeyEvent.VK_B) {
+			if(getBombsOnGround() == 0){
+				System.out.println("resetting...");
+		        setBombNumber(10);
+		        setCurrentBombCounter(10);
+		        System.out.println(getBombNumber() + "///" + getCurrentBombCounter());
+		    }
 		}
 		if (key == KeyEvent.VK_ESCAPE) {
 
@@ -463,9 +508,20 @@ public class Player {
 	public static int getBombsOnGround() {
 		return bombsOnGround;
 	}
-
+	
+	public boolean hasDetonate(){
+		return powerup.haveDetonate();
+	}
 	public static void setBombsOnGround(int bombsOnGround) {
 		Player.bombsOnGround = bombsOnGround;
+	}
+
+	public Boolean getDetonatePressed() {
+		return detonatePressed;
+	}
+
+	public void setDetonatePressed(Boolean detonatePressed) {
+		this.detonatePressed = detonatePressed;
 	}
 
 	// public void setUsername(String name) {

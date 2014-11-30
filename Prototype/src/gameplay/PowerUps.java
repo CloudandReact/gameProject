@@ -17,7 +17,7 @@ public class PowerUps {
 	private static Boolean wallpass = false;
 	private static Boolean bombpass = false; 
 	private static Boolean flamepass = false;
-	private static Boolean detonate = false; 
+	private static Boolean detonate = true; 
 	private static Boolean gotPowerup= false; //remember to set this to false when player moves to next clevel
 	//String [] powerups = {"bombsP.png","flamesP.png","speedP.png","detonatorsP.png","bombPassP.png","wallPassP.png","flamePassP.png"};
 	
@@ -35,7 +35,15 @@ public class PowerUps {
 	private Level level;
 	
 	// use Level object Rakinul
-	
+	public PowerUps(Grid grid, Level level){
+		//draw
+		this.grid = grid;
+		this.level = level;
+		loadImage();
+
+
+		
+	}
 	public PowerUps(Grid grid, Player player, Level level){
 		//cclevel = clevel.getCurrentclevel();
 		this.grid = grid;
@@ -48,8 +56,10 @@ public class PowerUps {
 	}
 	
 	public void givePowerUp(){
-		//int clevel = PowerUps.getClevel();
-		int clevel = 10;
+		System.out.println(PowerUps.getClevel());
+		System.out.println("current Range is "+ player.getRange());
+		int clevel = PowerUps.getClevel();
+		//int clevel = 10;
 		if(gotPowerup == true){
 			
 			// FLAMES
@@ -57,7 +67,6 @@ public class PowerUps {
 					|| clevel == 27 || clevel == 38) {
 				System.out.println("I AM HEREEES AESGSGSGA GASG  ");
 				int currentRange = player.getRange();
-				System.out.println("current Range is "+currentRange);
 				player.setRange(currentRange+1);
 			}
 
@@ -209,7 +218,7 @@ public class PowerUps {
 	}
 
 
-	public Boolean getDetonate() {
+	public Boolean haveDetonate() {
 		return detonate;
 	}
 

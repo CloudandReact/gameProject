@@ -96,19 +96,22 @@ public class Render extends JPanel implements ActionListener {
 	}
 	
 	// Load from a previous saved game
-	public Render(Grid grid, int level, Bomberman bomberman){
+	public Render(Grid grid, int currentLevel, Bomberman bomberman){
 		GameState.setState(State.RUNNING);
 		count = 0;
+		
+		
 		this.grid = grid;
-		this.level = new Level(level);
+		this.level = new Level(currentLevel);
 		this.brick = new Brick(grid);
 		
 		this.concrete = new Concrete(grid);
-		this.powerups = new PowerUps(grid, player,this.level);
 		this.exitway = new ExitWay(grid);
 		this.enemy = new Enemy(grid, this, this.level);
-		this.bomb = new Bomb(grid, this.enemy);
-		this.player = new Player(grid, bomb,powerups);
+		this.bomb = new Bomb(grid);
+		this.powerups = new PowerUps(grid, this.level);
+		this.player = new Player(grid,bomb,enemy, this.level);
+
 
 		this.isPlayerAlive = true;
 		PowerUps.setClevel(currentLevel);
@@ -152,18 +155,17 @@ public class Render extends JPanel implements ActionListener {
 		
 		brick = new Brick(grid);
 		concrete = new Concrete(grid);
-		powerups = new PowerUps(grid, player,this.level);
 		exitway = new ExitWay(grid);
 		enemy = new Enemy(grid,this, level);
-		bomb = new Bomb(grid, this.enemy);
-		player = new Player(grid, bomb,powerups);
+		bomb = new Bomb(grid);
+		powerups = new PowerUps(grid, this.level);
+		player = new Player(grid, bomb,enemy, level);
 		PowerUps.setClevel(currentLevel);
 		isPlayerAlive = true;
 		pauseMenuOpen = false;
 		timeOverMenuOpen = false;
 		timer = new Timer(100, this);
 		timer.start();
-		
 		
 	}
 
@@ -436,6 +438,8 @@ public class Render extends JPanel implements ActionListener {
 				// RESTORED TO 3
 				PlayerInfo.playerScore -= bomb.getTotalGameScore();
 				bomb.setTotalGameScore(0);
+				GameState.setState(State.TIMEOVER);
+				System.out.println(GameState.getState());
 			}
 
 			else {
@@ -458,7 +462,7 @@ public class Render extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-	
+
 		if ((GameState.getState() == State.RUNNING || GameState.getState() == State.RUNNINGANDLEVELOVER)) {
 			player.move();
 			repaint();
@@ -470,6 +474,7 @@ public class Render extends JPanel implements ActionListener {
 			pauseMenuOpen = true;
 		}
 		else if(GameState.getState() == State.TIMEOVER && timeOverMenuOpen == false){
+			System.out.println("wasdasdasdasdasdasdasdasdasdasdasdasd");
 			new TimeOverMenu(grid, this, gameState, player, bomberman);
 			timeOverMenuOpen = true;
 		}

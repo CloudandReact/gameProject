@@ -49,14 +49,34 @@ public class Bomb implements Runnable {
 	private long currentTime;
 	
 	private Enemy enemy;
+	private Player player;
+	private int bombNumber;
 	
+	private boolean denotePressed;
 
 	/*
 	 * RANGE IS DEFAULTED TO 1 IN CONSTRUCTORS. TO SET RANGE USE SETTER ON BOMB
 	 * OBJECT. USE THE SAME BOMB OBJECT SUPPLIED TO THE THREAD.
 	 */
-
-	public Bomb(Grid grid, Enemy enemy) {
+	
+	// Just for images
+	public Bomb(Grid grid) {
+	
+		setTotalGameScore(0);
+		scores = new ArrayList<Integer>();
+		loadImage();
+		this.range = 1;
+		this.setBombs(1);
+		this.grid = grid;
+		this.setDenotePressed(false);
+		
+	}
+	
+	
+	
+	
+	public Bomb(Grid grid, Enemy enemy, Player player) {
+		this.player = player;
 		this.enemy = enemy;
 		setTotalGameScore(0);
 		scores = new ArrayList<Integer>();
@@ -64,7 +84,12 @@ public class Bomb implements Runnable {
 		this.range = 1;
 		this.setBombs(1);
 		this.grid = grid;
+		this.setDenotePressed(false);
+		
 	}
+	
+	
+	
 
 	public void setRange(int range) {
 		this.range = range;
@@ -135,7 +160,7 @@ public class Bomb implements Runnable {
 					grid.setContents(posX + currentRange, posY, Cell.EXITWAY);
 				} 
 				else if (grid.getContents(posX + currentRange, posY) == Cell.EXITWAY) {
-					grid.setContents(posX + currentRange, posY, Cell.EMPTY);
+					grid.setContents(posX + currentRange, posY, Cell.EXITWAY);
 					enemy.setIsExitwayBlownUp(true);
 				} 
 				else if (grid.getContents(posX + currentRange, posY) == Cell.BALLOOM
@@ -548,7 +573,12 @@ public class Bomb implements Runnable {
 		
 		System.out.println(scores.size());
 		
-		
+		// reset 
+		/*if(bombNumber == 10){
+			System.out.println("asdasdasd");
+			player.setBombNumber(10);
+			player.setCurrentBombCounter(10);
+		}*/
 	}
 
 	public int getCurrentGameScore() {
@@ -579,10 +609,30 @@ public class Bomb implements Runnable {
 	public void run() {
 
 		startTime = System.currentTimeMillis();
+
+		if(player.hasDetonate()){
+			while(true){
+				System.out.println(Player.getBombNumber());
+				System.out.println(Player.getBombNumber() + "..." + bombNumber);
+				if(player.getDetonatePressed() && Player.getBombNumber() == bombNumber){
+					Player.setBombsOnGround(Player.getBombsOnGround()-1);
+					System.out.println("BLOWING UP NOW");
+					player.setDetonatePressed(false);
+					Player.setBombNumber(Player.getBombNumber()-1);
+					Player.setCurrentBombCounter(Player.getCurrentBombCounter()+1);
+					this.explode();
+					break;
+				}
+			}	
+		}
 		
-		while(true){
+		
+		else{
+			while(true){
+				System.out.println("rakin the kin");
 			if((currentTime = System.currentTimeMillis()) - startTime >= 2000){
 				Player.setBombsOnGround(Player.getBombsOnGround()-1);
+				System.out.println("rakin the kin");
 				System.out.println("BLOWING UP NOW");
 				this.explode();
 				break;
@@ -590,6 +640,24 @@ public class Bomb implements Runnable {
 				
 			
 		}
+		}
+		
+		
+	}
+
+	public boolean isDenotePressed() {
+		return denotePressed;
+	}
+
+	public void setDenotePressed(boolean denotePressed) {
+		this.denotePressed = denotePressed;
+	}
+
+
+
+
+	public void setBombNumber(int bombNumber) {
+		this.bombNumber = bombNumber;
 		
 	}
 
