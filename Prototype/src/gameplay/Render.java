@@ -355,6 +355,7 @@ public class Render extends JPanel implements ActionListener {
 							level.setLevel(currentLevel);
 							timer.stop();
 							initialize();
+							GameTimer.restartTimer();
 						}
 						
 						continue;
