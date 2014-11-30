@@ -21,7 +21,7 @@ public class Bomb implements Runnable {
 	private String bombPlayer = "bomb&Bomberman.jpg";
 	private String bombExploding = "explosion.png";
 	private String bombAndExitways = "bombandexitway.png";
-	private int numberOfEnemiesKilled;
+	private static int numberOfEnemiesKilled;
 	private PowerUps powerup;
 	
 	List<Integer> scores; 
@@ -59,7 +59,7 @@ public class Bomb implements Runnable {
 	 * OBJECT. USE THE SAME BOMB OBJECT SUPPLIED TO THE THREAD.
 	 */
 	
-	// Just for images
+	// Constructor, Just for images
 	public Bomb(Grid grid) {
 	
 		setTotalGameScore(0);
@@ -69,10 +69,9 @@ public class Bomb implements Runnable {
 		this.setBombs(1);
 		this.grid = grid;
 		this.setDenotePressed(false);
+		Bomb.numberOfEnemiesKilled = 0;
 		
 	}
-	
-	
 	
 	
 	public Bomb(Grid grid, Enemy enemy, Player player) {
@@ -85,7 +84,6 @@ public class Bomb implements Runnable {
 		this.setBombs(1);
 		this.grid = grid;
 		this.setDenotePressed(false);
-		
 	}
 	
 	
@@ -133,22 +131,16 @@ public class Bomb implements Runnable {
 		return bombandexitway;
 	}
 
-	public int getNumberOfEnemiesKilled() {
+	public static int getNumberOfEnemiesKilled() {
 		return numberOfEnemiesKilled;
 	}
 
 	public void explode() {
 		
 		currentGameScore = 0;
-		
-		
-
 		currentRange = 0;
-		System.out.println("Explode method");
 
 		while (currentRange <= range) {
-			System.out.println("PosX is ..:" + posX + "PosY is. ..: " + posY);
-			System.out.println(currentRange);
 			
 			if (grid.getContents(posX + currentRange, posY) != Cell.CONCRETE) {
 				
@@ -353,7 +345,6 @@ public class Bomb implements Runnable {
 		currentRange = 0;
 
 		while (currentRange <= range) {
-			System.out.println("CURRENT RANGE IN Y: ..." + currentRange);
 			if (grid.getContents(posX, posY + currentRange) != Cell.CONCRETE) {
 
 				if (grid.getContents(posX, posY + currentRange) == Cell.BRICKANDPOWERUPS) {
@@ -524,7 +515,6 @@ public class Bomb implements Runnable {
 				
 				else {
 					grid.setContents(posX, posY - currentRange, Cell.EXPLODE);
-					System.out.println("HERE");
 				}
 
 				currentRange++;
@@ -555,7 +545,6 @@ public class Bomb implements Runnable {
 		else {
 			for (int i = 0; i < scores.size(); i++) {
 				int temp = (int) ((int) scores.get(i) * Math.pow(2,i)); 
-				//setCurrentGameScore(getCurrentGameScore() + temp);
 				currentGameScore += temp;
 			}
 			
@@ -563,22 +552,12 @@ public class Bomb implements Runnable {
 		
 		setTotalGameScore(getTotalGameScore() + currentGameScore);
 		
-		PlayerInfo.playerScore += getCurrentGameScore();
-		System.out.println(PlayerInfo.playerScore); 
-		
-		System.out.println(scores.size());
-		
-
+		PlayerInfo.playerScore += getCurrentGameScore();		
 		scores.clear();
 		
-		System.out.println(scores.size());
+
 		
-		// reset 
-		/*if(bombNumber == 10){
-			System.out.println("asdasdasd");
-			player.setBombNumber(10);
-			player.setCurrentBombCounter(10);
-		}*/
+		
 	}
 
 	public int getCurrentGameScore() {
@@ -612,11 +591,9 @@ public class Bomb implements Runnable {
 
 		if(player.hasDetonate()){
 			while(true){
-				System.out.println(Player.getBombNumber());
-				System.out.println(Player.getBombNumber() + "..." + bombNumber);
+			
 				if(player.getDetonatePressed() && Player.getBombNumber() == bombNumber){
 					Player.setBombsOnGround(Player.getBombsOnGround()-1);
-					System.out.println("BLOWING UP NOW");
 					player.setDetonatePressed(false);
 					Player.setBombNumber(Player.getBombNumber()-1);
 					Player.setCurrentBombCounter(Player.getCurrentBombCounter()+1);
@@ -629,11 +606,8 @@ public class Bomb implements Runnable {
 		
 		else{
 			while(true){
-				System.out.println("rakin the kin");
 			if((currentTime = System.currentTimeMillis()) - startTime >= 2000){
 				Player.setBombsOnGround(Player.getBombsOnGround()-1);
-				System.out.println("rakin the kin");
-				System.out.println("BLOWING UP NOW");
 				this.explode();
 				break;
 			}
@@ -658,6 +632,14 @@ public class Bomb implements Runnable {
 
 	public void setBombNumber(int bombNumber) {
 		this.bombNumber = bombNumber;
+		
+	}
+
+
+
+
+	public static void setNumberOfEnemiesKilled(int i) {
+		Bomb.numberOfEnemiesKilled = i;
 		
 	}
 

@@ -15,12 +15,14 @@ public class PowerUps {
 	private String bombPassP = "bombpassp.png";
 	private String wallPassP = "wallpassp.png";
 	private String flamePassP = "flamepassp.png"; 
+
 	private static Boolean wallpass;
 	private static Boolean bombpass; 
 	private static Boolean flamepass;
 	private static Boolean detonate; 
 	private static Boolean gotPowerup;
 	private static Boolean powerupPlaced; //use this to make sure powerup is not printed twice in same level if player dies
+
 	
 	private Image imageb;
 	private Image imagef;
@@ -41,6 +43,7 @@ public class PowerUps {
 		this.level = level;
 		loadImage();
 		
+
 	}
 	
 	public PowerUps(Grid grid, Player player, Level level){
@@ -109,6 +112,7 @@ public class PowerUps {
 			// MYSTERY
 			else if (clevel == 26 || clevel == 34 || clevel == 40
 					|| clevel == 45 || clevel == 50) {
+				
 				// g2d.drawImage(powerups.getMysteryImage(),
 				// Bomberman.TILE_SIZE * i, Bomberman.TILE_SIZE * j, this);
 				// continue;
