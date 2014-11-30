@@ -58,9 +58,9 @@ public class Enemy {
 	private PathFinder finder;
 
 	private ArrayList<EnemyTracker> enemiesInitial; 
-	private EnemyTracker tracker;
-	
 	private ArrayList<EnemyTracker> enemiesAlive; 
+	
+	private EnemyTracker tracker;
 	private EnemyTracker livingEnemy;
 	
 	private int count;
@@ -69,7 +69,7 @@ public class Enemy {
 	private Cell highestLevelEnemy;
 	
 	
-	int dynamicNumberOfEnemies;
+	private final int numberOfEnemiesAfterExitwayIsBlownUp;
 	
 	
 	public Enemy(Grid grid, Render render, Level level) {
@@ -80,43 +80,33 @@ public class Enemy {
 		this.grid = grid;
 		this.tempGrid = new Grid();
 		this.isExitwayBlownUp = false;
+		numberOfEnemiesAfterExitwayIsBlownUp = 8;
 		
 		count = 0;
 		
 		enemiesInitial = new ArrayList<EnemyTracker>();
 		enemiesAlive = new ArrayList<EnemyTracker>();
-		
 
 		System.out.println("Current Level..: " + level.getLevel());
 
 		numberOfBallooms = level.getnumberOfBallooms();
-		//System.out.println("Number of enemyType1..: " + level.getnumberOfBallooms());
 
 		numberOfOneals = level.getnumberOfOneals();
-		//System.out.println("Number of enemyType2..: " + level.getnumberOfOneals());
 
 		numberOfDolls = level.getnumberOfDolls();
-		//System.out.println("Number of enemyType3..: " + level.getnumberOfDolls());
 
 		numberOfMinvos = level.getnumberOfMinvos();
-		//System.out.println("Number of enemyType4..: " + level.getnumberOfMinvos());
 
 		numberOfKondorias = level.getnumberOfKondorias();	
 
-		//System.out.println("Number of enemyType5..: " + level.getnumberOfKondorias());
-
 		numberOfOvapis = level.getnumberOfOvapis();
-		//System.out.println("Number of enemyType6..: " + level.getnumberOfOvapis());
 
 		numberOfPasses = level.getnumberOfPasses();
-		//System.out.println("Number of enemyType7..: " + level.getnumberOfPasses());
 
 		numberOfPontans = level.getnumberOfPontans();
-		//System.out.println("Number of enemyType8..: " + level.getnumberOfPontans());
 
 		validateEnemies();
 		
-		//System.out.println("Number of Enemies..: " + enemyCount);
 
 	}
 
@@ -298,7 +288,7 @@ public class Enemy {
 	
 	
 	private void copyGridAndVerifyTracker() {
-		dynamicNumberOfEnemies = 0;
+
 		for (int posX = 0; posX < Bomberman.WIDTH; posX++) {
 			for (int posY = 0; posY < Bomberman.HEIGHT; posY++) {
 				tempGrid.setContents(posX, posY, grid.getContents(posX, posY));
@@ -342,12 +332,15 @@ public class Enemy {
 				}						
 			}
 		}
-		if(isExitwayBlownUp){
-			System.out.println("DYNAMIC NUMBER>>>>>>>>" + dynamicNumberOfEnemies);
-			placeEnemies(highestLevelEnemy, 8-dynamicNumberOfEnemies);
-			setIsExitwayBlownUp(false);
-
-		}
+		
+//		if(isExitwayBlownUp){
+//			placeEnemies(highestLevelEnemy, numberOfEnemiesAfterExitwayIsBlownUp-enemyCount);
+//			setIsExitwayBlownUp(false);
+//			
+//			
+//			//(bomb.getNumberOfEnemiesKilled() == enemy.getEnemyCount())
+//
+//		}
 	}
 	
 	private void copyGrid() {
@@ -360,8 +353,53 @@ public class Enemy {
 	}
 	
 	private void exitwayLogic(){
+
+		for (int posX = 0; posX < Bomberman.WIDTH; posX++) {
+			for (int posY = 0; posY < Bomberman.HEIGHT; posY++) {
+				tempGrid.setContents(posX, posY, grid.getContents(posX, posY));
+				switch (grid.getContents(posX, posY)) {
+				case BALLOOM:	
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case ONEAL:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case DOLL:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case MINVO:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case KONDORIA:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case KONDORIAANDBRICK:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case OVAPI:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case OVAPIANDBRICK:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case PASS:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case PONTAN:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;
+				case PONTANANDBRICK:
+					grid.setContents(posX, posY, Cell.EMPTY);
+					continue;					
+				default:
+					break;
+				}						
+			}	
+			
+		}
 		
-		
+
+		placeEnemies(highestLevelEnemy, numberOfEnemiesAfterExitwayIsBlownUp);
 		
 		
 		/*switch(highestLevelEnemy){
@@ -412,13 +450,7 @@ public class Enemy {
 			//System.out.println(i);
 			if(enemiesInitial.get(i).getEnemyType() == enemyType && enemiesInitial.get(i).getxPosition() == posX && enemiesInitial.get(i).getyPosition() == posY ){
 						
-				
-				if(isExitwayBlownUp){
-					System.out.println(highestLevelEnemy + "SLAdpasldlasdas;lkdas;lkdfal;sd");
-					enemiesInitial.get(i).setEnemyType(highestLevelEnemy);
-					System.out.println("yes alllllllllllllllll enemies");
-					
-				}
+			
 				
 				livingEnemy = new EnemyTracker(posX, posY, enemiesInitial.get(i).getEnemyType());
 				livingEnemy.setxDirection(enemiesInitial.get(i).getxDirection());
@@ -427,7 +459,6 @@ public class Enemy {
 				livingEnemy.setMovingInY(enemiesInitial.get(i).isMovingInY());
 				enemiesAlive.add(livingEnemy);
 				
-				dynamicNumberOfEnemies++;
 							
 	
 			}
@@ -446,6 +477,11 @@ public class Enemy {
 	
 	public void move(int targetX, int targetY) {
 		
+		if(isExitwayBlownUp){
+			exitwayLogic();
+			System.out.println("I shouldnt be here");
+			isExitwayBlownUp = false;
+		}
 		copyGridAndVerifyTracker();
 		
 		enemiesInitial.clear();
