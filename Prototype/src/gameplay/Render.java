@@ -120,28 +120,6 @@ public class Render extends JPanel implements ActionListener {
 		timer = new Timer(100, this);
 		timer.start();
 		
-
-//        JFrame frameTimer = new JFrame("Counter");
-//        frameTimer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frameTimer.setLayout(new FlowLayout());
-//
-//
-//        JLabel label = new JLabel("Count: 0");
-//        frameTimer.add(label);
-//
-//        //pass the label into the MyListener constructor
-//        GameTimer listener = new GameTimer(label);
-//
-//        //the timer fires every 1000 MS (1 second)
-//        //when it does, it calls the actionPerformed() method of MyListener
-//        Timer timerG = new Timer(1000, listener);
-//
-//        //start the timer
-//        timerG.start();
-//        
-//        frameTimer.setSize(225, 100);
-//        frameTimer.setVisible(true);
-		
 	}
 
 	public void initialize() {
@@ -194,12 +172,10 @@ public class Render extends JPanel implements ActionListener {
 		
 		if (GameState.getState() == State.PAUSE) {
 
-		} 
-		
-		if(GameState.getState() == State.TIMEOVER){
+		} else if(GameState.getState() == State.TIMEOVER){
 			
-		}
-		else {
+		} else {
+			
 			isPlayerAlive = false;
 			for (int i = leftMostVisibleCell; i <= rightMostVisibleCell; i++) {
 				for (int j = 0; j < Bomberman.HEIGHT; j++) {
@@ -277,71 +253,7 @@ public class Render extends JPanel implements ActionListener {
 						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
 						continue;
 					case POWERUPS:
-					
-						// FLAMES
-						if (level.getCurrentLevel() == 1 || level.getCurrentLevel() == 7 || level.getCurrentLevel() == 15
-						|| level.getCurrentLevel() == 27 || level.getCurrentLevel() == 38) {
-					g2d.drawImage(powerups.getFlamesImage(), Bomberman.TILE_SIZE
-							* i, Bomberman.TILE_SIZE * j, this);
-					continue;
-				}
-
-				// BOMB
-				if (level.getCurrentLevel() == 1 || level.getCurrentLevel() == 2 || level.getCurrentLevel() == 5
-						|| level.getCurrentLevel() == 6 || level.getCurrentLevel() == 11 || level.getCurrentLevel() == 12
-						|| level.getCurrentLevel() == 17 || level.getCurrentLevel() == 19 || level.getCurrentLevel() == 23
-						|| level.getCurrentLevel() == 28 || level.getCurrentLevel() == 32) {
-					g2d.drawImage(powerups.getBombsImage(), Bomberman.TILE_SIZE
-							* i, Bomberman.TILE_SIZE * j, this);
-					continue;
-				}
-				// SPEED
-				else if (level.getCurrentLevel() == 4) {
-					g2d.drawImage(powerups.getSpeedImage(), Bomberman.TILE_SIZE
-							* i, Bomberman.TILE_SIZE * j, this);
-					continue;
-				}
-				// DETONATOR
-				else if (level.getCurrentLevel() == 3 || level.getCurrentLevel() == 8 || level.getCurrentLevel() == 13
-						|| level.getCurrentLevel() == 20 || level.getCurrentLevel() == 22 || level.getCurrentLevel() == 24
-						|| level.getCurrentLevel() == 29 || level.getCurrentLevel() == 33 || level.getCurrentLevel() == 27
-						|| level.getCurrentLevel() == 41 || level.getCurrentLevel() == 44 || level.getCurrentLevel() == 48) {
-					g2d.drawImage(powerups.getDetonatorsImage(),
-							Bomberman.TILE_SIZE * i, Bomberman.TILE_SIZE * j, this);
-					continue;
-				}
-				// BOMBPASS
-				else if (level.getCurrentLevel() == 9 || level.getCurrentLevel() == 14 || level.getCurrentLevel() == 18
-						|| level.getCurrentLevel() == 21 || level.getCurrentLevel() == 25 || level.getCurrentLevel() == 35
-						|| level.getCurrentLevel() == 43 || level.getCurrentLevel() == 47) {
-					g2d.drawImage(powerups.getBombPassImage(),
-							Bomberman.TILE_SIZE * i, Bomberman.TILE_SIZE * j, this);
-					continue;
-				}
-				// WALLPASS
-				else if (level.getCurrentLevel() == 10 || level.getCurrentLevel() == 16 || level.getCurrentLevel() == 31
-						|| level.getCurrentLevel() == 39 || level.getCurrentLevel() == 42 || level.getCurrentLevel() == 46) {
-					g2d.drawImage(powerups.getWallPassImage(),
-							Bomberman.TILE_SIZE * i, Bomberman.TILE_SIZE * j, this);
-					continue;
-				}
-				// FLAMEPASS
-				else if (level.getCurrentLevel() == 30 || level.getCurrentLevel() == 36 || level.getCurrentLevel() == 49) {
-					g2d.drawImage(powerups.getFlamePassImage(),
-							Bomberman.TILE_SIZE * i, Bomberman.TILE_SIZE * j, this);
-					continue;
-				}
-				// MYSTERY
-				else if (level.getCurrentLevel() == 26 || level.getCurrentLevel() == 34 || level.getCurrentLevel() == 40
-						|| level.getCurrentLevel() == 45 || level.getCurrentLevel() == 50) {
-					// g2d.drawImage(powerups.getMysteryImage(),
-					// Bomberman.TILE_SIZE * i, Bomberman.TILE_SIZE * j, this);
-					// continue;
-					// becomes immune to monsters and explosions
-					// (not included in our gameplay so I dont know what
-					// to do with this)
-				}
-
+						powerupPrint(i, j);
 						continue;
 					case BRICKANDEXITWAY:
 						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE
@@ -375,8 +287,6 @@ public class Render extends JPanel implements ActionListener {
 				}
 			}
 			
-			//enemy.move(player.getX() / Bomberman.TILE_SIZE, player.getY() / Bomberman.TILE_SIZE);
-			//\enemy.aStarMovement(player.getX() / Bomberman.TILE_SIZE, player.getY() / Bomberman.TILE_SIZE, Cell.KONDORIA);
 			
 			if (count == 3) {
 				
@@ -440,6 +350,8 @@ public class Render extends JPanel implements ActionListener {
 				bomb.setTotalGameScore(0);
 				GameState.setState(State.TIMEOVER);
 				System.out.println(GameState.getState());
+				new TimeOverMenu(grid, this, gameState, player, bomberman);
+				timeOverMenuOpen = true;
 			}
 
 			else {
@@ -447,13 +359,9 @@ public class Render extends JPanel implements ActionListener {
 				Player.setLivesLeft(numberOfLives);
 
 			}
-			
+
 			initialize();
 		}
-		
-		//System.out.println("number of lives..." + numberOfLives);
-
-		
 		
 	}
 
@@ -506,5 +414,74 @@ public class Render extends JPanel implements ActionListener {
 	public void setTimeOverState(boolean isTimeOverMenuOpen){
 		this.timeOverMenuOpen = isTimeOverMenuOpen;
 	}
+	public Boolean getTimeOverState(){
+		return timeOverMenuOpen;
+	}
 
+	public void powerupPrint(int i, int j){
+		
+		// FLAMES
+		if (level.getCurrentLevel() == 1 || level.getCurrentLevel() == 7 || level.getCurrentLevel() == 15
+				|| level.getCurrentLevel() == 27 || level.getCurrentLevel() == 38) {
+			g2d.drawImage(powerups.getFlamesImage(), Bomberman.TILE_SIZE
+					* i, Bomberman.TILE_SIZE * j, this);
+		}
+
+		// BOMB
+		else if (level.getCurrentLevel() == 1 || level.getCurrentLevel() == 2 || level.getCurrentLevel() == 5
+				|| level.getCurrentLevel() == 6 || level.getCurrentLevel() == 11 || level.getCurrentLevel() == 12
+				|| level.getCurrentLevel() == 17 || level.getCurrentLevel() == 19 || level.getCurrentLevel() == 23
+				|| level.getCurrentLevel() == 28 || level.getCurrentLevel() == 32) {
+			g2d.drawImage(powerups.getBombsImage(), Bomberman.TILE_SIZE
+					* i, Bomberman.TILE_SIZE * j, this);
+		}
+		
+		// SPEED
+		else if (level.getCurrentLevel() == 4) {
+			g2d.drawImage(powerups.getSpeedImage(), Bomberman.TILE_SIZE
+					* i, Bomberman.TILE_SIZE * j, this);
+			
+		}
+		
+		// DETONATOR
+		else if (level.getCurrentLevel() == 3 || level.getCurrentLevel() == 8 || level.getCurrentLevel() == 13
+				|| level.getCurrentLevel() == 20 || level.getCurrentLevel() == 22 || level.getCurrentLevel() == 24
+				|| level.getCurrentLevel() == 29 || level.getCurrentLevel() == 33 || level.getCurrentLevel() == 27
+				|| level.getCurrentLevel() == 41 || level.getCurrentLevel() == 44 || level.getCurrentLevel() == 48) {
+			g2d.drawImage(powerups.getDetonatorsImage(),
+					Bomberman.TILE_SIZE * i, Bomberman.TILE_SIZE * j, this);
+		}
+		
+		// BOMBPASS
+		else if (level.getCurrentLevel() == 9 || level.getCurrentLevel() == 14 || level.getCurrentLevel() == 18
+				|| level.getCurrentLevel() == 21 || level.getCurrentLevel() == 25 || level.getCurrentLevel() == 35
+				|| level.getCurrentLevel() == 43 || level.getCurrentLevel() == 47) {
+			g2d.drawImage(powerups.getBombPassImage(),
+					Bomberman.TILE_SIZE * i, Bomberman.TILE_SIZE * j, this);
+		}
+		
+		// WALLPASS
+		else if (level.getCurrentLevel() == 10 || level.getCurrentLevel() == 16 || level.getCurrentLevel() == 31
+				|| level.getCurrentLevel() == 39 || level.getCurrentLevel() == 42 || level.getCurrentLevel() == 46) {
+			g2d.drawImage(powerups.getWallPassImage(),
+					Bomberman.TILE_SIZE * i, Bomberman.TILE_SIZE * j, this);
+			
+		}
+		// FLAMEPASS
+		else if (level.getCurrentLevel() == 30 || level.getCurrentLevel() == 36 || level.getCurrentLevel() == 49) {
+			g2d.drawImage(powerups.getFlamePassImage(),
+					Bomberman.TILE_SIZE * i, Bomberman.TILE_SIZE * j, this);
+		}
+		
+		// MYSTERY
+		else if (level.getCurrentLevel() == 26 || level.getCurrentLevel() == 34 || level.getCurrentLevel() == 40
+				|| level.getCurrentLevel() == 45 || level.getCurrentLevel() == 50) {
+			// g2d.drawImage(powerups.getMysteryImage(),
+			// Bomberman.TILE_SIZE * i, Bomberman.TILE_SIZE * j, this);
+			// continue;
+			// becomes immune to monsters and explosions
+			// (not included in our gameplay so I dont know what
+			// to do with this)
+		}
+	}
 }

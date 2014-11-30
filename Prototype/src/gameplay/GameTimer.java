@@ -16,6 +16,7 @@ public class GameTimer implements ActionListener{
     private JLabel label4;
     private int score = 0;
     private Bomb bomb;
+    private Render render;
 
     public GameTimer(JLabel label, JLabel label2, JLabel label3, JLabel label4){
         this.label = label;
@@ -28,7 +29,7 @@ public class GameTimer implements ActionListener{
 
     public void actionPerformed(ActionEvent e) {
     	if(count != 0){
-    		if(GameState.getState() != State.PAUSE){
+    		if(GameState.getState() != State.PAUSE || render.getTimeOverState() == true){
         count--;
     		}
     	}

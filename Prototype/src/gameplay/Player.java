@@ -60,7 +60,7 @@ public class Player {
 		this.isBombPlaced = false;
 		this.setDetonatePressed(false);
 		this.range = 1;
-		this.bombs = 2;
+		this.bombs = 1;
 		bombNumber = 10;
 		currentBombCounter = 10;
 		bombsOnGround = 0;

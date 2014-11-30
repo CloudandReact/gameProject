@@ -14,6 +14,7 @@ public class ExitWay {
 	private Image imagePlayerAndExitway;
 	
 	private static Boolean access = false;
+	private static Boolean exitwayPlaced = false;
 	
 	private Grid grid;
 	
@@ -25,11 +26,16 @@ public class ExitWay {
 	}
 	
 	private void placeExitWay(){
+		while(exitwayPlaced == false){
+			int randX = randInt(2,31);
+			int randY = randInt(2,13); 
 		
-		int randX = randInt(2,31);
-		int randY = randInt(2,13); 
+			if(grid.getContents(randX, randY) == Cell.EMPTY){
+				grid.setContents(randX,randY,Cell.BRICKANDEXITWAY);
+				exitwayPlaced = true;
+			}
 		
-		grid.setContents(4,1,Cell.BRICKANDEXITWAY);
+		}
 		
 	}
 	

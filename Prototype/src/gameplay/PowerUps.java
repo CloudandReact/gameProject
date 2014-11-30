@@ -1,6 +1,7 @@
 package gameplay;
 
 import java.awt.Image;
+
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -14,12 +15,12 @@ public class PowerUps {
 	private String bombPassP = "bombpassp.png";
 	private String wallPassP = "wallpassp.png";
 	private String flamePassP = "flamepassp.png"; 
-	private static Boolean wallpass = false;
-	private static Boolean bombpass = false; 
-	private static Boolean flamepass = false;
-	private static Boolean detonate = true; 
-	private static Boolean gotPowerup= false; //remember to set this to false when player moves to next clevel
-	//String [] powerups = {"bombsP.png","flamesP.png","speedP.png","detonatorsP.png","bombPassP.png","wallPassP.png","flamePassP.png"};
+	private static Boolean wallpass;
+	private static Boolean bombpass; 
+	private static Boolean flamepass;
+	private static Boolean detonate; 
+	private static Boolean gotPowerup;
+	private static Boolean powerupPlaced; //use this to make sure powerup is not printed twice in same level if player dies
 	
 	private Image imageb;
 	private Image imagef;
@@ -28,27 +29,31 @@ public class PowerUps {
 	private Image imageBP;
 	private Image imageWP;
 	private Image imageFP;
-	private static int cclevel;
+	private static int currentLevel;
 	
 	private Grid grid;
 	private Player player;
 	private Level level;
 	
-	// use Level object Rakinul
 	public PowerUps(Grid grid, Level level){
 		//draw
 		this.grid = grid;
 		this.level = level;
 		loadImage();
-
-
 		
 	}
+	
 	public PowerUps(Grid grid, Player player, Level level){
-		//cclevel = clevel.getCurrentclevel();
+		//currentLevel = clevel.getCurrentclevel();
 		this.grid = grid;
 		this.player = player;
 		this.level = level;
+		PowerUps.powerupPlaced = false;
+		PowerUps.bombpass = false;
+		PowerUps.wallpass = false;
+		PowerUps.flamepass = false;
+		PowerUps.detonate = false;
+		PowerUps.gotPowerup = false;
 		loadImage();
 		placePowerups();
 		givePowerUp();
@@ -59,17 +64,14 @@ public class PowerUps {
 		System.out.println(PowerUps.getClevel());
 		System.out.println("current Range is "+ player.getRange());
 		int clevel = PowerUps.getClevel();
-		//int clevel = 10;
 		if(gotPowerup == true){
 			
 			// FLAMES
 			if (clevel == 1 || clevel == 7 || clevel == 15
 					|| clevel == 27 || clevel == 38) {
-				System.out.println("I AM HEREEES AESGSGSGA GASG  ");
 				int currentRange = player.getRange();
 				player.setRange(currentRange+1);
 			}
-
 			// BOMB
 			else if (clevel == 2 || clevel == 5
 					|| clevel == 6 || clevel == 11 || clevel == 12
@@ -77,7 +79,6 @@ public class PowerUps {
 					|| clevel == 28 || clevel == 32) {
 				int currentBomb = player.getBombs();
 				player.setBombs(currentBomb + 1);
-				
 			}
 			// SPEED
 			else if (clevel == 4) {
@@ -119,20 +120,23 @@ public class PowerUps {
 		}
 	}
 	private void placePowerups(){
+		while(powerupPlaced == false){
+		int randX = randInt(2,31);
+		int randY = randInt(2,12); 
+			if (grid.getContents(randX, randY) == Cell.EMPTY) {
+					grid.setContents(randX,randY,Cell.BRICKANDPOWERUPS);
+					powerupPlaced = true;
+			}
+		}
 		
-		//int randX = randInt(2,31);
-		//int randY = randInt(2,12); 
-		//grid.setContents(randX,randY,Cell.BRICKANDPOWERUPS);
-		grid.setContents(1,4,Cell.BRICKANDPOWERUPS);
+		
 	}
 	
 	
 	public static int randInt(int min, int max) {
 
 	    Random rand = new Random();
-	    
 	    int randomNum = rand.nextInt((max - min) + 1) + min;
-
 	    return randomNum;
 	}
 	
@@ -238,13 +242,12 @@ public class PowerUps {
 	}
 
 	public static int getClevel() {
-		return cclevel;
+		return currentLevel;
 	}
 
 	public static void setClevel(int clevel) {
-		PowerUps.cclevel = clevel;
+		PowerUps.currentLevel = clevel;
 	}
 
-	
 	
 }
