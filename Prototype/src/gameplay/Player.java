@@ -18,9 +18,7 @@ public class Player implements Serializable{
     private final int up = -1 * Bomberman.TILE_SIZE;
     private final int notMoving = 0;
 	
-
-	private String playerImage = "bomberman.png";
-
+    private String playerImage = "bomberman.png";
 	private int dx;
 	private int dy;
 	private int x;
@@ -28,12 +26,10 @@ public class Player implements Serializable{
 	private int posX;
 	private int posY;
 	private int movementSpeed;
-	private int countForMovementSpeed;
-	
+	private int countForMovementSpeed;	
 	private int range;
-	private int bombs;
-	private long startTime;
-	
+	private int numberOfBombs;
+
 	private static int bombNumber;
 	private static int currentBombCounter;
 	private static int score;
@@ -41,9 +37,7 @@ public class Player implements Serializable{
 	public static int livesLeft;
 	
 	private boolean detonatePressed;
-	
 	private ImageIcon iconPlayer;
-	
 	private Grid grid;
 	private Enemy enemy;
 	private PowerUps powerup;
@@ -54,8 +48,8 @@ public class Player implements Serializable{
 	 * <p> Constructor that initializes a <code>Player</code> object which initializes the user's starting position on the map, sets its
 	 * position on the frame, initializes all bomb attributes to their basic values, sets the score for the session to zero, initializes
 	 * movement speed and loads the player image. Additionally, the required game objects are initialized. A player utilizes a Grid, Enemy,
-	 * and PowerUps object. 
-	 * </p>
+	 * and PowerUps object. </p>
+	 * 
 	 * A player object deals with the basic player movement and collisions, powerup logic, and places bomb accordingly.
 	 * Additionally, all user input is taken through the player class. 
 	 * 
@@ -75,7 +69,7 @@ public class Player implements Serializable{
 		setY(INITIAL_FRAME_POSITION);
 		setBombsOnGround(0);
 		setRange(1);
-		setBombs(1);
+		setNumberOfBombs(1);
 		setBombNumber(10);
 		setCurrentBombCounter(10);
 		setScore(0);
@@ -92,17 +86,19 @@ public class Player implements Serializable{
 	
 	
 	/**
-	 * Move method called at every user input. Based on the key pressed, it updates the players position on the grid accordingly. 
-	 * This method deals with collisions, powerups, and player death. Move only occurs when the countForMovementSpeed is equal to
+	 * <p>Move method called at every user input. Based on the key pressed, it updates the players position on the grid accordingly. 
+	 * This method deals with collisions, powerups, and player death. </p> 
+	 * 
+	 * <p>Move only occurs when the countForMovementSpeed is equal to
 	 * the actual movement speed, which is defaulted to 2. The count is updated on each call, and is reset when the move is executed. 
-	 * When the player finds the movement speed power up, the movementSpeed is set to 1, and move functions on each call. 
+	 * When the player finds the movement speed power up, the movementSpeed is set to 1, and move functions on each call. </p>
 	 */
+	
 	public void move() {
 		
 		if(countForMovementSpeed == movementSpeed){	
 			if (dx != 0) {		
 
-				// Player dies if walking into enemy
 				if(grid.checkIfEnemy(posX + (dx / 25), posY)){
 					grid.setContents(posX, posY, Tile.EMPTY);
 				}
@@ -264,51 +260,15 @@ public class Player implements Serializable{
 		countForMovementSpeed++;
 		
 	}
-
-
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setX(int xNew) {
-		x = xNew;
-	}
-
-	public void setY(int yNew) {
-		y = yNew;
-	}
 	
-	private void loadImage() {
-		 iconPlayer= new ImageIcon(getClass().getResource(playerImage));
-		
-	}
-
-	public Image getImage() {
-		return iconPlayer.getImage();
-		
-	}
 	
-	public static int getBombNumber(){
-		return bombNumber;
-	}
+	 /**
+     * <p> This method performs a check on if the following keys are
+     * pressed: up, down, right, left, b, space, and x. 
+     * Based on the key, It then processes the required logic. . </p>
+     * 
+     */ 
 	
-	public static void setBombNumber(int bombNumber){
-		Player.bombNumber = bombNumber;
-	}
-	
-	public static int getCurrentBombCounter(){
-		return currentBombCounter;
-	}
-	
-	public static void setCurrentBombCounter(int currentBombCounter){
-		Player.currentBombCounter = currentBombCounter;
-	}
-	
-
 	public void keyPressed(KeyEvent e) {
 
 		int key = e.getKeyCode();
@@ -352,7 +312,7 @@ public class Player implements Serializable{
 		case KeyEvent.VK_X:
 			if ((GameState.getState() == State.RUNNING || GameState.getState() == State.RUNNINGANDLEVELOVER)) {
 				if (grid.getContents(posX, posY) != Tile.PLAYERANDBOMB && (grid.getContents(posX, posY) != Tile.PLAYERANDEXITWAY)) {
-					if(getBombsOnGround() < getBombs()){
+					if(getBombsOnGround() < getNumberOfBombs()){
 						grid.setContents(posX, posY, Tile.PLAYERANDBOMB);
 						
 						setBombsOnGround(getBombsOnGround() + 1);
@@ -408,67 +368,228 @@ public class Player implements Serializable{
 		}		
 
 	}
-
-	public void initializeTimer() {
-		startTime = System.currentTimeMillis();
+	
+	
+	
+	/**
+	 * Method which allows you to determine the players position on the x axis. 
+	 * Note: Each tile has a TILE_SIZE of 25. 
+	 * @return the <code>int</code> corresponding to the player's position relative to the frame's initial point along the 'x' axis. 
+	 */
+	
+	public int getX() {
+		return x;
 	}
-
-	public long getInitialTime() {
-		return startTime;
+	
+	
+	/**
+	 * Method which allows you to set the players position on the x axis. 
+	 * @param xNew The new position of the player along the x axis. 
+	 */
+	public void setX(int xNew) {
+		x = xNew;
 	}
+	
+	
+	/**
+	 * Method which allows you to determine the players position on the y axis. 
+	 * Note: Each tile has a TILE_SIZE of 25. 
+	 * @return the <code>int</code> corresponding to the player's position relative to the frame's initial point along the y axis. 
+	 */
+	
+	public int getY() {
+		return y;
+	}
+	
+	
+	/**
+	 * Method which allows you to set the players position on the y axis. 
+	 * @param yNew The new position of the player along the y axis.
+	 */
+	public void setY(int yNew) {
+		y = yNew;
+	}
+	
+	
+	
+	
+	/**
+	 * Method used to load the player's image. This corresponds to the bomberman icon. 
+	 */
+	
+	private void loadImage() {
+		 iconPlayer= new ImageIcon(getClass().getResource(playerImage));
+		
+	}
+	
+	
+	/**
+	 * Gets the image for the player.
+	 * 
+	 * @return the <code>Image</code> shown when player is in a tile by itself.
+	 */
+
+	public Image getImage() {
+		return iconPlayer.getImage();
+		
+	}
+	
+	/**
+	 *<p> Returns the bombNumber which keeps track of the bombs placed on the map: required for the detonate powerup logic. </p>
+	 * This method allows you to determine the bomb number.
+	 * <p> Note: bombNumber is reset when there are no bombs present on the grid. </p>
+	 * @return the <code>int</code> corresponding to the bombNumber attribute. 
+	 */
+	public static int getBombNumber(){
+		return bombNumber;
+	}
+	
+	/**
+	 * <p> Required for detonate powerup logic. </p> 
+	 * <p> Sets the bombNumber which keeps track of the bombs placed on the map. </p>
+	 * This method allows you to set the bomb number. This is primarily used in the bomb class: after 
+	 * the explode() method is called, it is incremented.	
+	 * <p> Note: bombNumber is reset when there are no bombs present on the grid. </p>
+	 * @param bombNumber The number corresponding to the bomb placed on the grid. The oldest bomb should be set to 10. 
+	 */
+	
+	public static void setBombNumber(int bombNumber){
+		Player.bombNumber = bombNumber;
+	}
+	
+	/**<p> Required for detonate powerup logic. </p> 
+	 * Gets the counter for the integer which keeps track of the bomb number, and is passed to the new bomb object and decremented.
+	 * This is cross checked with bombNumber; if they match, the bomb explodes. 
+	 * <p> </p> 
+	 * @return the <code>int</code> corresponding to the currentBombCounter attribute. 
+	 */
+	public static int getCurrentBombCounter(){
+		return currentBombCounter;
+	}
+	
+	/**<p> Required for detonate powerup logic. </p> 
+	 * Sets the counter for the integer which keeps track of the bomb number, and is passed to the new bomb object and decremented.
+	 * This is cross checked with bombNumber; if they match, the bomb explodes. 
+	 * @param currentBombCounter The number corresponding to the bomb number. 
+	 */
+	public static void setCurrentBombCounter(int currentBombCounter){
+		Player.currentBombCounter = currentBombCounter;
+	}
+	
+	/**
+	 * Gets the player's score. 
+	 * @return the <code>int</code> corresponding to the Player's score. 
+	 */
 	
 	public static int getScore() {
 		return score;
 	}
-
+	
+	/**
+	 * Sets the player's score. Required when enemies are killed in the bomb class. 
+	 * @param score The Player's score. 
+	 */
 	public static void setScore(int score) {
 		Player.score = score;
 	}
+	
+	
+	/**
+	 * Gets the number of lives left. 
+	 * @return the <code>int</code> corresponding the Player's number of lives left. 
+	 */
 
 	public static int getLivesLeft() {
 		return livesLeft;
 	}
 	
+	/**
+	 * Sets the players number of live's left. 
+	 * @param livesLeft The Player's number of lives left.
+	 */
+	
 	public static void setLivesLeft(int livesLeft) {
 		Player.livesLeft = livesLeft;
 	}
+	
+	/**
+	 * Gets the current player's range, which corresponds to his bomb range.
+	 * Varies depending on bomb powerup. 
+	 * @return the <code>int</code> corresponding to the player range attribute. 
+	 */
 
 	public int getRange() {
 		return range;
 	}
+	
+	/**
+	 * Sets the current player's range, which corresponds to his bomb range.
+	 * Varies depending on bomb powerup.
+	 * @param range The range of the bomb explosion. 
+	 */
 
 	public void setRange(int range) {
 		this.range = range;
 	}
 	
-	public int getBombs() {
-		return bombs;
+	/**
+	 * Gets the number of bombs available to the Player. 
+	 * @return the <code>int</code> getNumberOfBombs representing the number of bombs that can be placed at one time by the Player. 
+	 */
+	
+	public int getNumberOfBombs() {
+		return numberOfBombs;
 	}
 
-	public void setBombs(int bombs) {
-		this.bombs = bombs;
+	public void setNumberOfBombs(int numberOfBombs) {
+		this.numberOfBombs = numberOfBombs;
 	}
 	
+	/**
+	 * Returns the number of bombs present on the grid.
+	 * @return the <code>int</code> corresponding to the number of bombs that are currently on the grid. 
+	 */
 	public static int getBombsOnGround() {
 		return bombsOnGround;
 	}
+	
+	/**
+	 * Sets the number of bombs present on the grid.
+	 * @param bombsOnGround The new integer representing the number of bombs present on the grid. 
+	 */
 	
 	public static void setBombsOnGround(int bombsOnGround) {
 		Player.bombsOnGround = bombsOnGround;
 	}
 	
-
+	/**
+	 * Returns true if 'C' has been pressed to detonate the bomb. 
+	 * @return the <code>boolean</code> representing whether or not C has been pressed. 
+	 */
 	public Boolean getDetonatePressed() {
 		return detonatePressed;
 	}
-
+	
+	/**
+	 * Sets the detonatePressed attribute.
+	 * @param detonatePressed The boolean representing whether or not C has been pressed. 
+	 */
 	public void setDetonatePressed(boolean detonatePressed) {
 		this.detonatePressed = detonatePressed;
 	}
 	
+	/**
+	 * Checks if the Player has the detonate powerup. 
+	 * @return the <code>boolean</code> representing whether or not the player has the detonate powerup. 
+	 */
+	
 	public boolean hasDetonate(){
 		return PowerUps.haveDetonate();
 	}
+	
+	/**
+	 * Method to change the Player's movement speed. As it can only be 1 or 2, (1 being the faster of the two), it only needs to be toggled. 
+	 */
 	
 	public void toggleMovementSpeed(){
 		if(movementSpeed == 2){

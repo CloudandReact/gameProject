@@ -147,7 +147,6 @@ public class PauseMenu extends JFrame implements Serializable {
 				// Execute when button is pressed
 				getContentPane().removeAll();
 				dispose();
-				player.initializeTimer();
 				game.setPauseMenuState(false);
 				GameState.setState(State.RUNNING);
 
