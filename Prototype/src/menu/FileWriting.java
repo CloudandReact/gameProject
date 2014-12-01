@@ -1,5 +1,7 @@
 package menu;
+
 import java.util.Scanner;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +20,6 @@ import gameplay.Level;
 import gameplay.Player;
 import gameplay.Game;
 
-
-
-
-
-
-
-
 import gameplay.PowerUps;
 
 import org.apache.commons.csv.CSVFormat;
@@ -34,6 +29,7 @@ import org.apache.commons.csv.CSVRecord;
 
 import gameplay.PlayerInfo;
 public class FileWriting implements Serializable {
+	
 	String usernameFromFile = "";
 	String passwordFromFile = "";
 	String lineInfo[];

@@ -6,6 +6,10 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
+/**
+ * This class initializes the brick game objects' positions.
+ *
+ */
 public class Brick implements Serializable {
 
 	private String imageNameBrick = "brick.png";

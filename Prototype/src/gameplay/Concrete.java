@@ -1,9 +1,14 @@
 package gameplay;
 
 import java.awt.*;
+
 import java.io.Serializable;
 
 import javax.swing.*;
+
+/**
+ * This class initializes the concrete walls' positions on the grid map.
+ */
 
 public class Concrete implements Serializable {
 	
@@ -20,7 +25,7 @@ public class Concrete implements Serializable {
 	public Concrete(Grid grid) {
 		this.grid = grid;
 		loadImage();
-		placeConcreteOnTheBorder();
+		placeConcreteOnTheBorder(); 
 		placeConcreteOnTheMap();
 
 	}
