@@ -27,7 +27,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import gameplay.PlayerInfo;
-
+/**
+ * SaveGame extends JFrame and implements Serializable to be able to save the game objects to  fileWriting.
+ * It will display whether or not the saving was a success
+ * @author elliot
+ * 
+ *
+ */
 public class SaveGame extends JFrame implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -40,22 +46,54 @@ public class SaveGame extends JFrame implements Serializable {
 
 	private Game game;
 
-	// load how many games then have a textbox to enter
+	
 	JTextField saveGameText = new JTextField(30);
 	JPanel panelA;
-	StoreStatistics checkStats = new StoreStatistics();
+
 	int numberOfGames;
 	Enemy enemy;
 
 	Grid grid;
+	/**
+	 * SaveGame takes in all these inputs and shows the GUI for the user to enter a file name and tries to store all the objects 
+	 * in a serialized form.
+	 * @param grid
+	 * 	Object of type Grid
+	 * @param level
+	 * 	Object of type Level
+	 * @param enemy
+	 * 	Object of type Enemy
+	 * @param p
+	 * 	Object of type Player
+	 * @param concrete
+	 * 	Object of type Concrete
+	 * @param brick
+	 * 	Object of type Brick
+	 * @param powerUps
+	 * 	Object of type PowerUps
+	 * @param exitWays
+	 * 	Object of type ExitWays
+	 * @param bomb
+	 *  Object of type Bomb
+	 * @param flamePass
+	 * 	Boolean of type flamePass as in does the user have the powerup
+	 * @param bombPass
+	 * 	Boolean of tye bombPass
+	 * @param wallPass
+	 * 	Boolean of type wallPass
+	 * @param detonate
+	 * 	Boolean of type detonate
+	 * @throws IOException
+	 * 	Throws an IOException because writing to file
+	 */
 
 	public SaveGame(final Grid grid,final Level level, final Enemy enemy,final Player p,final Concrete concrete,final Brick brick, final PowerUps powerUps,
 			final ExitWay exitWays, final Bomb bomb, final boolean flamePass,final boolean bombPass,final boolean wallPass,
 			final boolean detonate) throws IOException {
-	  //public SaveGame(final Render r) throws IOException {
+	 
 		this.grid = grid;
 		this.enemy = enemy;
-		checkStats.checkNumberOfGames();
+
 		setSize(450, 450);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -66,7 +104,7 @@ public class SaveGame extends JFrame implements Serializable {
 		setLocationRelativeTo(null);
 		AccountMenu.setFrameTitle("Leaderboards");
 
-		// open statistics read user games and display
+		
 
 		JLabel gameNumberLabel = new JLabel("enter name of save game");
 		gameNumberLabel.setBounds(20, 50, 145, 25);
@@ -94,30 +132,28 @@ public class SaveGame extends JFrame implements Serializable {
 		saveButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				// Execute when button is pressed
+				
 				getContentPane().removeAll();
-				// create savin game object
+				
 				String gameName = (saveGameText.getText());
 
 				// /need to write to file
 				FileWriting savingTheGame = new FileWriting();
 				try {
-					//change to add in currentLives
-					//object save everything
-					//enemy.getEnemiesInitial()
+					
 					savingTheGame.saveGame(gameName,level,enemy, p,concrete,brick, powerUps,exitWays,bomb,grid, 
 							PlayerInfo.playerScore, PlayerInfo.currentLevel,Player.livesLeft,GameTimer.timeCount,flamePass,bombPass,wallPass,detonate);
-					//savingTheGame.saveGame(gameName,r);
+					
 					System.out.println("succes");
 					getContentPane().removeAll();
 					dispose();
 
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
 
-				// new Game()
+				
 			}
 		});
 

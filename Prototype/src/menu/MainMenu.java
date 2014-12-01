@@ -70,7 +70,7 @@ public class MainMenu extends JFrame{
 		 */
 		leaderboardsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Execute when button is pressed
+				
 				new Leaderboards();	
 			}
 			

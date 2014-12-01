@@ -19,6 +19,13 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/**
+ * LoadLevel displays the GUI for the level loaded and checks if the level the
+ * user attemps to load is valid for the user
+ * 
+ * @author elliot
+ *
+ */
 public class LoadLevel extends JFrame {
 	private static final long serialVersionUID = 1L;
 
@@ -28,41 +35,33 @@ public class LoadLevel extends JFrame {
 	JButton playButton = new JButton("Play");
 	int levelAvailible = PlayerInfo.unlockedLevel;
 
-	// load how many games then have a textbox to enter
 	JTextField gameToPlayText = new JTextField();
 	JPanel panelA;
-	StoreStatistics checkStats = new StoreStatistics();
 	int numberOfGames;
 
+	/**
+	 * LoadLevel removes the old Jpanel and displays the new one displaying the
+	 * level available and a text box for selecting a level it stores the input
+	 * from the file so it throws an exception
+	 * 
+	 * @param panel
+	 *            Stores the previous panel and modifies it
+	 * @throws IOException
+	 */
 	public LoadLevel(JPanel panel) throws IOException {
-		checkStats.checkNumberOfGames();
 		panel.removeAll();
 
 		panel.setLayout(null);
 
-		// open statistics read user games and display
-		numberOfGames = checkStats.numberOfGames();
-		// if(levelAvailible>1)
-		if (true) {
-			JLabel gameNumberLabel = new JLabel("Level availible "
-					+ levelAvailible);
-			gameNumberLabel.setBounds(40, 60, 120, 25);
-			panel.add(gameNumberLabel);
-			gameToPlayText.setBounds(165, 60, 25, 25);
-			playButton.setBounds(165, 105, 80, 25);
-			backButton.setBounds(80, 105, 80, 25);
-			panel.add(backButton);
-			panel.add(playButton);
-			panel.add(gameToPlayText);
-		} else {
-			JLabel gameNumberLabel = new JLabel("No game saved please go back");
-			gameNumberLabel.setBounds(40, 60, 190, 25);
-
-			backButton.setBounds(80, 105, 80, 25);
-			panel.add(backButton);
-			panel.add(gameNumberLabel);
-
-		}
+		JLabel gameNumberLabel = new JLabel("Level availible " + levelAvailible);
+		gameNumberLabel.setBounds(40, 60, 120, 25);
+		panel.add(gameNumberLabel);
+		gameToPlayText.setBounds(165, 60, 25, 25);
+		playButton.setBounds(165, 105, 80, 25);
+		backButton.setBounds(80, 105, 80, 25);
+		panel.add(backButton);
+		panel.add(playButton);
+		panel.add(gameToPlayText);
 
 		AccountMenu.setFrameTitle("Load Level");
 
@@ -87,18 +86,6 @@ public class LoadLevel extends JFrame {
 				new Bomberman(levelSelected);
 				AccountMenu.destroyFrame();
 
-				// if(levelSelected>levelAvailible){
-				// //alert error reenter else iniatilize constructor for game
-				// play
-				// //constructur
-				// JOptionPane.showMessageDialog(null,"Please enter smaller number than equal to "+levelAvailible+
-				// " ", "Error", JOptionPane.INFORMATION_MESSAGE);
-				// }
-				// else{
-				// //assigns player current Level to different level
-				// PlayerInfo.currentLevel=levelSelected;
-				// }
-				// new Game()
 			}
 		});
 		panel.setVisible(true);

@@ -15,27 +15,31 @@ import java.util.PriorityQueue;
 
 import org.apache.commons.csv.CSVRecord;
 
+/**
+ * CompareLeaderboards this stores the allUserStatistics then sorts it by score
+ * and name and then it is called in Leaderboards to display
+ * 
+ * @author elliot
+ *
+ */
+
 public class CompareLeaderboards {
-	
 
 	ArrayList<CSVRecord> allUsersStatistics;
 	ArrayList<CSVRecord> allUsersStatistics1;
-	Map<Integer, String> statsAscending = new TreeMap<Integer, String>();
-	Map<Integer, String> statsFormatted = new HashMap<Integer, String>();
+
 	ArrayList<String> userNames = new ArrayList<String>();
 	ArrayList<Integer> userScores = new ArrayList<Integer>();
 
-	public void setList() {
+	/**
+	 * placeInArrayList stores the different usernames and scores in 2 seperate
+	 * arraylists.
+	 */
 
-	}
-
-	public void placeInMap() {
+	public void placeInArrayList() {
 		allUsersStatistics = PlayerInfo.getAllPlayersStats();
 		for (int i = 0; i < allUsersStatistics.size(); i++) {
-			// store in hashmap
-			statsFormatted.put(
-					Integer.parseInt(allUsersStatistics.get(i).get(2)),
-					(allUsersStatistics.get(i).get(0)));
+
 			userNames.add(allUsersStatistics.get(i).get(0));
 
 			userScores.add(Integer.parseInt(allUsersStatistics.get(i).get(2)));
@@ -46,12 +50,16 @@ public class CompareLeaderboards {
 			}
 		}
 		// store the stats in asceding order
-		statsAscending = new TreeMap<Integer, String>(statsFormatted);
-		System.out.println(statsAscending);
+
 		System.out.println(userNames);
 		System.out.println(userScores);
 	}
 
+	/**
+	 * sortPlayers sorts the players in the arraylist based on socre. Loops
+	 * through the arraylist and swaps values which are greater. But does not
+	 * sort players with same score.
+	 */
 	public void sortPlayers() {
 
 		for (int i = 0; i < userNames.size(); i++) {
@@ -71,6 +79,10 @@ public class CompareLeaderboards {
 		System.out.println(userScores);
 	}
 
+	/**
+	 * SortPlayersSameScore is called after sortPlayers and sorts the players
+	 * with different names and the same score
+	 */
 	public void sortPlayersSameScore() {
 		for (int i = 0; i < userNames.size(); i++) {
 			for (int j = 0; j < userNames.size() - 1; j++)
@@ -90,16 +102,22 @@ public class CompareLeaderboards {
 		System.out.println(userScores);
 	}
 
-	int Score = 0;
+	int playersScore = 0;
 
+	/**
+	 * setPlayerScore sets the player score and then returns it by summing up
+	 * his previous score with his current score
+	 * 
+	 * @return
+	 */
 	public int setPlayerScore() {
 		for (int i = 0; i < userNames.size(); i++) {
 			if (PlayerInfo.usernameStatic.equals(userNames.get(i))) {
-				Score = PlayerInfo.playerScore + userScores.get(i);
+				playersScore = PlayerInfo.playerScore + userScores.get(i);
 			}
 
 		}
-		return Score;
+		return playersScore;
 	}
 
 	public ArrayList<Integer> getUserScores() {

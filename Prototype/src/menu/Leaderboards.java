@@ -14,6 +14,11 @@ import java.awt.Font;
 import java.util.ArrayList;
 
 @SuppressWarnings("serial")
+/**
+ * Leaderboards displays the current LeaderBoards by calling the compareLeaderboards class to get the up to date leaderboards
+ * @author elliot
+ *
+ */
 public class Leaderboards extends JFrame {
 
 	private JButton backButton;
@@ -22,6 +27,13 @@ public class Leaderboards extends JFrame {
 	private JLabel scoreLabel;
 
 	CompareLeaderboards compareLeaderboards;
+
+	/**
+	 * Leaderboards sets the size of the new leaderboard JFrame and adds the
+	 * buttons and loops through high scores and displays either the top 10 or
+	 * the highest scores if not ten saved scores. When the user clicks back the
+	 * JFrame is destroyed
+	 */
 
 	public Leaderboards() {
 
@@ -54,21 +66,20 @@ public class Leaderboards extends JFrame {
 
 		AccountMenu.setFrameTitle("Leaderboards");
 
-		compareLeaderboards.placeInMap();
 		compareLeaderboards.sortPlayers();
 
 		ArrayList<String> usernames = compareLeaderboards.getUsernames();
 		ArrayList<Integer> userScores = compareLeaderboards.getUserScores();
 
 		int topScores = 10;
-		
+
 		if (userScores.size() >= 10) {
 
 		} else {
 			topScores = userScores.size();
 		}
 		boolean scorePlaced = false;
-		
+
 		for (int i = 0; i < topScores; i++) {
 			if (PlayerInfo.playerScore >= userScores.get(i) && !scorePlaced) {
 
@@ -103,8 +114,7 @@ public class Leaderboards extends JFrame {
 		scoreLabel = new JLabel(String.valueOf(PlayerInfo.playerScore));
 		scoreLabel.setBounds(287, 200, 150, 25);
 		panel.add(scoreLabel);
-		
-		
+
 		backButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {

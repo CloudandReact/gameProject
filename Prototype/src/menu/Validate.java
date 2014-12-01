@@ -2,7 +2,11 @@ package menu;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * Validate checks all the user input when eiter modifying or creating an account and checks if it is valid
+ * @author elliot
+ *
+ */
 public class Validate {
 
 	boolean realNameValid = false;;
@@ -100,13 +104,6 @@ public class Validate {
 		Matcher hasLetterUpperCase = letterUpperCase.matcher(password);
 		Matcher hasSpecialCharacter = specialCharacter.matcher(password);
 
-		/*
-		 * System.out.println(password.matches("[0-9a-zA-Z]{8,}")+
-		 * " password matches"); System.out.println((password.length()>=8) +
-		 * " size is greater"); System.out.println(hasNumber.find()+
-		 * " has number"+ hasLetterLowerCase.find() + " has lower case"+
-		 * hasLetterUpperCase.find() + " has upper case");
-		 */
 		if (((password.length() >= 8) && password
 				.matches("[0-9a-zA-Z\\p{Punct}]{8,}"))
 				&& ((hasNumber.find() && hasLetterLowerCase.find()) && hasLetterUpperCase
@@ -121,7 +118,9 @@ public class Validate {
 	/**
 	 * this checks if the passwords submitted are the same.
 	 * @param password
+	 *   password is of type string
 	 * @param retypePassword
+	 * 		
 	 * @return
 	 */
 	public boolean arePasswordSame(String password, String retypePassword) {

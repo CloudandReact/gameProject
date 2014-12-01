@@ -1,11 +1,11 @@
 package menu;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+/**
+ * This class loads the AccountMenu Gui dispaying the login Gui
+ */
 
 public class AccountMenu {
 
@@ -16,6 +16,10 @@ public class AccountMenu {
 		frame.setTitle(title);
 	}
 
+	/**
+	 * AccountMenu displays sets the size of the frame adds a panel and displays
+	 * it.
+	 */
 	public AccountMenu() {
 
 		frame.setSize(325, 230);
@@ -28,15 +32,22 @@ public class AccountMenu {
 
 	}
 
+	/**
+	 * destroyFrame destroys the frame and disposes of it
+	 */
 	public static void destroyFrame() {
 		frame.setVisible(false);
 		frame.dispose();
 		System.out.println("DIsp");
 	}
 
+	/**
+	 * calls new AccountMenu
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		new AccountMenu();
 	}
-
 
 }

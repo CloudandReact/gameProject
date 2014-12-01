@@ -8,10 +8,5 @@ public class StatisticsWriting {
 	public String username = PlayerInfo.usernameStatic;
 	public int gameOfUser;
 	FileWriting writeStatistics = new FileWriting();
-	// when game is saved
-	// writeStatistics.
-
-	// read the scores
-	// write the scores
-
+	
 }

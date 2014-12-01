@@ -34,14 +34,11 @@ public class PauseMenu extends JFrame implements Serializable {
 	JButton exitToMain = new JButton("Exit to main menu");
 	JButton resumeGame = new JButton("Resume game");
 
-	// JButton loadLevelButton = new JButton("Load Level");
-
 	Game game;
 	GameState state;
 	Player player;
 	Grid grid;
 	Enemy enemy;
-
 
 	String playersName;
 
@@ -61,12 +58,16 @@ public class PauseMenu extends JFrame implements Serializable {
 	 * @param bombPass
 	 * @param wallPass
 	 * @param detonate
-	 * @param flamePass 
+	 * @param flamePass
 	 * @param bomberman
 	 */
-	public PauseMenu(final Grid grid, final Game game, final Level level, final Enemy enemy, GameState state, final Player player,final Concrete concrete,final Brick brick,
-			final PowerUps powerUps,final ExitWay exitWays, final Bomb bomb,final boolean bombPass,final boolean wallPass,final boolean detonate,
-			final boolean flamePass,final Bomberman bomberman) {
+	public PauseMenu(final Grid grid, final Game game, final Level level,
+			final Enemy enemy, GameState state, final Player player,
+			final Concrete concrete, final Brick brick,
+			final PowerUps powerUps, final ExitWay exitWays, final Bomb bomb,
+			final boolean bombPass, final boolean wallPass,
+			final boolean detonate, final boolean flamePass,
+			final Bomberman bomberman) {
 		this.state = state;
 		this.enemy = enemy;
 		this.grid = grid;
@@ -117,7 +118,7 @@ public class PauseMenu extends JFrame implements Serializable {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
 				// getContentPane().removeAll();
-				
+
 				bomberman.destroyFrameTimer();
 				game.destroyPanel();
 				new MainMenu(panel, PlayerInfo.getUsername());
@@ -128,7 +129,7 @@ public class PauseMenu extends JFrame implements Serializable {
 		});
 
 		/**
-		 * Displays the leaderboard 
+		 * Displays the leaderboard
 		 */
 		viewLeaderboards.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -162,7 +163,9 @@ public class PauseMenu extends JFrame implements Serializable {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
 				try {
-					new SaveGame(grid,level, enemy,player,concrete,brick,powerUps,exitWays,bomb,flamePass,bombPass,wallPass,detonate);
+					new SaveGame(grid, level, enemy, player, concrete, brick,
+							powerUps, exitWays, bomb, flamePass, bombPass,
+							wallPass, detonate);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

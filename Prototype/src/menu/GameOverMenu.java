@@ -38,15 +38,22 @@ public class GameOverMenu extends JFrame {
 
 	/**
 	 * 
-	 * @param grid is the grid for the whole game
-	 * @param game is required to destroy the game panel when player presses exitToMain button
-	 * @param gamestate is required to change the game state when player restarts game
-	 * @param player is required to get players username 
-	 * @param bomberman is required to restart a level and to destroy the timer frame
-	 * @param level is required to get which level the player is in
+	 * @param grid
+	 *            is the grid for the whole game
+	 * @param game
+	 *            is required to destroy the game panel when player presses
+	 *            exitToMain button
+	 * @param gamestate
+	 *            is required to change the game state when player restarts game
+	 * @param player
+	 *            is required to get players username
+	 * @param bomberman
+	 *            is required to restart a level and to destroy the timer frame
+	 * @param level
+	 *            is required to get which level the player is in
 	 */
-	public GameOverMenu(final Grid grid, Game g, GameState gamestate, Player player,
-			final Bomberman bomberman, final Level level) {
+	public GameOverMenu(final Grid grid, Game g, GameState gamestate,
+			Player player, final Bomberman bomberman, final Level level) {
 		this.state = gamestate;
 		this.grid = grid;
 		this.player = player;
