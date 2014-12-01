@@ -79,29 +79,17 @@ public class LoadGame extends JFrame implements Serializable{
 		panel.removeAll();
 		
 		panel.setLayout(null);
-		//open statistics read user games and display
-		numberOfGames=checkStats.numberOfGames();
-		if(numberOfGames>0) 
-			{ 
-			JLabel gameNumberLabel= new JLabel("Enter game name");
-			gameNumberLabel.setBounds(40,60,120,25);
-			panel.add(gameNumberLabel);
-			gameToPlayText.setBounds(165,60,80,25);
-			playButton.setBounds(165,105,80,25);
-			backButton.setBounds(80, 105, 80, 25);
-			panel.add(backButton);
-			panel.add(playButton);
-			panel.add(gameToPlayText);
-			}
-		else {
-			JLabel gameNumberLabel= new JLabel("No game saved please go back");
-			gameNumberLabel.setBounds(40,60,190,25);
+		
+		JLabel gameNumberLabel= new JLabel("Enter game name");
+		gameNumberLabel.setBounds(40,60,120,25);
+		panel.add(gameNumberLabel);
+		gameToPlayText.setBounds(165,60,80,25);
+		playButton.setBounds(165,105,80,25);
+		backButton.setBounds(80, 105, 80, 25);
+		panel.add(backButton);
+		panel.add(playButton);
+		panel.add(gameToPlayText);
 			
-			backButton.setBounds(80, 105, 80, 25);
-			panel.add(backButton);
-			panel.add(gameNumberLabel);
-			
-			}
 		
 		AccountMenu.setFrameTitle("Load Game");
 		
