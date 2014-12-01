@@ -8,9 +8,7 @@ import javax.swing.*;
 public class Concrete implements Serializable {
 	
 	private String concrete = "concrete.png";
-
-	private Image imageConcrete;
-
+	
 	private Grid grid;
 	ImageIcon ii;
 	

@@ -35,6 +35,7 @@ public class PowerUps implements Serializable{
 	private Grid grid;
 	private Player player;
 	private Level level;
+	
 	ImageIcon bomb;
 	ImageIcon flame;
 	ImageIcon speed;
