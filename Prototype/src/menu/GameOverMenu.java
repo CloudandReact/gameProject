@@ -20,9 +20,6 @@ import javax.swing.JPanel;
 
 public class GameOverMenu extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	JPanel panel = new JPanel();
 	JButton viewLeaderboards = new JButton("View Leaderboards");
@@ -30,8 +27,6 @@ public class GameOverMenu extends JFrame {
 	JButton quitGame = new JButton("Quit Game");
 	JButton exitToMain = new JButton("Exit to main menu");
 	JButton restartLevel = new JButton("Restart Level");
-
-	// JButton loadLevelButton = new JButton("Load Level");
 
 	public Game game;
 	GameState state;
@@ -41,12 +36,21 @@ public class GameOverMenu extends JFrame {
 
 	String playersName;
 
-	public GameOverMenu(final Grid grid, Game r, GameState s, Player p,
+	/**
+	 * GameOver Constructor
+	 * @param grid is the grid for the whole game
+	 * @param game 
+	 * @param gamestate 
+	 * @param player
+	 * @param bomberman is required to restart a level and to destroy the timer frame
+	 * @param level is required to get which level the player is in
+	 */
+	public GameOverMenu(final Grid grid, Game g, GameState gamestate, Player player,
 			final Bomberman bomberman, final Level level) {
-		this.state = s;
+		this.state = gamestate;
 		this.grid = grid;
-		this.player = p;
-		this.game = r;
+		this.player = player;
+		this.game = g;
 		setSize(325, 230);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -73,6 +77,9 @@ public class GameOverMenu extends JFrame {
 		restartLevel.setBounds(72, 105, 180, 25);
 		panel.add(restartLevel);
 
+		/**
+		 * 
+		 */
 		quitGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
@@ -82,11 +89,12 @@ public class GameOverMenu extends JFrame {
 
 		});
 
+		/**
+		 * 
+		 */
 		exitToMain.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Execute when button is pressed
-				// getContentPane().removeAll();
-
+				bomberman.destroyFrameTimer();
 				game.destroyPanel();
 				new MainMenu(panel, PlayerInfo.getUsername());
 				bomberman.dispose();
@@ -95,16 +103,20 @@ public class GameOverMenu extends JFrame {
 
 		});
 
+		/**
+		 * 
+		 */
 		viewLeaderboards.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Execute when button is pressed
-				// getContentPane().removeAll();
 				new Leaderboards();
 
 			}
 
 		});
 
+		/**
+		 * 
+		 */
 		restartLevel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PlayerInfo.setUsername(playersName);
@@ -112,22 +124,16 @@ public class GameOverMenu extends JFrame {
 				getContentPane().removeAll();
 				dispose();
 				new Bomberman(level.getCurrentLevel());
-				// render.setPauseMenuState(false);
 				GameState.setState(State.RUNNING);
 				GameTimer.restartTimer();
-
-				// Execute when button is pressed
-				// getContentPane().removeAll();
-				// dispose();
-				// player.initializeTimer();
-				// render.setPauseMenuState(false);
-				// GameState.setState(State.RUNNING);
-
-				// Execute when button is pressed
 
 			}
 
 		});
+		
+		/**
+		 * 
+		 */
 		saveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed

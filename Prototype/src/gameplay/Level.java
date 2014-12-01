@@ -15,12 +15,19 @@ public class Level {
 
 	private static int currentLevel = 1;
 
+	/**
+	 * Level Constructor 
+	 * @param currentLevel is the level that the player is currently in
+	 */
 	public Level(int currentLevel) {
 		this.currentLevel = currentLevel;
 		
 		setNumberOfEnemies();
 	}
 
+	/**
+	 * Gives the number of each type of enemies for each level
+	 */
 	private void setNumberOfEnemies() {
 
 		if (currentLevel == 1) {
@@ -51,7 +58,6 @@ public class Level {
 			numberOfPasses = 0;
 			numberOfPontans = 0;
 		} else if (currentLevel == 4) {
-
 			numberOfBallooms = 1;
 			numberOfOneals = 1;
 			numberOfDolls = 2;
@@ -382,7 +388,6 @@ public class Level {
 			numberOfMinvos = 2;
 			numberOfKondorias = 3;
 			numberOfOvapis = 0;
-			System.out.println("Reaching where we need to");
 			numberOfPasses = 4;
 			numberOfPontans = 0;
 		} else if (currentLevel == 41) {
@@ -521,7 +526,6 @@ public class Level {
 	public int getCurrentLevel() {
 		return currentLevel;
 	}
-
 
 	public void setCurrentLevel( int level) {
 		Level.currentLevel = level;

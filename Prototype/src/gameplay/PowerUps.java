@@ -37,15 +37,24 @@ public class PowerUps {
 	private Player player;
 	private Level level;
 	
+	/**
+	 * PowerUps constructor 
+	 * @param grid is the grid that we place the powerups on
+	 * @param level
+	 */
 	public PowerUps(Grid grid, Level level){
 		//draw
 		this.grid = grid;
 		this.level = level;
 		loadImage();
-		
-
 	}
 	
+	/**
+	 * PowerUps constructor 
+	 * @param grid is the grid that we place the powerups on
+	 * @param player is the player that will be given the powerup if he gets it
+	 * @param level is to know which level the player is in and depending on that level the appropriate powerup is placed 
+	 */
 	public PowerUps(Grid grid, Player player, Level level){
 		//currentLevel = clevel.getCurrentclevel();
 		this.grid = grid;
@@ -63,6 +72,10 @@ public class PowerUps {
 		gotPowerup = false;
 	}
 	
+	/**
+	 * Gives the player the powerup
+	 * Depending on which level the player is on the necessary powerup is given
+	 */
 	public void givePowerUp(){
 		System.out.println(PowerUps.getClevel());
 		System.out.println("current Range is "+ player.getRange());
@@ -123,6 +136,10 @@ public class PowerUps {
 			PowerUps.setGotPowerup(false);
 		}
 	}
+	
+	/**
+	 * Places the brick under which the powerup will be placed on the grid
+	 */
 	private void placePowerups(){
 		while(powerupPlaced == false){
 		int randX = randInt(2,31);
@@ -136,7 +153,12 @@ public class PowerUps {
 		
 	}
 	
-	
+	/**
+	 * Generates random numbers
+	 * @param min
+	 * @param max
+	 * @return
+	 */
 	public static int randInt(int min, int max) {
 
 	    Random rand = new Random();
@@ -144,6 +166,9 @@ public class PowerUps {
 	    return randomNum;
 	}
 	
+	/**
+	 * Load the images of the powerups
+	 */
 	private void loadImage() {
 		ImageIcon bomb = new ImageIcon(getClass().getResource(bombsP));
 		imageb = bomb.getImage();
