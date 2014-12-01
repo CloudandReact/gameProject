@@ -266,7 +266,7 @@ public class FileWriting {
 		CSVPrinter writer = new CSVPrinter(fileWriter, CSVFormat.DEFAULT);
 		for(int i=0;i<31;i++){
 			for(int j=0;j<13;j++){
-				writer.printRecord(grid.grid[i][j]);	
+				writer.printRecord(grid.gridMap[i][j]);	
 			}
 		}
 		writer.printRecord(score);

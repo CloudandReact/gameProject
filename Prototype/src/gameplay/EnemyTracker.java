@@ -6,11 +6,11 @@ public class EnemyTracker {
 	private int yPosition;
 	private int xDirection;
 	private int yDirection;
-	private Tile enemyType;
+	private Cell enemyType;
 	private boolean movingInX;
 	private boolean movingInY;
 	
-	public EnemyTracker(int xPosition, int yPosition, Tile enemyType) {
+	public EnemyTracker(int xPosition, int yPosition, Cell enemyType) {
 		
 		this.setEnemyType(enemyType);
 		this.setxPosition(xPosition);
@@ -22,12 +22,12 @@ public class EnemyTracker {
 		setMovingInY(false);
 	}
 	
-	public Tile getEnemyType() {
+	public Cell getEnemyType() {
 		return enemyType;
 	}
 
 
-	public void setEnemyType(Tile enemyType) {
+	public void setEnemyType(Cell enemyType) {
 		this.enemyType = enemyType;
 	}
 

@@ -127,8 +127,8 @@ public class PowerUps {
 		while(powerupPlaced == false){
 		int randX = randInt(2,31);
 		int randY = randInt(2,12); 
-			if (grid.getContents(randX, randY) == Tile.EMPTY) {
-					grid.setContents(randX,randY,Tile.BRICKANDPOWERUPS);
+			if (grid.getContents(randX, randY) == Cell.EMPTY) {
+					grid.setContents(randX,randY,Cell.BRICKANDPOWERUPS);
 					powerupPlaced = true;
 			}
 		}

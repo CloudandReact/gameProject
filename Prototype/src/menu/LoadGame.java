@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 import org.apache.commons.csv.CSVRecord;
 
 import gameplay.Bomberman;
-import gameplay.Tile;
+import gameplay.Cell;
 import gameplay.Grid;
 import gameplay.PlayerInfo;
 
@@ -102,16 +102,16 @@ public class LoadGame extends JFrame {
 						loadedGameArrayList=openGameFile.loadedGame();
 						int playerLevel;
 						int playerScore;
-						//change loaded game to type Tile
+						//change loaded game to type cell
 						for(int i=0;i<31;i++){
 							for(int j=0;j<13;j++){
 								//change to multiply...
 								
-								//System.out.println(Tile.valueOf(loadedGameArrayList.get(i).get(0))+ "  C1`134Type");
+								//System.out.println(Cell.valueOf(loadedGameArrayList.get(i).get(0))+ "  C1`134Type");
 								
-								System.out.println(Tile.valueOf(loadedGameArrayList.get(i+31*j).get(0)));
-								//loadedGrid.setContents(i+j*31, j, Tile.CONCRETE);
-								loadedGrid.setContents(i,j, Tile.valueOf(loadedGameArrayList.get(i+31*j).get(0)));
+								System.out.println(Cell.valueOf(loadedGameArrayList.get(i+31*j).get(0)));
+								//loadedGrid.setContents(i+j*31, j, Cell.CONCRETE);
+								loadedGrid.setContents(i,j, Cell.valueOf(loadedGameArrayList.get(i+31*j).get(0)));
 							}
 							
 						}
@@ -142,41 +142,41 @@ public class LoadGame extends JFrame {
 		
 		
 }
-	public Tile setGridType(String positionType)
+	public Cell setGridType(String positionType)
 	{
 		
 		System.out.println(positionType);
-		Tile typeOfTile=Tile.valueOf(positionType);
-		System.out.println(typeOfTile +"Tiletype");
-		return typeOfTile;
+		Cell typeOfCell=Cell.valueOf(positionType);
+		System.out.println(typeOfCell +"Celltype");
+		return typeOfCell;
 		/*if(positionType.equals("CONCRETE")){
-			typeOfTile=Tile.CONCRETE;
+			typeOfCell=Cell.CONCRETE;
 		}
 		else if(positionType.equals("BRICK")){
-			typeOfTile=Tile.BRICK;
+			typeOfCell=Cell.BRICK;
 		}
 		else if(positionType.equals("PLAYER")){
-			typeOfTile=Tile.PLAYER;
+			typeOfCell=Cell.PLAYER;
 		}
 		else if(positionType.equals("EMPTY")){
-			typeOfTile=Tile.EMPTY;
+			typeOfCell=Cell.EMPTY;
 		}
 		else if(positionType.equals("BOMB")){
-			typeOfTile=Tile.BOMB;
+			typeOfCell=Cell.BOMB;
 		}
 		else if(positionType.equals("EXITWAY")){
-			typeOfTile=Tile.EXITWAY;
+			typeOfCell=Cell.EXITWAY;
 		}
 		else if(positionType.equals("EXITWAY")){
-			typeOfTile=Tile.EXITWAY;
+			typeOfCell=Cell.EXITWAY;
 		}
 		else if(positionType.equals("EXITWAY")){
-			typeOfTile=Tile.EXITWAY;
+			typeOfCell=Cell.EXITWAY;
 		}
 		else if(positionType.equals("EXITWAY")){
-			typeOfTile=Tile.EXITWAY;
+			typeOfCell=Cell.EXITWAY;
 		}
-		return typeOfTile;
+		return typeOfCell;
 		PLAYERANDBOMB*/
 	
 }

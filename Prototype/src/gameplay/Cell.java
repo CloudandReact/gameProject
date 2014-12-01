@@ -3,7 +3,7 @@ package gameplay;
 import Astar.ClosestHeuristic;
 import Astar.TileBasedMap;
 
-public enum Tile {
+public enum Cell {
 	
 	EMPTY, 
 	PLAYER, 
@@ -12,7 +12,7 @@ public enum Tile {
 	PLAYERANDBRICK,
 	BOMB,
 	PLAYERANDBOMB,
-	EXPLOSION,
+	EXPLODE,
 	BOMBANDEXITWAY,
 	EXITWAY,
 	BRICKANDEXITWAY,

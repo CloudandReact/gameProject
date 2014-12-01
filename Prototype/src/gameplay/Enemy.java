@@ -67,7 +67,7 @@ public class Enemy {
 	private int count;
 	
 	private boolean isExitwayBlownUp;
-	private Tile highestLevelEnemy;
+	private Cell highestLevelEnemy;
 	
 	
 	private final int numberOfEnemiesAfterExitwayIsBlownUp;
@@ -108,63 +108,63 @@ public class Enemy {
 	private void validateEnemies() {
 
 		if (numberOfBallooms > 0) {
-			placeEnemies(Tile.BALLOOM, numberOfBallooms);
-			highestLevelEnemy = Tile.ONEAL;
+			placeEnemies(Cell.BALLOOM, numberOfBallooms);
+			highestLevelEnemy = Cell.ONEAL;
 		}
 
 		if (numberOfOneals > 0) {
-			placeEnemies(Tile.ONEAL, numberOfOneals);
-			highestLevelEnemy = Tile.DOLL;
+			placeEnemies(Cell.ONEAL, numberOfOneals);
+			highestLevelEnemy = Cell.DOLL;
 
 		}
 
 		if (numberOfDolls > 0) {
-			placeEnemies(Tile.DOLL, numberOfDolls);
-			highestLevelEnemy = Tile.MINVO;
+			placeEnemies(Cell.DOLL, numberOfDolls);
+			highestLevelEnemy = Cell.MINVO;
 
 		}
 
 		if (numberOfMinvos > 0) {
-			placeEnemies(Tile.MINVO, numberOfMinvos);
-			highestLevelEnemy = Tile.KONDORIA;
+			placeEnemies(Cell.MINVO, numberOfMinvos);
+			highestLevelEnemy = Cell.KONDORIA;
 
 		}
 
 		if (numberOfKondorias > 0) {
-			placeEnemies(Tile.KONDORIA, numberOfKondorias);
-			highestLevelEnemy = Tile.OVAPI;
+			placeEnemies(Cell.KONDORIA, numberOfKondorias);
+			highestLevelEnemy = Cell.OVAPI;
 
 			
 		}
 
 		if (numberOfOvapis > 0) {
-			placeEnemies(Tile.OVAPI, numberOfOvapis);
-			highestLevelEnemy = Tile.PASS;
+			placeEnemies(Cell.OVAPI, numberOfOvapis);
+			highestLevelEnemy = Cell.PASS;
 
 		}
 
 		if (numberOfPasses > 0) {
-			placeEnemies(Tile.PASS, numberOfPasses);
-			highestLevelEnemy = Tile.PONTAN;
+			placeEnemies(Cell.PASS, numberOfPasses);
+			highestLevelEnemy = Cell.PONTAN;
 
 		}
 
 		if (numberOfPontans > 0) {
-			placeEnemies(Tile.PONTAN, numberOfPontans);
-			highestLevelEnemy = Tile.PONTAN;
+			placeEnemies(Cell.PONTAN, numberOfPontans);
+			highestLevelEnemy = Cell.PONTAN;
 
 		}
 
 	}
 	
-	private void placeEnemies(Tile enemyType, int numberToPlace) {
+	private void placeEnemies(Cell enemyType, int numberToPlace) {
 
 		int numberOfEnemies = 0;
 		while (numberOfEnemies < numberToPlace) {
 			int randX = randInt(4, 30);
 			int randY = randInt(1, 12);
 
-			if (grid.getContents(randX, randY) == Tile.EMPTY) {
+			if (grid.getContents(randX, randY) == Cell.EMPTY) {
 				
 				grid.setContents(randX, randY, enemyType);
 				tracker = new EnemyTracker(randX, randY, enemyType);
@@ -273,37 +273,37 @@ public class Enemy {
 				
 				switch (grid.getContents(posX, posY)) {
 				case BALLOOM:						
-					verifyTracker(posX, posY, Tile.BALLOOM);	
+					verifyTracker(posX, posY, Cell.BALLOOM);	
 					continue;
 				case ONEAL:
-					verifyTracker(posX, posY, Tile.ONEAL);
+					verifyTracker(posX, posY, Cell.ONEAL);
 					continue;
 				case DOLL:
-					verifyTracker(posX, posY, Tile.DOLL);
+					verifyTracker(posX, posY, Cell.DOLL);
 					continue;
 				case MINVO:
-					verifyTracker(posX, posY, Tile.MINVO);
+					verifyTracker(posX, posY, Cell.MINVO);
 					continue;
 				case KONDORIA:
-					verifyTracker(posX, posY, Tile.KONDORIA);
+					verifyTracker(posX, posY, Cell.KONDORIA);
 					continue;
 				case KONDORIAANDBRICK:
-					verifyTracker(posX, posY, Tile.KONDORIAANDBRICK);
+					verifyTracker(posX, posY, Cell.KONDORIAANDBRICK);
 					continue;
 				case OVAPI:
-					verifyTracker(posX, posY, Tile.OVAPI);
+					verifyTracker(posX, posY, Cell.OVAPI);
 					continue;
 				case OVAPIANDBRICK:
-					verifyTracker(posX, posY, Tile.OVAPIANDBRICK);
+					verifyTracker(posX, posY, Cell.OVAPIANDBRICK);
 					continue;
 				case PASS:
-					verifyTracker(posX, posY, Tile.PASS);
+					verifyTracker(posX, posY, Cell.PASS);
 					continue;
 				case PONTAN:
-					verifyTracker(posX, posY, Tile.PONTAN);
+					verifyTracker(posX, posY, Cell.PONTAN);
 					continue;
 				case PONTANANDBRICK:
-					verifyTracker(posX, posY, Tile.PONTANANDBRICK);
+					verifyTracker(posX, posY, Cell.PONTANANDBRICK);
 					continue;					
 				default:
 					break;
@@ -315,7 +315,7 @@ public class Enemy {
 	
 
 	
-	private void verifyTracker(int posX, int posY, Tile enemyType){
+	private void verifyTracker(int posX, int posY, Cell enemyType){
 	
 		
 		for(int i = 0; i < enemiesInitial.size(); i++){	
@@ -374,11 +374,11 @@ public class Enemy {
 					
 				}
 				
-				grid.setContents(posX, posY, Tile.EMPTY);
+				grid.setContents(posX, posY, Cell.EMPTY);
 				
 				if(canMoveInX){
 					
-					if(grid.getContents(posX + enemyDirectionX, posY) == Tile.PLAYER){
+					if(grid.getContents(posX + enemyDirectionX, posY) == Cell.PLAYER){
 						grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());	
 						GameState.setState(State.PLAYERDEAD);
 						render.setIsPlayerAlive(false);
@@ -394,7 +394,7 @@ public class Enemy {
 				}
 				
 				else{
-					if(grid.getContents(posX, posY  + enemyDirectionY) == Tile.PLAYER){
+					if(grid.getContents(posX, posY  + enemyDirectionY) == Cell.PLAYER){
 						grid.setContents(posX, posY  + enemyDirectionY, tracker.getEnemyType());	
 						GameState.setState(State.PLAYERDEAD);
 						render.setIsPlayerAlive(false);
@@ -418,12 +418,12 @@ public class Enemy {
 			}
 			
 			
-			if(grid.getContents(posX + enemyDirectionX,posY) == Tile.EMPTY || grid.getContents(posX + enemyDirectionX,posY) == Tile.PLAYER){
+			if(grid.getContents(posX + enemyDirectionX,posY) == Cell.EMPTY || grid.getContents(posX + enemyDirectionX,posY) == Cell.PLAYER){
 				canMoveInX = true;
 				
 			}
 			
-			else if(grid.getContents(posX - enemyDirectionX,posY) == Tile.EMPTY || grid.getContents(posX - enemyDirectionX,posY) == Tile.PLAYER){
+			else if(grid.getContents(posX - enemyDirectionX,posY) == Cell.EMPTY || grid.getContents(posX - enemyDirectionX,posY) == Cell.PLAYER){
 				tracker.setxDirection(-enemyDirectionX); 
 				enemyDirectionX = tracker.getxDirection();
 				canMoveInX = true;
@@ -432,12 +432,12 @@ public class Enemy {
 			
 			
 			
-			if(grid.getContents(posX,posY + enemyDirectionY) == Tile.EMPTY || grid.getContents(posX,posY + enemyDirectionY) == Tile.PLAYER){
+			if(grid.getContents(posX,posY + enemyDirectionY) == Cell.EMPTY || grid.getContents(posX,posY + enemyDirectionY) == Cell.PLAYER){
 				canMoveInY = true;
 				// move in this direction
 			}
 			
-			else if(grid.getContents(posX,posY - enemyDirectionY) == Tile.EMPTY || grid.getContents(posX,posY - enemyDirectionY) == Tile.PLAYER){
+			else if(grid.getContents(posX,posY - enemyDirectionY) == Cell.EMPTY || grid.getContents(posX,posY - enemyDirectionY) == Cell.PLAYER){
 				tracker.setyDirection(-enemyDirectionY); 
 				enemyDirectionY = tracker.getyDirection();
 				canMoveInY = true;
@@ -457,13 +457,13 @@ public class Enemy {
 			
 			if(canMoveInX){
 				
-				if(grid.getContents(posX + enemyDirectionX, posY) == Tile.PLAYER){
+				if(grid.getContents(posX + enemyDirectionX, posY) == Cell.PLAYER){
 					grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());	
 					GameState.setState(State.PLAYERDEAD);
 					render.setIsPlayerAlive(false);
 				}
 				
-				grid.setContents(posX, posY, Tile.EMPTY);
+				grid.setContents(posX, posY, Cell.EMPTY);
 				grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
 				tracker.setxPosition(posX + enemyDirectionX);
 				tracker.setMovingInX(true);
@@ -474,13 +474,13 @@ public class Enemy {
 			
 			if(canMoveInY && !canMoveInX){
 				
-				if(grid.getContents(posX, posY  + enemyDirectionY) == Tile.PLAYER){
+				if(grid.getContents(posX, posY  + enemyDirectionY) == Cell.PLAYER){
 					grid.setContents(posX, posY  + enemyDirectionY, tracker.getEnemyType());	
 					GameState.setState(State.PLAYERDEAD);
 					render.setIsPlayerAlive(false);
 				}
 				
-				grid.setContents(posX, posY, Tile.EMPTY);
+				grid.setContents(posX, posY, Cell.EMPTY);
 				grid.setContents(posX, posY + enemyDirectionY, tracker.getEnemyType());
 				tracker.setyPosition(posY + enemyDirectionY);
 				tracker.setMovingInY(true);
@@ -532,20 +532,20 @@ public class Enemy {
 					
 				}
 				
-				if(grid.getContents(posX, posY) == Tile.KONDORIAANDBRICK || grid.getContents(posX, posY) == Tile.OVAPIANDBRICK || grid.getContents(posX, posY) == Tile.PONTANANDBRICK){
-					grid.setContents(posX,posY,Tile.BRICK);					
+				if(grid.getContents(posX, posY) == Cell.KONDORIAANDBRICK || grid.getContents(posX, posY) == Cell.OVAPIANDBRICK || grid.getContents(posX, posY) == Cell.PONTANANDBRICK){
+					grid.setContents(posX,posY,Cell.BRICK);					
 					
 				}
 				
 				else{
-					grid.setContents(posX, posY, Tile.EMPTY);
+					grid.setContents(posX, posY, Cell.EMPTY);
 
 				}
 				
 				if(canMoveInX){
 					
 			
-					if(grid.getContents(posX + enemyDirectionX, posY) == Tile.PLAYER){
+					if(grid.getContents(posX + enemyDirectionX, posY) == Cell.PLAYER){
 				
 						grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
 						GameState.setState(State.PLAYERDEAD);
@@ -553,34 +553,34 @@ public class Enemy {
 					}
 					
 				
-					else if(grid.getContents(posX + enemyDirectionX, posY) == Tile.BRICK){
+					else if(grid.getContents(posX + enemyDirectionX, posY) == Cell.BRICK){
 						switch(tracker.getEnemyType()){
 							case KONDORIA:
-								grid.setContents(posX + enemyDirectionX, posY, Tile.KONDORIAANDBRICK);
-								tracker.setEnemyType(Tile.KONDORIAANDBRICK);
+								grid.setContents(posX + enemyDirectionX, posY, Cell.KONDORIAANDBRICK);
+								tracker.setEnemyType(Cell.KONDORIAANDBRICK);
 								break;
 							case OVAPI:
-								grid.setContents(posX + enemyDirectionX, posY, Tile.OVAPIANDBRICK);
-								tracker.setEnemyType(Tile.OVAPIANDBRICK);
+								grid.setContents(posX + enemyDirectionX, posY, Cell.OVAPIANDBRICK);
+								tracker.setEnemyType(Cell.OVAPIANDBRICK);
 
 								break;
 							case PONTAN:
-								grid.setContents(posX + enemyDirectionX, posY, Tile.PONTANANDBRICK);
-								tracker.setEnemyType(Tile.PONTANANDBRICK);
+								grid.setContents(posX + enemyDirectionX, posY, Cell.PONTANANDBRICK);
+								tracker.setEnemyType(Cell.PONTANANDBRICK);
 								break;
 								
 							case KONDORIAANDBRICK:
-								grid.setContents(posX + enemyDirectionX, posY, Tile.KONDORIAANDBRICK);
-								tracker.setEnemyType(Tile.KONDORIAANDBRICK);
+								grid.setContents(posX + enemyDirectionX, posY, Cell.KONDORIAANDBRICK);
+								tracker.setEnemyType(Cell.KONDORIAANDBRICK);
 								break;
 							case OVAPIANDBRICK:
-								grid.setContents(posX + enemyDirectionX, posY, Tile.OVAPIANDBRICK);
-								tracker.setEnemyType(Tile.OVAPIANDBRICK);
+								grid.setContents(posX + enemyDirectionX, posY, Cell.OVAPIANDBRICK);
+								tracker.setEnemyType(Cell.OVAPIANDBRICK);
 
 								break;
 							case PONTANANDBRICK:
-								grid.setContents(posX + enemyDirectionX, posY, Tile.PONTANANDBRICK);
-								tracker.setEnemyType(Tile.PONTANANDBRICK);
+								grid.setContents(posX + enemyDirectionX, posY, Cell.PONTANANDBRICK);
+								tracker.setEnemyType(Cell.PONTANANDBRICK);
 								break;
 								
 								
@@ -594,17 +594,17 @@ public class Enemy {
 						// we've set initial pos to brick, next pos tile isnt a brick, so if kondoriaandbrick ... we set back to condoria
 						switch(tracker.getEnemyType()){
 						case KONDORIAANDBRICK:
-							grid.setContents(posX + enemyDirectionX, posY, Tile.KONDORIA);
-							tracker.setEnemyType(Tile.KONDORIA);
+							grid.setContents(posX + enemyDirectionX, posY, Cell.KONDORIA);
+							tracker.setEnemyType(Cell.KONDORIA);
 							break;
 						case OVAPIANDBRICK:
-							grid.setContents(posX + enemyDirectionX, posY, Tile.OVAPI);
-							tracker.setEnemyType(Tile.OVAPI);
+							grid.setContents(posX + enemyDirectionX, posY, Cell.OVAPI);
+							tracker.setEnemyType(Cell.OVAPI);
 
 							break;
 						case PONTANANDBRICK:
-							grid.setContents(posX + enemyDirectionX, posY, Tile.PONTAN);
-							tracker.setEnemyType(Tile.PONTAN);
+							grid.setContents(posX + enemyDirectionX, posY, Cell.PONTAN);
+							tracker.setEnemyType(Cell.PONTAN);
 
 							break;
 						default:
@@ -622,38 +622,38 @@ public class Enemy {
 				}
 				
 				else{
-					if(grid.getContents(posX, posY  + enemyDirectionY) == Tile.PLAYER){
+					if(grid.getContents(posX, posY  + enemyDirectionY) == Cell.PLAYER){
 						grid.setContents(posX, posY  + enemyDirectionY, tracker.getEnemyType());
 						GameState.setState(State.PLAYERDEAD);
 						render.setIsPlayerAlive(false);
 					}
 					
 						
-					else if(grid.getContents(posX, posY + enemyDirectionY) == Tile.BRICK){
+					else if(grid.getContents(posX, posY + enemyDirectionY) == Cell.BRICK){
 						switch(tracker.getEnemyType()){
 						case KONDORIA:
-							grid.setContents(posX, posY + enemyDirectionY, Tile.KONDORIAANDBRICK);
-							tracker.setEnemyType(Tile.KONDORIAANDBRICK);
+							grid.setContents(posX, posY + enemyDirectionY, Cell.KONDORIAANDBRICK);
+							tracker.setEnemyType(Cell.KONDORIAANDBRICK);
 							break;
 						case OVAPI:
-							grid.setContents(posX, posY + enemyDirectionY, Tile.OVAPIANDBRICK);
-							tracker.setEnemyType(Tile.OVAPIANDBRICK);
+							grid.setContents(posX, posY + enemyDirectionY, Cell.OVAPIANDBRICK);
+							tracker.setEnemyType(Cell.OVAPIANDBRICK);
 							break;
 						case PONTAN:
-							grid.setContents(posX, posY + enemyDirectionY, Tile.PONTANANDBRICK);
-							tracker.setEnemyType(Tile.PONTANANDBRICK);	
+							grid.setContents(posX, posY + enemyDirectionY, Cell.PONTANANDBRICK);
+							tracker.setEnemyType(Cell.PONTANANDBRICK);	
 							break;
 						case KONDORIAANDBRICK:
-							grid.setContents(posX, posY + enemyDirectionY, Tile.KONDORIAANDBRICK);
-							tracker.setEnemyType(Tile.KONDORIAANDBRICK);
+							grid.setContents(posX, posY + enemyDirectionY, Cell.KONDORIAANDBRICK);
+							tracker.setEnemyType(Cell.KONDORIAANDBRICK);
 							break;
 						case OVAPIANDBRICK:
-							grid.setContents(posX, posY + enemyDirectionY, Tile.OVAPIANDBRICK);
-							tracker.setEnemyType(Tile.OVAPIANDBRICK);
+							grid.setContents(posX, posY + enemyDirectionY, Cell.OVAPIANDBRICK);
+							tracker.setEnemyType(Cell.OVAPIANDBRICK);
 							break;
 						case PONTANANDBRICK:
-							grid.setContents(posX, posY + enemyDirectionY, Tile.PONTANANDBRICK);
-							tracker.setEnemyType(Tile.PONTANANDBRICK);	
+							grid.setContents(posX, posY + enemyDirectionY, Cell.PONTANANDBRICK);
+							tracker.setEnemyType(Cell.PONTANANDBRICK);	
 							break;					
 						default:
 							break;
@@ -665,16 +665,16 @@ public class Enemy {
 						
 						switch(tracker.getEnemyType()){
 						case KONDORIAANDBRICK:
-							grid.setContents(posX, posY + enemyDirectionY, Tile.KONDORIA);
-							tracker.setEnemyType(Tile.KONDORIA);
+							grid.setContents(posX, posY + enemyDirectionY, Cell.KONDORIA);
+							tracker.setEnemyType(Cell.KONDORIA);
 							break;
 						case OVAPIANDBRICK:
-							grid.setContents(posX, posY + enemyDirectionY, Tile.OVAPI);
-							tracker.setEnemyType(Tile.OVAPI);
+							grid.setContents(posX, posY + enemyDirectionY, Cell.OVAPI);
+							tracker.setEnemyType(Cell.OVAPI);
 							break;
 						case PONTANANDBRICK:
-							grid.setContents(posX, posY + enemyDirectionY, Tile.PONTAN);
-							tracker.setEnemyType(Tile.PONTAN);	
+							grid.setContents(posX, posY + enemyDirectionY, Cell.PONTAN);
+							tracker.setEnemyType(Cell.PONTAN);	
 							break;
 						default:
 							break;
@@ -701,19 +701,19 @@ public class Enemy {
 				randChance = randInt(1, chance);
 			}
 			
-			if(grid.getContents(posX + enemyDirectionX,posY) == Tile.EMPTY || grid.getContents(posX + enemyDirectionX,posY) == Tile.PLAYER || grid.getContents(posX + enemyDirectionX,posY) == Tile.BRICK){
+			if(grid.getContents(posX + enemyDirectionX,posY) == Cell.EMPTY || grid.getContents(posX + enemyDirectionX,posY) == Cell.PLAYER || grid.getContents(posX + enemyDirectionX,posY) == Cell.BRICK){
 					canMoveInX = true;
 			}
-			else if(grid.getContents(posX - enemyDirectionX,posY) == Tile.EMPTY || grid.getContents(posX - enemyDirectionX,posY) == Tile.PLAYER || grid.getContents(posX - enemyDirectionX,posY) == Tile.BRICK ){
+			else if(grid.getContents(posX - enemyDirectionX,posY) == Cell.EMPTY || grid.getContents(posX - enemyDirectionX,posY) == Cell.PLAYER || grid.getContents(posX - enemyDirectionX,posY) == Cell.BRICK ){
 				tracker.setxDirection(-enemyDirectionX); 
 				enemyDirectionX = tracker.getxDirection();	
 				canMoveInX = true;
 			}
 				
-			if(grid.getContents(posX,posY + enemyDirectionY) == Tile.EMPTY || grid.getContents(posX,posY + enemyDirectionY) == Tile.PLAYER || grid.getContents(posX,posY + enemyDirectionY) == Tile.BRICK){
+			if(grid.getContents(posX,posY + enemyDirectionY) == Cell.EMPTY || grid.getContents(posX,posY + enemyDirectionY) == Cell.PLAYER || grid.getContents(posX,posY + enemyDirectionY) == Cell.BRICK){
 					canMoveInY = true;
 			}
-			else if(grid.getContents(posX,posY - enemyDirectionY) == Tile.EMPTY || grid.getContents(posX,posY - enemyDirectionY) == Tile.PLAYER || grid.getContents(posX,posY - enemyDirectionY) == Tile.BRICK ){
+			else if(grid.getContents(posX,posY - enemyDirectionY) == Cell.EMPTY || grid.getContents(posX,posY - enemyDirectionY) == Cell.PLAYER || grid.getContents(posX,posY - enemyDirectionY) == Cell.BRICK ){
 				tracker.setyDirection(-enemyDirectionY); 
 				enemyDirectionY = tracker.getyDirection();
 				canMoveInY = true;
@@ -735,48 +735,48 @@ public class Enemy {
 			
 			if(canMoveInX){
 				
-				if(grid.getContents(posX + enemyDirectionX, posY) == Tile.PLAYER){
+				if(grid.getContents(posX + enemyDirectionX, posY) == Cell.PLAYER){
 					grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
 					GameState.setState(State.PLAYERDEAD);
 					render.setIsPlayerAlive(false);
 				}
 				
-				if(grid.getContents(posX, posY) == Tile.KONDORIAANDBRICK || grid.getContents(posX, posY) == Tile.OVAPIANDBRICK || grid.getContents(posX, posY) == Tile.PONTANANDBRICK){
-					grid.setContents(posX,posY,Tile.BRICK);
+				if(grid.getContents(posX, posY) == Cell.KONDORIAANDBRICK || grid.getContents(posX, posY) == Cell.OVAPIANDBRICK || grid.getContents(posX, posY) == Cell.PONTANANDBRICK){
+					grid.setContents(posX,posY,Cell.BRICK);
 				}
 				
 				else{
-					grid.setContents(posX, posY, Tile.EMPTY);
+					grid.setContents(posX, posY, Cell.EMPTY);
 
 				}
 				
-				if(grid.getContents(posX + enemyDirectionX, posY) == Tile.BRICK){
+				if(grid.getContents(posX + enemyDirectionX, posY) == Cell.BRICK){
 						switch(tracker.getEnemyType()){
 						case KONDORIA:
-							grid.setContents(posX + enemyDirectionX, posY, Tile.KONDORIAANDBRICK);
-							tracker.setEnemyType(Tile.KONDORIAANDBRICK);
+							grid.setContents(posX + enemyDirectionX, posY, Cell.KONDORIAANDBRICK);
+							tracker.setEnemyType(Cell.KONDORIAANDBRICK);
 							break;
 						case OVAPI:
-							grid.setContents(posX + enemyDirectionX, posY, Tile.OVAPIANDBRICK);
-							tracker.setEnemyType(Tile.OVAPIANDBRICK);
+							grid.setContents(posX + enemyDirectionX, posY, Cell.OVAPIANDBRICK);
+							tracker.setEnemyType(Cell.OVAPIANDBRICK);
 
 							break;
 						case PONTAN:
-							grid.setContents(posX + enemyDirectionX, posY, Tile.PONTANANDBRICK);
-							tracker.setEnemyType(Tile.PONTANANDBRICK);
+							grid.setContents(posX + enemyDirectionX, posY, Cell.PONTANANDBRICK);
+							tracker.setEnemyType(Cell.PONTANANDBRICK);
 							break;
 						case KONDORIAANDBRICK:
-							grid.setContents(posX + enemyDirectionX, posY, Tile.KONDORIAANDBRICK);
-							tracker.setEnemyType(Tile.KONDORIAANDBRICK);
+							grid.setContents(posX + enemyDirectionX, posY, Cell.KONDORIAANDBRICK);
+							tracker.setEnemyType(Cell.KONDORIAANDBRICK);
 							break;
 						case OVAPIANDBRICK:
-							grid.setContents(posX + enemyDirectionX, posY, Tile.OVAPIANDBRICK);
-							tracker.setEnemyType(Tile.OVAPIANDBRICK);
+							grid.setContents(posX + enemyDirectionX, posY, Cell.OVAPIANDBRICK);
+							tracker.setEnemyType(Cell.OVAPIANDBRICK);
 
 							break;
 						case PONTANANDBRICK:
-							grid.setContents(posX + enemyDirectionX, posY, Tile.PONTANANDBRICK);
-							tracker.setEnemyType(Tile.PONTANANDBRICK);
+							grid.setContents(posX + enemyDirectionX, posY, Cell.PONTANANDBRICK);
+							tracker.setEnemyType(Cell.PONTANANDBRICK);
 							break;
 							
 						default:
@@ -789,17 +789,17 @@ public class Enemy {
 					// we've set initial pos to brick or empty, next pos tile isnt a brick, so if kondoriaandbrick ... we set back to kondoria
 					switch(tracker.getEnemyType()){
 					case KONDORIAANDBRICK:
-						grid.setContents(posX + enemyDirectionX, posY, Tile.KONDORIA);
-						tracker.setEnemyType(Tile.KONDORIA);
+						grid.setContents(posX + enemyDirectionX, posY, Cell.KONDORIA);
+						tracker.setEnemyType(Cell.KONDORIA);
 						break;
 					case OVAPIANDBRICK:
-						grid.setContents(posX + enemyDirectionX, posY, Tile.OVAPI);
-						tracker.setEnemyType(Tile.OVAPI);
+						grid.setContents(posX + enemyDirectionX, posY, Cell.OVAPI);
+						tracker.setEnemyType(Cell.OVAPI);
 
 						break;
 					case PONTANANDBRICK:
-						grid.setContents(posX + enemyDirectionX, posY, Tile.PONTAN);
-						tracker.setEnemyType(Tile.PONTAN);
+						grid.setContents(posX + enemyDirectionX, posY, Cell.PONTAN);
+						tracker.setEnemyType(Cell.PONTAN);
 
 						break;
 					default:
@@ -815,54 +815,54 @@ public class Enemy {
 			
 			if(canMoveInY && !canMoveInX){
 				
-				if(grid.getContents(posX, posY  + enemyDirectionY) == Tile.PLAYER){
+				if(grid.getContents(posX, posY  + enemyDirectionY) == Cell.PLAYER){
 					grid.setContents(posX, posY  + enemyDirectionY, tracker.getEnemyType());
 					GameState.setState(State.PLAYERDEAD);
 					render.setIsPlayerAlive(false);
 				}
 				
-				if(grid.getContents(posX, posY) == Tile.KONDORIAANDBRICK || grid.getContents(posX, posY) == Tile.OVAPIANDBRICK || grid.getContents(posX, posY) == Tile.PONTANANDBRICK){
-					grid.setContents(posX,posY,Tile.BRICK);
+				if(grid.getContents(posX, posY) == Cell.KONDORIAANDBRICK || grid.getContents(posX, posY) == Cell.OVAPIANDBRICK || grid.getContents(posX, posY) == Cell.PONTANANDBRICK){
+					grid.setContents(posX,posY,Cell.BRICK);
 				}
 				
 				else{
-					grid.setContents(posX, posY, Tile.EMPTY);
+					grid.setContents(posX, posY, Cell.EMPTY);
 
 				}
 				
 				
-				if(grid.getContents(posX, posY  + enemyDirectionY) == Tile.PLAYER){
+				if(grid.getContents(posX, posY  + enemyDirectionY) == Cell.PLAYER){
 					grid.setContents(posX, posY  + enemyDirectionY, tracker.getEnemyType());
 					GameState.setState(State.PLAYERDEAD);
 					render.setIsPlayerAlive(false);
 				}
 				
 					
-				else if(grid.getContents(posX, posY + enemyDirectionY) == Tile.BRICK){
+				else if(grid.getContents(posX, posY + enemyDirectionY) == Cell.BRICK){
 					switch(tracker.getEnemyType()){
 					case KONDORIA:
-						grid.setContents(posX, posY + enemyDirectionY, Tile.KONDORIAANDBRICK);
-						tracker.setEnemyType(Tile.KONDORIAANDBRICK);
+						grid.setContents(posX, posY + enemyDirectionY, Cell.KONDORIAANDBRICK);
+						tracker.setEnemyType(Cell.KONDORIAANDBRICK);
 						break;
 					case OVAPI:
-						grid.setContents(posX, posY + enemyDirectionY, Tile.OVAPIANDBRICK);
-						tracker.setEnemyType(Tile.OVAPIANDBRICK);
+						grid.setContents(posX, posY + enemyDirectionY, Cell.OVAPIANDBRICK);
+						tracker.setEnemyType(Cell.OVAPIANDBRICK);
 						break;
 					case PONTAN:
-						grid.setContents(posX, posY + enemyDirectionY, Tile.PONTANANDBRICK);
-						tracker.setEnemyType(Tile.PONTANANDBRICK);	
+						grid.setContents(posX, posY + enemyDirectionY, Cell.PONTANANDBRICK);
+						tracker.setEnemyType(Cell.PONTANANDBRICK);	
 						break;
 					case KONDORIAANDBRICK:
-						grid.setContents(posX, posY + enemyDirectionY, Tile.KONDORIAANDBRICK);
-						tracker.setEnemyType(Tile.KONDORIAANDBRICK);
+						grid.setContents(posX, posY + enemyDirectionY, Cell.KONDORIAANDBRICK);
+						tracker.setEnemyType(Cell.KONDORIAANDBRICK);
 						break;
 					case OVAPIANDBRICK:
-						grid.setContents(posX, posY + enemyDirectionY, Tile.OVAPIANDBRICK);
-						tracker.setEnemyType(Tile.OVAPIANDBRICK);
+						grid.setContents(posX, posY + enemyDirectionY, Cell.OVAPIANDBRICK);
+						tracker.setEnemyType(Cell.OVAPIANDBRICK);
 						break;
 					case PONTANANDBRICK:
-						grid.setContents(posX, posY + enemyDirectionY, Tile.PONTANANDBRICK);
-						tracker.setEnemyType(Tile.PONTANANDBRICK);	
+						grid.setContents(posX, posY + enemyDirectionY, Cell.PONTANANDBRICK);
+						tracker.setEnemyType(Cell.PONTANANDBRICK);	
 						break;				
 					default:
 						break;
@@ -873,16 +873,16 @@ public class Enemy {
 				else{	
 					switch(tracker.getEnemyType()){
 					case KONDORIAANDBRICK:
-						grid.setContents(posX, posY + enemyDirectionY, Tile.KONDORIA);
-						tracker.setEnemyType(Tile.KONDORIA);
+						grid.setContents(posX, posY + enemyDirectionY, Cell.KONDORIA);
+						tracker.setEnemyType(Cell.KONDORIA);
 						break;
 					case OVAPIANDBRICK:
-						grid.setContents(posX, posY + enemyDirectionY, Tile.OVAPI);
-						tracker.setEnemyType(Tile.OVAPI);
+						grid.setContents(posX, posY + enemyDirectionY, Cell.OVAPI);
+						tracker.setEnemyType(Cell.OVAPI);
 						break;
 					case PONTANANDBRICK:
-						grid.setContents(posX, posY + enemyDirectionY, Tile.PONTAN);
-						tracker.setEnemyType(Tile.PONTAN);	
+						grid.setContents(posX, posY + enemyDirectionY, Cell.PONTAN);
+						tracker.setEnemyType(Cell.PONTAN);	
 						break;
 					default:
 						break;
@@ -916,37 +916,37 @@ public class Enemy {
 				tempGrid.setContents(posX, posY, grid.getContents(posX, posY));
 				switch (grid.getContents(posX, posY)) {
 				case BALLOOM:	
-					grid.setContents(posX, posY, Tile.EMPTY);
+					grid.setContents(posX, posY, Cell.EMPTY);
 					continue;
 				case ONEAL:
-					grid.setContents(posX, posY, Tile.EMPTY);
+					grid.setContents(posX, posY, Cell.EMPTY);
 					continue;
 				case DOLL:
-					grid.setContents(posX, posY, Tile.EMPTY);
+					grid.setContents(posX, posY, Cell.EMPTY);
 					continue;
 				case MINVO:
-					grid.setContents(posX, posY, Tile.EMPTY);
+					grid.setContents(posX, posY, Cell.EMPTY);
 					continue;
 				case KONDORIA:
-					grid.setContents(posX, posY, Tile.EMPTY);
+					grid.setContents(posX, posY, Cell.EMPTY);
 					continue;
 				case KONDORIAANDBRICK:
-					grid.setContents(posX, posY, Tile.EMPTY);
+					grid.setContents(posX, posY, Cell.EMPTY);
 					continue;
 				case OVAPI:
-					grid.setContents(posX, posY, Tile.EMPTY);
+					grid.setContents(posX, posY, Cell.EMPTY);
 					continue;
 				case OVAPIANDBRICK:
-					grid.setContents(posX, posY, Tile.EMPTY);
+					grid.setContents(posX, posY, Cell.EMPTY);
 					continue;
 				case PASS:
-					grid.setContents(posX, posY, Tile.EMPTY);
+					grid.setContents(posX, posY, Cell.EMPTY);
 					continue;
 				case PONTAN:
-					grid.setContents(posX, posY, Tile.EMPTY);
+					grid.setContents(posX, posY, Cell.EMPTY);
 					continue;
 				case PONTANANDBRICK:
-					grid.setContents(posX, posY, Tile.EMPTY);
+					grid.setContents(posX, posY, Cell.EMPTY);
 					continue;					
 				default:
 					break;

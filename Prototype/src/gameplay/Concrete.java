@@ -23,7 +23,7 @@ public class Concrete {
 
 		for (int x = 2; x < Bomberman.WIDTH; x = x + 2) {
 			for (int y = 2; y < Bomberman.HEIGHT; y = y + 2) {
-				grid.setContents(x, y, Tile.CONCRETE);
+				grid.setContents(x, y, Cell.CONCRETE);
 			}
 		}
 
@@ -31,7 +31,7 @@ public class Concrete {
 			for (int y = 0; y < Bomberman.HEIGHT; y++) {
 				if ((x == 0) || (x == Bomberman.WIDTH - 1) || (y == 0)
 						|| (y == Bomberman.HEIGHT - 1)) {
-					grid.setContents(x, y, Tile.CONCRETE);
+					grid.setContents(x, y, Cell.CONCRETE);
 				}
 			}
 		}

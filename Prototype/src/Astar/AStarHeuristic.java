@@ -1,6 +1,6 @@
 package Astar;
 
-import gameplay.Tile;
+import gameplay.Cell;
 
 /**
  * The description of a class providing a cost for a given tile based
@@ -29,6 +29,6 @@ public interface AStarHeuristic {
 	// Initial 	public float getCost(TileBasedMap map, Mover mover, int x, int y, int tx, int ty);
 	
 
-	public float getCost(Tile tileType, int x, int y, int tx, int ty);
+	public float getCost(Cell cellType, int x, int y, int tx, int ty);
 
 }

@@ -1,6 +1,6 @@
 package Astar;
 
-import gameplay.Tile;
+import gameplay.Cell;
 
 
 /**
@@ -13,7 +13,7 @@ public class ClosestHeuristic implements AStarHeuristic {
 	/**
 	 * @see AStarHeuristic#getCost(TileBasedMap, Mover, int, int, int, int)
 	 */
-	public float getCost(Tile tileType, int x, int y, int tx, int ty) {		
+	public float getCost(Cell cellType, int x, int y, int tx, int ty) {		
 		
 		// Manhattan Distance
 		float dx = Math.abs(tx - x);
