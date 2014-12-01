@@ -18,7 +18,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
+/**
+ * LoadLevel displays the gui for the level loaded and checks if the level the user attemps to load is valid for the user
+ * @author elliot
+ *
+ */
 public class LoadLevel extends JFrame {
 	private static final long serialVersionUID = 1L;
 
@@ -33,7 +37,13 @@ public class LoadLevel extends JFrame {
 	JPanel panelA;
 	StoreStatistics checkStats = new StoreStatistics();
 	int numberOfGames;
-
+	/**
+	 * LoadLevel removes the old Jpanel and displays the new one displaying the level available and a text box for selecting
+	 * a level it stores the input from the file so it throws an exception
+	 * @param panel
+	 * 		Stores the previous panel and modifies it
+	 * @throws IOException
+	 */
 	public LoadLevel(JPanel panel) throws IOException {
 		checkStats.checkNumberOfGames();
 		panel.removeAll();
@@ -43,7 +53,7 @@ public class LoadLevel extends JFrame {
 		// open statistics read user games and display
 		numberOfGames = checkStats.numberOfGames();
 		// if(levelAvailible>1)
-		if (true) {
+		
 			JLabel gameNumberLabel = new JLabel("Level availible "
 					+ levelAvailible);
 			gameNumberLabel.setBounds(40, 60, 120, 25);
@@ -54,15 +64,7 @@ public class LoadLevel extends JFrame {
 			panel.add(backButton);
 			panel.add(playButton);
 			panel.add(gameToPlayText);
-		} else {
-			JLabel gameNumberLabel = new JLabel("No game saved please go back");
-			gameNumberLabel.setBounds(40, 60, 190, 25);
-
-			backButton.setBounds(80, 105, 80, 25);
-			panel.add(backButton);
-			panel.add(gameNumberLabel);
-
-		}
+		
 
 		AccountMenu.setFrameTitle("Load Level");
 
