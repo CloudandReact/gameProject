@@ -53,10 +53,6 @@ public class Game extends JPanel implements ActionListener,Serializable {
 	
 	private Bomberman bomberman;
 
-	// private String username;
-	// Concrete
-	// private String concrete = "concrete.png";
-	// private Image imgConcrete;
 
 	Grid grid = new Grid();
 
@@ -70,7 +66,6 @@ public class Game extends JPanel implements ActionListener,Serializable {
 	public Game(Bomberman bomberman) {
 		
 		this.bomberman = bomberman;
-		System.out.println("HELLO MY NAME IS...: " + PlayerInfo.getUsername());
 		this.currentLevel = 1;
 		countPlayer = 0;
 		
@@ -114,7 +109,7 @@ public class Game extends JPanel implements ActionListener,Serializable {
 			exitway=exitWays;
 			this.enemy=enemy;
 			bomb=bomb2;
-			Player.livesLeft=currentLives;
+			Player.setLivesLeft(currentLives);
 			PlayerInfo.playerScore=currentScore;
 			PowerUps.bombpass=bombPass;
 			PowerUps.flamepass=flamePass;
@@ -142,6 +137,7 @@ public class Game extends JPanel implements ActionListener,Serializable {
 			
 		
 	}
+	
 	public void initialize() {
 
 		
@@ -156,13 +152,15 @@ public class Game extends JPanel implements ActionListener,Serializable {
 		enemy = new Enemy(grid,this, level);
 		bomb = new Bomb(grid);
 		powerups = new PowerUps(grid, this.level);
-		player = new Player(grid, bomb,enemy, level);
-		PowerUps.setClevel(currentLevel);
+		player = new Player(grid,enemy, level);
 		isPlayerAlive = true;
 		pauseMenuOpen = false;
 		timeOverMenuOpen = false;
 		timer = new Timer(100, this);
 		timer.start();
+		
+		PowerUps.setClevel(currentLevel);
+
 		
 	}
 
@@ -293,9 +291,7 @@ public class Game extends JPanel implements ActionListener,Serializable {
 								Bomberman.TILE_SIZE * (i - leftMostVisibleTile),
 								Bomberman.TILE_SIZE * j, this);
 						continue;
-
 					default:
-
 						break;
 					}
 				}

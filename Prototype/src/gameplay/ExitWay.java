@@ -38,8 +38,8 @@ public class ExitWay implements Serializable{
 	 */
 	private void placeExitWay(){
 		while(exitwayPlaced == false){
-			int randX = randInt(2,31);
-			int randY = randInt(2,13); 
+			int randX = randInt(2,30);
+			int randY = randInt(2,12); 
 		
 			if(grid.getContents(randX, randY) == Tile.EMPTY){
 				grid.setContents(randX,randY,Tile.BRICKANDEXITWAY);

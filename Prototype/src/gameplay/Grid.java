@@ -7,20 +7,11 @@ import Astar.TileBasedMap;
 
 public class Grid implements TileBasedMap, Serializable {
 	
-//	private int gridSizeX;
-//	private int gridSizeY;
-//	private int dimension;
-    
-	
+
 	public Tile[][] gridMap;
     
     
     public Grid() {
-		
-		//gridSizeX = Bomberman.getDimensionX();
-		//gridSizeY = Bomberman.getDimensionY();
-		//dimension = 25;
-		//gridMap = new Tile[gridSizeX/dimension][gridSizeY/dimension];
 		gridMap = new Tile[Bomberman.WIDTH][Bomberman.HEIGHT];
 	}
     
@@ -105,6 +96,23 @@ public class Grid implements TileBasedMap, Serializable {
 		return this.gridMap[x][y];
 	}
 	
+	public boolean checkIfEnemy(int posX, int posY){
+		if(gridMap[posX][ posY] == Tile.BALLOOM
+				|| gridMap[posX][ posY] == Tile.ONEAL
+				|| gridMap[posX][ posY] == Tile.DOLL
+				|| gridMap[posX][ posY] == Tile.MINVO
+				|| gridMap[posX][ posY] == Tile.KONDORIA
+				|| gridMap[posX][ posY] == Tile.OVAPI
+				|| gridMap[posX][ posY] == Tile.PASS
+				|| gridMap[posX][ posY] == Tile.PONTAN
+				|| gridMap[posX][ posY] == Tile.KONDORIAANDBRICK
+				|| gridMap[posX][ posY] == Tile.OVAPIANDBRICK
+				|| gridMap[posX][ posY] == Tile.PONTANANDBRICK){	
+			return true;
+		}
+		
+		return false;
+	}
 	
 
 	

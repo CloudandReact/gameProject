@@ -154,7 +154,7 @@ public class PowerUps implements Serializable{
 	 */
 	private void placePowerups(){
 		while(powerupPlaced == false){
-		int randX = randInt(2,31);
+		int randX = randInt(2,30);
 		int randY = randInt(2,12); 
 			if (grid.getContents(randX, randY) == Tile.EMPTY) {
 					grid.setContents(randX,randY,Tile.BRICKANDPOWERUPS);

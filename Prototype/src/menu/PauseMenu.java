@@ -97,7 +97,7 @@ public class PauseMenu extends JFrame implements Serializable {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
 				// getContentPane().removeAll();
-
+				bomberman.destroyFrameTimer();
 				game.destroyPanel();
 				new MainMenu(panel, PlayerInfo.getUsername());
 				bomberman.dispose();

@@ -594,7 +594,6 @@ public class Bomb implements Runnable,Serializable {
 		}
 
 		setTotalGameScore(getTotalGameScore() + pointsScoredWithThisBomb);
-
 		PlayerInfo.playerScore += getPointsScoredWithThisBomb();
 		scoreForEachEnemyKilledWithThisBomb.clear();
 

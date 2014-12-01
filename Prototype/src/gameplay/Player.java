@@ -8,10 +8,16 @@ import javax.swing.ImageIcon;
 
 public class Player implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private final int INITIAL_FRAME_POSITION = 25;
+	
+	private final int PLAYER_STARTING_TILE = 1;
+    private final int left = -1 * Bomberman.TILE_SIZE;
+    private final int right = Bomberman.TILE_SIZE;
+    private final int down = Bomberman.TILE_SIZE;
+    private final int up = -1 * Bomberman.TILE_SIZE;
+    private final int notMoving = 0;
+	
 
 	private String playerImage = "bomberman.png";
 
@@ -21,90 +27,87 @@ public class Player implements Serializable{
 	private int y;
 	private int posX;
 	private int posY;
-	private static int score;
-	public static int livesLeft;
 	private int movementSpeed;
-	
-	private static int bombNumber;
-	private static int currentBombCounter;
-
+	private int countForMovementSpeed;
 	
 	private int range;
 	private int bombs;
-	private static int bombsOnGround;
-	
-	
-	private int countForMovementSpeed;
-
-	private Image image;
-	ImageIcon ii;
-	private Grid grid;
-	private Bomb bomb;
-	private Enemy enemy;
-	
 	private long startTime;
+	
+	private static int bombNumber;
+	private static int currentBombCounter;
+	private static int score;
+	private static int bombsOnGround;
+	public static int livesLeft;
+	
+	private boolean detonatePressed;
+	
+	private ImageIcon iconPlayer;
+	
+	private Grid grid;
+	private Enemy enemy;
 	private PowerUps powerup;
-	private Boolean isBombPlaced;
-	private Boolean detonatePressed;
 	
-	public Player() { 
 
-	}
 
-	public Player(Grid grid, Bomb bomb, Enemy enemy, Level level) {
-		this.enemy = enemy;
-		movementSpeed = 2;
-		livesLeft = 2;
-		loadImage();
-		this.setX(25);
-		this.setY(25);
-		this.posX = 1;
-		this.posY = 1;
+	/**
+	 * <p> Constructor that initializes a <code>Player</code> object which initializes the user's starting position on the map, sets its
+	 * position on the frame, initializes all bomb attributes to their basic values, sets the score for the session to zero, initializes
+	 * movement speed and loads the player image. Additionally, the required game objects are initialized. A player utilizes a Grid, Enemy,
+	 * and PowerUps object. 
+	 * </p>
+	 * A player object deals with the basic player movement and collisions, powerup logic, and places bomb accordingly.
+	 * Additionally, all user input is taken through the player class. 
+	 * 
+	 * @param grid an object of <code>Grid</code> which contains the game's map and required methods access and alter it.
+	 * @param enemy an object of <code>Enemy</code> which contains information about the enemies on the map. 
+	 * @param level an object of <code>Level</code> which contains the required information about the level.
+	 * 
+	 */
+	public Player(Grid grid, Enemy enemy, Level level) {
+		 
 		this.grid = grid;
-		this.bomb = bomb;
-		this.grid.setContents(1, 1, Tile.PLAYER);
-		setScore(0);
-		this.isBombPlaced = false;
-		this.setDetonatePressed(false);
-		this.range = 1;
-		this.bombs = 1;
-		bombNumber = 10;
-		currentBombCounter = 10;
-		bombsOnGround = 0;
+		this.enemy = enemy;
 		
+		posX = PLAYER_STARTING_TILE;
+		posY = PLAYER_STARTING_TILE;	
+		setX(INITIAL_FRAME_POSITION);
+		setY(INITIAL_FRAME_POSITION);
+		setBombsOnGround(0);
+		setRange(1);
+		setBombs(1);
+		setBombNumber(10);
+		setCurrentBombCounter(10);
+		setScore(0);
+		setLivesLeft(2);	
+		setDetonatePressed(false);
+
+		toggleMovementSpeed();
+		loadImage();
+	
 		this.powerup = new PowerUps(grid, this, level);
+		this.grid.setContents(posX, posY, Tile.PLAYER);
 
 	}
 	
-//	public void exitWayLogic(int posX, int posY){
-//		
-//		if(grid.getContents(posX, posY) == Tile.EXITWAY && GameState.getState() == State.RUNNINGANDLEVELOVER){
-//			level.loadnextLevel();
-//		}
-//		
-//	}
+	
+	/**
+	 * Move method called at every user input. Based on the key pressed, it updates the players position on the grid accordingly. 
+	 * This method deals with collisions, powerups, and player death. Move only occurs when the countForMovementSpeed is equal to
+	 * the actual movement speed, which is defaulted to 2. The count is updated on each call, and is reset when the move is executed. 
+	 * When the player finds the movement speed power up, the movementSpeed is set to 1, and move functions on each call. 
+	 */
 	public void move() {
+		
 		if(countForMovementSpeed == movementSpeed){	
 			if (dx != 0) {		
-				//exitWayLogic(dx/25, 0);
-			
-				
+
 				// Player dies if walking into enemy
-				if (grid.getContents(posX + (dx / 25), posY) == Tile.BALLOOM
-						|| grid.getContents(posX + (dx / 25), posY) == Tile.ONEAL
-						|| grid.getContents(posX + (dx / 25), posY) == Tile.DOLL
-						|| grid.getContents(posX + (dx / 25), posY) == Tile.MINVO
-						|| grid.getContents(posX + (dx / 25), posY) == Tile.KONDORIA
-						|| grid.getContents(posX + (dx / 25), posY) == Tile.OVAPI
-						|| grid.getContents(posX + (dx / 25), posY) == Tile.PASS
-						|| grid.getContents(posX + (dx / 25), posY) == Tile.PONTAN
-						|| grid.getContents(posX + (dx / 25), posY) == Tile.KONDORIAANDBRICK
-						|| grid.getContents(posX + (dx / 25), posY) == Tile.OVAPIANDBRICK
-						|| grid.getContents(posX + (dx / 25), posY) == Tile.PONTANANDBRICK) {
+				if(grid.checkIfEnemy(posX + (dx / 25), posY)){
 					grid.setContents(posX, posY, Tile.EMPTY);
 				}
-
-				//
+	
+				
 				if (grid.getContents(posX + (dx / 25), posY) == Tile.EMPTY
 						|| grid.getContents(posX + (dx / 25), posY) == Tile.POWERUPS
 						|| grid.getContents(posX + (dx / 25), posY) == Tile.EXITWAY
@@ -115,8 +118,8 @@ public class Player implements Serializable{
 
 					if (grid.getContents(posX, posY) == Tile.PLAYERANDBOMB) {
 						grid.setContents(posX, posY, Tile.BOMB);
-
 					}
+					
 					else if (grid.getContents(posX, posY) == Tile.PLAYERANDBRICK) {
 						grid.setContents(posX, posY, Tile.BRICK);
 					}
@@ -126,9 +129,9 @@ public class Player implements Serializable{
 					else if (grid.getContents(posX, posY) == Tile.PLAYERANDBRICKANDPOWERUPS) {
 						grid.setContents(posX, posY, Tile.BRICKANDPOWERUPS);
 					}
-//					else if (grid.getContents(posX, posY) == Tile.PLAYERANDBOMB) {
-//						grid.setContents(posX, posY, Tile.BOMB);
-//					}
+					else if (grid.getContents(posX, posY) == Tile.PLAYERANDBOMB) {
+						grid.setContents(posX, posY, Tile.BOMB);
+					}
 					else if (grid.getContents(posX, posY) == Tile.PLAYERANDEXITWAY) {
 						grid.setContents(posX, posY, Tile.EXITWAY);
 					}
@@ -142,7 +145,7 @@ public class Player implements Serializable{
 					} else {
 						posX++;
 					}
-
+					
 					x += dx;
 
 					if (grid.getContents(posX, posY) == Tile.EXITWAY) {
@@ -162,8 +165,7 @@ public class Player implements Serializable{
 					}
 					else if(grid.getContents(posX, posY) == Tile.POWERUPS){
 						grid.setContents(posX, posY, Tile.PLAYER);
-						powerup.setGotPowerup(true);
-						System.out.println("Got the powerup!!!!!!");
+						PowerUps.setGotPowerup(true);
 						powerup.givePowerUp();
 					}
 					
@@ -177,24 +179,12 @@ public class Player implements Serializable{
 
 			if (dy != 0) {
 				
-				//exitWayLogic(0, dy/25);
-
-				// Player dies if walking into enemy
-				if (grid.getContents(posX, posY + (dy / 25)) == Tile.BALLOOM
-						|| grid.getContents(posX, posY + (dy / 25)) == Tile.ONEAL
-						|| grid.getContents(posX, posY + (dy / 25)) == Tile.DOLL
-						|| grid.getContents(posX, posY + (dy / 25)) == Tile.MINVO
-						|| grid.getContents(posX, posY + (dy / 25)) == Tile.KONDORIA
-						|| grid.getContents(posX, posY + (dy / 25)) == Tile.OVAPI
-						|| grid.getContents(posX, posY + (dy / 25)) == Tile.PASS
-						|| grid.getContents(posX, posY + (dy / 25)) == Tile.PONTAN
-						|| grid.getContents(posX, posY + (dy / 25)) == Tile.KONDORIAANDBRICK
-						|| grid.getContents(posX, posY + (dy / 25)) == Tile.OVAPIANDBRICK
-						|| grid.getContents(posX, posY + (dy / 25)) == Tile.PONTANANDBRICK) {
+			
+				if(grid.checkIfEnemy(posX, posY + (dy / 25))){
 					grid.setContents(posX, posY, Tile.EMPTY);
-					
 				}
-				//
+							 				
+			
 				if (grid.getContents(posX, posY + (dy / 25)) == Tile.EMPTY
 						|| grid.getContents(posX, posY + (dy / 25)) == Tile.POWERUPS
 						|| grid.getContents(posX, posY + (dy / 25)) == Tile.EXITWAY
@@ -256,8 +246,7 @@ public class Player implements Serializable{
 					}
 					else if(grid.getContents(posX, posY) == Tile.POWERUPS){
 						grid.setContents(posX, posY, Tile.PLAYER);
-						powerup.setGotPowerup(true);
-						System.out.println("Got the powerup!!!!!!");
+						PowerUps.setGotPowerup(true);
 						powerup.givePowerUp();
 					}
 					
@@ -268,25 +257,14 @@ public class Player implements Serializable{
 
 				}
 			}
-
-			
-			
-			
-			
 			
 			countForMovementSpeed = 0;
 		}
+		
 		countForMovementSpeed++;
 		
 	}
 
-	public Boolean getBombStatus() {
-		return isBombPlaced;
-	}
-
-	public void setBombStatus(Boolean x) {
-		isBombPlaced = x;
-	}
 
 	public int getX() {
 		return x;
@@ -305,12 +283,12 @@ public class Player implements Serializable{
 	}
 	
 	private void loadImage() {
-		 ii= new ImageIcon(getClass().getResource(playerImage));
+		 iconPlayer= new ImageIcon(getClass().getResource(playerImage));
 		
 	}
 
 	public Image getImage() {
-		return  ii.getImage();
+		return iconPlayer.getImage();
 		
 	}
 	
@@ -338,9 +316,24 @@ public class Player implements Serializable{
 		if (dx != 0 || dy != 0) {
 			return;
 		}
-
-		// Pausing
-		if (key == KeyEvent.VK_SPACE) {
+		
+		switch(key){
+		case KeyEvent.VK_LEFT:
+			dx = left;
+			break;
+		case KeyEvent.VK_RIGHT:
+			dx = right;
+			break;
+		case KeyEvent.VK_UP:
+			dy = up;
+			break;
+		case KeyEvent.VK_DOWN:
+			dy = down;
+			break;	
+		case KeyEvent.VK_B:
+			setDetonatePressed(true);
+			break;
+		case KeyEvent.VK_SPACE:	
 			if (GameState.getState() == State.RUNNING) {
 				GameState.setState(State.PAUSE);
 			} 
@@ -354,24 +347,15 @@ public class Player implements Serializable{
 			}
 			else if(GameState.getState() == State.PAUSEANDLEVELOVER) {
 				GameState.setState(State.RUNNINGANDLEVELOVER);
-			}
-			
-			System.out.println("STATE: " + GameState.getState());
-		}
-
-		// Bomb Logic
-		if (key == KeyEvent.VK_X) {
+			}	
+			break;		
+		case KeyEvent.VK_X:
 			if ((GameState.getState() == State.RUNNING || GameState.getState() == State.RUNNINGANDLEVELOVER)) {
 				if (grid.getContents(posX, posY) != Tile.PLAYERANDBOMB && (grid.getContents(posX, posY) != Tile.PLAYERANDEXITWAY)) {
 					if(getBombsOnGround() < getBombs()){
 						grid.setContents(posX, posY, Tile.PLAYERANDBOMB);
 						
-						
 						setBombsOnGround(getBombsOnGround() + 1);
-						//bomb.setBombs(1);
-						//bomb.setRange(range);
-						//bomb.setPosition(posX, posY);
-						//Bomb workPlease = new Bomb(grid);
 						Bomb placingBomb = new Bomb(grid, this.enemy, this);
 						placingBomb.setBombs(1);
 						placingBomb.setRange(range);
@@ -381,80 +365,48 @@ public class Player implements Serializable{
 							placingBomb.setBombNumber(getCurrentBombCounter());
 							currentBombCounter--;
 						}
-						
-						
+								
 						Thread t = new Thread(placingBomb);
 				        t.start();
-				        isBombPlaced = true;
-				        
-				        System.out.println("DID WE GET HERE");
-					
-				   
 					}
 				}
 			}
-
+			break;
+		default:
+			break;
 		}
 
-		if (key == KeyEvent.VK_B) {
-			setDetonatePressed(true);
-	
-		}
-		
-		if (key == KeyEvent.VK_LEFT) {
-			dx = -25;
-		}
-
-		else if (key == KeyEvent.VK_RIGHT) {
-			dx = 25;
-		}
-
-		else if (key == KeyEvent.VK_UP) {
-			dy = -25;
-		}
-
-		else if (key == KeyEvent.VK_DOWN) {
-			dy = 25;
-		}
 	}
 
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
-
-		if (key == KeyEvent.VK_X) {
-
-		}
-		if (key == KeyEvent.VK_B) {
+		
+		
+		switch(key){
+		case KeyEvent.VK_X:
+			break;
+		case KeyEvent.VK_B:
 			if(getBombsOnGround() == 0){
-				System.out.println("resetting...");
 		        setBombNumber(10);
 		        setCurrentBombCounter(10);
-		        System.out.println(getBombNumber() + "///" + getCurrentBombCounter());
 		    }
-		}
-		if (key == KeyEvent.VK_ESCAPE) {
+			break;
+		case KeyEvent.VK_LEFT:
+			dx = notMoving;
+			break;	
+		case KeyEvent.VK_RIGHT:
+			dx = notMoving;
+			break;	
+		case KeyEvent.VK_UP:
+			dy = notMoving;
+			break;	
+		case KeyEvent.VK_DOWN:
+			dy = notMoving;
+			break;	
+		default:
+			break;	
+		}		
 
-		}
-
-		if (key == KeyEvent.VK_LEFT) {
-			dx = 0;
-		}
-
-		if (key == KeyEvent.VK_RIGHT) {
-			dx = 0;
-		}
-
-		if (key == KeyEvent.VK_UP) {
-			dy = 0;
-		}
-
-		if (key == KeyEvent.VK_DOWN) {
-			dy = 0;
-		}
-	}
-
-	public static int getScore() {
-		return score;
 	}
 
 	public void initializeTimer() {
@@ -463,6 +415,10 @@ public class Player implements Serializable{
 
 	public long getInitialTime() {
 		return startTime;
+	}
+	
+	public static int getScore() {
+		return score;
 	}
 
 	public static void setScore(int score) {
@@ -473,15 +429,6 @@ public class Player implements Serializable{
 		return livesLeft;
 	}
 	
-	public void toggleMovementSpeed(){
-		if(movementSpeed == 2){
-			this.movementSpeed = 1;
-		}
-		else{
-			this.movementSpeed = 2;
-		}
-	}
-
 	public static void setLivesLeft(int livesLeft) {
 		Player.livesLeft = livesLeft;
 	}
@@ -501,28 +448,34 @@ public class Player implements Serializable{
 	public void setBombs(int bombs) {
 		this.bombs = bombs;
 	}
-
+	
 	public static int getBombsOnGround() {
 		return bombsOnGround;
 	}
 	
-	public boolean hasDetonate(){
-		return powerup.haveDetonate();
-	}
 	public static void setBombsOnGround(int bombsOnGround) {
 		Player.bombsOnGround = bombsOnGround;
 	}
+	
 
 	public Boolean getDetonatePressed() {
 		return detonatePressed;
 	}
 
-	public void setDetonatePressed(Boolean detonatePressed) {
+	public void setDetonatePressed(boolean detonatePressed) {
 		this.detonatePressed = detonatePressed;
 	}
-
-	// public void setUsername(String name) {
-	// this.username = name;
-	// }
-
+	
+	public boolean hasDetonate(){
+		return PowerUps.haveDetonate();
+	}
+	
+	public void toggleMovementSpeed(){
+		if(movementSpeed == 2){
+			this.movementSpeed = 1;
+		}
+		else{
+			this.movementSpeed = 2;
+		}
+	}
 }
