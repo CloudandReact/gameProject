@@ -99,8 +99,8 @@ public class PowerUps implements Serializable{
 					|| clevel == 6 || clevel == 11 || clevel == 12
 					|| clevel == 17 || clevel == 19 || clevel == 23
 					|| clevel == 28 || clevel == 32) {
-				int currentBomb = player.getBombs();
-				player.setBombs(currentBomb + 1);
+				int currentBomb = player.getNumberOfBombs();
+				player.setNumberOfBombs(currentBomb + 1);
 			}
 			// SPEED
 			else if (clevel == 4) {
