@@ -18,7 +18,7 @@ public class Level implements Serializable{
 	private static int currentLevel = 1;
 
 	/**
-	 * Level Constructor 
+	 * Sets current level and then sets number of enemies of each type for that level
 	 * @param currentLevel is the level that the player is currently in
 	 */
 	public Level(int currentLevel) {

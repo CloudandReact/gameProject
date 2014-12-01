@@ -21,9 +21,8 @@ public class PowerUps implements Serializable{
 	static Boolean flamepass;
 	static Boolean detonate; 
 	private static Boolean gotPowerup;
-	private static Boolean powerupPlaced; //use this to make sure powerup is not printed twice in same level if player dies
+	private static Boolean powerupPlaced; 
 
-	
 	private Image imageb;
 	private Image imagef;
 	private Image images;
@@ -45,14 +44,9 @@ public class PowerUps implements Serializable{
 	ImageIcon flamePass;
 	
 	/**
-<<<<<<< HEAD
-	 * PowerUps constructor 
+	 * PowerUps constructor  
 	 * @param grid is the grid that we place the powerups on
-=======
-	 * 
-	 * @param grid
->>>>>>> branch 'master' of https://github.com/mcgill-ecse321/team-2.git
-	 * @param level
+	 * @param level is required to get which level the player is in
 	 */
 	public PowerUps(Grid grid, Level level){
 		//draw
@@ -166,10 +160,11 @@ public class PowerUps implements Serializable{
 	}
 	
 	/**
-	 * Generates random numbers
-	 * @param min
-	 * @param max
-	 * @return
+	 * Given two integers, min and max, this method will return a pseudo-random
+	 * integer value contained between these two integers.
+	 * @param min Minimum value which may be returned.
+	 * @param max Maximum value which may be returned.
+	 * @return An integer between min and max inclusively.
 	 */
 	public static int randInt(int min, int max) {
 
@@ -181,27 +176,20 @@ public class PowerUps implements Serializable{
 	/**
 	 * Load the images of the powerups
 	 */
-	
 	private void loadImage() {
 		bomb = new ImageIcon(getClass().getResource(bombsP));
 		
-		
 		flame = new ImageIcon(getClass().getResource(flamesP));
-		
 		
 		speed = new ImageIcon(getClass().getResource(speedP));
 		
-		
 		detonator = new ImageIcon(getClass().getResource(detonatorsP));
-		
 		
 		bombPass = new ImageIcon(getClass().getResource(bombPassP));
 		
+		wallPass = new ImageIcon(getClass().getResource(wallPassP));
 		
-		 wallPass = new ImageIcon(getClass().getResource(wallPassP));
-		
-		
-		 flamePass = new ImageIcon(getClass().getResource(flamePassP));
+		flamePass = new ImageIcon(getClass().getResource(flamePassP));
 		
 	}
 	
@@ -233,51 +221,41 @@ public class PowerUps implements Serializable{
 		return flamePass.getImage();
 	}
 
-
 	public static Boolean getWallpass() {
 		return wallpass;
 	}
-
 
 	public void setWallpass(Boolean wallpass) {
 		PowerUps.wallpass = wallpass;
 	}
 
-
 	public static Boolean getBombpass() {
 		return bombpass;
 	}
-
 
 	public void setBombpass(Boolean bombpass) {
 		PowerUps.bombpass = bombpass;
 	}
 
-
 	public static Boolean getFlamepass() {
 		return flamepass;
 	}
-
 
 	public void setFlamepass(Boolean flamepass) {
 		PowerUps.flamepass = flamepass;
 	}
 
-
 	public static Boolean haveDetonate() {
 		return detonate;
 	}
-
 
 	public void setDetonate(Boolean detonate) {
 		PowerUps.detonate = detonate;
 	}
 
-
 	public Boolean getGotPowerup() {
 		return gotPowerup;
 	}
-
 
 	public static void setGotPowerup(Boolean gotpowerup) {
 		PowerUps.gotPowerup = gotpowerup;
@@ -290,6 +268,5 @@ public class PowerUps implements Serializable{
 	public static void setClevel(int clevel) {
 		PowerUps.currentLevel = clevel;
 	}
-
 	
 }

@@ -42,10 +42,10 @@ public class Bomberman extends JFrame implements Serializable {
         livesPanel.add(livesLabel);
         scorePanel.add(scoreLabel);
         timeOverPanel.add(timeOverLabel);
-        frameTimer.add(timePanel, BorderLayout.NORTH);
-        frameTimer.add(livesPanel, BorderLayout.SOUTH);
-        frameTimer.add(scorePanel, BorderLayout.SOUTH);
-        frameTimer.add(timeOverPanel, BorderLayout.SOUTH);
+        frameTimer.add(timePanel);
+        frameTimer.add(livesPanel);
+        frameTimer.add(scorePanel);
+        frameTimer.add(timeOverPanel);
         //frameTimer.add(label);
 
         //pass the label into the MyListener constructor
@@ -58,10 +58,9 @@ public class Bomberman extends JFrame implements Serializable {
 
         //start the timer
         timerG.start();
-        
         frameTimer.setSize(300, 100);
         frameTimer.setVisible(true);
-		
+
 		add(new Game(this));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(15 * TILE_SIZE, HEIGHT * TILE_SIZE + 22);
@@ -69,7 +68,6 @@ public class Bomberman extends JFrame implements Serializable {
 		setTitle("Bomberman");
 		setResizable(false);
 		setVisible(true);
-		
 		
 	}
 	
@@ -83,7 +81,6 @@ public class Bomberman extends JFrame implements Serializable {
 		listener.setTimeOver("Time Over");
 	}
 	public Bomberman(int level){
-		//JFrame frameTimer = new JFrame("Bomberman");
         frameTimer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameTimer.setLayout(new FlowLayout());
         JPanel timePanel = new JPanel();
@@ -98,10 +95,10 @@ public class Bomberman extends JFrame implements Serializable {
         livesPanel.add(livesLabel);
         scorePanel.add(scoreLabel);
         timeOverPanel.add(timeOverLabel);
-        frameTimer.add(timePanel, BorderLayout.NORTH);
-        frameTimer.add(livesPanel, BorderLayout.SOUTH);
-        frameTimer.add(scorePanel, BorderLayout.SOUTH);
-        frameTimer.add(timeOverPanel, BorderLayout.SOUTH);
+        frameTimer.add(timePanel);
+        frameTimer.add(livesPanel);
+        frameTimer.add(scorePanel);
+        frameTimer.add(timeOverPanel);
         //frameTimer.add(label);
 
         //pass the label into the MyListener constructor
@@ -152,10 +149,10 @@ public class Bomberman extends JFrame implements Serializable {
         pane2.add(label2);
         pane3.add(label3);
         pane4.add(label4);
-        frameTimer.add(pane1, BorderLayout.NORTH);
-        frameTimer.add(pane2, BorderLayout.SOUTH);
-        frameTimer.add(pane3, BorderLayout.SOUTH);
-        frameTimer.add(pane4, BorderLayout.SOUTH);
+        frameTimer.add(pane1);
+        frameTimer.add(pane2);
+        frameTimer.add(pane3);
+        frameTimer.add(pane4);
         //frameTimer.add(label);
 
         //pass the label into the MyListener constructor
