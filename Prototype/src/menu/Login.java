@@ -88,9 +88,13 @@ public class Login {
 					 
 					PlayerInfo.usernameStatic = username;
 					PlayerInfo.passwordStatic = password;
+<<<<<<< HEAD
+					
+=======
 
 					// this line just for test will see if to make it void and
 					// store all info in player
+>>>>>>> branch 'master' of https://github.com/mcgill-ecse321/team-2.git
 					
 					try {
 						// store all player statistics which is required for
@@ -99,7 +103,7 @@ public class Login {
 						PlayerInfo.allUserStatistics = loginValidity
 								.allPlayersStats();
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
+						
 						e1.printStackTrace();
 					}
 

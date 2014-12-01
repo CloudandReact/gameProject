@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 public class AccountCreation extends JFrame {
 
 	JLabel userRealNameLabel = new JLabel("Real Name");
-	// note changed could modify
+	
 	JTextField userNameText = new JTextField();
 	JLabel usernameLabel = new JLabel("Username");
 	JTextField userText = new JTextField();
@@ -93,8 +93,7 @@ public class AccountCreation extends JFrame {
 		createButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				// createButton.setEnabled(false);
-				// Execute when button is pressed
+				
 				System.out.println("action comman" + e.getActionCommand());
 				realName = userNameText.getText();
 				username = userText.getText();
@@ -135,10 +134,7 @@ public class AccountCreation extends JFrame {
 						JOptionPane.showMessageDialog(null,"Username is already taken.",error,JOptionPane.INFORMATION_MESSAGE);
 						
 					}
-					// JOptionPane.showMessageDialog(null,
-					// "could not register fix the error please reenter",password,
-					// JOptionPane.INFORMATION_MESSAGE);
-					//if false
+					
 					return;
 				}
 
