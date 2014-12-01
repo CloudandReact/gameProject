@@ -194,78 +194,154 @@ public class PowerUps implements Serializable{
 		
 	}
 	
+	/**
+	 * Gets the image of the bomb powerup
+	 * @return the image corresponding to the powerup bomb.
+	 */
 	public Image getBombsImage() {
 		return bomb.getImage();
 	}
 	
+	/**
+	 * Gets the image of the flames powerup 
+	 * @return the image corresponding to the powerup flame.
+	 */
 	public Image getFlamesImage() {
 		return flame.getImage();
 	}
 	
+	/**
+	 * Gets the image of the speed powerup 
+	 * @return the image corresponding to the powerup speed.
+	 */
 	public Image getSpeedImage() {
 		return speed.getImage();
 	}
 	
+	/**
+	 * Gets the image of the detonator powerup 
+	 * @return the image corresponding to the powerup detonator.
+	 */
 	public Image getDetonatorsImage() {
 		return detonator.getImage();
 	}
 	
+	/**
+	 * Gets the image of the bombpass powerup 
+	 * @return the image corresponding to the powerup bombpass.
+	 */
 	public Image getBombPassImage() {
 		return bombPass.getImage();
 	}
 	
+	/**
+	 * Gets the image of the wallpass powerup 
+	 * @return the image corresponding to the powerup wallpass.
+	 */
 	public Image getWallPassImage() {
 		return wallPass.getImage();
 	}
 	
+	/**
+	 * Gets the image of the flamepass powerup 
+	 * @return the image corresponding to the powerup flamepass.
+	 */
 	public Image getFlamePassImage() {
 		return flamePass.getImage();
 	}
-
+	
+	/**
+	 * Returns true if player gets the wallpass powerup 
+	 * @return the <code>boolean</code> corresponding to the wallpass powerup.
+	 */
 	public static Boolean getWallpass() {
 		return wallpass;
 	}
-
+	
+	/**
+	 * Sets the wallpass attribute.
+	 * @param wallpass the boolean representing whether the player got the wallpass powerup,
+	 */
 	public void setWallpass(Boolean wallpass) {
 		PowerUps.wallpass = wallpass;
 	}
 
+	/**
+	 * Returns true if player gets the bombpass powerup 
+	 * @return the <code>boolean</code> corresponding to the bombpass powerup.
+	 */
 	public static Boolean getBombpass() {
 		return bombpass;
 	}
 
+	/**
+	 * Sets the bombpass attribute.
+	 * @param bombpass the boolean representing whether the player got the bombpass powerup,
+	 */
 	public void setBombpass(Boolean bombpass) {
 		PowerUps.bombpass = bombpass;
 	}
 
+	/**
+	 * Returns true if player gets the flamepass powerup 
+	 * @return the <code>boolean</code> corresponding to the flamepass powerup.
+	 */
 	public static Boolean getFlamepass() {
 		return flamepass;
 	}
 
+	/**
+	 * Sets the flamepass attribute.
+	 * @param flamepass the boolean representing whether the player got the flamepass powerup,
+	 */
 	public void setFlamepass(Boolean flamepass) {
 		PowerUps.flamepass = flamepass;
 	}
 
+	/**
+	 * Returns true if player gets the detonator powerup 
+	 * @return the <code>boolean</code> corresponding to the detonator powerup.
+	 */
 	public static Boolean haveDetonate() {
 		return detonate;
 	}
 
+	/**
+	 * Sets the detonator attribute.
+	 * @param detonate the boolean representing whether the player got the detonate powerup,
+	 */
 	public void setDetonate(Boolean detonate) {
 		PowerUps.detonate = detonate;
 	}
 
+	/**
+	 * Returns true if player gets the powerup in the current level.
+	 * @return the <code>boolean</code> corresponding.
+	 */
 	public Boolean getGotPowerup() {
 		return gotPowerup;
 	}
 
+	/**
+	 * Sets the gotPowerup attribute.
+	 * @param gotpowerup the boolean representing whether the player got the powerup.
+	 */
 	public static void setGotPowerup(Boolean gotpowerup) {
 		PowerUps.gotPowerup = gotpowerup;
 	}
 
+	/**
+	 * Returns which level the player is in.
+	 * @return the <code<int</code> corresponding to the players current level.
+	 */
 	public static int getClevel() {
 		return currentLevel;
 	}
 
+	/**
+	 * Sets the current level attribute.
+	 * @param clevel the int of the current level.
+	 */
 	public static void setClevel(int clevel) {
 		PowerUps.currentLevel = clevel;
 	}

@@ -22,7 +22,7 @@ public class ExitWay implements Serializable{
 	private Grid grid;
 	
 	/**
-	 * Exitway which is to be placed on the grid.
+	 * Constructor Exitway which is to be placed on the grid.
 	 * @param grid Grid on which the exitway is placed.
 	 */
 	
@@ -34,7 +34,7 @@ public class ExitWay implements Serializable{
 	}
 	
 	/**
-	 * Places the exitway in a semi-random location under a brick.
+	 * Method that places the exitway in a semi-random location under a brick.
 	 */
 	private void placeExitWay(){
 		while(exitwayPlaced == false){
@@ -53,7 +53,6 @@ public class ExitWay implements Serializable{
 	/**
 	 * Given two integers, min and max, this method will return a pseudo-random
 	 * integer value contained between these two integers.
-	 * 
 	 * @param min Minimum value which may be returned.
 	 * @param max Maximum value which may be returned.
 	 * @return An integer between min and max inclusively.
@@ -68,20 +67,27 @@ public class ExitWay implements Serializable{
 	}
 	
 	/**
-	 * Loads images related to exitway
+	 * Method that loads images related to exitway.
 	 */	
 	private void loadImage() {
-		 exitway = new ImageIcon(getClass().getResource(imageNameExitway));
+		exitway = new ImageIcon(getClass().getResource(imageNameExitway));
 		
-
 		playerandexitway = new ImageIcon(getClass().getResource(imageNamePlayerAndExitway));
 		
 	}
 	
+	/**
+	 * Gets the image of the exitway 
+	 * @return the image corresponding to the exitway.
+	 */
 	public Image getImageExitway() {
 		return exitway.getImage();
 	}
 	
+	/**
+	 * Gets the image of the playerandexitway. 
+	 * @return the image corresponding to the playerandexitway.
+	 */
 	public Image getImagePlayerAndExitway() {
 		return playerandexitway.getImage();
 		
