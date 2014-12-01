@@ -16,8 +16,8 @@ public class ExitWay implements Serializable{
 	
 	private static Boolean access = false;
 	private static Boolean exitwayPlaced = false;
-	ImageIcon ii;
-	ImageIcon playerandexitways;
+	ImageIcon exitway;
+	ImageIcon playerandexitway;
 	
 	private Grid grid;
 	
@@ -58,7 +58,6 @@ public class ExitWay implements Serializable{
 	 * @param max Maximum value which may be returned.
 	 * @return An integer between min and max inclusively.
 	 */
-
 	public static int randInt(int min, int max) {
 
 	    Random rand = new Random();
@@ -67,24 +66,24 @@ public class ExitWay implements Serializable{
 
 	    return randomNum;
 	}
+	
 	/**
-	 * Load
-	 */
-		
+	 * Loads images related to exitway
+	 */	
 	private void loadImage() {
-		 ii = new ImageIcon(getClass().getResource(imageNameExitway));
+		 exitway = new ImageIcon(getClass().getResource(imageNameExitway));
 		
 
-		playerandexitways = new ImageIcon(getClass().getResource(imageNamePlayerAndExitway));
+		playerandexitway = new ImageIcon(getClass().getResource(imageNamePlayerAndExitway));
 		
 	}
 	
 	public Image getImageExitway() {
-		return ii.getImage();
+		return exitway.getImage();
 	}
 	
 	public Image getImagePlayerAndExitway() {
-		return playerandexitways.getImage();
+		return playerandexitway.getImage();
 		
 	}
 

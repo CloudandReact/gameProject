@@ -26,9 +26,6 @@ import javax.swing.JPanel;
 
 public class PauseMenu extends JFrame implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	JPanel panel = new JPanel();
 	JButton viewLeaderboards = new JButton("View Leaderboards");
@@ -47,16 +44,33 @@ public class PauseMenu extends JFrame implements Serializable {
 
 
 	String playersName;
-	//add game if neccessary
 
-	public PauseMenu(final Grid grid, final Game game, final Level level, final Enemy enemy, GameState s, final Player p,final Concrete concrete,final Brick brick,
+	/**
+	 * 
+	 * @param grid
+	 * @param game
+	 * @param level
+	 * @param enemy
+	 * @param state
+	 * @param player
+	 * @param concrete
+	 * @param brick
+	 * @param powerUps
+	 * @param exitWays
+	 * @param bomb
+	 * @param bombPass
+	 * @param wallPass
+	 * @param detonate
+	 * @param flamePass 
+	 * @param bomberman
+	 */
+	public PauseMenu(final Grid grid, final Game game, final Level level, final Enemy enemy, GameState state, final Player player,final Concrete concrete,final Brick brick,
 			final PowerUps powerUps,final ExitWay exitWays, final Bomb bomb,final boolean bombPass,final boolean wallPass,final boolean detonate,
 			final boolean flamePass,final Bomberman bomberman) {
-	 //public PauseMenu(final Grid grid, final Enemy enemy, final Render r, GameState s, Player p,final Bomberman bomberman){
-		this.state = s;
+		this.state = state;
 		this.enemy = enemy;
 		this.grid = grid;
-		this.player = p;
+		this.player = player;
 		this.game = game;
 		setSize(325, 230);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,6 +98,9 @@ public class PauseMenu extends JFrame implements Serializable {
 		resumeGame.setBounds(72, 105, 180, 25);
 		panel.add(resumeGame);
 
+		/**
+		 * Quits the game
+		 */
 		quitGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
@@ -93,11 +110,12 @@ public class PauseMenu extends JFrame implements Serializable {
 
 		});
 
+		/**
+		 * Quits the game and opens the main menu
+		 */
 		exitToMain.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Execute when button is pressed
-				// getContentPane().removeAll();
-
+				bomberman.destroyFrameTimer();
 				game.destroyPanel();
 				new MainMenu(panel, PlayerInfo.getUsername());
 				bomberman.dispose();
@@ -106,6 +124,9 @@ public class PauseMenu extends JFrame implements Serializable {
 
 		});
 
+		/**
+		 * Displays the leaderboard 
+		 */
 		viewLeaderboards.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
@@ -116,6 +137,9 @@ public class PauseMenu extends JFrame implements Serializable {
 
 		});
 
+		/**
+		 * Resumes the game
+		 */
 		resumeGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
@@ -129,11 +153,14 @@ public class PauseMenu extends JFrame implements Serializable {
 
 		});
 
+		/**
+		 * Opens the save menu frame
+		 */
 		saveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
 				try {
-					new SaveGame(grid,level, enemy,p,concrete,brick,powerUps,exitWays,bomb,flamePass,bombPass,wallPass,detonate);
+					new SaveGame(grid,level, enemy,player,concrete,brick,powerUps,exitWays,bomb,flamePass,bombPass,wallPass,detonate);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

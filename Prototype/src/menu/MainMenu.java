@@ -28,7 +28,11 @@ public class MainMenu extends JFrame{
 	JButton quitButton = new JButton("Quit to Desktop");
 	String playersName;
 	
-			
+	/**
+	 * Opens a new main menu frame.
+	 * @param panel is the panel on which the buttons are added.
+	 * @param username is required to know which user is logged in.
+	 */
 	public MainMenu(JPanel panel, String username){
 		playersName = username;
 				
@@ -61,7 +65,9 @@ public class MainMenu extends JFrame{
 		panel.repaint();
 		panelL = panel;
 		
-		
+		/*
+		 * Displays the leaderboard 
+		 */
 		leaderboardsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
@@ -70,7 +76,9 @@ public class MainMenu extends JFrame{
 			
 		});
 		
-		
+		/*
+		 * Starts the new game from level 1
+		 */
 		newGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
@@ -82,6 +90,9 @@ public class MainMenu extends JFrame{
 			
 		});
 		
+		/*
+		 * Logs out the player
+		 */
 		logOutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
@@ -91,6 +102,9 @@ public class MainMenu extends JFrame{
 			
 		});
 		
+		/*
+		 * Quits the game 
+		 */
 		quitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
@@ -100,7 +114,9 @@ public class MainMenu extends JFrame{
 			
 		});
 		
-
+		/*
+		 * Opens the account management frame 
+		 */
 		accountManagementButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
@@ -110,6 +126,10 @@ public class MainMenu extends JFrame{
 			}
 			
 		});
+		
+		/*
+		 * Opens load game frame 
+		 */
 		loadGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//
@@ -123,6 +143,10 @@ public class MainMenu extends JFrame{
 			}
 			
 		});
+		
+		/*
+		 * Opens the load level frame
+		 */
 		loadLevelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//

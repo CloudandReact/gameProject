@@ -37,11 +37,11 @@ public class GameOverMenu extends JFrame {
 	String playersName;
 
 	/**
-	 * GameOver Constructor
+	 * 
 	 * @param grid is the grid for the whole game
-	 * @param game 
-	 * @param gamestate 
-	 * @param player
+	 * @param game is required to destroy the game panel when player presses exitToMain button
+	 * @param gamestate is required to change the game state when player restarts game
+	 * @param player is required to get players username 
 	 * @param bomberman is required to restart a level and to destroy the timer frame
 	 * @param level is required to get which level the player is in
 	 */
@@ -65,7 +65,6 @@ public class GameOverMenu extends JFrame {
 		viewLeaderboards.setBounds(72, 30, 180, 25);
 		panel.add(viewLeaderboards);
 
-
 		quitGame.setBounds(72, 55, 180, 25);
 		panel.add(quitGame);
 
@@ -76,7 +75,7 @@ public class GameOverMenu extends JFrame {
 		panel.add(restartLevel);
 
 		/**
-		 * 
+		 * Quits the game
 		 */
 		quitGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -88,7 +87,7 @@ public class GameOverMenu extends JFrame {
 		});
 
 		/**
-		 * 
+		 * Quits the game and displays main menu
 		 */
 		exitToMain.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -102,7 +101,7 @@ public class GameOverMenu extends JFrame {
 		});
 
 		/**
-		 * 
+		 * Displays the leaderboard
 		 */
 		viewLeaderboards.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -113,7 +112,7 @@ public class GameOverMenu extends JFrame {
 		});
 
 		/**
-		 * 
+		 * Restarts the same level
 		 */
 		restartLevel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -128,11 +127,6 @@ public class GameOverMenu extends JFrame {
 			}
 
 		});
-		
-		/**
-		 * 
-		 */
-		
 
 	}
 
