@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+/**
+ * This class loads the AccountMenu Gui dispaying the login Gui  
+ */
 
 public class AccountMenu {
 
@@ -15,7 +18,9 @@ public class AccountMenu {
 	public static void setFrameTitle(String title) {
 		frame.setTitle(title);
 	}
-
+	/**
+	 * AccountMenu displays sets the size of the frame adds a panel and displays it.
+	 */
 	public AccountMenu() {
 
 		frame.setSize(325, 230);
@@ -27,23 +32,22 @@ public class AccountMenu {
 		frame.setVisible(true);
 
 	}
-
+	/**
+	 * destroyFrame destroys the frame and disposes of it
+	 */
 	public static void destroyFrame() {
 		frame.setVisible(false);
 		frame.dispose();
 		System.out.println("DIsp");
 	}
-
+	/**
+	 * calls new AccountMenu
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		new AccountMenu();
 	}
-
-	public class LoginButtonListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			JOptionPane
-					.showMessageDialog(null, "login button has been pressed");
-		}
-	}
+	
+	
 
 }
