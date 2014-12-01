@@ -1,8 +1,6 @@
 package gameplay;
 
-import java.io.Serializable;
-
-public class Level implements Serializable{
+public class Level {
 
 
 

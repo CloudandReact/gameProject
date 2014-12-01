@@ -8,24 +8,10 @@ import java.io.ObjectOutputStream;
 
 import javax.swing.JOptionPane;
 
-import gameplay.Bomb;
-import gameplay.Brick;
-import gameplay.Concrete;
-import gameplay.Enemy;
-import gameplay.ExitWay;
 import gameplay.Grid;
-import gameplay.Level;
 import gameplay.Player;
 import gameplay.Game;
 
-
-
-
-
-
-
-
-import gameplay.PowerUps;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -33,7 +19,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import gameplay.PlayerInfo;
-public class FileWriting implements Serializable {
+public class FileWriting {
 	String usernameFromFile = "";
 	String passwordFromFile = "";
 	String lineInfo[];
@@ -42,23 +28,6 @@ public class FileWriting implements Serializable {
 	ArrayList<CSVRecord> userFileInfo1;
 	ArrayList<CSVRecord> userStatistics;
 	ArrayList<CSVRecord> loadedGame;
-	Enemy enemy;
-	Brick brick;
-	Player p;
-	Level level;
-	Bomb bomb;
-	Concrete concrete;
-	Grid grid;
-	ExitWay exitWays;
-	PowerUps powerUps;
-	int playerScore;
-	int currentLevel;
-	int currentLives;
-	int timer;
-	boolean loadFlamePass;
-	boolean loadBombPass;
-	boolean loadDetonate;
-	boolean loadWallPass;
 	
 
 	public boolean loginIsValid(String username, String password) {
@@ -275,86 +244,41 @@ public class FileWriting implements Serializable {
 	}
 	
 	
-	public void saveGame(String fileName,Level level,Enemy enemy, Player p, Concrete concrete, Brick brick, PowerUps powerUps,ExitWay exitWays,
-			Bomb bomb,Grid grid,int playerScore, int currentLevel,int currentLives , int timer, boolean flamePass, boolean bombPass, boolean wallPass,
-		   boolean detonate) throws IOException{
+	public void saveGame(String fileName,Grid grid,int score,int level) throws IOException{
 		File savingFile= new File(fileName);
 		if(savingFile.exists()){
-			//check to overwrite file
 			JOptionPane.showMessageDialog(null,"would you like to overwrite file", "error", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else{
 			
 		}
-		
-		
-		FileOutputStream fos = new FileOutputStream(fileName);
+		/*FileOutputStream fos = new FileOutputStream(fileName);
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.writeObject(level);
-		oos.writeObject(enemy);
-		oos.writeObject(p);
-		oos.writeObject(concrete);
-		oos.writeObject(brick);
-		oos.writeObject(powerUps);
-		oos.writeObject(exitWays);
-		oos.writeObject(bomb);
-		oos.writeObject(grid);
-		oos.writeInt(playerScore);
-		oos.writeInt(currentLevel);
-		oos.writeInt(currentLives);
-		oos.writeInt(timer);
-		System.out.println("flame pass "+ flamePass);
-		System.out.println("Bomb pass "+ bombPass);
-		System.out.println("wall pass "+ wallPass);
-		System.out.println("flame pass "+ detonate);
-		oos.writeBoolean(flamePass);
-		oos.writeBoolean(bombPass);
-		oos.writeBoolean(wallPass);
-		oos.writeBoolean(detonate);
-		
-		
+		oos.writeObject(sg);
+		oos.writeInt(score);
+		oos.writeInt(level);
 		oos.close();
-		fos.close();
+		fos.close();*/
+		//FileWriter fw = new FileWriter(savingFile);
+		FileWriter fileWriter = new FileWriter(fileName, false);
+		//ObjectOutputStream objectStream = new ObjectOutputStream(fileWriter); 
+		//how to write csv parser with objects
+		CSVPrinter writer = new CSVPrinter(fileWriter, CSVFormat.DEFAULT);
+		for(int i=0;i<31;i++){
+			for(int j=0;j<13;j++){
+				writer.printRecord(grid.gridMap[i][j]);	
+			}
+		}
+		writer.printRecord(score);
+		writer.printRecord(level);
+		//remember to flush
+		writer.flush();
+		writer.close();
+		
 		
 		
 	}
-public void loadGame(String fileName) throws ClassNotFoundException, IOException{
-       
-		
-		FileInputStream fis;
-		try {
-			fis = new FileInputStream(fileName);
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			  level= (Level)ois.readObject();
-	          enemy = (Enemy) ois.readObject();
-	          p=(Player)ois.readObject();
-	          concrete= (Concrete)ois.readObject();
-	          brick= (Brick)ois.readObject();
-	          powerUps=(PowerUps)ois.readObject();
-	          exitWays= (ExitWay) ois.readObject();
-	          bomb=(Bomb)ois.readObject();
-	          grid= (Grid)ois.readObject();
-	          playerScore=(int)ois.readInt();
-	          currentLevel=(int)ois.readInt();
-	          currentLives=(int)ois.readInt();
-	          timer=(int)ois.readInt();
-	          loadFlamePass=(boolean)ois.readBoolean();
-	          loadWallPass=(boolean)ois.readBoolean();
-	          loadBombPass=(boolean) ois.readBoolean();
-	          loadDetonate=(boolean)ois.readBoolean();
-	          
-	          
-	          
-	          
-	         ois.close();
-	         fis.close();
-	         
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-         
+	public void loadGame(String fileName){
 		File loadingFile= new File(fileName);
 		if(loadingFile.exists()){
 			
@@ -364,9 +288,22 @@ public void loadGame(String fileName) throws ClassNotFoundException, IOException
 			return;
 		}
 
-		
+		try {
+			CSVParser parser = new CSVParser(new FileReader(fileName),
+					CSVFormat.DEFAULT);
+			loadedGame= (ArrayList<CSVRecord>) parser.getRecords();
+			parser.close();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
+
 	
 	// creates validate object to check if everything is right in validate
 	Validate checkInfo = new Validate();
@@ -407,56 +344,5 @@ public void loadGame(String fileName) throws ClassNotFoundException, IOException
 	public ArrayList<CSVRecord> loadedGame(){
 		return  loadedGame;
 	}
-	public Enemy getEnemy(){
-		return enemy;
-	}
-	public Player getPlayer(){
-		return p;
-	}
-	public Concrete getConcrete(){
-		return concrete;
-	}
-	
-	public Brick getBrick(){
-		return brick;
-	}
-	public PowerUps getPowerUps(){
-		return powerUps;
-	}
-	public ExitWay getExitWays(){
-		return exitWays;
-	}
-	public Bomb getBomb(){
-		return bomb;
-	}
-	public Grid getGrid(){
-		return grid;
-	}
-	public Level getLevel(){
-		return level;
-	}
-	public int getPlayerScore(){
-		return playerScore;
-	}
-	public int getPlayerLevel(){
-		return currentLevel;
-	}
-	public int getPlayerLives(){
-		return currentLives;
-	}public int getTimer(){
-		return timer;
-	}public boolean getLoadWallPass(){
-		return loadWallPass;
-	}
-	public boolean getLoadFlamePass(){
-		return loadFlamePass;
-	}
-	public boolean getLoadBombPass(){
-		return loadBombPass;
-	}
-	public boolean getLoadDetonate(){
-		return loadDetonate;
-	}
-
 	
 }

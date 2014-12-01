@@ -10,7 +10,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -22,7 +21,7 @@ import menu.MainMenu;
 import menu.PauseMenu;
 import menu.GameOverMenu;
 
-public class Game extends JPanel implements ActionListener,Serializable {
+public class Game extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -60,7 +59,7 @@ public class Game extends JPanel implements ActionListener,Serializable {
 
 	Grid grid = new Grid();
 
-	transient Graphics2D g2d;
+	Graphics2D g2d;
 	
 	/**
 	 * This is the constructor used for new games.
@@ -101,47 +100,32 @@ public class Game extends JPanel implements ActionListener,Serializable {
 	}
 	
 	// Load from a previous saved game
-	public Game(Grid grid2, Level levelLoad,Enemy enemy, Brick brick2,
-			Concrete concrete2, PowerUps powerUps2, ExitWay exitWays,
-			Bomb bomb2, Player player2, int currentScore, int currentLevel2,
-			int currentLives,int timerPlaying,boolean flamePass, boolean bombPass, boolean wallPass,boolean detonate, Bomberman bomberman){
-			GameState.setState(State.RUNNING);
-			grid=grid2;
-			level=levelLoad;
-			brick=brick2;
-			concrete=concrete2;
-			powerups=powerUps2;
-			exitway=exitWays;
-			this.enemy=enemy;
-			bomb=bomb2;
-			Player.livesLeft=currentLives;
-			PlayerInfo.playerScore=currentScore;
-			PowerUps.bombpass=bombPass;
-			PowerUps.flamepass=flamePass;
-			PowerUps.wallpass=wallPass;
-			PowerUps.detonate=detonate;
-			GameTimer.timeCount=timerPlaying;
-		    
-			this.currentLevel = currentLevel2;
-			numberOfLives=currentLives;
-			player=player2;
-			this.bomberman=bomberman;
-			this.isPlayerAlive = true;
-			numberOfLives=currentLives;
-			//PowerUps.setClevel(currentLevel2);
-			addKeyListener(new TAdapter());
-			setFocusable(true);
-			setBackground(Color.darkGray);
-			setDoubleBuffered(true);
-			setFocusable(true);
-			pauseMenuOpen = false;
-			timeOverMenuOpen = false;
-			timer = new Timer(100, this);
-			timer.start();
-			
-			
+	public Game(Grid grid, int currentLevel, Bomberman bomberman){
+		GameState.setState(State.RUNNING);
+		count = 0;
+		
+		
+		this.grid = grid;
+		this.level = new Level(currentLevel);
+		this.brick = new Brick(grid);
+		
+		this.concrete = new Concrete(grid);
+		this.exitway = new ExitWay(grid);
+		this.enemy = new Enemy(grid, this, this.level);
+		this.bomb = new Bomb(grid);
+		this.powerups = new PowerUps(grid, this.level);
+		this.player = new Player(grid,bomb,enemy, this.level);
+
+
+		this.isPlayerAlive = true;
+		PowerUps.setClevel(currentLevel);
+		pauseMenuOpen = false;
+		timeOverMenuOpen = false;
+		timer = new Timer(100, this);
+		timer.start();
 		
 	}
+
 	public void initialize() {
 
 		
@@ -462,8 +446,7 @@ public class Game extends JPanel implements ActionListener,Serializable {
 
 		else if (GameState.getState() == State.PAUSE && pauseMenuOpen == false) {
 
-			new PauseMenu(grid,level, enemy, gameState, player,concrete,brick, powerups, exitway,bomb,
-					PowerUps.getBombpass(),PowerUps.getWallpass(),PowerUps.haveDetonate(),PowerUps.getFlamepass(), bomberman);
+			new PauseMenu(grid, this, gameState, player, bomberman);
 			pauseMenuOpen = true;
 		}
 		else if(GameState.getState() == State.TIMEOVER && timeOverMenuOpen == false){

@@ -1,18 +1,16 @@
 package gameplay;
 
 import java.awt.*;
-import java.io.Serializable;
 
 import javax.swing.*;
 
-public class Concrete implements Serializable {
+public class Concrete {
 	
 	private String concrete = "concrete.png";
 
 	private Image imageConcrete;
 
 	private Grid grid;
-	ImageIcon ii;
 	
 	/**
 	 * Concrete walls which are placed on the border and in the grid.
@@ -61,8 +59,8 @@ public class Concrete implements Serializable {
 	 */
 
 	private void loadImage() {
-		ii = new ImageIcon(getClass().getResource(concrete));
-		
+		ImageIcon ii = new ImageIcon(getClass().getResource(concrete));
+		imageConcrete = ii.getImage();
 	}
 	
 	/**
@@ -71,7 +69,6 @@ public class Concrete implements Serializable {
 	 */
 
 	public Image getImage() {
-		imageConcrete = ii.getImage();
 		return imageConcrete;
 	}
 

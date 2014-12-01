@@ -1,18 +1,14 @@
 package gameplay;
 
 import java.awt.Image;
-import java.io.Serializable;
+
 import java.util.List;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-public class Bomb implements Runnable,Serializable {
+public class Bomb implements Runnable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private int range;
 	private int numberOfBombs;
 	private int currentRange;
@@ -50,9 +46,6 @@ public class Bomb implements Runnable,Serializable {
 	private Player player;
 
 	private int bombNumber;
-	ImageIcon firstImageIcon;
-	ImageIcon secondImageIcon;
-	ImageIcon thirdImageIcon;
 
 	private static final int BOMB_TIMER_IN_MILLISECONDS = 2000;
 
@@ -98,18 +91,19 @@ public class Bomb implements Runnable,Serializable {
 	/**
 	 * Loads the images related to bombs.
 	 */
-	
+
 	private void loadImage() {
-		firstImageIcon = new ImageIcon(getClass().getResource(
+		ImageIcon firstImageIcon = new ImageIcon(getClass().getResource(
 				imageNameBomb));
-		
+		imageBomb = firstImageIcon.getImage();
 
-		secondImageIcon = new ImageIcon(getClass().getResource(
+		ImageIcon secondImageIcon = new ImageIcon(getClass().getResource(
 				imageNameBombAndBomberman));
-		
+		imageBombAndBomberman = secondImageIcon.getImage();
 
-		thirdImageIcon = new ImageIcon(getClass().getResource(
-				imageNameExplosion));	
+		ImageIcon thirdImageIcon = new ImageIcon(getClass().getResource(
+				imageNameExplosion));
+		imageExplosion = thirdImageIcon.getImage();
 	}
 
 	/**
@@ -118,7 +112,6 @@ public class Bomb implements Runnable,Serializable {
 	 * @return Image shown when bomb is in a tile by itself.
 	 */
 	public Image getImageBomb() {
-		imageBomb = firstImageIcon.getImage();
 		return imageBomb;
 	}
 
@@ -128,7 +121,6 @@ public class Bomb implements Runnable,Serializable {
 	 * @return The image shown when Bomberman and the bomb are in the same tile.
 	 */
 	public Image getImageBombPlayer() {
-		imageBombAndBomberman = secondImageIcon.getImage();
 		return imageBombAndBomberman;
 	}
 
@@ -139,7 +131,6 @@ public class Bomb implements Runnable,Serializable {
 	 */
 
 	public Image getImageExplosion() {
-		imageExplosion = thirdImageIcon.getImage();
 		return imageExplosion;
 	}
 

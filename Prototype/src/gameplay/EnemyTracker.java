@@ -1,8 +1,6 @@
 package gameplay;
 
-import java.io.Serializable;
-
-public class EnemyTracker implements Serializable{
+public class EnemyTracker {
 	
 	private Tile enemyType;
 	 

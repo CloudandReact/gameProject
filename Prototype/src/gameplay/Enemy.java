@@ -1,7 +1,6 @@
 package gameplay;
 
 import java.awt.Image;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,12 +8,8 @@ import javax.swing.ImageIcon;
 
 import Astar.*;
 
-public class Enemy implements Serializable{
+public class Enemy {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String Balloom = "Balloom.png";
 	private String Oneal = "Oneal.png";
 	private String Doll = "Doll.png";
@@ -28,7 +23,7 @@ public class Enemy implements Serializable{
 	private String PontanAndBrick = "PontanAndBrick.jpg";
 
 
-	/*private Image imageBalloom;
+	private Image imageBalloom;
 	private Image imageOneal;
 	private Image imageDoll;
 	private Image imageMinvo;
@@ -38,19 +33,8 @@ public class Enemy implements Serializable{
 	private Image imagePontan;
 	private Image imageKondoriaAndBrick;
 	private Image imageOvapiAndBrick;
-	private Image imagePontanAndBrick;*/
+	private Image imagePontanAndBrick;
 	
-	ImageIcon first;
-	ImageIcon second;
-	ImageIcon third;
-	ImageIcon fourth;
-	ImageIcon fifth;
-	ImageIcon sixth;
-	ImageIcon seventh;
-	ImageIcon eigth;
-	ImageIcon nine;
-	ImageIcon ten;
-	ImageIcon eleven;
 
 
 	private Grid grid;
@@ -985,92 +969,88 @@ public class Enemy implements Serializable{
 	}
 	
 
-	//change variable names...
 	private void loadImage() {
-		first = new ImageIcon(getClass().getResource(Balloom));
 		
+		ImageIcon first = new ImageIcon(getClass().getResource(Balloom));
+		imageBalloom = first.getImage();
 
-		second = new ImageIcon(getClass().getResource(Oneal));
-		
+		ImageIcon second = new ImageIcon(getClass().getResource(Oneal));
+		imageOneal = second.getImage();
 
-		third = new ImageIcon(getClass().getResource(Doll));
-		
+		ImageIcon third = new ImageIcon(getClass().getResource(Doll));
+		imageDoll = third.getImage();
 
-		fourth = new ImageIcon(getClass().getResource(Minvo));
-		
+		ImageIcon fourth = new ImageIcon(getClass().getResource(Minvo));
+		imageMinvo = fourth.getImage();
 
-		fifth = new ImageIcon(getClass().getResource(Kondoria));
-		
+		ImageIcon fifth = new ImageIcon(getClass().getResource(Kondoria));
+		imageKondoria = fifth.getImage();
 
-		sixth = new ImageIcon(getClass().getResource(Ovapi));
-		
+		ImageIcon sixth = new ImageIcon(getClass().getResource(Ovapi));
+		imageOvapi = sixth.getImage();
 
-		seventh = new ImageIcon(getClass().getResource(Pass));
-		
+		ImageIcon seventh = new ImageIcon(getClass().getResource(Pass));
+		imagePass = seventh.getImage();
 
-		eigth = new ImageIcon(getClass().getResource(Pontan));
+		ImageIcon eighth = new ImageIcon(getClass().getResource(Pontan));
+		imagePontan = eighth.getImage();
 		
+		ImageIcon nine = new ImageIcon(getClass().getResource(KondoriaAndBrick));
+		imageKondoriaAndBrick = nine.getImage();
 		
+		ImageIcon ten = new ImageIcon(getClass().getResource(OvapiAndBrick));
+		imageOvapiAndBrick = ten.getImage();
 		
-		// Change to AndBrick
-		nine = new ImageIcon(getClass().getResource(KondoriaAndBrick));
+		ImageIcon eleven = new ImageIcon(getClass().getResource(PontanAndBrick));
+		imagePontanAndBrick = eleven.getImage();
 		
-		
-		ten = new ImageIcon(getClass().getResource(OvapiAndBrick));
-		
-		
-		eleven = new ImageIcon(getClass().getResource(PontanAndBrick));
-		
-		
-
 	}
 
 	public Image getImageBalloom() {
-		return first.getImage();
+		return imageBalloom;
 	}
 	
 	
 	public Image getImageOneal() {
-		return second.getImage();
+		return imageOneal;
 	}
 
 	public Image getImageDoll() {
-		return third.getImage();
+		return imageDoll;
 	}
 
 	public Image getImageMinvo() {
-		return fourth.getImage();
+		return imageMinvo;
 	}
 
 	public Image getImageKondoria() {
-		return fifth.getImage();
+		return imageKondoria;
 	}
 	
 	public Image getImageKondoriaAndBrick() {
-		return nine.getImage();
+		return imageKondoriaAndBrick;
 	}
 
 	public Image getImageOvapi() {
-		return sixth.getImage();
+		return imageOvapi;
 	}
 	
 	public Image getImageOvapiAndBrick() {
-		return ten.getImage();
+		return imageOvapiAndBrick;
 	}
 
 
 	public Image getImagePass() {
-		return seventh.getImage();
+		return imagePass;
 	}
 
 	public Image getImagePontan() {
-		return eigth.getImage();
+		return imagePontan;
 	}
 	
 	public Image getImagePontanAndBrick() {
-		return eleven.getImage();
+		return imagePontanAndBrick;
 	}
-	
 	
 	public int getEnemyCount() {
 		return enemyCount;

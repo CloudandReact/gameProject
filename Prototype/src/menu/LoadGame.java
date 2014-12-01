@@ -6,7 +6,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -24,20 +23,8 @@ import gameplay.Bomberman;
 import gameplay.Tile;
 import gameplay.Grid;
 import gameplay.PlayerInfo;
-import gameplay.Bomb;
-import gameplay.Brick;
-import gameplay.Concrete;
-import gameplay.Enemy;
-import gameplay.EnemyTracker;
-import gameplay.ExitWay;
-import gameplay.Grid;
-import gameplay.Level;
-import gameplay.Player;
-import gameplay.PlayerInfo;
-import gameplay.PowerUps;
 
-
-public class LoadGame extends JFrame implements Serializable{
+public class LoadGame extends JFrame {
 	/**
 	 * 
 	 */
@@ -56,23 +43,6 @@ public class LoadGame extends JFrame implements Serializable{
 	ArrayList<CSVRecord> loadedGameArrayList;
 	//grid loadedGrid
 	Grid loadedGrid = new Grid();
-	Grid grid;
-	Level level;
-	Brick brick;
-	Concrete concrete;
-	PowerUps powerUps;
-	ExitWay exitWays;
-	Bomb bomb;
-	Player player;
-	int currentScore;
-	int currentLevel;
-	int currentLives;
-	int timer;
-	boolean loadFlamePass;
-	boolean loadBombPass;
-	boolean loadDetonate;
-	boolean loadWallPass;
-	Enemy enemy;
 
 	public LoadGame(JPanel panel) throws IOException {
 		checkStats.checkNumberOfGames();
@@ -123,52 +93,40 @@ public class LoadGame extends JFrame implements Serializable{
 				
 				
 					// Execute when button is pressed
-				getContentPane().removeAll();
-				String gameName=gameToPlayText.getText();
-				File gameFile= new File(gameName);
-				if(gameFile.exists()){
-					FileWriting openGameFile= new FileWriting();
-					try {
-						openGameFile.loadGame(gameName);
-						grid=openGameFile.getGrid();
-						level= openGameFile.getLevel();
-						grid=openGameFile.getGrid();
-						brick=openGameFile.getBrick();
-						concrete=openGameFile.getConcrete();
-						powerUps=openGameFile.getPowerUps();
-						exitWays=openGameFile.getExitWays();
-						bomb=openGameFile.getBomb();
-						player=openGameFile.getPlayer();
-						currentScore=openGameFile.getPlayerScore();
-						currentLevel=openGameFile.getPlayerLevel();
-						currentLives=openGameFile.getPlayerLives();
-						timer=openGameFile.getTimer();
-						enemy=openGameFile.getEnemy();
-						loadFlamePass=openGameFile.getLoadFlamePass();
-						loadWallPass=openGameFile.getLoadWallPass();
-						loadBombPass=openGameFile.getLoadBombPass();
-						loadDetonate=openGameFile.getLoadDetonate();
-						
-						
-						
-						
-					}
-					catch (ClassNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
 					getContentPane().removeAll();
-				new Bomberman(grid,level,enemy,brick,concrete,powerUps,exitWays,bomb,player,currentScore,currentLevel,currentLives,timer,
-						loadFlamePass,loadBombPass, loadBombPass, loadDetonate);
-				AccountMenu.destroyFrame();}
-			
-			else{
-				//error
-				JOptionPane.showMessageDialog(null,"Please enter correct fileName not found ", "Error", JOptionPane.INFORMATION_MESSAGE);
-			}
+					String gameName=gameToPlayText.getText();
+					File gameFile= new File(gameName);
+					if(gameFile.exists()){
+						FileWriting openGameFile= new FileWriting();
+						openGameFile.loadGame(gameName);
+						loadedGameArrayList=openGameFile.loadedGame();
+						int playerLevel;
+						int playerScore;
+						//change loaded game to type tile
+						for(int i=0;i<31;i++){
+							for(int j=0;j<13;j++){
+								//change to multiply...
+								
+								//System.out.println(Tile.valueOf(loadedGameArrayList.get(i).get(0))+ "  C1`134Type");
+								
+								System.out.println(Tile.valueOf(loadedGameArrayList.get(i+31*j).get(0)));
+								//loadedGrid.setContents(i+j*31, j, Tile.CONCRETE);
+								loadedGrid.setContents(i,j, Tile.valueOf(loadedGameArrayList.get(i+31*j).get(0)));
+							}
+							
+						}
+						//player lives
+						playerLevel=Integer.parseInt(loadedGameArrayList.get(403).get(0));
+						playerScore=Integer.parseInt(loadedGameArrayList.get(404).get(0));
+						//load the game
+						getContentPane().removeAll();
+						new Bomberman(loadedGrid,playerLevel);
+						AccountMenu.destroyFrame();
+					}
+					else{
+						//error
+						JOptionPane.showMessageDialog(null,"Please enter correct fileName not found ", "Error", JOptionPane.INFORMATION_MESSAGE);
+					}
 					
 					//new Game()
 				}

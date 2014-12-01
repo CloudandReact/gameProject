@@ -1,11 +1,9 @@
 package gameplay;
 
-import java.io.Serializable;
-
 import Astar.ClosestHeuristic;
 import Astar.TileBasedMap;
 
-public class Grid implements TileBasedMap, Serializable {
+public class Grid implements TileBasedMap {
 	
 //	private int gridSizeX;
 //	private int gridSizeY;

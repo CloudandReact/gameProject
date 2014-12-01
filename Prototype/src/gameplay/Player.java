@@ -2,16 +2,10 @@ package gameplay;
 
 import java.awt.Image;
 import java.awt.event.KeyEvent;
-import java.io.Serializable;
 
 import javax.swing.ImageIcon;
 
-public class Player implements Serializable{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Player {
 
 	private String playerImage = "bomberman.png";
 
@@ -22,7 +16,7 @@ public class Player implements Serializable{
 	private int posX;
 	private int posY;
 	private static int score;
-	public static int livesLeft;
+	private static int livesLeft;
 	private int movementSpeed;
 	
 	private static int bombNumber;
@@ -37,7 +31,6 @@ public class Player implements Serializable{
 	private int countForMovementSpeed;
 
 	private Image image;
-	ImageIcon ii;
 	private Grid grid;
 	private Bomb bomb;
 	private Enemy enemy;
@@ -303,14 +296,13 @@ public class Player implements Serializable{
 	public void setY(int yNew) {
 		y = yNew;
 	}
-	
+
 	private void loadImage() {
-		 ii= new ImageIcon(getClass().getResource(playerImage));
-		
+		ImageIcon ii = new ImageIcon(getClass().getResource(playerImage));
+		image = ii.getImage();
 	}
 
 	public Image getImage() {
-		image = ii.getImage();
 		return image;
 	}
 	

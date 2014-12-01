@@ -1,11 +1,9 @@
 package gameplay;
 
-import java.io.Serializable;
-
 import Astar.ClosestHeuristic;
 import Astar.TileBasedMap;
 
-public enum Tile implements Serializable{
+public enum Tile {
 	
 	EMPTY, 
 	PLAYER, 

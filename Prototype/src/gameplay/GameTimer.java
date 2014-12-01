@@ -2,13 +2,12 @@ package gameplay;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 
 import javax.swing.JLabel;
 
-public class GameTimer implements ActionListener, Serializable{
+public class GameTimer implements ActionListener{
 
-    public static int timeCount = 200;
+    private static int timeCount = 200;
     private int lives = 2;
     private String over = "Time Over!";
     private JLabel timeLabel;
