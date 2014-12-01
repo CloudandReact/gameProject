@@ -20,7 +20,8 @@ public class PlayerInfo implements Serializable {
 	
 	public static ArrayList<CSVRecord> allUserStatistics = new ArrayList<CSVRecord>();
 	
-	public static boolean viewedLeaderBoard = false;	
+	public static boolean viewedLeaderBoard = false;
+	public static int numberOfGames;	
 	
 	/**
 	 * Sets the player username.

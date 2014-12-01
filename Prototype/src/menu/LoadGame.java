@@ -54,7 +54,7 @@ public class LoadGame extends JFrame implements Serializable{
 	// load how many games then have a textbox to enter
 	JTextField gameToPlayText = new JTextField();
 	JPanel panelA;
-	StoreStatistics checkStats = new StoreStatistics();
+	
 	int numberOfGames;
 	ArrayList<CSVRecord> loadedGameArrayList;
 	//grid loadedGrid
@@ -84,7 +84,6 @@ public class LoadGame extends JFrame implements Serializable{
 	 */
 
 	public LoadGame(JPanel panel) throws IOException {
-		checkStats.checkNumberOfGames();
 		panel.removeAll();
 		
 		panel.setLayout(null);
