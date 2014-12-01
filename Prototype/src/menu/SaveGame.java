@@ -27,7 +27,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import gameplay.PlayerInfo;
-
+/**
+ * 
+ * @author elliot
+ *
+ */
 public class SaveGame extends JFrame implements Serializable {
 
 	private static final long serialVersionUID = 1L;

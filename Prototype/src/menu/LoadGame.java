@@ -181,44 +181,7 @@ public class LoadGame extends JFrame implements Serializable{
 		
 		
 }
-	public Tile setGridType(String positionType)
-	{
-		
-		System.out.println(positionType);
-		Tile typeOfTile=Tile.valueOf(positionType);
-		System.out.println(typeOfTile +"Tiletype");
-		return typeOfTile;
-		/*if(positionType.equals("CONCRETE")){
-			typeOfTile=Tile.CONCRETE;
-		}
-		else if(positionType.equals("BRICK")){
-			typeOfTile=Tile.BRICK;
-		}
-		else if(positionType.equals("PLAYER")){
-			typeOfTile=Tile.PLAYER;
-		}
-		else if(positionType.equals("EMPTY")){
-			typeOfTile=Tile.EMPTY;
-		}
-		else if(positionType.equals("BOMB")){
-			typeOfTile=Tile.BOMB;
-		}
-		else if(positionType.equals("EXITWAY")){
-			typeOfTile=Tile.EXITWAY;
-		}
-		else if(positionType.equals("EXITWAY")){
-			typeOfTile=Tile.EXITWAY;
-		}
-		else if(positionType.equals("EXITWAY")){
-			typeOfTile=Tile.EXITWAY;
-		}
-		else if(positionType.equals("EXITWAY")){
-			typeOfTile=Tile.EXITWAY;
-		}
-		return typeOfTile;
-		PLAYERANDBOMB*/
 	
-}
 	}
 
 

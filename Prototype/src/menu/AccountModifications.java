@@ -12,8 +12,17 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import gameplay.PlayerInfo;
+/**
+ * AccountModfications extends JFrame and displays the Gui for modifying a users account.
+ * The user can only modify his realname,and password
+ *
+ */
 public class AccountModifications extends JFrame{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	JLabel userRealNameLabel = new JLabel("Real Name");
 	// note changed could modify
 	JTextField realNameText = new JTextField();
@@ -29,6 +38,11 @@ public class AccountModifications extends JFrame{
 	String retypePassword;
 
 	JPanel panelA;
+	/**
+	 * AccountModifications creates the jpanel for displaying the gui.By first deleteing the old gui and now creating the new one.
+	 * It calls FileWriting to check if the account modifications are valid
+	 * @param panel
+	 */
 
 	public AccountModifications(JPanel panel) {
 
