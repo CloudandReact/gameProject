@@ -5,22 +5,28 @@ import java.io.Serializable;
 import Astar.ClosestHeuristic;
 import Astar.TileBasedMap;
 
+/**
+ * The implementation of a tile based map 
+ */
 public class Grid implements TileBasedMap, Serializable {
 	
 
+	/**
+	 * Creates a game map.
+	 */
 	public Tile[][] gridMap;
     
     /**
-     * 
+     * Creates the game map as a 2-D array of <object>Tile</object> objects.
      */
     public Grid() {
 		gridMap = new Tile[Bomberman.WIDTH][Bomberman.HEIGHT];
 	}
     
-   /**
-    * 
-    * @return
-    */
+    /**
+	 * Initializes all the Tiles in the grid to be empty.
+	 * @return The empty grid.
+	 */
 	public Tile[][] initializeGridMap(){
 		for(int i = 0; i < Bomberman.WIDTH; i++){
 			for(int j = 0; j < Bomberman.HEIGHT; j++){
@@ -30,15 +36,24 @@ public class Grid implements TileBasedMap, Serializable {
 		return gridMap;
 	}
 
-
+	/**
+	 * Get the width of the tile map. The slightly odd name is used
+	 * to distinguish this method from commonly used names in game maps.
+	 * 
+	 * @return The number of tiles across the map
+	 */
 
 	@Override
 	public int getWidthInTiles() {
 		return Bomberman.WIDTH;
 	}
-
-
-
+	
+	/**
+	 * Get the height of the tile map. The slightly odd name is used
+	 * to distinguish this method from commonly used names in game maps.
+	 * 
+	 * @return The number of tiles down the map
+	 */
 	@Override
 	public int getHeightInTiles() {
 		return Bomberman.HEIGHT;
@@ -58,7 +73,14 @@ public class Grid implements TileBasedMap, Serializable {
 	}
 	
 	/**
+	 * Check if the given location is blocked, i.e. blocks movement of 
+	 * the supplied mover.
 	 * 
+	 * @param tileType The enemy type that is potentially moving through the specified
+	 * tile.
+	 * @param x The x coordinate of the tile to check
+	 * @param y The y coordinate of the tile to check
+	 * @return True if the location is blocked
 	 */
 
 	@Override
@@ -81,7 +103,16 @@ public class Grid implements TileBasedMap, Serializable {
 
 
 	/**
+	 * Get the cost of moving through the given tile. This can be used to 
+	 * make certain areas more desirable. A simple and valid implementation
+	 * of this method would be to return 1 in all cases.
 	 * 
+	 * @param tileType The enemy that is trying to move across the tile
+	 * @param sx The x coordinate of the tile we're moving from
+	 * @param sy The y coordinate of the tile we're moving from
+	 * @param tx The x coordinate of the tile we're moving to
+	 * @param ty The y coordinate of the tile we're moving to
+	 * @return The relative cost of moving across the given tile
 	 */
 	@Override
 	public float getCost(Tile tileType, int sx, int sy, int tx, int ty) {
@@ -90,18 +121,32 @@ public class Grid implements TileBasedMap, Serializable {
 		
 	}
 	
+	/**
+	 * Sets the contents of the tile.
+	 * @param x index of the tile in x
+	 * @param y index of the tile in y
+	 * @param tiletype type to which the tile is set to
+	 */
+	
 	public void setContents(int x, int y, Tile tiletype){
 		this.gridMap[x][y] = tiletype;
 	}
 	
+	
+	/**
+	 * Gets the contents of the tile.
+	 * @param x index of the tile in x
+	 * @param y index of the tile in y
+	 * @return the type of the tile at given indexes
+	 */
 	public Tile getContents(int x, int y){
 		return this.gridMap[x][y];
 	}
 	
 	/**
-	 * 
-	 * @param posX
-	 * @param posY
+	 * Checks if the given tile contains an enemy.
+	 * @param posX index of the tile in x
+	 * @param posY index of the tile in y
 	 * @return
 	 */
 	public boolean checkIfEnemy(int posX, int posY){

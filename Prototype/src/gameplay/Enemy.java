@@ -9,6 +9,12 @@ import javax.swing.ImageIcon;
 
 import Astar.*;
 
+
+/**
+ * 
+ * @author chady
+ *
+ */
 public class Enemy implements Serializable{
 
 	/**

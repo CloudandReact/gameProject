@@ -6,9 +6,8 @@ import Astar.ClosestHeuristic;
 import Astar.TileBasedMap;
 
 /**
- * Enum class which defines the Tile type which we put in the grid. It is
- * used for most game logic.
- *
+ * Enum class which defines the <code>Tile</code> type which determines which object 
+ * is in each tile of the map.
  */
 
 public enum Tile implements Serializable {
