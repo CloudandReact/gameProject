@@ -122,7 +122,6 @@ public class Enemy implements Serializable{
 		
 		validateEnemies();
 
-		System.out.println("Current Level..: " + level.getLevel());
 	}
 	
 

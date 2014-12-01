@@ -37,11 +37,13 @@ public class Player implements Serializable{
 	public static int livesLeft;
 	
 	private boolean detonatePressed;
-	private ImageIcon iconPlayer;
+	
 	private Grid grid;
 	private Enemy enemy;
 	private PowerUps powerup;
 	
+	ImageIcon iconPlayer;
+
 
 
 	/**
@@ -53,9 +55,12 @@ public class Player implements Serializable{
 	 * A player object deals with the basic player movement and collisions, powerup logic, and places bomb accordingly.
 	 * Additionally, all user input is taken through the player class. 
 	 * 
-	 * @param grid an object of <code>Grid</code> which contains the game's map and required methods access and alter it.
-	 * @param enemy an object of <code>Enemy</code> which contains information about the enemies on the map. 
-	 * @param level an object of <code>Level</code> which contains the required information about the level.
+	 * @param grid 
+	 * 			an object of <code>Grid</code> which contains the game's map and required methods access and alter it.
+	 * @param enemy 
+	 * 			an object of <code>Enemy</code> which contains information about the enemies on the map. 
+	 * @param level 
+	 * 			an object of <code>Level</code> which contains the required information about the level.
 	 * 
 	 */
 	public Player(Grid grid, Enemy enemy, Level level) {
@@ -317,7 +322,7 @@ public class Player implements Serializable{
 						
 						setBombsOnGround(getBombsOnGround() + 1);
 						Bomb placingBomb = new Bomb(grid, this.enemy, this);
-						placingBomb.setBombs(1);
+						placingBomb.setNumberOfBombs(1);
 						placingBomb.setRange(range);
 						placingBomb.setPosition(posX,posY);
 						

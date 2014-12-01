@@ -2,7 +2,6 @@ package gameplay;
 
 import java.awt.Image;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -10,14 +9,11 @@ import javax.swing.ImageIcon;
 public class Brick implements Serializable {
 
 	private String imageNameBrick = "brick.png";
-	private Image imageBrick;
-	private Boolean powerUpPlaced = false;
-
 	private Grid grid;
-	ImageIcon ii;
+	ImageIcon iconBrick;
 	
 	/**
-	 * Bricks which are to be placed randomly on the grid.
+	 * Constructor for bricks which calls the placeBricks method, which places bricks randomly on the grid, and loads the images. 
 	 * @param grid The grid on which we want to place the bricks.
 	 */
 	public Brick(Grid grid) {
@@ -57,7 +53,7 @@ public class Brick implements Serializable {
 	 * 
 	 * @param min Minimum value which may be returned.
 	 * @param max Maximum value which may be returned.
-	 * @return An integer between min and max inclusively.
+	 * @return an <code>int</code> corresponding to the integer between min and max inclusively.
 	 */
 
 	private static int randInt(int min, int max) {
@@ -74,7 +70,7 @@ public class Brick implements Serializable {
 	 */
 
 	private void loadImage() {
-		ii = new ImageIcon(getClass().getResource(imageNameBrick));
+		iconBrick = new ImageIcon(getClass().getResource(imageNameBrick));
 		
 	}
 	
@@ -84,7 +80,7 @@ public class Brick implements Serializable {
 	 */
 
 	public Image getImage() {
-		return ii.getImage();
+		return iconBrick.getImage();
 	}
 
 }

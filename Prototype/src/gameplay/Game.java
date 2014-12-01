@@ -180,7 +180,6 @@ public class Game extends JPanel implements ActionListener,Serializable {
 		bomberman.setLivesLeft(numberOfLives);
 		bomberman.setScore(PlayerInfo.playerScore);
 		
-		System.out.println("ENEMY COUNT..." + enemy.getEnemyCount() + "KILLED COUNT" + Bomb.getNumberOfEnemiesKilled());
 		if(GameState.getState() == State.TIMEOVER){
 			
 		}
@@ -278,7 +277,7 @@ public class Game extends JPanel implements ActionListener,Serializable {
 						if(GameState.getState() == State.RUNNINGANDLEVELOVER){
 							GameState.setState(State.RUNNING);
 							currentLevel++;
-							level.setLevel(currentLevel);
+							level.setCurrentLevel(currentLevel);
 							timer.stop();
 							initialize();
 							GameTimer.restartTimer();
