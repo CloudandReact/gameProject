@@ -39,7 +39,7 @@ public class FileWriting implements Serializable {
 	String lineInfo[];
 	private boolean isLoginCredFound = false;
 	String lineOfFile[] = new String[100];
-	ArrayList<CSVRecord> userFileInfo1;
+	ArrayList<CSVRecord> loginInfo;
 	ArrayList<CSVRecord> userStatistics;
 	ArrayList<CSVRecord> loadedGame;
 	Enemy enemy;
@@ -60,20 +60,26 @@ public class FileWriting implements Serializable {
 	boolean loadDetonate;
 	boolean loadWallPass;
 	
-
+	/**
+	 * loops through arraylist of username and passwords and checks if there is a mathch. 
+	 * Then lets the user log in or rejects username and password combination
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	public boolean loginIsValid(String username, String password) {
 
-		for (int i = 0; i < (userFileInfo1).size(); i = i+1) {
+		for (int i = 0; i < (loginInfo).size(); i = i+1) {
 			
 			// String line[]=lineOfFile[i].split(",");
 			System.out.println("value user name" + username);
 			System.out.println("value pasword " + password);
-			System.out.println(userFileInfo1.get(i));
+			System.out.println(loginInfo.get(i));
 			
-			System.out.println(userFileInfo1.size());
+			System.out.println(loginInfo.size());
 
-			if (userFileInfo1.get(i).get(1).equals(username)
-					&& userFileInfo1.get(i).get(2).equals(password)) {
+			if (loginInfo.get(i).get(1).equals(username)
+					&& loginInfo.get(i).get(2).equals(password)) {
 				return true;
 			}
 		}
@@ -81,17 +87,26 @@ public class FileWriting implements Serializable {
 		return false;
 
 	}
+	/**
+	 * checks if the username is availible and then loops through file checking if username is taken if yes returna a warning to the 
+	 * user and does let the user create an account
+	 * @param username
+	 * @return
+	 */
 
 	public boolean isUserNameAvailible(String username) {
-		for (int i = 0; i < (userFileInfo1).size(); i = i+1) {
-			System.out.println("use file " + userFileInfo1.get(i).get(1));
-			if (userFileInfo1.get(i).get(1).equals(username)) {
+		for (int i = 0; i < (loginInfo).size(); i = i+1) {
+			System.out.println("use file " + loginInfo.get(i).get(1));
+			if (loginInfo.get(i).get(1).equals(username)) {
 				return false;
 			}
 		}
 		return true;
 
 	}
+	/**
+	 * first checks if the file exists then opens it and reads all the data using apache csv parser into an arraylist
+	 */
 
 	public void openFile() {
 		// note u can delete all the special stuff if File userInfo= new
@@ -128,8 +143,8 @@ public class FileWriting implements Serializable {
 			// String line= input.readLine();
 			CSVParser parser = new CSVParser(new FileReader(filename),
 					CSVFormat.DEFAULT);
-			userFileInfo1 = (ArrayList<CSVRecord>) parser.getRecords();
-			String line = "";
+			loginInfo = (ArrayList<CSVRecord>) parser.getRecords();
+			
 			parser.close();
 			/*
 			 * while ((line = br.readLine()) != null) {
@@ -156,7 +171,14 @@ public class FileWriting implements Serializable {
 	public boolean validLoginCredentials() {
 		return isLoginCredFound;
 	}
-
+    /**
+     * writes the realname,username,password to the file at a new line assuming it is a valid combination
+     * @param realName
+     * @param username
+     * @param password
+     * @param retypePassword
+     * @throws IOException
+     */
 	public void writeToFile(String realName, String username, String password,
 		String retypePassword) throws IOException {
 		String fileName = System.getProperty("user.dir")+"//" +"src" +"//"+"menu"+ "//"+ ("userInfo.csv");
@@ -176,6 +198,15 @@ public class FileWriting implements Serializable {
 		writer.close();
 
 	}
+	/**
+	 * overwrites to file when the user tries to modify his account assuming correct input of realname and password
+	 * The user is not allowed to modify his username
+	 * @param realName
+	 * @param username
+	 * @param password
+	 * @param retypePassword
+	 * @throws IOException
+	 */
 	public void overwriteToFileString (String realName, String username, String password,String retypePassword) throws IOException {
 	String fileName = System.getProperty("user.dir")+"//" +"src" +"//"+"menu"+ "//"+ ("userInfo.csv");
 	//String fileName = System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userInfo.csv");
@@ -190,21 +221,26 @@ public class FileWriting implements Serializable {
 	}
 	FileWriter fileWriter = new FileWriter(fileName,false);
 	CSVPrinter writer = new CSVPrinter(fileWriter, CSVFormat.DEFAULT);
-	for (int i = 0; i < (userFileInfo1).size(); i = i+1) {
+	for (int i = 0; i < (loginInfo).size(); i = i+1) {
 	
-			if(userFileInfo1.get(i).get(1).equals(PlayerInfo.getUsername())){
+			if(loginInfo.get(i).get(1).equals(PlayerInfo.getUsername())){
 					writer.printRecord(realName, username, password);
 	// writer.newLine();
 	// writer.flush();
 	
 			}
 			else {
-				writer.printRecord(userFileInfo1.get(i));
+				writer.printRecord(loginInfo.get(i));
 			}
 
 	}
 	writer.close();
 	}
+	/**
+	 * this method opens the statistics file for reading and then stores the data in an arraylist
+	 * @throws IOException
+	 */
+	
 	public void openStatistics() throws IOException{
 		// note u can delete all the special stuff if File userInfo= new
 		// File(userInfo.csv) works otherwise
@@ -234,8 +270,14 @@ public class FileWriting implements Serializable {
 			
 			
 		
-	//write to statistics check if already has a score
-	//Libraries/Documents
+	/**
+	 * This writes to statistics the username, score and level unlocked. It will overwrite should the user already have a stored data point.
+	 * @param username
+	 * @param score
+	 * @param levelUnlocked
+	 * @param currentGameOfUser
+	 * @throws IOException
+	 */
 	public void writeToStatisticsFile(String username , int score , int levelUnlocked,int currentGameOfUser) throws IOException{
 		///String fileName = System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userStatistics.csv");
 		String fileName = System.getProperty("user.dir")+"//" +"src" +"//"+"menu"+ "//"+ ("userStatistics.csv");
@@ -273,7 +315,28 @@ public class FileWriting implements Serializable {
 		writer.close();
 
 	}
-	
+	/**
+	 * Takes all the input neccesary to serialize the game and then save it in a file of the users choice.
+	 * @param fileName
+	 * @param level
+	 * @param enemy
+	 * @param p
+	 * @param concrete
+	 * @param brick
+	 * @param powerUps
+	 * @param exitWays
+	 * @param bomb
+	 * @param grid
+	 * @param playerScore
+	 * @param currentLevel
+	 * @param currentLives
+	 * @param timer
+	 * @param flamePass
+	 * @param bombPass
+	 * @param wallPass
+	 * @param detonate
+	 * @throws IOException
+	 */
 	
 	public void saveGame(String fileName,Level level,Enemy enemy, Player p, Concrete concrete, Brick brick, PowerUps powerUps,ExitWay exitWays,
 			Bomb bomb,Grid grid,int playerScore, int currentLevel,int currentLives , int timer, boolean flamePass, boolean bombPass, boolean wallPass,
@@ -318,6 +381,12 @@ public class FileWriting implements Serializable {
 		
 		
 	}
+	/**
+	 * Loads all the objects stored in the filename and iniatilizes them and they are called to loadgame by the getters below.
+	 * @param fileName
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 public void loadGame(String fileName) throws ClassNotFoundException, IOException{
        
 		
@@ -370,7 +439,14 @@ public void loadGame(String fileName) throws ClassNotFoundException, IOException
 	
 	// creates validate object to check if everything is right in validate
 	Validate checkInfo = new Validate();
-
+	/**
+	 * Checks if the username and password combination is valid
+	 * @param realName
+	 * @param username
+	 * @param password
+	 * @param retypePassword
+	 * @return
+	 */
 	public boolean checkIfValid(String realName, String username,
 			String password, String retypePassword) {
 		System.out.println(realName);
@@ -384,7 +460,10 @@ public void loadGame(String fileName) throws ClassNotFoundException, IOException
 			return false;
 		}
 	}
-
+	/**
+	 * the remaining methods are all getters
+	 * @return
+	 */
 	public ArrayList<CSVRecord> allPlayersStats(){
 		return userStatistics;
 		
