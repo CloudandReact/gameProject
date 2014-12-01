@@ -42,18 +42,15 @@ public class Game extends JPanel implements ActionListener, Serializable {
 	private ExitWay exitway;
 	private Level level;
 
-	private long currentTime;
 	private int currentLevel;
 	private int numberOfLives;
 	private int count;
 	private int leftMostVisibleTile;
 	private int rightMostVisibleTile;
 
-	private int countPlayer = 0;
-
-	private Boolean isPlayerAlive;
-	private Boolean pauseMenuOpen;
-	private Boolean gameOverMenuOpen;
+	private boolean isPlayerAlive;
+	private boolean pauseMenuOpen;
+	private boolean gameOverMenuOpen;
 
 	private Bomberman bomberman;
 
@@ -79,7 +76,6 @@ public class Game extends JPanel implements ActionListener, Serializable {
 
 		this.bomberman = bomberman;
 		this.currentLevel = 1;
-		countPlayer = 0;
 
 		initialize();
 		numberOfLives = 2;
@@ -205,7 +201,6 @@ public class Game extends JPanel implements ActionListener, Serializable {
 		this.bomberman = bomberman;
 		this.isPlayerAlive = true;
 		numberOfLives = currentLives;
-		// PowerUps.setClevel(currentLevel2);
 		addKeyListener(new TAdapter());
 		setFocusable(true);
 		setBackground(Color.darkGray);

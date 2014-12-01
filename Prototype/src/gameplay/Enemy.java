@@ -16,6 +16,9 @@ public class Enemy implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String Balloom = "Balloom.png";
+	
+	private final int ENEMY_COUNT_EXITWAY = 8; 
+	
 	private String Oneal = "Oneal.png";
 	private String Doll = "Doll.png";
 	private String Minvo = "Minvo.png";
@@ -26,19 +29,34 @@ public class Enemy implements Serializable{
 	private String Pass = "Pass.png";
 	private String Pontan = "Pontan.png";
 	private String PontanAndBrick = "PontanAndBrick.jpg";
+	
+	private int numberOfBallooms;
+	private int numberOfOneals;
+	private int numberOfDolls;
+	private int numberOfMinvos;
+	private int numberOfKondorias;
+	private int numberOfOvapis;
+	private int numberOfPasses;
+	private int numberOfPontans;
+	private int count;
+	private int enemyCount;
+	
+	private Grid grid;
+	private Grid tempGrid;
+	private Game game;
+	private Level level;
 
-
-	/*private Image imageBalloom;
-	private Image imageOneal;
-	private Image imageDoll;
-	private Image imageMinvo;
-	private Image imageKondoria;
-	private Image imageOvapi;
-	private Image imagePass;
-	private Image imagePontan;
-	private Image imageKondoriaAndBrick;
-	private Image imageOvapiAndBrick;
-	private Image imagePontanAndBrick;*/
+	private Tile highestLevelEnemy;
+	private Path path;
+	private PathFinder finder;	
+	private EnemyTracker tracker;
+	private EnemyTracker livingEnemy;
+	private ArrayList<EnemyTracker> enemiesInitial; 
+	private ArrayList<EnemyTracker> enemiesAlive; 	
+	
+	
+	private boolean isExitwayBlownUp;
+	
 	
 	ImageIcon first;
 	ImageIcon second;
@@ -53,60 +71,35 @@ public class Enemy implements Serializable{
 	ImageIcon eleven;
 
 
-	private Grid grid;
-	private Grid tempGrid;
-
-	private Game game;
-	private Level level;
-
-	private int enemyCount;
-	private final int ENEMY_COUNT_EXITWAY = 8; 
-
-	private int numberOfBallooms;
-	private int numberOfOneals;
-	private int numberOfDolls;
-	private int numberOfMinvos;
-	private int numberOfKondorias;
-	private int numberOfOvapis;
-	private int numberOfPasses;
-	private int numberOfPontans;
-	
-	private Path path;
-	private PathFinder finder;
-
-	private ArrayList<EnemyTracker> enemiesInitial; 
-	private ArrayList<EnemyTracker> enemiesAlive; 
-	
-	private EnemyTracker tracker;
-	private EnemyTracker livingEnemy;
-	
-	private int count;
-	
-	private boolean isExitwayBlownUp;
-	private Tile highestLevelEnemy;
-	
 	
 	private final int numberOfEnemiesAfterExitwayIsBlownUp;
 	
 	/**
-	 * Enemy 
-	 * @param grid The grid on which enemies are placed.
-	 * @param game The current game. 
-	 * @param level The level in which enemies are being placed.
+	 * Constructor that initializes an <code>Enemy</code> object which initializes the required attributes and loads the enemies on the grid.
+	 * Game object is required for player alive and dead logic, while the level object allows us to know which enemies we should place on the grid,
+	 * as it is level dependent. 
+	 * The constructor calls the validateEnemies() method, and the enemy logic is continued from thereon after. 
+	 * @param grid
+	 *			The grid on which enemies are placed.
+	 * @param game 
+	 * 			The current game. 
+	 * @param level 
+	 * 			The level in which enemies are being placed.
 	 */
 	
 	
 	public Enemy(Grid grid, Game game, Level level) {
-		this.level = level;
-		this.enemyCount = 0;
-		this.game = game;
-		this.loadImage();
 		this.grid = grid;
-		this.tempGrid = new Grid();
-		this.isExitwayBlownUp = false;
-		numberOfEnemiesAfterExitwayIsBlownUp = 8;
+		this.game = game;
+		this.level = level;
 		
-		count = 0;
+		
+		this.numberOfEnemiesAfterExitwayIsBlownUp = 8;
+		this.enemyCount = 0;
+		this.isExitwayBlownUp = false;
+		this.tempGrid = new Grid();
+		this.loadImage();	
+		this.count = 0;
 		
 		enemiesInitial = new ArrayList<EnemyTracker>();
 		enemiesAlive = new ArrayList<EnemyTracker>();
