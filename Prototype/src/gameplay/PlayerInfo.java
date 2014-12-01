@@ -1,10 +1,11 @@
 package gameplay;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.apache.commons.csv.CSVRecord;
 
-public class PlayerInfo {
+public class PlayerInfo implements Serializable {
 	//we need to have all player data that needs to be saved
 	public static String usernameStatic = "";
 	public static int playerScore=0;

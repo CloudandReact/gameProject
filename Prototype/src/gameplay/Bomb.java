@@ -1,14 +1,18 @@
 package gameplay;
 
 import java.awt.Image;
-
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-public class Bomb implements Runnable {
+public class Bomb implements Runnable,Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int range;
 	private int numberOfBombs;
 	private int currentRange;
@@ -46,6 +50,9 @@ public class Bomb implements Runnable {
 	private Player player;
 
 	private int bombNumber;
+	ImageIcon firstImageIcon;
+	ImageIcon secondImageIcon;
+	ImageIcon thirdImageIcon;
 
 	private static final int BOMB_TIMER_IN_MILLISECONDS = 2000;
 
@@ -91,19 +98,18 @@ public class Bomb implements Runnable {
 	/**
 	 * Loads the images related to bombs.
 	 */
-
+	
 	private void loadImage() {
-		ImageIcon firstImageIcon = new ImageIcon(getClass().getResource(
+		firstImageIcon = new ImageIcon(getClass().getResource(
 				imageNameBomb));
-		imageBomb = firstImageIcon.getImage();
+		
 
-		ImageIcon secondImageIcon = new ImageIcon(getClass().getResource(
+		secondImageIcon = new ImageIcon(getClass().getResource(
 				imageNameBombAndBomberman));
-		imageBombAndBomberman = secondImageIcon.getImage();
+		
 
-		ImageIcon thirdImageIcon = new ImageIcon(getClass().getResource(
-				imageNameExplosion));
-		imageExplosion = thirdImageIcon.getImage();
+		thirdImageIcon = new ImageIcon(getClass().getResource(
+				imageNameExplosion));	
 	}
 
 	/**
@@ -112,6 +118,7 @@ public class Bomb implements Runnable {
 	 * @return Image shown when bomb is in a tile by itself.
 	 */
 	public Image getImageBomb() {
+		imageBomb = firstImageIcon.getImage();
 		return imageBomb;
 	}
 
@@ -121,6 +128,7 @@ public class Bomb implements Runnable {
 	 * @return The image shown when Bomberman and the bomb are in the same tile.
 	 */
 	public Image getImageBombPlayer() {
+		imageBombAndBomberman = secondImageIcon.getImage();
 		return imageBombAndBomberman;
 	}
 
@@ -131,6 +139,7 @@ public class Bomb implements Runnable {
 	 */
 
 	public Image getImageExplosion() {
+		imageExplosion = thirdImageIcon.getImage();
 		return imageExplosion;
 	}
 

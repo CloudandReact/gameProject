@@ -1,6 +1,8 @@
 package gameplay;
 
-public class GameState {
+import java.io.Serializable;
+
+public class GameState implements Serializable {
 
 	private static State state;
 	private static int numberOfEnemiesleft;

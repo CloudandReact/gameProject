@@ -1,12 +1,12 @@
 package gameplay;
 
 import java.awt.Image;
-
+import java.io.Serializable;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
 
-public class PowerUps {
+public class PowerUps implements Serializable{
 
 	private String bombsP= "bombsp.png";
 	private String flamesP = "flamesp.png";
@@ -16,10 +16,10 @@ public class PowerUps {
 	private String wallPassP = "wallpassp.png";
 	private String flamePassP = "flamepassp.png"; 
 
-	private static Boolean wallpass;
-	private static Boolean bombpass; 
-	private static Boolean flamepass;
-	private static Boolean detonate; 
+	static Boolean wallpass;
+	static Boolean bombpass; 
+	static Boolean flamepass;
+	static Boolean detonate; 
 	private static Boolean gotPowerup;
 	private static Boolean powerupPlaced; //use this to make sure powerup is not printed twice in same level if player dies
 
@@ -36,6 +36,13 @@ public class PowerUps {
 	private Grid grid;
 	private Player player;
 	private Level level;
+	ImageIcon bomb;
+	ImageIcon flame;
+	ImageIcon speed;
+	ImageIcon detonator;
+	ImageIcon bombPass;
+	ImageIcon wallPass;
+	ImageIcon flamePass;
 	
 	/**
 <<<<<<< HEAD
@@ -174,55 +181,56 @@ public class PowerUps {
 	/**
 	 * Load the images of the powerups
 	 */
+	
 	private void loadImage() {
-		ImageIcon bomb = new ImageIcon(getClass().getResource(bombsP));
-		imageb = bomb.getImage();
+		bomb = new ImageIcon(getClass().getResource(bombsP));
 		
-		ImageIcon flame = new ImageIcon(getClass().getResource(flamesP));
-		imagef = flame.getImage();
 		
-		ImageIcon speed = new ImageIcon(getClass().getResource(speedP));
-		images = speed.getImage();
+		flame = new ImageIcon(getClass().getResource(flamesP));
 		
-		ImageIcon detonator = new ImageIcon(getClass().getResource(detonatorsP));
-		imaged = detonator.getImage();
 		
-		ImageIcon bombpass = new ImageIcon(getClass().getResource(bombPassP));
-		imageBP = bombpass.getImage();
+		speed = new ImageIcon(getClass().getResource(speedP));
 		
-		ImageIcon wallpass = new ImageIcon(getClass().getResource(wallPassP));
-		imageWP = wallpass.getImage();
 		
-		ImageIcon flamepass = new ImageIcon(getClass().getResource(flamePassP));
-		imageFP = flamepass.getImage();
+		detonator = new ImageIcon(getClass().getResource(detonatorsP));
+		
+		
+		bombPass = new ImageIcon(getClass().getResource(bombPassP));
+		
+		
+		 wallPass = new ImageIcon(getClass().getResource(wallPassP));
+		
+		
+		 flamePass = new ImageIcon(getClass().getResource(flamePassP));
+		
 	}
 	
 	public Image getBombsImage() {
-		return imageb;
+		return bomb.getImage();
 	}
 	
 	public Image getFlamesImage() {
-		return imagef;
+		return flame.getImage();
 	}
 	
 	public Image getSpeedImage() {
-		return images;
+		return speed.getImage();
 	}
 	
 	public Image getDetonatorsImage() {
-		return imaged;
+		return detonator.getImage();
 	}
 	
 	public Image getBombPassImage() {
-		return imageBP;
+		return bombPass.getImage();
 	}
 	
 	public Image getWallPassImage() {
-		return imageWP;
+		return wallPass.getImage();
 	}
 	
 	public Image getFlamePassImage() {
-		return imageFP;
+		return flamePass.getImage();
 	}
 
 
@@ -256,7 +264,7 @@ public class PowerUps {
 	}
 
 
-	public Boolean haveDetonate() {
+	public static Boolean haveDetonate() {
 		return detonate;
 	}
 

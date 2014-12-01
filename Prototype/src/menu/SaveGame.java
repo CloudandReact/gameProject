@@ -1,9 +1,17 @@
 package menu;
 
+import gameplay.Bomb;
+import gameplay.Brick;
+import gameplay.Concrete;
+import gameplay.Enemy;
+import gameplay.ExitWay;
+import gameplay.GameTimer;
 import gameplay.Grid;
+import gameplay.Level;
 import gameplay.Player;
 import gameplay.PlayerInfo;
 import gameplay.Game;
+import gameplay.PowerUps;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -37,11 +45,16 @@ public class SaveGame extends JFrame implements Serializable {
 	JPanel panelA;
 	StoreStatistics checkStats = new StoreStatistics();
 	int numberOfGames;
+	Enemy enemy;
 
 	Grid grid;
 
-	public SaveGame(final Grid grid) throws IOException {
+	public SaveGame(final Grid grid,final Level level, final Enemy enemy,final Player p,final Concrete concrete,final Brick brick, final PowerUps powerUps,
+			final ExitWay exitWays, final Bomb bomb, final boolean flamePass,final boolean bombPass,final boolean wallPass,
+			final boolean detonate) throws IOException {
+	  //public SaveGame(final Render r) throws IOException {
 		this.grid = grid;
+		this.enemy = enemy;
 		checkStats.checkNumberOfGames();
 		setSize(450, 450);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,10 +102,13 @@ public class SaveGame extends JFrame implements Serializable {
 				// /need to write to file
 				FileWriting savingTheGame = new FileWriting();
 				try {
-					savingTheGame.saveGame(gameName, grid,
-							PlayerInfo.playerScore, PlayerInfo.currentLevel);
+					//change to add in currentLives
+					//object save everything
+					//enemy.getEnemiesInitial()
+					savingTheGame.saveGame(gameName,level,enemy, p,concrete,brick, powerUps,exitWays,bomb,grid, 
+							PlayerInfo.playerScore, PlayerInfo.currentLevel,Player.livesLeft,GameTimer.timeCount,flamePass,bombPass,wallPass,detonate);
+					//savingTheGame.saveGame(gameName,r);
 					System.out.println("succes");
-					System.out.println(game);
 					getContentPane().removeAll();
 					dispose();
 

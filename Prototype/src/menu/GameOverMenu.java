@@ -62,11 +62,9 @@ public class GameOverMenu extends JFrame {
 		panel.setLayout(null);
 		AccountMenu.setFrameTitle("Time Over Menu");
 
-		viewLeaderboards.setBounds(72, 5, 180, 25);
+		viewLeaderboards.setBounds(72, 30, 180, 25);
 		panel.add(viewLeaderboards);
 
-		saveGame.setBounds(72, 30, 180, 25);
-		panel.add(saveGame);
 
 		quitGame.setBounds(72, 55, 180, 25);
 		panel.add(quitGame);
@@ -134,19 +132,7 @@ public class GameOverMenu extends JFrame {
 		/**
 		 * 
 		 */
-		saveGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Execute when button is pressed
-				try {
-					new SaveGame(grid);
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-			}
-
-		});
+		
 
 	}
 
