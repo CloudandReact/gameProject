@@ -123,7 +123,10 @@ public class Enemy implements Serializable{
 
 	}
 	
-
+	/**
+	 * For each enemy type, if it is present on the grid, map them in the lists. 
+	 * <p> Note: This Method also keeps track of one enemy type higher than the current highest enemy on the level for the exitway logic </p>.
+	 */
 	private void validateEnemies() {
 
 		if (numberOfBallooms > 0) {
@@ -176,6 +179,13 @@ public class Enemy implements Serializable{
 
 	}
 	
+	/**
+	 * Method which places the required enemies in the enemiesInitial list, creating the required trackers, and setting them on the grid.
+	 * This is called once when enemies are initialized, and again if the Player blows up the exitway. 
+	 * The enemies are placed pseudo-randomly on the grid. 
+	 * @param enemyType The enemy type on the tile. 
+	 * @param numberToPlace The number of enemies to place on the grid. 
+	 */
 	private void placeEnemies(Tile enemyType, int numberToPlace) {
 
 		int numberOfEnemies = 0;
@@ -199,7 +209,12 @@ public class Enemy implements Serializable{
 		
 	}
 
-	
+	/**
+	 * Basic move function which calls the moveWithChance method with the correct parameters depending on the enemy type. 
+	 * 
+	 * @param targetX Player's X location for AStar movement.
+	 * @param targetY Player's Y location for AStar movement.
+	 */
 	public void move(int targetX, int targetY) {
 		
 		if(isExitwayBlownUp){
