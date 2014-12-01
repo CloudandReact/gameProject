@@ -16,14 +16,7 @@ import javax.swing.*;
 
 import gameplay.Player;
 import gameplay.PlayerInfo;
-/**
- * Login class displays the login Gui where the user enters his username and password
- * The if succesful he is logged in. His input is sent back to fileWriting to check if the 
- * credentials are valid
- * @author Elliot Gimple
- * @author Leonardo Siracusa
- *
- */
+
 public class Login {
 
 	JLabel usernameLabel = new JLabel("Username");
@@ -36,12 +29,7 @@ public class Login {
 	private String password = "";
 
 	JPanel panelL;
-	/**
-	 * Login takes the panel removes everything from the panel and then renders it for login.
-	 * It calls the filWriting to validate the username and password.
-	 * @param panel
-	 */
-   
+
 	public Login(JPanel panel) {
 
 		panel.removeAll();
@@ -88,10 +76,11 @@ public class Login {
 					 
 					PlayerInfo.usernameStatic = username;
 					PlayerInfo.passwordStatic = password;
-
+					StoreStatistics storingIntoPlayer = new StoreStatistics();
+					storingIntoPlayer.checkNumberOfGames();
 					// this line just for test will see if to make it void and
 					// store all info in player
-					
+					int jar = storingIntoPlayer.numberOfGames();
 					try {
 						// store all player statistics which is required for
 						// leaderboards

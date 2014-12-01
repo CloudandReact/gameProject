@@ -2,11 +2,7 @@ package menu;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-/**
- * 
- * @author elliot
- *
- */
+
 public class Validate {
 
 	boolean realNameValid = false;;

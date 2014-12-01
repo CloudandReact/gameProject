@@ -27,13 +27,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import gameplay.PlayerInfo;
-/**
- * SaveGame extends JFrame and implements Serializable to be able to save the game objects to  fileWriting.
- * It will display whether or not the saving was a success
- * @author elliot
- * 
- *
- */
+
 public class SaveGame extends JFrame implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -49,42 +43,11 @@ public class SaveGame extends JFrame implements Serializable {
 	// load how many games then have a textbox to enter
 	JTextField saveGameText = new JTextField(30);
 	JPanel panelA;
+	StoreStatistics checkStats = new StoreStatistics();
 	int numberOfGames;
 	Enemy enemy;
 
 	Grid grid;
-	/**
-	 * SaveGame takes in all these inputs and shows the GUI for the user to enter a file name and tries to store all the objects 
-	 * in a serialized form.
-	 * @param grid
-	 * 	Object of type Grid
-	 * @param level
-	 * 	Object of type Level
-	 * @param enemy
-	 * 	Object of type Enemy
-	 * @param p
-	 * 	Object of type Player
-	 * @param concrete
-	 * 	Object of type Concrete
-	 * @param brick
-	 * 	Object of type Brick
-	 * @param powerUps
-	 * 	Object of type PowerUps
-	 * @param exitWays
-	 * 	Object of type ExitWays
-	 * @param bomb
-	 *  Object of type Bomb
-	 * @param flamePass
-	 * 	Boolean of type flamePass as in does the user have the powerup
-	 * @param bombPass
-	 * 	Boolean of type bombPass
-	 * @param wallPass
-	 * 	Boolean of type wallPass
-	 * @param detonate
-	 * 	Boolean of type detonate
-	 * @throws IOException
-	 * 	Throws an IOException because writing to file
-	 */
 
 	public SaveGame(final Grid grid,final Level level, final Enemy enemy,final Player p,final Concrete concrete,final Brick brick, final PowerUps powerUps,
 			final ExitWay exitWays, final Bomb bomb, final boolean flamePass,final boolean bombPass,final boolean wallPass,
@@ -92,6 +55,7 @@ public class SaveGame extends JFrame implements Serializable {
 	  //public SaveGame(final Render r) throws IOException {
 		this.grid = grid;
 		this.enemy = enemy;
+		checkStats.checkNumberOfGames();
 		setSize(450, 450);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);

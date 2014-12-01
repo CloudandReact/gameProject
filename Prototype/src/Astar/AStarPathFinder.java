@@ -10,7 +10,6 @@ import java.util.Collections;
  * to determine a path. 
  * 
  * @author Kevin Glass
- * @author Leonardo Siracusa
  */
 public class AStarPathFinder implements PathFinder {
 	/** The set of nodes that have been searched through */

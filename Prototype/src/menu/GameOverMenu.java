@@ -91,7 +91,6 @@ public class GameOverMenu extends JFrame {
 		 */
 		exitToMain.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				bomberman.stopTimer();
 				bomberman.destroyFrameTimer();
 				game.destroyPanel();
 				new MainMenu(panel, PlayerInfo.getUsername());

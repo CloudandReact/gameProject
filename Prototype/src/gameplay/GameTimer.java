@@ -20,11 +20,6 @@ public class GameTimer implements ActionListener, Serializable {
 	private JLabel livesLabel;
 	private JLabel scoreLabel;
 	private JLabel timeOverLabel;
-<<<<<<< HEAD
-	private int score;
-=======
-	private int score = 0;
->>>>>>> parent of e7ae8d5... Big changes
 
 	/**
 	 * <p>

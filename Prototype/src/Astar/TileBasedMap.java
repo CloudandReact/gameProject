@@ -8,7 +8,6 @@ import gameplay.Tile;
  * generic tools
  * 
  * @author Kevin Glass
- * @author Leonardo Siracusa
  */
 public interface TileBasedMap {
 	/**

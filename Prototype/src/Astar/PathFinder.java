@@ -10,7 +10,6 @@ import gameplay.Enemy;
  * 
  * @see TileBasedMap
  * @author Kevin Glass
- * @author Leonardo Siracusa
  */
 public interface PathFinder {
 	

@@ -7,15 +7,11 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 
 /**
- * This class initializes the brick game objects' positions and loads the brick image. 
+ * This class initializes the brick game objects' positions.
+ *
  */
-
 public class Brick implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String imageNameBrick = "brick.png";
 	private Grid grid;
 	ImageIcon iconBrick;
@@ -29,6 +25,7 @@ public class Brick implements Serializable {
 		loadImage();
 		this.grid = grid;
 		placeBricks();
+
 	}
 
 	/**
