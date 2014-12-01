@@ -87,14 +87,6 @@ public class Login {
 					new MainMenu(panelL, username);
 					 
 					PlayerInfo.usernameStatic = username;
-					PlayerInfo.passwordStatic = password;
-<<<<<<< HEAD
-					
-=======
-
-					// this line just for test will see if to make it void and
-					// store all info in player
->>>>>>> branch 'master' of https://github.com/mcgill-ecse321/team-2.git
 					
 					try {
 						// store all player statistics which is required for
