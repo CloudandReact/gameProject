@@ -485,13 +485,6 @@ public class Level implements Serializable{
 		}
 	}
 
-	public void setLevel(int level) {
-		currentLevel = level;
-	}
-
-	public int getLevel() {
-		return currentLevel;
-	}
 
 	public int getnumberOfBallooms() {
 		return numberOfBallooms;

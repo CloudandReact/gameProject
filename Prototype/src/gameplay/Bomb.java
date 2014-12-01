@@ -13,25 +13,8 @@ public class Bomb implements Runnable,Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int range;
-	private int numberOfBombs;
-	private int currentRange;
 
-	private int positionX;
-	private int positionY;
-
-	private String imageNameBomb = "bomb.png";
-	private String imageNameBombAndBomberman = "bomb&Bomberman.jpg";
-	private String imageNameExplosion = "explosion.png";
-
-	private static int numberOfEnemiesKilled;
-
-	List<Integer> scoreForEachEnemyKilledWithThisBomb;
-
-	private Image imageBomb;
-	private Image imageBombAndBomberman;
-	private Image imageExplosion;
-
+	
 	private static final int BALLOOM_SCORE = 100;
 	private static final int ONEAL_SCORE = 200;
 	private static final int DOLL_SCORE = 400;
@@ -40,115 +23,87 @@ public class Bomb implements Runnable,Serializable {
 	private static final int OVAPI_SCORE = 2000;
 	private static final int PASS_SCORE = 4000;
 	private static final int PONTAN_SCORE = 8000;
-
+	private static final int BOMB_TIMER_IN_MILLISECONDS = 2000; 	
+	
+	private String imageNameBomb = "bomb.png";
+	private String imageNameBombAndBomberman = "bomb&Bomberman.jpg";
+	private String imageNameExplosion = "explosion.png";	
+	
+	private static int numberOfEnemiesKilled;
 	private int pointsScoredWithThisBomb;
 	private int totalGameScore;
-
+	private int range;
+	private int numberOfBombs;
+	private int currentRange;
+	private int bombNumber;
+	private int positionX;
+	private int positionY;
+	
+	private List<Integer> scoreForBomb;
 	private Grid grid;
-
 	private Enemy enemy;
 	private Player player;
-
-	private int bombNumber;
 	ImageIcon firstImageIcon;
 	ImageIcon secondImageIcon;
 	ImageIcon thirdImageIcon;
+	
 
-	private static final int BOMB_TIMER_IN_MILLISECONDS = 2000;
-
-	//private boolean detonatePressed;
-
-	/*
-	 * RANGE IS DEFAULTED TO 1 IN CONSTRUCTORS. TO SET RANGE USE SETTER ON BOMB
-	 * OBJECT. USE THE SAME BOMB OBJECT SUPPLIED TO THE THREAD.
-	 */
-
-	// Constructor, Just for images
 
 	/**
-	 * Initializes all the values pertaining to bomb.
-	 * @param grid The map on which bombs appear.
+	 * Constructor that initializes a <code>Bomb</code> object which initializes all the attributes pertaining to bombs. This constructor is
+	 * primarily used to get the bomb's image. 
+	 * @param grid
+	 *			The map on which bombs appear. The bomb must alter the grid. 
 	 */
-	public Bomb(Grid grid) {
-
-		setTotalGameScore(0);
-		scoreForEachEnemyKilledWithThisBomb = new ArrayList<Integer>();
-		loadImage();
-		this.range = 1;
-		this.setBombs(1);
+	
+	public Bomb(Grid grid) {	
 		this.grid = grid;
-		//this.setDenotePressed(false);
-		Bomb.numberOfEnemiesKilled = 0;
-
+		initialize();
 	}
+	
+	/**
+	 * Constructor that initializes a <code>Bomb</code> object which initializes all the attributes pertaining to bombs, initializes the score
+	 * list and loads the bomb's image. 
+	 * 
+	 * @param grid 
+	 * 			an object of <code>Grid</code> which contains the map on which bombs appear. The bomb must alter the grid. 
+	 * @param enemy 
+	 * 			an object of <code>Enemy</code>. Used for when the ExitWay is hit by a bomb. 
+	 * @param player 
+	 * 			an object of <code>Player</code> which allows the bomb class to access the player's attributes pertaining to bombs. 
+	 */
 
 	public Bomb(Grid grid, Enemy enemy, Player player) {
 		
 		this.player = player;
 		this.enemy = enemy;
-		setTotalGameScore(0);
-		scoreForEachEnemyKilledWithThisBomb = new ArrayList<Integer>();
-		loadImage();
-		this.range = 1;
-		this.setBombs(1);
 		this.grid = grid;
-		//this.setDenotePressed(false);
-	}
-
-	/**
-	 * Loads the images related to bombs.
-	 */
-	
-	private void loadImage() {
-		firstImageIcon = new ImageIcon(getClass().getResource(
-				imageNameBomb));
-		
-
-		secondImageIcon = new ImageIcon(getClass().getResource(
-				imageNameBombAndBomberman));
-		
-
-		thirdImageIcon = new ImageIcon(getClass().getResource(
-				imageNameExplosion));	
-	}
-
-	/**
-	 * Gets the image for the bomb.
-	 * 
-	 * @return Image shown when bomb is in a tile by itself.
-	 */
-	public Image getImageBomb() {
-		
-		return firstImageIcon.getImage();
-	}
-
-	/**
-	 * Gets the image shown when Bomberman and the bomb are in the same tile.
-	 * 
-	 * @return The image shown when Bomberman and the bomb are in the same tile.
-	 */
-	public Image getImageBombPlayer() {
-		return secondImageIcon.getImage();
-		
-	}
-
-	/**
-	 * Gets the image shown when a bomb EXPLOSIONs.
-	 * 
-	 * @return The image shown when a bomb EXPLOSIONs.
-	 */
-
-	public Image getImageExplosion() {
-		return thirdImageIcon.getImage();
-		
-	}
-
-	public static int getNumberOfEnemiesKilled() {
-		return numberOfEnemiesKilled;
+		initialize();
 	}
 	
+	
 	/**
+	 * Method to initialize all attributes pertaining to bomb. 
+	 */
+	private void initialize(){
+		scoreForBomb = new ArrayList<Integer>();
+		setTotalGameScore(0);
+		loadImage();
+		setRange(1);
+		setNumberOfBombs(1);
+		Bomb.setNumberOfEnemiesKilled(0);
+	}
+	
+	
+	
+	
+	/**
+	 * </p> This method deals with the bomb exploding logic, and alters the grid to include the cell type EXPLOSION where possible. 
+	 * It loops through the positions in each direction, checking the conditions for which it should explode. Looping stops when the range
+	 * has been reached in that direction. Hitting a concrete before reaching the final value for range will break the loop, as we do not want to explode
+	 * across concrete. </p> 
 	 * 
+	 * This method also deals with player scoring; depending on the enemy type, the player's score is updated accordingly. 
 	 */
 
 	public void explode() {
@@ -167,64 +122,63 @@ public class Bomb implements Runnable,Serializable {
 				} else if (grid.getContents(positionX + currentRange, positionY) == Tile.EXITWAY) {
 					grid.setContents(positionX + currentRange, positionY, Tile.EXITWAY);
 					enemy.setIsExitwayBlownUp(true);
-				} else if (grid.getContents(positionX + currentRange, positionY) == Tile.BALLOOM
-						|| grid.getContents(positionX + currentRange, positionY) == Tile.ONEAL
-						|| grid.getContents(positionX + currentRange, positionY) == Tile.DOLL
-						|| grid.getContents(positionX + currentRange, positionY) == Tile.MINVO
-						|| grid.getContents(positionX + currentRange, positionY) == Tile.KONDORIA
-						|| grid.getContents(positionX + currentRange, positionY) == Tile.OVAPI
-						|| grid.getContents(positionX + currentRange, positionY) == Tile.PASS
-						|| grid.getContents(positionX + currentRange, positionY) == Tile.PONTAN) {
+				} else if (grid.checkIfEnemy(positionX + currentRange, positionY)) {
 
 					if (grid.getContents(positionX + currentRange, positionY) == Tile.BALLOOM) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(BALLOOM_SCORE);
+						scoreForBomb.add(BALLOOM_SCORE);
 						grid.setContents(positionX + currentRange, positionY,
 								Tile.EXPLOSION);
 					}
+					
 					if (grid.getContents(positionX + currentRange, positionY) == Tile.ONEAL) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(ONEAL_SCORE);
+						scoreForBomb.add(ONEAL_SCORE);
 						grid.setContents(positionX + currentRange, positionY,
 								Tile.EXPLOSION);
 					}
+					
 					if (grid.getContents(positionX + currentRange, positionY) == Tile.DOLL) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(DOLL_SCORE);
+						scoreForBomb.add(DOLL_SCORE);
 						grid.setContents(positionX + currentRange, positionY,
 								Tile.EXPLOSION);
 					}
+					
 					if (grid.getContents(positionX + currentRange, positionY) == Tile.MINVO) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(MINVO_SCORE);
+						scoreForBomb.add(MINVO_SCORE);
 						grid.setContents(positionX + currentRange, positionY,
 								Tile.EXPLOSION);
 					}
+					
 					if (grid.getContents(positionX + currentRange, positionY) == Tile.KONDORIA) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(KONDORIA_SCORE);
+						scoreForBomb.add(KONDORIA_SCORE);
 						grid.setContents(positionX + currentRange, positionY,
 								Tile.EXPLOSION);
 					}
+					
 					if (grid.getContents(positionX + currentRange, positionY) == Tile.OVAPI) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(OVAPI_SCORE);
+						scoreForBomb.add(OVAPI_SCORE);
 						grid.setContents(positionX + currentRange, positionY,
 								Tile.EXPLOSION);
 					}
+					
 					if (grid.getContents(positionX + currentRange, positionY) == Tile.PASS) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(PASS_SCORE);
+						scoreForBomb.add(PASS_SCORE);
 						grid.setContents(positionX + currentRange, positionY,
 								Tile.EXPLOSION);
 					}
+					
 					if (grid.getContents(positionX + currentRange, positionY) == Tile.PONTAN) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(PONTAN_SCORE);
+						scoreForBomb.add(PONTAN_SCORE);
 						grid.setContents(positionX + currentRange, positionY,
 								Tile.EXPLOSION);
 					}
-
 				}
 				// FLAME PASS POWERUP
 				else if (grid.getContents(positionX + currentRange, positionY) == Tile.PLAYER) {
@@ -243,8 +197,7 @@ public class Bomb implements Runnable,Serializable {
 			}
 
 			else if (grid.getContents(positionX + currentRange, positionY) == Tile.CONCRETE) {
-				// Come out of the loop, we don't want to EXPLOSION across the
-				// concrete
+				// Here we come out of the loop as we don't want to EXPLOSION across the concrete
 				break;
 			}
 		}
@@ -265,91 +218,82 @@ public class Bomb implements Runnable,Serializable {
 					grid.setContents(positionX - currentRange, positionY, Tile.EXITWAY);
 					enemy.setIsExitwayBlownUp(true);
 
-				} else if (grid.getContents(positionX - currentRange, positionY) == Tile.BALLOOM
-						|| grid.getContents(positionX - currentRange, positionY) == Tile.ONEAL
-						|| grid.getContents(positionX - currentRange, positionY) == Tile.DOLL
-						|| grid.getContents(positionX - currentRange, positionY) == Tile.MINVO
-						|| grid.getContents(positionX - currentRange, positionY) == Tile.KONDORIA
-						|| grid.getContents(positionX - currentRange, positionY) == Tile.OVAPI
-						|| grid.getContents(positionX - currentRange, positionY) == Tile.PASS
-						|| grid.getContents(positionX - currentRange, positionY) == Tile.PONTAN
-						|| grid.getContents(positionX - currentRange, positionY) == Tile.KONDORIAANDBRICK
-						|| grid.getContents(positionX - currentRange, positionY) == Tile.OVAPIANDBRICK
-						|| grid.getContents(positionX - currentRange, positionY) == Tile.PONTANANDBRICK) {
+				} else if (grid.checkIfEnemy(positionX - currentRange, positionY)) {
+					
 
 					if (grid.getContents(positionX - currentRange, positionY) == Tile.BALLOOM) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(BALLOOM_SCORE);
+						scoreForBomb.add(BALLOOM_SCORE);
 						grid.setContents(positionX - currentRange, positionY,
 								Tile.EXPLOSION);
 					}
 					
 					if (grid.getContents(positionX - currentRange, positionY) == Tile.ONEAL) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(ONEAL_SCORE);
+						scoreForBomb.add(ONEAL_SCORE);
 						grid.setContents(positionX - currentRange, positionY,
 								Tile.EXPLOSION);
 					}
 					
 					if (grid.getContents(positionX - currentRange, positionY) == Tile.DOLL) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(DOLL_SCORE);
+						scoreForBomb.add(DOLL_SCORE);
 						grid.setContents(positionX - currentRange, positionY,
 								Tile.EXPLOSION);
 					}
 					
 					if (grid.getContents(positionX - currentRange, positionY) == Tile.MINVO) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(MINVO_SCORE);
+						scoreForBomb.add(MINVO_SCORE);
 						grid.setContents(positionX - currentRange, positionY,
 								Tile.EXPLOSION);
 					}
 					
 					if (grid.getContents(positionX - currentRange, positionY) == Tile.KONDORIA) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(KONDORIA_SCORE);
+						scoreForBomb.add(KONDORIA_SCORE);
 						grid.setContents(positionX - currentRange, positionY,
 								Tile.EXPLOSION);
 					}
 					
 					if (grid.getContents(positionX - currentRange, positionY) == Tile.OVAPI) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(OVAPI_SCORE);
+						scoreForBomb.add(OVAPI_SCORE);
 						grid.setContents(positionX - currentRange, positionY,
 								Tile.EXPLOSION);
 					}
 					
 					if (grid.getContents(positionX - currentRange, positionY) == Tile.PASS) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(PASS_SCORE);
+						scoreForBomb.add(PASS_SCORE);
 						grid.setContents(positionX - currentRange, positionY,
 								Tile.EXPLOSION);
 					}
 					
 					if (grid.getContents(positionX - currentRange, positionY) == Tile.PONTAN) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(PONTAN_SCORE);
+						scoreForBomb.add(PONTAN_SCORE);
 						grid.setContents(positionX - currentRange, positionY,
 								Tile.EXPLOSION);
 					}
 
 					if (grid.getContents(positionX - currentRange, positionY) == Tile.KONDORIAANDBRICK) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(KONDORIA_SCORE);
+						scoreForBomb.add(KONDORIA_SCORE);
 						grid.setContents(positionX - currentRange, positionY,
 								Tile.EXPLOSION);
 					}
 					
 					if (grid.getContents(positionX - currentRange, positionY) == Tile.OVAPIANDBRICK) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(OVAPI_SCORE);
+						scoreForBomb.add(OVAPI_SCORE);
 						grid.setContents(positionX - currentRange, positionY,
 								Tile.EXPLOSION);
 					}
 					
 					if (grid.getContents(positionX - currentRange, positionY) == Tile.PONTANANDBRICK) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(PONTAN_SCORE);
+						scoreForBomb.add(PONTAN_SCORE);
 						grid.setContents(positionX - currentRange, positionY,
 								Tile.EXPLOSION);
 					}
@@ -369,8 +313,7 @@ public class Bomb implements Runnable,Serializable {
 			}
 
 			else if (grid.getContents(positionX - currentRange, positionY) == Tile.CONCRETE) {
-				// Come out of the loop, we don't want to EXPLOSION across the
-				// concrete
+				// Here we come out of the loop as we don't want to EXPLOSION across the concrete
 				break;
 			}
 		}
@@ -389,60 +332,53 @@ public class Bomb implements Runnable,Serializable {
 					grid.setContents(positionX, positionY + currentRange, Tile.EXITWAY);
 					enemy.setIsExitwayBlownUp(true);
 
-				} else if (grid.getContents(positionX, positionY + currentRange) == Tile.BALLOOM
-						|| grid.getContents(positionX, positionY + currentRange) == Tile.ONEAL
-						|| grid.getContents(positionX, positionY + currentRange) == Tile.DOLL
-						|| grid.getContents(positionX, positionY + currentRange) == Tile.MINVO
-						|| grid.getContents(positionX, positionY + currentRange) == Tile.KONDORIA
-						|| grid.getContents(positionX, positionY + currentRange) == Tile.OVAPI
-						|| grid.getContents(positionX, positionY + currentRange) == Tile.PASS
-						|| grid.getContents(positionX, positionY + currentRange) == Tile.PONTAN) {
+				} else if (grid.checkIfEnemy(positionX, positionY + currentRange)) {
 
 					if (grid.getContents(positionX, positionY + currentRange) == Tile.BALLOOM) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(BALLOOM_SCORE);
+						scoreForBomb.add(BALLOOM_SCORE);
 						grid.setContents(positionX, positionY + currentRange,
 								Tile.EXPLOSION);
 					}
 					if (grid.getContents(positionX, positionY + currentRange) == Tile.ONEAL) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(ONEAL_SCORE);
+						scoreForBomb.add(ONEAL_SCORE);
 						grid.setContents(positionX, positionY + currentRange,
 								Tile.EXPLOSION);
 					}
 					if (grid.getContents(positionX, positionY + currentRange) == Tile.DOLL) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(DOLL_SCORE);
+						scoreForBomb.add(DOLL_SCORE);
 						grid.setContents(positionX, positionY + currentRange,
 								Tile.EXPLOSION);
 					}
 					if (grid.getContents(positionX, positionY + currentRange) == Tile.MINVO) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(MINVO_SCORE);
+						scoreForBomb.add(MINVO_SCORE);
 						grid.setContents(positionX, positionY + currentRange,
 								Tile.EXPLOSION);
 					}
 					if (grid.getContents(positionX, positionY + currentRange) == Tile.KONDORIA) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(KONDORIA_SCORE);
+						scoreForBomb.add(KONDORIA_SCORE);
 						grid.setContents(positionX, positionY + currentRange,
 								Tile.EXPLOSION);
 					}
 					if (grid.getContents(positionX, positionY + currentRange) == Tile.OVAPI) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(OVAPI_SCORE);
+						scoreForBomb.add(OVAPI_SCORE);
 						grid.setContents(positionX, positionY + currentRange,
 								Tile.EXPLOSION);
 					}
 					if (grid.getContents(positionX, positionY + currentRange) == Tile.PASS) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(PASS_SCORE);
+						scoreForBomb.add(PASS_SCORE);
 						grid.setContents(positionX, positionY + currentRange,
 								Tile.EXPLOSION);
 					}
 					if (grid.getContents(positionX, positionY + currentRange) == Tile.PONTAN) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(PONTAN_SCORE);
+						scoreForBomb.add(PONTAN_SCORE);
 						grid.setContents(positionX, positionY + currentRange,
 								Tile.EXPLOSION);
 					}
@@ -461,8 +397,7 @@ public class Bomb implements Runnable,Serializable {
 			}
 
 			else if (grid.getContents(positionX, positionY + currentRange) == Tile.CONCRETE) {
-				// Come out of the loop, we don't want to EXPLOSION across the
-				// concrete
+				// Here we come out of the loop as we don't want to EXPLOSION across the concrete
 				break;
 			}
 		}
@@ -484,61 +419,54 @@ public class Bomb implements Runnable,Serializable {
 
 				}
 
-				else if (grid.getContents(positionX, positionY - currentRange) == Tile.BALLOOM
-						|| grid.getContents(positionX, positionY - currentRange) == Tile.ONEAL
-						|| grid.getContents(positionX, positionY - currentRange) == Tile.DOLL
-						|| grid.getContents(positionX, positionY - currentRange) == Tile.MINVO
-						|| grid.getContents(positionX, positionY - currentRange) == Tile.KONDORIA
-						|| grid.getContents(positionX, positionY - currentRange) == Tile.OVAPI
-						|| grid.getContents(positionX, positionY - currentRange) == Tile.PASS
-						|| grid.getContents(positionX, positionY - currentRange) == Tile.PONTAN) {
+				else if (grid.checkIfEnemy(positionX, positionY - currentRange)) {
 
 					if (grid.getContents(positionX, positionY - currentRange) == Tile.BALLOOM) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(BALLOOM_SCORE);
+						scoreForBomb.add(BALLOOM_SCORE);
 						grid.setContents(positionX, positionY - currentRange,
 								Tile.EXPLOSION);
 
 					}
 					if (grid.getContents(positionX, positionY - currentRange) == Tile.ONEAL) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(ONEAL_SCORE);
+						scoreForBomb.add(ONEAL_SCORE);
 						grid.setContents(positionX, positionY - currentRange,
 								Tile.EXPLOSION);
 					}
 					if (grid.getContents(positionX, positionY - currentRange) == Tile.DOLL) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(DOLL_SCORE);
+						scoreForBomb.add(DOLL_SCORE);
 						grid.setContents(positionX, positionY - currentRange,
 								Tile.EXPLOSION);
 					}
 					if (grid.getContents(positionX, positionY - currentRange) == Tile.MINVO) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(MINVO_SCORE);
+						scoreForBomb.add(MINVO_SCORE);
 						grid.setContents(positionX, positionY - currentRange,
 								Tile.EXPLOSION);
 					}
 					if (grid.getContents(positionX, positionY - currentRange) == Tile.KONDORIA) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(KONDORIA_SCORE);
+						scoreForBomb.add(KONDORIA_SCORE);
 						grid.setContents(positionX, positionY - currentRange,
 								Tile.EXPLOSION);
 					}
 					if (grid.getContents(positionX, positionY - currentRange) == Tile.OVAPI) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(OVAPI_SCORE);
+						scoreForBomb.add(OVAPI_SCORE);
 						grid.setContents(positionX, positionY - currentRange,
 								Tile.EXPLOSION);
 					}
 					if (grid.getContents(positionX, positionY - currentRange) == Tile.PASS) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(PASS_SCORE);
+						scoreForBomb.add(PASS_SCORE);
 						grid.setContents(positionX, positionY - currentRange,
 								Tile.EXPLOSION);
 					}
 					if (grid.getContents(positionX, positionY - currentRange) == Tile.PONTAN) {
 						numberOfEnemiesKilled++;
-						scoreForEachEnemyKilledWithThisBomb.add(PONTAN_SCORE);
+						scoreForBomb.add(PONTAN_SCORE);
 						grid.setContents(positionX, positionY - currentRange,
 								Tile.EXPLOSION);
 					}
@@ -561,32 +489,31 @@ public class Bomb implements Runnable,Serializable {
 			}
 
 			else if (grid.getContents(positionX, positionY - currentRange) == Tile.CONCRETE) {
-				// Come out of the loop, we don't want to EXPLOSION across the
-				// concrete
+				// Here we come out of the loop as we don't want to EXPLOSION across the concrete
 				break;
 			}
 		}
 
 		currentRange = 0;
 
-		if (scoreForEachEnemyKilledWithThisBomb.size() == 1) {
-			pointsScoredWithThisBomb = scoreForEachEnemyKilledWithThisBomb
+		if (scoreForBomb.size() == 1) {
+			pointsScoredWithThisBomb = scoreForBomb
 					.get(0);
-		} else if (scoreForEachEnemyKilledWithThisBomb.size() == 2) {
+		} else if (scoreForBomb.size() == 2) {
 
-			int temp = scoreForEachEnemyKilledWithThisBomb.get(0);
+			int temp = scoreForBomb.get(0);
 
-			if (temp < scoreForEachEnemyKilledWithThisBomb.get(1)) {
+			if (temp < scoreForBomb.get(1)) {
 				pointsScoredWithThisBomb = temp * 2
-						+ scoreForEachEnemyKilledWithThisBomb.get(1);
+						+ scoreForBomb.get(1);
 			} else {
 				pointsScoredWithThisBomb = temp + 2
-						* scoreForEachEnemyKilledWithThisBomb.get(1);
+						* scoreForBomb.get(1);
 			}
 
 		} else {
-			for (int i = 0; i < scoreForEachEnemyKilledWithThisBomb.size(); i++) {
-				int temp = (int) ((int) scoreForEachEnemyKilledWithThisBomb
+			for (int i = 0; i < scoreForBomb.size(); i++) {
+				int temp = (int) ((int) scoreForBomb
 						.get(i) * Math.pow(2, i));
 				pointsScoredWithThisBomb += temp;
 			}
@@ -595,11 +522,17 @@ public class Bomb implements Runnable,Serializable {
 
 		setTotalGameScore(getTotalGameScore() + pointsScoredWithThisBomb);
 		PlayerInfo.playerScore += getPointsScoredWithThisBomb();
-		scoreForEachEnemyKilledWithThisBomb.clear();
+		scoreForBomb.clear();
 
 	}
+	
+	
 
 	@Override
+	/**
+	 * Run method which is executed when the thread is started. Deals with bomb logic for the detonate powerup, as well as the timer
+	 * for regular bomb explosions. This method calls explode(). 
+	 */
 	public void run() {
 
 		long startTime;
@@ -608,8 +541,7 @@ public class Bomb implements Runnable,Serializable {
 		if (player.hasDetonate()) {
 			while (true) {
 
-				if (player.getDetonatePressed()
-						&& Player.getBombNumber() == bombNumber) {
+				if (player.getDetonatePressed() && Player.getBombNumber() == bombNumber) {
 					Player.setBombsOnGround(Player.getBombsOnGround() - 1);
 					player.setDetonatePressed(false);
 					Player.setBombNumber(Player.getBombNumber() - 1);
@@ -636,6 +568,23 @@ public class Bomb implements Runnable,Serializable {
 	}
 	
 	/**
+	 * Loads the images related to bombs.
+	 */
+	
+	private void loadImage() {
+		firstImageIcon = new ImageIcon(getClass().getResource(
+				imageNameBomb));
+		
+
+		secondImageIcon = new ImageIcon(getClass().getResource(
+				imageNameBombAndBomberman));
+		
+
+		thirdImageIcon = new ImageIcon(getClass().getResource(
+				imageNameExplosion));	
+	}
+	
+	/**
 	 * Sets the range of the bomb.
 	 * @param range The range of the bomb.
 	 */
@@ -658,7 +607,7 @@ public class Bomb implements Runnable,Serializable {
 	
 	/**
 	 * Gets the points scored with this one particular bomb.
-	 * @return
+	 * @return the <code>int</code> represents the points scored with this bomb. 
 	 */
 
 	public int getPointsScoredWithThisBomb() {
@@ -676,7 +625,7 @@ public class Bomb implements Runnable,Serializable {
 	
 	/**
 	 * Gets the total score earned by the player in the current game.
-	 * @return Score for the current game.
+	 * @return the <code>int</code> representing the Score for the current game.
 	 */
 
 	public int getTotalGameScore() {
@@ -693,7 +642,7 @@ public class Bomb implements Runnable,Serializable {
 
 	/**
 	 * Gets the number of bombs available to the player.
-	 * @return Number of bombs.
+	 * @return the <code>int</code> which represents the number of bombs.
 	 */
 	public int getNumberOfBombs() {
 		return numberOfBombs;
@@ -704,31 +653,70 @@ public class Bomb implements Runnable,Serializable {
 	 * @param bombs Number of bombs available to the player.
 	 */
 
-	public void setBombs(int numberOfBombs) {
+	public void setNumberOfBombs(int numberOfBombs) {
 		this.numberOfBombs = numberOfBombs;
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * <p> Used for detonate logic. </p>
+	 * Set the bombNumber pertaining to this bomb object.
+	 * @param bombNumber which represents the bomb's bombNumber. 
 	 */
 
-//	public boolean isDenotePressed() {
-//		return denotePressed;
-//	}
-//
-//	public void setDenotePressed(boolean denotePressed) {
-//		this.denotePressed = denotePressed;
-//	}
 
 	public void setBombNumber(int bombNumber) {
 		this.bombNumber = bombNumber;
+	}
+	
+	/**
+	 * Gets the number of enemies killed. 
+	 * @return the <code>int</code> representing the number of enemies that have been killed. 
+	 */
+	
+	public static int getNumberOfEnemiesKilled() {
+		return numberOfEnemiesKilled;
+	}
+	
+	/**
+	 * Sets the number of enemies killed. 
+	 * @param the <code>int</code> representing the number of enemies that have been killed. 
+	 */
 
+	public static void setNumberOfEnemiesKilled(int enemiesKilled) {
+		Bomb.numberOfEnemiesKilled = enemiesKilled;
+	}
+	
+
+	/**
+	 * Gets the image for the bomb.
+	 * 
+	 * @return Image shown when bomb is in a tile by itself.
+	 */
+	public Image getImageBomb() {
+		return firstImageIcon.getImage();
 	}
 
-	public static void setNumberOfEnemiesKilled(int i) {
-		Bomb.numberOfEnemiesKilled = i;
-
+	/**
+	 * Gets the image shown when Bomberman and the bomb are in the same tile.
+	 * 
+	 * @return The image shown when Bomberman and the bomb are in the same tile.
+	 */
+	public Image getImageBombPlayer() {
+		return secondImageIcon.getImage();
 	}
+
+	/**
+	 * Gets the image shown when a bomb explodes.
+	 * 
+	 * @return The image shown when a bomb explodes.
+	 */
+
+	public Image getImageExplosion() {
+		return thirdImageIcon.getImage();
+	}
+
+
+	
+	
 
 }
