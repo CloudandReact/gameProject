@@ -30,7 +30,7 @@ public class CompareLeaderboards {
 	}
 
 	public void placeInMap() {
-		allUsersStatistics = PlayerInfo.allPlayersStats();
+		allUsersStatistics = PlayerInfo.getAllPlayersStats();
 		for (int i = 0; i < allUsersStatistics.size(); i++) {
 			// store in hashmap
 			statsFormatted.put(

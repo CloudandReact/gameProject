@@ -1,5 +1,7 @@
 package menu;
+
 import java.util.Scanner;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +20,6 @@ import gameplay.Level;
 import gameplay.Player;
 import gameplay.Game;
 
-
-
-
-
-
-
-
 import gameplay.PowerUps;
 
 import org.apache.commons.csv.CSVFormat;
@@ -33,12 +28,21 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import gameplay.PlayerInfo;
+/**
+ * FilWriting implements all file writing to userInfo.csv,userStatistics.csv and saving a game
+ * to whatever file the user selects. All userInfo after being pulled from the files is stored in ArrayList<CSVRecord>  
+ * to compare with input from the user. As well to serialize the saved game all the objects neccessary are used as inputs.
+ * 
+ */
 public class FileWriting implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String usernameFromFile = "";
 	String passwordFromFile = "";
 	String lineInfo[];
 	private boolean isLoginCredFound = false;
-	String lineOfFile[] = new String[100];
 	ArrayList<CSVRecord> loginInfo;
 	ArrayList<CSVRecord> userStatistics;
 	ArrayList<CSVRecord> loadedGame;
@@ -217,11 +221,12 @@ public class FileWriting implements Serializable {
 		else {
 			userInfo.createNewFile();
 		}
+		int usernamePosition=1;
 		FileWriter fileWriter = new FileWriter(fileName,false);
 		CSVPrinter writer = new CSVPrinter(fileWriter, CSVFormat.DEFAULT);
 		for (int i = 0; i < (loginInfo).size(); i = i+1) {
 		
-				if(loginInfo.get(i).get(1).equals(PlayerInfo.getUsername())){
+				if(loginInfo.get(i).get(usernamePosition).equals(PlayerInfo.getUsername())){
 						writer.printRecord(realName, username, password);
 		// writer.newLine();
 		// writer.flush();
@@ -297,7 +302,9 @@ public class FileWriting implements Serializable {
 		boolean isUserStatsStored=false;
 		
 		for(int i=0;i<userStatistics.size();i++){
-			//checks to see if the current game is already stored in the file
+			//checks to see if the current game statistics is already stored in the file
+			// we can do this because only one statistics data point per user
+			
 			if(PlayerInfo.usernameStatic.equals(userStatistics.get(i).get(0)))
 			{
 				writer.printRecord(username, score, levelUnlocked);
@@ -306,6 +313,9 @@ public class FileWriting implements Serializable {
 			else{
 				writer.printRecord(userStatistics.get(i));
 			}
+		}
+		if(!isUserStatsStored){
+			writer.printRecord(username,score,levelUnlocked);
 		}
 		
 		
@@ -344,7 +354,7 @@ public class FileWriting implements Serializable {
 	 * @param currentLives
 	 * 		Integer storing the current level.
 	 * @param timer
-	 * 		Object of type timer.
+	 * 		Int storing the time left in the timer.
 	 * @param flamePass
 	 * 		Boolean of type flamePass does the player have the flamePass powerup.
 	 * @param bombPass
@@ -406,7 +416,7 @@ public class FileWriting implements Serializable {
 	 * @throws ClassNotFoundException
 	 * @throws IOException
 	 */
-public void loadGame(String fileName) throws ClassNotFoundException, IOException{
+	public void loadGame(String fileName) throws ClassNotFoundException, IOException{
        
 		
 		FileInputStream fis;
