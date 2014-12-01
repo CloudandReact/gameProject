@@ -13,6 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+/**
+ *This class Account creation displays the GUI for Account Creation
+ *
+ */
+
 public class AccountCreation extends JFrame {
 
 	JLabel userRealNameLabel = new JLabel("Real Name");
@@ -32,6 +37,14 @@ public class AccountCreation extends JFrame {
 	String retypePassword;
 
 	JPanel panelA;
+	/**
+	 * This AccountCreation method destroys to login JPanel and creats a creat account Jpanel
+	 * Displaying create realname, username, passowrd, retype password with textboxes all on seperate lines.
+	 * It as well calls the appropriate methods to see if the new user account was creater otherwise displays
+	 * the correct error message. E.g username is not 6 characters
+	 * @param panel
+	 * Takes the panel as input and removes the panel and creates the AccountCreation Panel
+	 */
 
 	public AccountCreation(JPanel panel) {
 
@@ -74,7 +87,7 @@ public class AccountCreation extends JFrame {
 		panel.repaint();
 		panelA = panel;
 		
-		// this adds in a focus for info
+		
 		
 
 		createButton.addActionListener(new ActionListener() {
@@ -83,8 +96,6 @@ public class AccountCreation extends JFrame {
 				// createButton.setEnabled(false);
 				// Execute when button is pressed
 				System.out.println("action comman" + e.getActionCommand());
-				// getContentPane().removeAll();
-				// new Login(panelA);
 				realName = userNameText.getText();
 				username = userText.getText();
 				password = String.valueOf(passwordText.getPassword());
@@ -96,26 +107,26 @@ public class AccountCreation extends JFrame {
 		 		
 				if (writing.checkIfValid(realName, username, password, retypePassword)&&writing.isUserNameAvailible(username)) {
 					try {writing.writeToFile(realName, username, password, retypePassword);
-						JOptionPane.showMessageDialog(null,"Registration complete, please login.", "Success!", JOptionPane.INFORMATION_MESSAGE);
+						System.out.println("hello wordll2344");
 						createButton.setEnabled(true);
 						getContentPane().removeAll();
 						new Login(panelA);
 					} catch (Exception e1) {
 						System.out.println(e1);
-						JOptionPane.showMessageDialog(null,"Could not write to file.", password, JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null,"Could not write to file.", "error", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 
 				else {
 					if (!writing.isRealNameValid()) {
-						JOptionPane.showMessageDialog(null,"Incorrect input. Realname should be two words.",error, JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null,"Incorrect input. Realname should be only letters.",error, JOptionPane.INFORMATION_MESSAGE);
 					} else if (!writing.isUserNameValid()) {
 						
 						JOptionPane.showMessageDialog(null,"Username should consist of one word that is at least 6 characters long.",error, JOptionPane.INFORMATION_MESSAGE);
 						
 					} else if (!writing.isPasswordValid()) {
 						
-						JOptionPane.showMessageDialog(null,"Password should be atleast 8 characters long containing at least one upper case character and number.",error, JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null,"Password should be atleast 8 characters long containing at least one upper case character ,number and special char.",error, JOptionPane.INFORMATION_MESSAGE);
 						
 					} else if (!writing.arePasswordSame()){
 						JOptionPane.showMessageDialog(null,"Passwords do not match.",error,JOptionPane.INFORMATION_MESSAGE);
@@ -127,7 +138,7 @@ public class AccountCreation extends JFrame {
 					// JOptionPane.showMessageDialog(null,
 					// "could not register fix the error please reenter",password,
 					// JOptionPane.INFORMATION_MESSAGE);
-
+					//if false
 					return;
 				}
 

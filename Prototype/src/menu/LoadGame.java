@@ -35,12 +35,15 @@ import gameplay.Level;
 import gameplay.Player;
 import gameplay.PlayerInfo;
 import gameplay.PowerUps;
-
+/**
+ * LoadGame implements Serializable thereby able to load a game and 
+ * it impmenets the gui neccesary for the user to load a game
+ * @author elliot
+ *
+ */
 
 public class LoadGame extends JFrame implements Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	JLabel noGamesFound = new JLabel("Error no loaded games please go back");
@@ -73,6 +76,12 @@ public class LoadGame extends JFrame implements Serializable{
 	boolean loadDetonate;
 	boolean loadWallPass;
 	Enemy enemy;
+	/**
+	 * The LoadGame method sets up the loadGame gui and with the play button and a textbox for loading the user's input file
+	 * @param panel
+	 * 	Stores the panel destroys the old one and creates the LoadGame panel
+	 * @throws IOException
+	 */
 
 	public LoadGame(JPanel panel) throws IOException {
 		checkStats.checkNumberOfGames();
