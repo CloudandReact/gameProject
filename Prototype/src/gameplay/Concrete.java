@@ -10,7 +10,7 @@ public class Concrete implements Serializable {
 	private String concrete = "concrete.png";
 	
 	private Grid grid;
-	ImageIcon ii;
+	ImageIcon concreteIcon;
 	
 	/**
 	 * Concrete walls which are placed on the border and in the grid.
@@ -59,7 +59,7 @@ public class Concrete implements Serializable {
 	 */
 
 	private void loadImage() {
-		ii = new ImageIcon(getClass().getResource(concrete));
+		concreteIcon= new ImageIcon(getClass().getResource(concrete));
 		
 	}
 	
@@ -69,7 +69,7 @@ public class Concrete implements Serializable {
 	 */
 
 	public Image getImage() {
-		return ii.getImage();
+		return concreteIcon.getImage();
 		
 	}
 

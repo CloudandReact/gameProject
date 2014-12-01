@@ -16,20 +16,13 @@ public class PowerUps implements Serializable{
 	private String wallPassP = "wallpassp.png";
 	private String flamePassP = "flamepassp.png"; 
 
-	static Boolean wallpass;
-	static Boolean bombpass; 
-	static Boolean flamepass;
-	static Boolean detonate; 
-	private static Boolean gotPowerup;
-	private static Boolean powerupPlaced; 
+	static boolean wallpass;
+	static boolean bombpass; 
+	static boolean flamepass;
+	static boolean detonate; 
+	private static boolean gotPowerup;
+	private static boolean powerupPlaced; 
 
-	private Image imageb;
-	private Image imagef;
-	private Image images;
-	private Image imaged;
-	private Image imageBP;
-	private Image imageWP;
-	private Image imageFP;
 	private static int currentLevel;
 	
 	private Grid grid;
@@ -67,16 +60,18 @@ public class PowerUps implements Serializable{
 		this.grid = grid;
 		this.player = player;
 		this.level = level;
+		
+		PowerUps.gotPowerup = false;
 		PowerUps.powerupPlaced = false;
 		PowerUps.bombpass = false;
 		PowerUps.wallpass = false;
 		PowerUps.flamepass = false;
 		PowerUps.detonate = false;
 		PowerUps.gotPowerup = false;
+		
 		loadImage();
 		placePowerups();
 		givePowerUp();
-		gotPowerup = false;
 	}
 	
 	/**
@@ -86,8 +81,9 @@ public class PowerUps implements Serializable{
 	public void givePowerUp(){
 		System.out.println(PowerUps.getClevel());
 		System.out.println("current Range is "+ player.getRange());
-		int clevel = PowerUps.getClevel();
-		if(gotPowerup == true){
+		int clevel = level.getCurrentLevel();
+		
+		if(gotPowerup){
 			
 			// FLAMES
 			if (clevel == 1 || clevel == 7 || clevel == 15
@@ -254,7 +250,7 @@ public class PowerUps implements Serializable{
 	 * Returns true if player gets the wallpass powerup 
 	 * @return the <code>boolean</code> corresponding to the wallpass powerup.
 	 */
-	public static Boolean getWallpass() {
+	public static boolean getWallpass() {
 		return wallpass;
 	}
 	
@@ -262,7 +258,7 @@ public class PowerUps implements Serializable{
 	 * Sets the wallpass attribute.
 	 * @param wallpass the boolean representing whether the player got the wallpass powerup,
 	 */
-	public void setWallpass(Boolean wallpass) {
+	public void setWallpass(boolean wallpass) {
 		PowerUps.wallpass = wallpass;
 	}
 
@@ -270,7 +266,7 @@ public class PowerUps implements Serializable{
 	 * Returns true if player gets the bombpass powerup 
 	 * @return the <code>boolean</code> corresponding to the bombpass powerup.
 	 */
-	public static Boolean getBombpass() {
+	public static boolean getBombpass() {
 		return bombpass;
 	}
 
@@ -278,7 +274,7 @@ public class PowerUps implements Serializable{
 	 * Sets the bombpass attribute.
 	 * @param bombpass the boolean representing whether the player got the bombpass powerup,
 	 */
-	public void setBombpass(Boolean bombpass) {
+	public void setBombpass(boolean bombpass) {
 		PowerUps.bombpass = bombpass;
 	}
 
@@ -286,7 +282,7 @@ public class PowerUps implements Serializable{
 	 * Returns true if player gets the flamepass powerup 
 	 * @return the <code>boolean</code> corresponding to the flamepass powerup.
 	 */
-	public static Boolean getFlamepass() {
+	public static boolean getFlamepass() {
 		return flamepass;
 	}
 
@@ -294,7 +290,7 @@ public class PowerUps implements Serializable{
 	 * Sets the flamepass attribute.
 	 * @param flamepass the boolean representing whether the player got the flamepass powerup,
 	 */
-	public void setFlamepass(Boolean flamepass) {
+	public void setFlamepass(boolean flamepass) {
 		PowerUps.flamepass = flamepass;
 	}
 
@@ -302,7 +298,7 @@ public class PowerUps implements Serializable{
 	 * Returns true if player gets the detonator powerup 
 	 * @return the <code>boolean</code> corresponding to the detonator powerup.
 	 */
-	public static Boolean haveDetonate() {
+	public static boolean haveDetonate() {
 		return detonate;
 	}
 
@@ -310,7 +306,7 @@ public class PowerUps implements Serializable{
 	 * Sets the detonator attribute.
 	 * @param detonate the boolean representing whether the player got the detonate powerup,
 	 */
-	public void setDetonate(Boolean detonate) {
+	public void setDetonate(boolean detonate) {
 		PowerUps.detonate = detonate;
 	}
 
@@ -318,7 +314,7 @@ public class PowerUps implements Serializable{
 	 * Returns true if player gets the powerup in the current level.
 	 * @return the <code>boolean</code> corresponding.
 	 */
-	public Boolean getGotPowerup() {
+	public boolean getGotPowerup() {
 		return gotPowerup;
 	}
 
@@ -326,7 +322,7 @@ public class PowerUps implements Serializable{
 	 * Sets the gotPowerup attribute.
 	 * @param gotpowerup the boolean representing whether the player got the powerup.
 	 */
-	public static void setGotPowerup(Boolean gotpowerup) {
+	public static void setGotPowerup(boolean gotpowerup) {
 		PowerUps.gotPowerup = gotpowerup;
 	}
 

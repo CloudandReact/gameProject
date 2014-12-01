@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class Level implements Serializable{
 
 
-
 	private int numberOfBallooms;
 	private int numberOfOneals;
 	private int numberOfDolls;
@@ -18,17 +17,17 @@ public class Level implements Serializable{
 	private static int currentLevel = 1;
 
 	/**
-	 * Sets current level and then sets number of enemies of each type for that level
-	 * @param currentLevel is the level that the player is currently in
+	 * Sets current level and then sets number of enemies of each type for that level.
+	 * @param currentLevel is the level that the player is currently in.
 	 */
 	public Level(int currentLevel) {
-		this.currentLevel = currentLevel;
 		
+		setCurrentLevel(currentLevel);
 		setNumberOfEnemies();
 	}
 
 	/**
-	 * Method which gives the number of each type of enemies for each level
+	 * Method which sets the number of enemies for each type depending on the current level. 
 	 */
 	private void setNumberOfEnemies() {
 
@@ -483,22 +482,6 @@ public class Level implements Serializable{
 			numberOfPasses = 5;
 			numberOfPontans = 2;
 		}
-	}
-
-	/**
-	 * 
-	 * @param level
-	 */
-	public void setLevel(int level) {
-		currentLevel = level;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public int getLevel() {
-		return currentLevel;
 	}
 
 	/**
