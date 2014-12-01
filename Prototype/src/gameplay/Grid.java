@@ -10,12 +10,17 @@ public class Grid implements TileBasedMap, Serializable {
 
 	public Tile[][] gridMap;
     
-    
+    /**
+     * 
+     */
     public Grid() {
 		gridMap = new Tile[Bomberman.WIDTH][Bomberman.HEIGHT];
 	}
     
-   
+   /**
+    * 
+    * @return
+    */
 	public Tile[][] initializeGridMap(){
 		for(int i = 0; i < Bomberman.WIDTH; i++){
 			for(int j = 0; j < Bomberman.HEIGHT; j++){
@@ -52,7 +57,9 @@ public class Grid implements TileBasedMap, Serializable {
 		
 	}
 	
-	
+	/**
+	 * 
+	 */
 
 	@Override
 	public boolean blocked(Tile tileType, int x, int y) {
@@ -70,17 +77,12 @@ public class Grid implements TileBasedMap, Serializable {
 
 		return false;
 		
-		
-	/*	if(gridMap[x][y] != Tile.EMPTY || gridMap[x][y] != Tile.PLAYER){
-			System.out.println("true");
-			return true;
-		}*/
-		
-		
 	}
 
 
-
+	/**
+	 * 
+	 */
 	@Override
 	public float getCost(Tile tileType, int sx, int sy, int tx, int ty) {
 		ClosestHeuristic manhattan = new ClosestHeuristic();
@@ -96,6 +98,12 @@ public class Grid implements TileBasedMap, Serializable {
 		return this.gridMap[x][y];
 	}
 	
+	/**
+	 * 
+	 * @param posX
+	 * @param posY
+	 * @return
+	 */
 	public boolean checkIfEnemy(int posX, int posY){
 		if(gridMap[posX][ posY] == Tile.BALLOOM
 				|| gridMap[posX][ posY] == Tile.ONEAL

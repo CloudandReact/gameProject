@@ -11,18 +11,15 @@ public class ExitWay implements Serializable{
 	private String imageNameExitway = "exitway.png";
 	private String imageNamePlayerAndExitway = "playerandexitway.png";
 	
-	private Image imageExitway;
-	private Image imagePlayerAndExitway;
-	
-	private static Boolean access = false;
+
 	private static Boolean exitwayPlaced = false;
+	
 	ImageIcon exitway;
 	ImageIcon playerandexitway;
 	
 	private Grid grid;
 	
-	/**
-	 * Exitway which is to be placed on the grid.
+	/** Constructor that initializes a <code>Exitway</code> object which is to be placed on the grid.
 	 * 
 	 * @param grid Grid on which the exitway is placed.
 	 */
@@ -35,10 +32,10 @@ public class ExitWay implements Serializable{
 	}
 	
 	/**
-	 * Places the exitway in a semi-random location under a brick.
+	 * Method that places the ExitWay in a pseudo-random location under a brick.
 	 */
 	private void placeExitWay(){
-		while(exitwayPlaced == false){
+		while(!exitwayPlaced){
 			int randX = randInt(2,30);
 			int randY = randInt(2,12); 
 		
@@ -54,11 +51,11 @@ public class ExitWay implements Serializable{
 	/**
 	 * Given two integers, min and max, this method will return a pseudo-random
 	 * integer value contained between these two integers.
-	 * 
 	 * @param min Minimum value which may be returned.
 	 * @param max Maximum value which may be returned.
-	 * @return An integer between min and max inclusively.
+	 * @return An <code>int</code> between min and max inclusively.
 	 */
+	
 	public static int randInt(int min, int max) {
 
 	    Random rand = new Random();
@@ -69,20 +66,27 @@ public class ExitWay implements Serializable{
 	}
 	
 	/**
-	 * Loads images related to exitway
+	 * Method that loads images related to ExitWay.
 	 */	
 	private void loadImage() {
-		 exitway = new ImageIcon(getClass().getResource(imageNameExitway));
+		exitway = new ImageIcon(getClass().getResource(imageNameExitway));
 		
-
 		playerandexitway = new ImageIcon(getClass().getResource(imageNamePlayerAndExitway));
 		
 	}
 	
+	/**
+	 * Gets the image of the ExitWay. 
+	 * @return the image corresponding to the exitway.
+	 */
 	public Image getImageExitway() {
 		return exitway.getImage();
 	}
 	
+	/**
+	 * Gets the image of the PLAYERANDEXITWAY. 
+	 * @return the image corresponding to the PLAYERANDEXITWAY.
+	 */
 	public Image getImagePlayerAndExitway() {
 		return playerandexitway.getImage();
 		

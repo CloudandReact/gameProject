@@ -16,25 +16,19 @@ public class PowerUps implements Serializable{
 	private String wallPassP = "wallpassp.png";
 	private String flamePassP = "flamepassp.png"; 
 
-	static Boolean wallpass;
-	static Boolean bombpass; 
-	static Boolean flamepass;
-	static Boolean detonate; 
-	private static Boolean gotPowerup;
-	private static Boolean powerupPlaced; 
+	static boolean wallpass;
+	static boolean bombpass; 
+	static boolean flamepass;
+	static boolean detonate; 
+	private static boolean gotPowerup;
+	private static boolean powerupPlaced; 
 
-	private Image imageb;
-	private Image imagef;
-	private Image images;
-	private Image imaged;
-	private Image imageBP;
-	private Image imageWP;
-	private Image imageFP;
 	private static int currentLevel;
 	
 	private Grid grid;
 	private Player player;
 	private Level level;
+	
 	ImageIcon bomb;
 	ImageIcon flame;
 	ImageIcon speed;
@@ -56,37 +50,40 @@ public class PowerUps implements Serializable{
 	}
 	
 	/**
-	 * PowerUps constructor 
-	 * @param grid is the grid that we place the powerups on
-	 * @param player is the player that will be given the powerup if he gets it
-	 * @param level is to know which level the player is in and depending on that level the appropriate powerup is placed 
+	 * <p> Constructor that initializes a <code>PowerUps</code> object that  
+	 * </p> 
+	 * @param grid an object of <code>Grid</code> which contains the game's map and required methods access and alter it.
+	 * @param player an object of <code>Player</code> is the player that will be given the powerup if he gets it
+	 * @param level an object of <code>Level</code> which contains the required information about the level.
 	 */
 	public PowerUps(Grid grid, Player player, Level level){
-		//currentLevel = clevel.getCurrentclevel();
 		this.grid = grid;
 		this.player = player;
 		this.level = level;
+		
+		PowerUps.gotPowerup = false;
 		PowerUps.powerupPlaced = false;
 		PowerUps.bombpass = false;
 		PowerUps.wallpass = false;
 		PowerUps.flamepass = false;
 		PowerUps.detonate = false;
 		PowerUps.gotPowerup = false;
+		
 		loadImage();
 		placePowerups();
 		givePowerUp();
-		gotPowerup = false;
 	}
 	
 	/**
-	 * Gives the player the powerup
-	 * Depending on which level the player is on the necessary powerup is given
+	 * Method that gives the player the necessary PowerUp depending on which level the player is on. 
+	 * This method compares which level the player is playing, and according to that gives the required PowerUp to the player. 
 	 */
 	public void givePowerUp(){
 		System.out.println(PowerUps.getClevel());
 		System.out.println("current Range is "+ player.getRange());
-		int clevel = PowerUps.getClevel();
-		if(gotPowerup == true){
+		int clevel = level.getCurrentLevel();
+		
+		if(gotPowerup){
 			
 			// FLAMES
 			if (clevel == 1 || clevel == 7 || clevel == 15
@@ -136,15 +133,15 @@ public class PowerUps implements Serializable{
 				// Bomberman.TILE_SIZE * i, Bomberman.TILE_SIZE * j, this);
 				// continue;
 				// becomes immune to monsters and explosions
-				// (not included in our gameplay so I dont know what
-				// to do with this)
+				// (not included in our gameplay so I don't know what to do with this)
 			}
 			PowerUps.setGotPowerup(false);
 		}
 	}
 	
 	/**
-	 * Places the brick under which the powerup will be placed on the grid
+	 * Method places the <code>BRICKANDPOWERUP</code> (brick) on the grid. 
+	 * The <code>PowerUp</code> will be placed under this <code>BRICKANDPOWERUP</code> (brick).
 	 */
 	private void placePowerups(){
 		while(powerupPlaced == false){
@@ -174,7 +171,7 @@ public class PowerUps implements Serializable{
 	}
 	
 	/**
-	 * Load the images of the powerups
+	 * Loads the images of the <code>PowerUps</code>.
 	 */
 	private void loadImage() {
 		bomb = new ImageIcon(getClass().getResource(bombsP));
@@ -193,78 +190,154 @@ public class PowerUps implements Serializable{
 		
 	}
 	
+	/**
+	 * Gets the image of the bomb powerup
+	 * @return the image corresponding to the powerup bomb.
+	 */
 	public Image getBombsImage() {
 		return bomb.getImage();
 	}
 	
+	/**
+	 * Gets the image of the flames powerup 
+	 * @return the image corresponding to the powerup flame.
+	 */
 	public Image getFlamesImage() {
 		return flame.getImage();
 	}
 	
+	/**
+	 * Gets the image of the speed powerup 
+	 * @return the image corresponding to the powerup speed.
+	 */
 	public Image getSpeedImage() {
 		return speed.getImage();
 	}
 	
+	/**
+	 * Gets the image of the detonator powerup 
+	 * @return the image corresponding to the powerup detonator.
+	 */
 	public Image getDetonatorsImage() {
 		return detonator.getImage();
 	}
 	
+	/**
+	 * Gets the image of the bombpass powerup 
+	 * @return the image corresponding to the powerup bombpass.
+	 */
 	public Image getBombPassImage() {
 		return bombPass.getImage();
 	}
 	
+	/**
+	 * Gets the image of the wallpass powerup 
+	 * @return the image corresponding to the powerup wallpass.
+	 */
 	public Image getWallPassImage() {
 		return wallPass.getImage();
 	}
 	
+	/**
+	 * Gets the image of the flamepass powerup 
+	 * @return the image corresponding to the powerup flamepass.
+	 */
 	public Image getFlamePassImage() {
 		return flamePass.getImage();
 	}
-
-	public static Boolean getWallpass() {
+	
+	/**
+	 * Returns true if player gets the wallpass powerup 
+	 * @return the <code>boolean</code> corresponding to the wallpass powerup.
+	 */
+	public static boolean getWallpass() {
 		return wallpass;
 	}
-
-	public void setWallpass(Boolean wallpass) {
+	
+	/**
+	 * Sets the wallpass attribute.
+	 * @param wallpass the boolean representing whether the player got the wallpass powerup,
+	 */
+	public void setWallpass(boolean wallpass) {
 		PowerUps.wallpass = wallpass;
 	}
 
-	public static Boolean getBombpass() {
+	/**
+	 * Returns true if player gets the bombpass powerup 
+	 * @return the <code>boolean</code> corresponding to the bombpass powerup.
+	 */
+	public static boolean getBombpass() {
 		return bombpass;
 	}
 
-	public void setBombpass(Boolean bombpass) {
+	/**
+	 * Sets the bombpass attribute.
+	 * @param bombpass the boolean representing whether the player got the bombpass powerup,
+	 */
+	public void setBombpass(boolean bombpass) {
 		PowerUps.bombpass = bombpass;
 	}
 
-	public static Boolean getFlamepass() {
+	/**
+	 * Returns true if player gets the flamepass powerup 
+	 * @return the <code>boolean</code> corresponding to the flamepass powerup.
+	 */
+	public static boolean getFlamepass() {
 		return flamepass;
 	}
 
-	public void setFlamepass(Boolean flamepass) {
+	/**
+	 * Sets the flamepass attribute.
+	 * @param flamepass the boolean representing whether the player got the flamepass powerup,
+	 */
+	public void setFlamepass(boolean flamepass) {
 		PowerUps.flamepass = flamepass;
 	}
 
-	public static Boolean haveDetonate() {
+	/**
+	 * Returns true if player gets the detonator powerup 
+	 * @return the <code>boolean</code> corresponding to the detonator powerup.
+	 */
+	public static boolean haveDetonate() {
 		return detonate;
 	}
 
-	public void setDetonate(Boolean detonate) {
+	/**
+	 * Sets the detonator attribute.
+	 * @param detonate the boolean representing whether the player got the detonate powerup,
+	 */
+	public void setDetonate(boolean detonate) {
 		PowerUps.detonate = detonate;
 	}
 
-	public Boolean getGotPowerup() {
+	/**
+	 * Returns true if player gets the powerup in the current level.
+	 * @return the <code>boolean</code> corresponding.
+	 */
+	public boolean getGotPowerup() {
 		return gotPowerup;
 	}
 
-	public static void setGotPowerup(Boolean gotpowerup) {
+	/**
+	 * Sets the gotPowerup attribute.
+	 * @param gotpowerup the boolean representing whether the player got the powerup.
+	 */
+	public static void setGotPowerup(boolean gotpowerup) {
 		PowerUps.gotPowerup = gotpowerup;
 	}
 
+	/**
+	 * Returns which level the player is in.
+	 * @return the <code<int</code> corresponding to the players current level.
+	 */
 	public static int getClevel() {
 		return currentLevel;
 	}
 
+	/**
+	 * Sets the current level attribute.
+	 * @param clevel the int of the current level.
+	 */
 	public static void setClevel(int clevel) {
 		PowerUps.currentLevel = clevel;
 	}

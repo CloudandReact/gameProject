@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class Level implements Serializable{
 
 
-
 	private int numberOfBallooms;
 	private int numberOfOneals;
 	private int numberOfDolls;
@@ -18,17 +17,17 @@ public class Level implements Serializable{
 	private static int currentLevel = 1;
 
 	/**
-	 * Sets current level and then sets number of enemies of each type for that level
-	 * @param currentLevel is the level that the player is currently in
+	 * Sets current level and then sets number of enemies of each type for that level.
+	 * @param currentLevel is the level that the player is currently in.
 	 */
 	public Level(int currentLevel) {
-		this.currentLevel = currentLevel;
 		
+		setCurrentLevel(currentLevel);
 		setNumberOfEnemies();
 	}
 
 	/**
-	 * Gives the number of each type of enemies for each level
+	 * Method which sets the number of enemies for each type depending on the current level. 
 	 */
 	private void setNumberOfEnemies() {
 
@@ -485,50 +484,82 @@ public class Level implements Serializable{
 		}
 	}
 
-	public void setLevel(int level) {
-		currentLevel = level;
-	}
-
-	public int getLevel() {
-		return currentLevel;
-	}
-
+	/**
+	 * Returns the number of Ballooms enemies.
+	 * @return the <code<int</code> corresponding to the number of Ballooms enemies.
+	 */
 	public int getnumberOfBallooms() {
 		return numberOfBallooms;
 	}
 
+	/**
+	 * Returns the number of Oneals enemies.
+	 * @return the <code<int</code> corresponding to the number of Oneals enemies.
+	 */
 	public int getnumberOfOneals() {
 		return numberOfOneals;
 	}
 
+	/**
+	 * Returns the number of Dolls enemies.
+	 * @return the <code<int</code> corresponding to the number of Dolls enemies.
+	 */
 	public int getnumberOfDolls() {
 		return numberOfDolls;
 	}
 
+	/**
+	 * Returns the number of Minvos enemies.
+	 * @return the <code<int</code> corresponding to the number of Minvos enemies.
+	 */
 	public int getnumberOfMinvos() {
 		return numberOfMinvos;
 	}
 
+	/**
+	 * Returns the number of Kondorias enemies.
+	 * @return the <code<int</code> corresponding to the number of Kondorias enemies.
+	 */
 	public int getnumberOfKondorias() {
 		return numberOfKondorias;
 	}
 
+	/**
+	 * Returns the number of Ovapis enemies.
+	 * @return the <code<int</code> corresponding to the number of Ovapis enemies.
+	 */
 	public int getnumberOfOvapis() {
 		return numberOfOvapis;
 	}
 
+	/**
+	 * Returns the number of Passes enemies.
+	 * @return the <code<int</code> corresponding to the number of Passes enemies.
+	 */
 	public int getnumberOfPasses() {
 		return numberOfPasses;
 	}
 
+	/**
+	 * Returns the number of Pontan enemies.
+	 * @return the <code<int</code> corresponding to the number of Pontan enemies.
+	 */
 	public int getnumberOfPontans() {
 		return numberOfPontans;
 	}
 
+	/**
+	 * Returns which level the player is in.
+	 * @return the <code<int</code> corresponding to the players current level.
+	 */
 	public int getCurrentLevel() {
 		return currentLevel;
 	}
 
+	/**
+	 * Sets the current level attribute.
+	 * @param level the int of the current level
+	 */
 	public void setCurrentLevel( int level) {
 		Level.currentLevel = level;
 	}
