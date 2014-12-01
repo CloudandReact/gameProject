@@ -1,23 +1,30 @@
 package menu;
 
+import gameplay.Bomb;
 import gameplay.Bomberman;
+import gameplay.Brick;
+import gameplay.Concrete;
+import gameplay.Enemy;
+import gameplay.ExitWay;
 import gameplay.GameState;
 import gameplay.Grid;
+import gameplay.Level;
 import gameplay.Player;
 import gameplay.PlayerInfo;
 import gameplay.Game;
-
+import gameplay.PowerUps;
 import gameplay.State;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.Serializable;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class PauseMenu extends JFrame {
+public class PauseMenu extends JFrame implements Serializable {
 
 	/**
 	 * 
@@ -32,19 +39,25 @@ public class PauseMenu extends JFrame {
 
 	// JButton loadLevelButton = new JButton("Load Level");
 
-	public Game game;
+	Game game;
 	GameState state;
 	Player player;
 	Grid grid;
+	Enemy enemy;
+
 
 	String playersName;
+	//add game if neccessary
 
-	public PauseMenu(final Grid grid, Game r, GameState s, Player p,
-			final Bomberman bomberman) {
+	public PauseMenu(final Grid grid, final Game game, final Level level, final Enemy enemy, GameState s, final Player p,final Concrete concrete,final Brick brick,
+			final PowerUps powerUps,final ExitWay exitWays, final Bomb bomb,final boolean bombPass,final boolean wallPass,final boolean detonate,
+			final boolean flamePass,final Bomberman bomberman) {
+	 //public PauseMenu(final Grid grid, final Enemy enemy, final Render r, GameState s, Player p,final Bomberman bomberman){
 		this.state = s;
+		this.enemy = enemy;
 		this.grid = grid;
 		this.player = p;
-		this.game = r;
+		this.game = game;
 		setSize(325, 230);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -120,7 +133,7 @@ public class PauseMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				// Execute when button is pressed
 				try {
-					new SaveGame(grid);
+					new SaveGame(grid,level, enemy,p,concrete,brick,powerUps,exitWays,bomb,flamePass,bombPass,wallPass,detonate);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

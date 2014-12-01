@@ -1,11 +1,12 @@
 package gameplay;
 
 import java.awt.Image;
+import java.io.Serializable;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
 
-public class ExitWay {
+public class ExitWay implements Serializable{
 
 	private String imageNameExitway = "exitway.png";
 	private String imageNamePlayerAndExitway = "playerandexitway.png";
@@ -15,6 +16,8 @@ public class ExitWay {
 	
 	private static Boolean access = false;
 	private static Boolean exitwayPlaced = false;
+	ImageIcon ii;
+	ImageIcon playerandexitways;
 	
 	private Grid grid;
 	
@@ -67,21 +70,22 @@ public class ExitWay {
 	/**
 	 * Load
 	 */
-	
+		
 	private void loadImage() {
-		ImageIcon ii = new ImageIcon(getClass().getResource(imageNameExitway));
-		imageExitway = ii.getImage();
+		 ii = new ImageIcon(getClass().getResource(imageNameExitway));
+		
 
-		ImageIcon playerandexitways = new ImageIcon(getClass().getResource(imageNamePlayerAndExitway));
-		imagePlayerAndExitway = playerandexitways.getImage();
+		playerandexitways = new ImageIcon(getClass().getResource(imageNamePlayerAndExitway));
+		
 	}
 	
 	public Image getImageExitway() {
-		return imageExitway;
+		return ii.getImage();
 	}
 	
 	public Image getImagePlayerAndExitway() {
-		return imagePlayerAndExitway;
+		return playerandexitways.getImage();
+		
 	}
 
 }

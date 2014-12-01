@@ -1,18 +1,20 @@
 package gameplay;
 
 import java.awt.Image;
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
 
-public class Brick {
+public class Brick implements Serializable {
 
 	private String imageNameBrick = "brick.png";
 	private Image imageBrick;
 	private Boolean powerUpPlaced = false;
 
 	private Grid grid;
+	ImageIcon ii;
 	
 	/**
 	 * Bricks which are to be placed randomly on the grid.
@@ -72,8 +74,8 @@ public class Brick {
 	 */
 
 	private void loadImage() {
-		ImageIcon ii = new ImageIcon(getClass().getResource(imageNameBrick));
-		imageBrick = ii.getImage();
+		ii = new ImageIcon(getClass().getResource(imageNameBrick));
+		
 	}
 	
 	/**
@@ -82,7 +84,7 @@ public class Brick {
 	 */
 
 	public Image getImage() {
-		return imageBrick;
+		return ii.getImage();
 	}
 
 }

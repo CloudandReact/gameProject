@@ -1,5 +1,7 @@
 package gameplay;
 
-public enum State {
+import java.io.Serializable;
+
+public enum State implements Serializable{
     RUNNING, PAUSE, PLAYERDEAD, RUNNINGANDLEVELOVER, PAUSEANDLEVELOVER, TIMEOVER
 }

@@ -8,10 +8,11 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import java.awt.BorderLayout;
+import java.io.Serializable;
 
 import menu.AccountMenu;
 
-public class Bomberman extends JFrame {
+public class Bomberman extends JFrame implements Serializable {
 	/**
 	 * 
 	 */
@@ -127,8 +128,50 @@ public class Bomberman extends JFrame {
 		
 	}
 	//changes
-	public Bomberman(Grid grid, int level){
-		add(new Game(grid,level, this));
+	public Bomberman(Grid grid, Level levelLoad,Enemy enemy, Brick brick, Concrete concrete, PowerUps powerUps, ExitWay exitWays, Bomb bomb, Player player2, int currentScore, int currentLevel, int currentLives, int timer,
+			boolean flamePass, boolean bombPass, boolean wallPass,boolean detonate){
+		
+		JFrame frameTimer = new JFrame("Bomberman");
+        frameTimer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameTimer.setLayout(new FlowLayout());
+        JPanel pane1 = new JPanel();
+        JPanel pane2 = new JPanel();
+        JPanel pane3 = new JPanel();
+        JPanel pane4 = new JPanel();
+        //perhaps change here to what is needed
+        JLabel label = new JLabel("Time Left: 200");
+        JLabel label2 = new JLabel("Lives: 2");
+        JLabel label3 = new JLabel("Score: 0");
+        JLabel label4 = new JLabel("");
+//        int lives = Player.getLivesLeft();
+//        label2.setText("Lives: " + lives);
+        //p.setLayout(new FlowLayout()); 
+        //p.add(lab1 = new JLabel("add JLabel"));
+        //frame.add(label);
+        pane1.add(label);
+        pane2.add(label2);
+        pane3.add(label3);
+        pane4.add(label4);
+        frameTimer.add(pane1, BorderLayout.NORTH);
+        frameTimer.add(pane2, BorderLayout.SOUTH);
+        frameTimer.add(pane3, BorderLayout.SOUTH);
+        frameTimer.add(pane4, BorderLayout.SOUTH);
+        //frameTimer.add(label);
+
+        //pass the label into the MyListener constructor
+        listener = new GameTimer(label,label2,label3, label4);
+
+        //the timer fires every 1000 MS (1 second)
+        //when it does, it calls the actionPerformed() method of MyListener
+        Timer timerG = new Timer(1000, listener);
+
+        //start the timer
+        timerG.start();
+        
+        frameTimer.setSize(300, 100);
+        frameTimer.setVisible(true);
+		
+        add(new Game(grid,levelLoad,enemy,brick,concrete,powerUps,exitWays,bomb,player2,currentScore,currentLevel,currentLives, timer,flamePass,bombPass,wallPass,detonate, this));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(15 * TILE_SIZE, HEIGHT * TILE_SIZE + 22);
 		setLocationRelativeTo(null);
