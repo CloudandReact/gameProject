@@ -92,7 +92,6 @@ public class SaveGame extends JFrame implements Serializable {
 	  //public SaveGame(final Render r) throws IOException {
 		this.grid = grid;
 		this.enemy = enemy;
-		checkStats.checkNumberOfGames();
 		setSize(450, 450);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);

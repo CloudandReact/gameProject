@@ -12,7 +12,7 @@ import javax.swing.ImageIcon;
  * 
  * @author Leonardo Siracusa
  * 
- * Bomb class deals with explosions and Player scoring. 
+ * Bomb class deals with explosions and Player scoring, and contains all attributes required for a bomb object. 
  *
  */
 public class Bomb implements Runnable,Serializable {

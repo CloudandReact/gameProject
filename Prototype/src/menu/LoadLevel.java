@@ -35,7 +35,6 @@ public class LoadLevel extends JFrame {
 	// load how many games then have a textbox to enter
 	JTextField gameToPlayText = new JTextField();
 	JPanel panelA;
-	StoreStatistics checkStats = new StoreStatistics();
 	int numberOfGames;
 	/**
 	 * LoadLevel removes the old Jpanel and displays the new one displaying the level available and a text box for selecting
@@ -45,13 +44,11 @@ public class LoadLevel extends JFrame {
 	 * @throws IOException
 	 */
 	public LoadLevel(JPanel panel) throws IOException {
-		checkStats.checkNumberOfGames();
 		panel.removeAll();
 
 		panel.setLayout(null);
 
 		// open statistics read user games and display
-		numberOfGames = checkStats.numberOfGames();
 		// if(levelAvailible>1)
 		
 			JLabel gameNumberLabel = new JLabel("Level availible "
