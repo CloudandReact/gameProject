@@ -2,91 +2,149 @@ package gameplay;
 
 public class EnemyTracker {
 	
-	private int xPosition;
-	private int yPosition;
-	private int xDirection;
-	private int yDirection;
 	private Tile enemyType;
+	 
+	private int positionX;
+	private int positionY;
+	
+	private int directionX;
+	private int directionY;
+	
 	private boolean movingInX;
 	private boolean movingInY;
 	
-	public EnemyTracker(int xPosition, int yPosition, Tile enemyType) {
+	/**
+	 * Creates an enemy tracker which stores the position and direction of one enemy.
+	 * @param positionX Enemy's initial position in x.
+	 * @param positionY Enemy's initial position in y.
+	 * @param enemyType Enemy's type. 
+	 */
+	
+	public EnemyTracker(int positionX, int positionY, Tile enemyType) {
 		
 		this.setEnemyType(enemyType);
-		this.setxPosition(xPosition);
-		this.setyPosition(yPosition);
+		this.setPositionX(positionX);
+		this.setPositionY(positionY);
 	
-		setxDirection(1);
-		setyDirection(1);
+		setDirectionX(1);
+		setDirectionY(1);
 		setMovingInX(false);
 		setMovingInY(false);
 	}
 	
+	/**
+	 * Gets the enemy type.
+	 * @return The enemy type.
+	 */
 	public Tile getEnemyType() {
 		return enemyType;
 	}
 
-
+	/**
+	 * Sets the enemy type.
+	 * @param enemyType
+	 */
 	public void setEnemyType(Tile enemyType) {
 		this.enemyType = enemyType;
 	}
+	
+	/**
+	 * Gets the enemy's position in x.
+	 * @return Enemy's position in x.
+	 */
+	public int getPositionX() {
+		return positionX;
+	}
 
-
-	public int getyDirection() {
-		return yDirection;
+	/**
+	 * Gets the enemy's position in x.
+	 * @param positionX
+	 */
+	public void setPositionX(int positionX) {
+		this.positionX = positionX;
 	}
 	
-	public void updateTracker(int xPosition, int yPosition){
-		this.xPosition = xPosition;
-		this.yPosition = yPosition;
+	/**
+	 * Gets the enemy's position in y.
+	 * @return Enemy's position in y.
+	 */
+	public int getPositionY() {
+		return positionY;
+	}
+	
+	/**
+	 * Sets the enemy's the position in y.
+	 * @param positionY
+	 */
+
+	public void setPositionY(int positionY) {
+		this.positionY = positionY;
 	}
 
 
-	public void setyDirection(int yDirection) {
-		this.yDirection = yDirection;
+	/**
+	 * Gets the enemy's direction in y.
+	 * @return Enemy's direction in y.
+	 */
+	public int getDirectionY() {
+		return directionY;
 	}
 
-	public int getxPosition() {
-		return xPosition;
+	/**
+	 * Sets the enemy's direction in y.
+	 * @param directionY Enemy's direction in y.
+	 */
+	public void setDirectionY(int directionY) {
+		this.directionY = directionY;
 	}
+	
+	/**
+	 * Gets the enemy's direction in x.
+	 * @return Enemy's direction in x.
+	 */
 
-	public void setxPosition(int xPosition) {
-		this.xPosition = xPosition;
+	public int getDirectionX() {
+		return directionX;
 	}
+	
+	/**
+	 * Sets the enemy's direction in x.
+	 * @param directionX Enemy's direction in x.
+	 */
 
-	public int getyPosition() {
-		return yPosition;
+	public void setDirectionX(int directionX) {
+		this.directionX = directionX;
 	}
-
-	public void setyPosition(int yPosition) {
-		this.yPosition = yPosition;
-	}
-
-	public int getxDirection() {
-		return xDirection;
-	}
-
-	public void setxDirection(int xDirection) {
-		this.xDirection = xDirection;
-	}
-
-	public boolean isMovingInY() {
-		return movingInY;
-	}
-
-	public void setMovingInY(boolean movingInY) {
-		this.movingInY = movingInY;
-	}
-
+	
+	/**
+	 * @return True if enemy is moving in x.
+	 */
 	public boolean isMovingInX() {
 		return movingInX;
 	}
 
+	/**
+	 * @param movingInX True if the enemy is moving in x.
+	 */
 	public void setMovingInX(boolean movingInX) {
 		this.movingInX = movingInX;
 	}
 
 
 	
+
+	/**
+	 * @return True if enemy is moving in Y.
+	 */
+	public boolean isMovingInY() {
+		return movingInY;
+	}
+
+	/**
+	 * @param movingInY True if the enemy is moving in y.
+	 */
+	public void setMovingInY(boolean movingInY) {
+		this.movingInY = movingInY;
+	}
 
 }

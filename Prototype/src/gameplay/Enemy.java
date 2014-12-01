@@ -72,6 +72,13 @@ public class Enemy {
 	
 	private final int numberOfEnemiesAfterExitwayIsBlownUp;
 	
+	/**
+	 * Enemy 
+	 * @param grid The grid on which enemies are placed.
+	 * @param game The current game. 
+	 * @param level The level in which enemies are being placed.
+	 */
+	
 	
 	public Enemy(Grid grid, Game game, Level level) {
 		this.level = level;
@@ -87,8 +94,6 @@ public class Enemy {
 		
 		enemiesInitial = new ArrayList<EnemyTracker>();
 		enemiesAlive = new ArrayList<EnemyTracker>();
-
-
 		
 		numberOfBallooms = level.getnumberOfBallooms();
 		numberOfOneals = level.getnumberOfOneals();
@@ -319,11 +324,11 @@ public class Enemy {
 	
 		
 		for(int i = 0; i < enemiesInitial.size(); i++){	
-			if(enemiesInitial.get(i).getEnemyType() == enemyType && enemiesInitial.get(i).getxPosition() == posX && enemiesInitial.get(i).getyPosition() == posY ){
+			if(enemiesInitial.get(i).getEnemyType() == enemyType && enemiesInitial.get(i).getPositionX() == posX && enemiesInitial.get(i).getPositionY() == posY ){
 						
 				livingEnemy = new EnemyTracker(posX, posY, enemiesInitial.get(i).getEnemyType());
-				livingEnemy.setxDirection(enemiesInitial.get(i).getxDirection());
-				livingEnemy.setyDirection(enemiesInitial.get(i).getyDirection());
+				livingEnemy.setDirectionX(enemiesInitial.get(i).getDirectionX());
+				livingEnemy.setDirectionY(enemiesInitial.get(i).getDirectionY());
 				livingEnemy.setMovingInX(enemiesInitial.get(i).isMovingInX());
 				livingEnemy.setMovingInY(enemiesInitial.get(i).isMovingInY());
 				enemiesAlive.add(livingEnemy);		
@@ -344,10 +349,10 @@ public class Enemy {
 		boolean canMoveInY = false;
 		boolean usingAStar = false;
 	
-		int enemyDirectionX = tracker.getxDirection();
-		int enemyDirectionY = tracker.getyDirection();
-		int posX = tracker.getxPosition();
-		int posY = tracker.getyPosition();
+		int enemyDirectionX = tracker.getDirectionX();
+		int enemyDirectionY = tracker.getDirectionY();
+		int posX = tracker.getPositionX();
+		int posY = tracker.getPositionY();
 		int randChance = 0;
 		
 		
@@ -364,13 +369,13 @@ public class Enemy {
 				if(posX == path.getX(1)){
 					canMoveInY = true;
 					enemyDirectionY = path.getY(1) - posY;
-					tracker.setyDirection(enemyDirectionY);
+					tracker.setDirectionY(enemyDirectionY);
 
 				}	
 				else{
 					canMoveInX = true;
 					enemyDirectionX =  path.getX(1) - posX;
-					tracker.setxDirection(enemyDirectionX);
+					tracker.setDirectionX(enemyDirectionX);
 					
 				}
 				
@@ -385,11 +390,11 @@ public class Enemy {
 					}
 
 					grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
-					tracker.setxPosition(posX + enemyDirectionX);
+					tracker.setPositionX(posX + enemyDirectionX);
 					tracker.setMovingInX(true);
 					tracker.setMovingInY(false);
 				
-					//tracker.setxDirection(enemyDirectionX);
+					//tracker.setDirectionX(enemyDirectionX);
 					
 				}
 				
@@ -401,10 +406,10 @@ public class Enemy {
 					}
 					
 					grid.setContents(posX, posY  + enemyDirectionY, tracker.getEnemyType());
-					tracker.setyPosition(posY + enemyDirectionY);
+					tracker.setPositionY(posY + enemyDirectionY);
 					tracker.setMovingInY(true);
 					tracker.setMovingInX(false);
-					//tracker.setyDirection(enemyDirectionY);
+					//tracker.setDirectionY(enemyDirectionY);
 								
 				}
 				
@@ -424,8 +429,8 @@ public class Enemy {
 			}
 			
 			else if(grid.getContents(posX - enemyDirectionX,posY) == Tile.EMPTY || grid.getContents(posX - enemyDirectionX,posY) == Tile.PLAYER){
-				tracker.setxDirection(-enemyDirectionX); 
-				enemyDirectionX = tracker.getxDirection();
+				tracker.setDirectionX(-enemyDirectionX); 
+				enemyDirectionX = tracker.getDirectionX();
 				canMoveInX = true;
 				
 			}
@@ -438,8 +443,8 @@ public class Enemy {
 			}
 			
 			else if(grid.getContents(posX,posY - enemyDirectionY) == Tile.EMPTY || grid.getContents(posX,posY - enemyDirectionY) == Tile.PLAYER){
-				tracker.setyDirection(-enemyDirectionY); 
-				enemyDirectionY = tracker.getyDirection();
+				tracker.setDirectionY(-enemyDirectionY); 
+				enemyDirectionY = tracker.getDirectionY();
 				canMoveInY = true;
 				
 			}
@@ -465,7 +470,7 @@ public class Enemy {
 				
 				grid.setContents(posX, posY, Tile.EMPTY);
 				grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
-				tracker.setxPosition(posX + enemyDirectionX);
+				tracker.setPositionX(posX + enemyDirectionX);
 				tracker.setMovingInX(true);
 				tracker.setMovingInY(false);
 
@@ -482,7 +487,7 @@ public class Enemy {
 				
 				grid.setContents(posX, posY, Tile.EMPTY);
 				grid.setContents(posX, posY + enemyDirectionY, tracker.getEnemyType());
-				tracker.setyPosition(posY + enemyDirectionY);
+				tracker.setPositionY(posY + enemyDirectionY);
 				tracker.setMovingInY(true);
 				tracker.setMovingInX(false);
 
@@ -502,10 +507,10 @@ public class Enemy {
 		boolean canMoveInY = false;
 		boolean usingAStar = false;
 	
-		int enemyDirectionX = tracker.getxDirection();
-		int enemyDirectionY = tracker.getyDirection();
-		int posX = tracker.getxPosition();
-		int posY = tracker.getyPosition();
+		int enemyDirectionX = tracker.getDirectionX();
+		int enemyDirectionY = tracker.getDirectionY();
+		int posX = tracker.getPositionX();
+		int posY = tracker.getPositionY();
 		int randChance = 0;
 		
 		
@@ -523,12 +528,12 @@ public class Enemy {
 				if(posX == path.getX(1)){
 					canMoveInY = true;
 					enemyDirectionY = path.getY(1) - posY;
-					tracker.setyDirection(enemyDirectionY);
+					tracker.setDirectionY(enemyDirectionY);
 				}	
 				else{
 					canMoveInX = true;
 					enemyDirectionX =  path.getX(1) - posX;
-					tracker.setxDirection(enemyDirectionX);
+					tracker.setDirectionX(enemyDirectionX);
 					
 				}
 				
@@ -613,11 +618,11 @@ public class Enemy {
 						grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
 					}
 					
-					tracker.setxPosition(posX + enemyDirectionX);
+					tracker.setPositionX(posX + enemyDirectionX);
 					tracker.setMovingInX(true);
 					tracker.setMovingInY(false);
 				
-					//tracker.setxDirection(enemyDirectionX);
+					//tracker.setDirectionX(enemyDirectionX);
 					
 				}
 				
@@ -686,10 +691,10 @@ public class Enemy {
 					}
 					
 					
-					tracker.setyPosition(posY + enemyDirectionY);
+					tracker.setPositionY(posY + enemyDirectionY);
 					tracker.setMovingInY(true);
 					tracker.setMovingInX(false);
-					//tracker.setyDirection(enemyDirectionY);
+					//tracker.setDirectionY(enemyDirectionY);
 								
 				}
 				
@@ -705,8 +710,8 @@ public class Enemy {
 					canMoveInX = true;
 			}
 			else if(grid.getContents(posX - enemyDirectionX,posY) == Tile.EMPTY || grid.getContents(posX - enemyDirectionX,posY) == Tile.PLAYER || grid.getContents(posX - enemyDirectionX,posY) == Tile.BRICK ){
-				tracker.setxDirection(-enemyDirectionX); 
-				enemyDirectionX = tracker.getxDirection();	
+				tracker.setDirectionX(-enemyDirectionX); 
+				enemyDirectionX = tracker.getDirectionX();	
 				canMoveInX = true;
 			}
 				
@@ -714,8 +719,8 @@ public class Enemy {
 					canMoveInY = true;
 			}
 			else if(grid.getContents(posX,posY - enemyDirectionY) == Tile.EMPTY || grid.getContents(posX,posY - enemyDirectionY) == Tile.PLAYER || grid.getContents(posX,posY - enemyDirectionY) == Tile.BRICK ){
-				tracker.setyDirection(-enemyDirectionY); 
-				enemyDirectionY = tracker.getyDirection();
+				tracker.setDirectionY(-enemyDirectionY); 
+				enemyDirectionY = tracker.getDirectionY();
 				canMoveInY = true;
 			}
 			
@@ -808,7 +813,7 @@ public class Enemy {
 					grid.setContents(posX + enemyDirectionX, posY, tracker.getEnemyType());
 				}
 				
-				tracker.setxPosition(posX + enemyDirectionX);
+				tracker.setPositionX(posX + enemyDirectionX);
 				tracker.setMovingInX(true);
 				tracker.setMovingInY(false);
 			}
@@ -891,7 +896,7 @@ public class Enemy {
 				}
 				
 				
-				tracker.setyPosition(posY + enemyDirectionY);
+				tracker.setPositionY(posY + enemyDirectionY);
 				tracker.setMovingInY(true);
 				tracker.setMovingInX(false);
 				
@@ -1062,3 +1067,4 @@ public class Enemy {
 	}
 					
 }
+

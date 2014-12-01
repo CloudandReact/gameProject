@@ -20,6 +20,7 @@ public class Bomberman extends JFrame {
 	public static int WIDTH = 31;
 	public static int HEIGHT = 13;
 	public static int TILE_SIZE = 25;
+	
 	public Player player;
 	private GameTimer listener;
 

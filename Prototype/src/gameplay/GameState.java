@@ -1,37 +1,55 @@
 package gameplay;
 
 public class GameState {
-	
 
 	private static State state;
 	private static int numberOfEnemiesleft;
-
 	
-	public static void setState(State newState){
+	/**
+	 * Set the state to newState.
+	 * @param newState New state of the game.
+	 */
+
+	public static void setState(State newState) {
 		state = newState;
 		validateState();
 	}
 	
+	/**
+	 * ??????????????????????????????????????
+	 */
+
 	private static void validateState() {
-		if(state == State.PLAYERDEAD){
-			System.out.println("PLAYERDEAD");
-			
+		if (state == State.PLAYERDEAD) {
+
 			state = State.RUNNING;
-			//new Bomberman();	
-		}	
+		}
 	}
-	
-	public static void setNumberOfEnemiesLeft(int numberOfEnemiesLeft){
+
+	/**
+	 * Sets the number of enemies left.
+	 * @param numberOfEnemiesLeft Number of enemies left.
+	 */
+	public static void setNumberOfEnemiesLeft(int numberOfEnemiesLeft) {
 		GameState.numberOfEnemiesleft = numberOfEnemiesLeft;
 	}
-	public static int getNumberOfEnemiesLeft(){
+
+	/**
+	 * Gets the number of enemies left.
+	 * @return The number of enemies left.
+	 */
+	
+	public static int getNumberOfEnemiesLeft() {
 		return GameState.numberOfEnemiesleft;
 	}
 	
-	public static State getState(){
+	/**
+	 * Gets the current state of the game.
+	 * @return Current game state.
+	 */
+
+	public static State getState() {
 		return state;
 	}
-	
-	
-}
 
+}

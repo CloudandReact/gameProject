@@ -23,8 +23,6 @@ public class GameTimer implements ActionListener{
         this.label2 = label2;
         this.label3 = label3;
         this.label4 = label4;
-//        this.lives = lives;
-//        this.score = score;
     }
 
     public void actionPerformed(ActionEvent e) {

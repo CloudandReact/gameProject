@@ -358,17 +358,6 @@ public class Player {
 					if(getBombsOnGround() < getBombs()){
 						grid.setContents(posX, posY, Tile.PLAYERANDBOMB);
 						
-						// THIS IS WHERE WE SET THE RANGE!!!!!!!!!!!!!!!!!!! SET IT
-						// AS HIGH AS YOU WANT, FRIENDS
-					
-						//bomb.setRange(1);
-					
-//						setBombsOnGround(getBombsOnGround() + 1);
-//						System.out.println(range);
-//						bomb.setRange(range);
-//						bomb.setBombs(bombs);
-//						bomb.setPosition(posX, posY);
-//						initializeTimer();
 						
 						setBombsOnGround(getBombsOnGround() + 1);
 						//bomb.setBombs(1);
