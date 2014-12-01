@@ -49,7 +49,10 @@ public class SaveGame extends JFrame implements Serializable {
 	
 	JTextField saveGameText = new JTextField(30);
 	JPanel panelA;
+<<<<<<< HEAD
 	
+=======
+>>>>>>> branch 'master' of https://github.com/mcgill-ecse321/team-2.git
 	int numberOfGames;
 	Enemy enemy;
 
@@ -93,7 +96,10 @@ public class SaveGame extends JFrame implements Serializable {
 	 
 		this.grid = grid;
 		this.enemy = enemy;
+<<<<<<< HEAD
 		
+=======
+>>>>>>> branch 'master' of https://github.com/mcgill-ecse321/team-2.git
 		setSize(450, 450);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);

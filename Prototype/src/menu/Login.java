@@ -20,7 +20,8 @@ import gameplay.PlayerInfo;
  * Login class displays the login Gui where the user enters his username and password
  * The if succesful he is logged in. His input is sent back to fileWriting to check if the 
  * credentials are valid
- * @author elliot
+ * @author Elliot Gimple
+ * @author Leonardo Siracusa
  *
  */
 public class Login {
@@ -87,7 +88,13 @@ public class Login {
 					 
 					PlayerInfo.usernameStatic = username;
 					PlayerInfo.passwordStatic = password;
+<<<<<<< HEAD
 					
+=======
+
+					// this line just for test will see if to make it void and
+					// store all info in player
+>>>>>>> branch 'master' of https://github.com/mcgill-ecse321/team-2.git
 					
 					try {
 						// store all player statistics which is required for

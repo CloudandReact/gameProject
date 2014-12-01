@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * initial location.
  * 
  * @author Kevin Glass
+ * @author Leonardo Siracusa
  */
 public class Path {
 	/** The list of steps building up this path */

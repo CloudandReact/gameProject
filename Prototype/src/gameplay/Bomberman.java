@@ -25,6 +25,7 @@ public class Bomberman extends JFrame implements Serializable {
 	public Player player;
 	private GameTimer listener;
 	private JFrame frameTimer = new JFrame("Bomberman");
+	private Timer timerG = new Timer(1000, listener);
 	
 	public Bomberman(String testing) {
 		
@@ -58,7 +59,7 @@ public class Bomberman extends JFrame implements Serializable {
 
         //the timer fires every 1000 MS (1 second)
         //when it does, it calls the actionPerformed() method of MyListener
-        Timer timerG = new Timer(1000, listener);
+//        Timer timerG = new Timer(1000, listener);
 
         //start the timer
         timerG.start();
@@ -110,7 +111,7 @@ public class Bomberman extends JFrame implements Serializable {
 
         //the timer fires every 1000 MS (1 second)
         //when it does, it calls the actionPerformed() method of MyListener
-        Timer timerG = new Timer(1000, listener);
+//        Timer timerG = new Timer(1000, listener);
 
         //start the timer
         timerG.start();
@@ -164,7 +165,7 @@ public class Bomberman extends JFrame implements Serializable {
 
         //the timer fires every 1000 MS (1 second)
         //when it does, it calls the actionPerformed() method of MyListener
-        Timer timerG = new Timer(1000, listener);
+       
 
         //start the timer
         timerG.start();
@@ -195,6 +196,9 @@ public class Bomberman extends JFrame implements Serializable {
 		frameTimer.dispose();
 	}
 	
+	public void stopTimer(){
+		timerG.stop();
+	}
 	public static void main(String[] args) {
 		new Bomberman();
 	}

@@ -8,6 +8,7 @@ import gameplay.Tile;
  * what priority is placed on different tiles during the search for a path
  * 
  * @author Kevin Glass
+ * @author Leonardo Siracusa
  */
 public interface AStarHeuristic {
 
