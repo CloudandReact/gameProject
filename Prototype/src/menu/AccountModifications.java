@@ -17,7 +17,8 @@ import gameplay.PlayerInfo;
 /**
  * AccountModfications extends JFrame and displays the Gui for modifying a users
  * account. The user can only modify his realname,and password
- *
+ * 
+ * @author Elliot Gimple
  */
 public class AccountModifications extends JFrame {
 

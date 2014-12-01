@@ -36,6 +36,8 @@ import gameplay.PlayerInfo;
  * from the user. As well to serialize the saved game all the objects neccessary
  * are used as inputs.
  * 
+ * @author Elliot Gimple
+ * 
  */
 public class FileWriting implements Serializable {
 	/**

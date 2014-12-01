@@ -8,30 +8,36 @@ import javax.swing.*;
 
 /**
  * This class initializes the concrete walls' positions on the grid map.
+ * 
+ * @author Rakinul Huq
  */
 
 public class Concrete implements Serializable {
-	
+
+	private static final long serialVersionUID = 1L;
+
 	private String concrete = "concrete.png";
-	
+
 	private Grid grid;
 	ImageIcon concreteIcon;
-	
+
 	/**
 	 * Concrete walls which are placed on the border and in the grid.
-	 * @param grid The grid on which concrete walls are placed.
+	 * 
+	 * @param grid
+	 *            The grid on which concrete walls are placed.
 	 */
 
 	public Concrete(Grid grid) {
 		this.grid = grid;
 		loadImage();
-		placeConcreteOnTheBorder(); 
+		placeConcreteOnTheBorder();
 		placeConcreteOnTheMap();
 
 	}
 
 	/**
-	 *  Places concrete walls on the border of the map.
+	 * Places concrete walls on the border of the map.
 	 */
 	private void placeConcreteOnTheBorder() {
 
@@ -44,38 +50,39 @@ public class Concrete implements Serializable {
 			}
 		}
 	}
-	
+
 	/**
-	 * Place concrete walls whenever the indexes of x and y are both even, starting
-	 * at index 2 and ending at index 30.
+	 * Place concrete walls whenever the indexes of x and y are both even,
+	 * starting at index 2 and ending at index 30.
 	 */
-	
+
 	private void placeConcreteOnTheMap() {
-		
+
 		for (int x = 2; x < Bomberman.WIDTH; x = x + 2) {
 			for (int y = 2; y < Bomberman.HEIGHT; y = y + 2) {
 				grid.setContents(x, y, Tile.CONCRETE);
 			}
 		}
 	}
-	
+
 	/**
 	 * Load images of the concrete walls.
 	 */
 
 	private void loadImage() {
-		concreteIcon= new ImageIcon(getClass().getResource(concrete));
-		
+		concreteIcon = new ImageIcon(getClass().getResource(concrete));
+
 	}
-	
+
 	/**
-	 * Get the image for concrete walls. 
+	 * Get the image for concrete walls.
+	 * 
 	 * @return Image for concrete walls.
 	 */
 
 	public Image getImage() {
 		return concreteIcon.getImage();
-		
+
 	}
 
 }

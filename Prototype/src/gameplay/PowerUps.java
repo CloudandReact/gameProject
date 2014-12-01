@@ -6,8 +6,19 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
+/**
+ * <p>
+ * The <code>PowerUps</code> class deals with the powerup logic depending on the current level. 
+ * </p>
+ * 
+ * @author Rakinul Huq
+ * @see Player
+ */
+
+
 public class PowerUps implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	private String bombsP= "bombsp.png";
 	private String flamesP = "flamesp.png";
 	private String speedP = "speedp.png";

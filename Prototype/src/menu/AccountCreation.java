@@ -15,7 +15,8 @@ import javax.swing.JTextField;
 
 /**
  * This class Account creation displays the GUI for Account Creation
- *
+ * 
+ * @author Elliot Gimple
  */
 
 public class AccountCreation extends JFrame {

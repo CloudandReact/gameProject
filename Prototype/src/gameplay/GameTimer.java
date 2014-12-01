@@ -7,20 +7,27 @@ import java.io.Serializable;
 import javax.swing.JLabel;
 
 /**
- * The GameTimer keeps track of time during the game to determine when the game
- * should end.
- *
+ * <p>
+ * The <code>GameTimer</code> keeps track of time during the game to determine
+ * when the game should end.
+ * </p>
+ * 
+ * @author Rakinul Huq
  */
+
 public class GameTimer implements ActionListener, Serializable {
 
-	public static int timeCount = 200;
+
+	private static final long serialVersionUID = 1L;
 	private int lives = 2;
+	private int score;
+
+	public static int timeCount = 200;
 	private String over = "Time Over!";
 	private JLabel timeLabel;
 	private JLabel livesLabel;
 	private JLabel scoreLabel;
 	private JLabel timeOverLabel;
-	private int score;
 
 	/**
 	 * <p>
@@ -46,9 +53,10 @@ public class GameTimer implements ActionListener, Serializable {
 	}
 
 	/**
-     * Counts down time as long as the timer has not reached zero and
-     * that the game is not paused. Displays a message when the timer does eventually reach zero.
-     */
+	 * Counts down time as long as the timer has not reached zero and that the
+	 * game is not paused. Displays a message when the timer does eventually
+	 * reach zero.
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if (timeCount != 0) {
 			if (GameState.getState() != State.PAUSE) {
@@ -59,7 +67,7 @@ public class GameTimer implements ActionListener, Serializable {
 			}
 		}
 		timeLabel.setText("Time Left: " + timeCount);
-		
+
 		if (timeCount == 0) {
 			setTimeOver(over);
 			if (GameState.getState() == State.RUNNING) {
@@ -67,9 +75,12 @@ public class GameTimer implements ActionListener, Serializable {
 			}
 		}
 	}
+
 	/**
 	 * Sets the player's number of lives remaining.
-	 * @param livesLeft Number of lives remaining
+	 * 
+	 * @param livesLeft
+	 *            Number of lives remaining
 	 */
 	public void setLives(int livesLeft) {
 		this.lives = livesLeft;
@@ -82,10 +93,12 @@ public class GameTimer implements ActionListener, Serializable {
 	public static void restartTimer() {
 		timeCount = 200;
 	}
-	
+
 	/**
 	 * Sets the player's score to an integer value.
-	 * @param score player's updated score
+	 * 
+	 * @param score
+	 *            player's updated score
 	 */
 
 	public void setScore(int score) {
@@ -94,7 +107,8 @@ public class GameTimer implements ActionListener, Serializable {
 	}
 
 	/**
-	 * Sets the timer to zero and displays 
+	 * Sets the timer to zero and displays
+	 * 
 	 * @param over
 	 */
 	public void setTimeOver(String over) {

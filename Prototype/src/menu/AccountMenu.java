@@ -4,7 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- * This class loads the AccountMenu Gui dispaying the login Gui
+ * This class loads the AccountMenu GUI displaying the login GUI
+ * 
+ * @author Elliot Gimple
  */
 
 public class AccountMenu {

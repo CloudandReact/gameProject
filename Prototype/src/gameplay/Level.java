@@ -3,12 +3,26 @@ package gameplay;
 import java.io.Serializable;
 
 /**
- * This class 
+ * This class contains all the pertinent in formation about the levels. Most importantly, it keeps track of the number
+ * of types of enemies on each level. 
+ * 
  */
+
+
+/**
+ * <p>
+ * The <code>Level</code> class contains all the pertinent in formation about the levels. Most importantly, it keeps track of the number
+ * of types of enemies on each level. 
+ * </p>
+ * 
+ * @author Rakinul Huq
+ * @see PowerUps
+ */
+
 
 public class Level implements Serializable{
 
-
+	private static final long serialVersionUID = 1L;
 	private int numberOfBallooms;
 	private int numberOfOneals;
 	private int numberOfDolls;
