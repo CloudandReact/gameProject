@@ -213,9 +213,9 @@ public class Game extends JPanel implements ActionListener {
 						g2d.drawImage(bomb.getImageBombPlayer(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						isPlayerAlive = true;
 						continue;
-					case BOMBANDEXITWAY:
-						g2d.drawImage(bomb.getImageBombPlayer(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
-						continue;
+//					case BOMBANDEXITWAY:
+//						g2d.drawImage(bomb.getImageBombPlayer(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
+//						continue;
 					case EXPLOSION:
 						g2d.drawImage(bomb.getImageExplosion(),Bomberman.TILE_SIZE * (i - leftMostVisibleTile),Bomberman.TILE_SIZE * j, this);
 						grid.setContents(i, j, Tile.EMPTY);

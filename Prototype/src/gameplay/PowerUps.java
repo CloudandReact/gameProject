@@ -37,6 +37,11 @@ public class PowerUps {
 	private Player player;
 	private Level level;
 	
+	/**
+	 * 
+	 * @param grid
+	 * @param level
+	 */
 	public PowerUps(Grid grid, Level level){
 		//draw
 		this.grid = grid;
