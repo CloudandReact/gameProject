@@ -4,6 +4,7 @@ import gameplay.Bomberman;
 import gameplay.GameState;
 import gameplay.GameTimer;
 import gameplay.Grid;
+import gameplay.Level;
 import gameplay.Player;
 import gameplay.PlayerInfo;
 import gameplay.Game;
@@ -17,7 +18,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class TimeOverMenu extends JFrame {
+public class GameOverMenu extends JFrame {
 
 	/**
 	 * 
@@ -36,11 +37,12 @@ public class TimeOverMenu extends JFrame {
 	GameState state;
 	Player player;
 	Grid grid;
+	private Level level;
 
 	String playersName;
 
-	public TimeOverMenu(final Grid grid, Game r, GameState s, Player p,
-			final Bomberman bomberman) {
+	public GameOverMenu(final Grid grid, Game r, GameState s, Player p,
+			final Bomberman bomberman, final Level level) {
 		this.state = s;
 		this.grid = grid;
 		this.player = p;
@@ -109,7 +111,7 @@ public class TimeOverMenu extends JFrame {
 
 				getContentPane().removeAll();
 				dispose();
-				game.initialize();
+				new Bomberman(level.getCurrentLevel());
 				// render.setPauseMenuState(false);
 				GameState.setState(State.RUNNING);
 				GameTimer.restartTimer();

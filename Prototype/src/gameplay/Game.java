@@ -19,7 +19,7 @@ import javax.swing.Timer;
 
 import menu.MainMenu;
 import menu.PauseMenu;
-import menu.TimeOverMenu;
+import menu.GameOverMenu;
 
 public class Game extends JPanel implements ActionListener {
 
@@ -353,7 +353,7 @@ public class Game extends JPanel implements ActionListener {
 				bomb.setTotalGameScore(0);
 				GameState.setState(State.TIMEOVER);
 				System.out.println(GameState.getState());
-				new TimeOverMenu(grid, this, gameState, player, bomberman);
+				new GameOverMenu(grid, this, gameState, player, bomberman, level);
 				timeOverMenuOpen = true;
 			}
 
@@ -385,7 +385,7 @@ public class Game extends JPanel implements ActionListener {
 			pauseMenuOpen = true;
 		}
 		else if(GameState.getState() == State.TIMEOVER && timeOverMenuOpen == false){
-			new TimeOverMenu(grid, this, gameState, player, bomberman);
+			new GameOverMenu(grid, this, gameState, player, bomberman, level);
 			timeOverMenuOpen = true;
 		}
 		
