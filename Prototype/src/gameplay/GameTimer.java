@@ -21,7 +21,6 @@ public class GameTimer implements ActionListener, Serializable {
 	private JLabel livesLabel;
 	private JLabel scoreLabel;
 	private JLabel timeOverLabel;
-	private int score = 0;
 
 	/**
 	 * <p>
