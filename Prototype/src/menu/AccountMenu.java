@@ -38,12 +38,5 @@ public class AccountMenu {
 		new AccountMenu();
 	}
 
-	public class LoginButtonListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			JOptionPane
-					.showMessageDialog(null, "login button has been pressed");
-		}
-	}
 
 }

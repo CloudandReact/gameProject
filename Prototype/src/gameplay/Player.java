@@ -342,6 +342,13 @@ public class Player implements Serializable{
 		}
 
 	}
+	
+	 /**
+     * <p> This method performs a check on if the following keys are
+     * pressed: up, down, right, left, b, space, and x. 
+     * Based on the key, It then processes the required logic. . </p>
+     * 
+     */ 
 
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();

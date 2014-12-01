@@ -9,6 +9,7 @@ public class Validate {
 	boolean usernameValid = false;
 	boolean passwordValid = false;
 	boolean passwordSame = false;
+	
 	/**
 	 * Return whether the attempted created a new user with realName,username,password,retypePassword.
 	 * It calls the other validate methods in this class to check each by itself if they are valid

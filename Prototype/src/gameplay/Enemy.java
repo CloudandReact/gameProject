@@ -9,17 +9,22 @@ import javax.swing.ImageIcon;
 
 import Astar.*;
 
+	
 
 /**
- * 
- * @author chady
- *
+ * @author Leonardo Siracusa
+ * <p>The <code>Enemy</code> class stores all the required functions done by all enemy types. The required movement in the specifications
+ * has been implemented.  
+ * A specific enemies location on the grid are stored using the EnemyTracker class. 
+ * Additionally, ExitWay blown up logic is done here. </p>
  */
+
 public class Enemy implements Serializable{
 
 	/**
 	 * 
 	 */
+	
 	private static final long serialVersionUID = 1L;
 	private String Balloom = "Balloom.png";
 	
@@ -211,7 +216,8 @@ public class Enemy implements Serializable{
 
 	/**
 	 * Basic move function which calls the moveWithChance method with the correct parameters depending on the enemy type. 
-	 * 
+	 * These parameters include the chance to change direction at an intersection, the AStar range, and the player's location.  
+	 * <p> Note: Additionally, every time the enemies move, a check is made to see if the exitway has been blown up by a bomb. If so, exitwayLogic() is called. </p>
 	 * @param targetX Player's X location for AStar movement.
 	 * @param targetY Player's Y location for AStar movement.
 	 */
@@ -247,10 +253,8 @@ public class Enemy implements Serializable{
 					moveWithChance(enemiesInitial.get(i), targetX, targetY, 0, 0);
 				}
 				continue;
-			case MINVO:
-				//if(count%2 == 0){
+			case MINVO:	
 					moveWithChance(enemiesInitial.get(i), targetX, targetY, 10, 2);
-				//}
 				continue;
 			case KONDORIA:
 				if(count % 4 == 0){
@@ -273,19 +277,13 @@ public class Enemy implements Serializable{
 				}
 				continue;
 			case PASS:
-				//if(count%2 == 0){
-					moveWithChance(enemiesInitial.get(i), targetX, targetY, 2, 3);
-				//}
+					moveWithChance(enemiesInitial.get(i), targetX, targetY, 2, 3);	
 				continue;
 			case PONTAN:
-				//if(count%2 == 0){
-					wallPassMove(enemiesInitial.get(i), targetX, targetY, 2, 2);
-				//}
+				wallPassMove(enemiesInitial.get(i), targetX, targetY, 2, 2);	
 				continue;
 			case PONTANANDBRICK:
-				//if(count%2 == 0){
 					wallPassMove(enemiesInitial.get(i), targetX, targetY, 2, 2);
-				//}
 				continue;
 			default:
 				break;
@@ -298,7 +296,10 @@ public class Enemy implements Serializable{
 
 	
 
-	
+	/**
+	 * First, the grid is copied into the temp grid. 
+	 * Then, the contents of the grid are verified for the enemies. When an enemy is found, the verifyTracker method is called.
+	 */
 	private void copyGridAndVerifyTracker() {
 
 		for (int posX = 0; posX < Bomberman.WIDTH; posX++) {
@@ -348,7 +349,15 @@ public class Enemy implements Serializable{
 	}
 	
 
-	
+	/**
+	 * This method iterates through the enemiesInitial list to find the tracker which matches the given enemies location on the grid.  
+	 * If it is found, this tracker is added to the enemiesAlive list. The enemies in the enemiesInitial list that have not been matched
+	 * are considered dead. This is how we update and keep track of the alive enemies on the grid.
+	 *
+	 * @param posX The enemies position along the X axis.
+	 * @param posY The enemies position along the Y axis. 
+	 * @param enemyType The enemies type. 
+	 */
 	private void verifyTracker(int posX, int posY, Tile enemyType){
 	
 		
@@ -368,7 +377,16 @@ public class Enemy implements Serializable{
 	}
 	
 
-	
+	/**
+	 * 
+	 * Updates the alive enemies locations on the grid, based on their intelligence. 
+	 * 
+	 * @param tracker Tracker containing the enemies information.
+	 * @param targetX Player's tile location on the x axis. Required for AStar. 
+	 * @param targetY Player's tile location on the y axis. Required for AStar. 
+	 * @param chance  Enemies chance to change direction. 
+	 * @param aStarRange The range of for which the enemy will begin following the Player. 
+	 */
 	
 
 	private void moveWithChance(EnemyTracker tracker, int targetX, int targetY, int chance, int aStarRange){
@@ -423,7 +441,6 @@ public class Enemy implements Serializable{
 					tracker.setMovingInX(true);
 					tracker.setMovingInY(false);
 				
-					//tracker.setDirectionX(enemyDirectionX);
 					
 				}
 				
@@ -438,7 +455,6 @@ public class Enemy implements Serializable{
 					tracker.setPositionY(posY + enemyDirectionY);
 					tracker.setMovingInY(true);
 					tracker.setMovingInX(false);
-					//tracker.setDirectionY(enemyDirectionY);
 								
 				}
 				
@@ -477,7 +493,7 @@ public class Enemy implements Serializable{
 				canMoveInY = true;
 				
 			}
-			// x% chance randChance is 1, and check if at intersection)
+
 			if(randChance == 1 && canMoveInX && canMoveInY){
 				if(tracker.isMovingInX()){
 					canMoveInX = false;
@@ -528,7 +544,15 @@ public class Enemy implements Serializable{
 	}
 	
 	
-	
+	/**
+	 * Same principle as the moveWithChance method, updated for wall passing enemies.
+	 * Updates the alive enemies locations on the grid, based on their intelligence.  
+	 * @param tracker Tracker containing the enemies information.
+	 * @param targetX Player's tile location on the x axis. Required for AStar. 
+	 * @param targetY Player's tile location on the y axis. Required for AStar. 
+	 * @param chance  Enemies chance to change direction. 
+	 * @param aStarRange The range of for which the enemy will begin following the Player. 
+	 */
 	
 	private void wallPassMove(EnemyTracker tracker, int targetX, int targetY, int chance, int aStarRange){
 		
@@ -625,7 +649,6 @@ public class Enemy implements Serializable{
 					}
 					
 					else{
-						// we've set initial pos to brick, next pos tile isnt a brick, so if kondoriaandbrick ... we set back to condoria
 						switch(tracker.getEnemyType()){
 						case KONDORIAANDBRICK:
 							grid.setContents(posX + enemyDirectionX, posY, Tile.KONDORIA);
@@ -650,9 +673,7 @@ public class Enemy implements Serializable{
 					tracker.setPositionX(posX + enemyDirectionX);
 					tracker.setMovingInX(true);
 					tracker.setMovingInY(false);
-				
-					//tracker.setDirectionX(enemyDirectionX);
-					
+									
 				}
 				
 				else{
@@ -723,7 +744,6 @@ public class Enemy implements Serializable{
 					tracker.setPositionY(posY + enemyDirectionY);
 					tracker.setMovingInY(true);
 					tracker.setMovingInX(false);
-					//tracker.setDirectionY(enemyDirectionY);
 								
 				}
 				
@@ -752,10 +772,8 @@ public class Enemy implements Serializable{
 				enemyDirectionY = tracker.getDirectionY();
 				canMoveInY = true;
 			}
-			
-
 		
-			// x% chance randChance is 1, and check if at intersection)
+		
 			if(randChance == 1 && canMoveInX && canMoveInY){
 				if(tracker.isMovingInX()){
 					canMoveInX = false;
@@ -820,7 +838,6 @@ public class Enemy implements Serializable{
 				}
 				
 				else{
-					// we've set initial pos to brick or empty, next pos tile isnt a brick, so if kondoriaandbrick ... we set back to kondoria
 					switch(tracker.getEnemyType()){
 					case KONDORIAANDBRICK:
 						grid.setContents(posX + enemyDirectionX, posY, Tile.KONDORIA);
@@ -935,6 +952,10 @@ public class Enemy implements Serializable{
 			
 	}
 	
+	/**
+	 * A check is made every time the move method is called to see if the exitway has been blown up by a bomb. If so, this method is called.
+	 * The enemies on the map are cleared, and are replaced by eight enemies of type one higher than the ones present at that level. 
+	 */
 	private void exitwayLogic(){
 		
 		clearEnemies();
@@ -943,6 +964,9 @@ public class Enemy implements Serializable{
 		Bomb.setNumberOfEnemiesKilled(0);
 	}
 
+	/**
+	 * Iterates through the grid, removing the enemies. 
+	 */
 	private void clearEnemies(){
 
 		for (int posX = 0; posX < Bomberman.WIDTH; posX++) {
@@ -989,6 +1013,16 @@ public class Enemy implements Serializable{
 			
 		}
 	}
+	
+	/**
+	 * Given two integers, min and max, this method will return a pseudo-random
+	 * integer value contained between these two integers.
+	 * 
+	 * @param min Minimum value which may be returned.
+	 * @param max Maximum value which may be returned.
+	 * @return an <code>int</code> corresponding to the integer between min and max inclusively.
+	 */
+	
 	public static int randInt(int min, int max) {
 
 		Random rand = new Random();
@@ -998,102 +1032,146 @@ public class Enemy implements Serializable{
 	}
 	
 
-	//change variable names...
+	/**
+	 * Method used to load the different images for all the enemy types. 
+	 */
+	
 	private void loadImage() {
 		first = new ImageIcon(getClass().getResource(Balloom));
-		
-
 		second = new ImageIcon(getClass().getResource(Oneal));
-		
-
 		third = new ImageIcon(getClass().getResource(Doll));
-		
-
 		fourth = new ImageIcon(getClass().getResource(Minvo));
-		
-
 		fifth = new ImageIcon(getClass().getResource(Kondoria));
-		
-
 		sixth = new ImageIcon(getClass().getResource(Ovapi));
-		
-
-		seventh = new ImageIcon(getClass().getResource(Pass));
-		
-
-		eigth = new ImageIcon(getClass().getResource(Pontan));
-		
-		
-		
-		// Change to AndBrick
-		nine = new ImageIcon(getClass().getResource(KondoriaAndBrick));
-		
-		
-		ten = new ImageIcon(getClass().getResource(OvapiAndBrick));
-		
-		
-		eleven = new ImageIcon(getClass().getResource(PontanAndBrick));
-		
-		
-
+		seventh = new ImageIcon(getClass().getResource(Pass));		
+		eigth = new ImageIcon(getClass().getResource(Pontan));			
+		nine = new ImageIcon(getClass().getResource(KondoriaAndBrick));				
+		ten = new ImageIcon(getClass().getResource(OvapiAndBrick));				
+		eleven = new ImageIcon(getClass().getResource(PontanAndBrick));				
 	}
 
+	/**
+	 * Gets the image for the enemy type Balloom.
+	 * @return the <code>Image</code> shown when Balloom is in a tile by itself.
+	 */
 	public Image getImageBalloom() {
 		return first.getImage();
 	}
 	
+	/**
+	 * Gets the image for the enemy type Oneal. 
+	 * @return the <code>Image</code> shown when Oneal is in a tile by itself.
+	 */
 	
 	public Image getImageOneal() {
 		return second.getImage();
 	}
-
+	
+	
+	/**
+	 * Gets the image for the enemy type Doll.
+	 * @return the <code>Image</code> shown when Doll is in a tile by itself.
+	 */
+	
 	public Image getImageDoll() {
 		return third.getImage();
 	}
 
+	/**
+	 * Gets the image for the enemy type Minvo.
+	 * @return the <code>Image</code> shown when Minvo is in a tile by itself.
+	 */
+	
 	public Image getImageMinvo() {
 		return fourth.getImage();
 	}
 
+	/**
+	 * Gets the image for the enemy type Kondoria.
+	 * @return the <code>Image</code> shown when Kondoria is in a tile by itself.
+	 */
+	
 	public Image getImageKondoria() {
 		return fifth.getImage();
 	}
 	
+	/**
+	 * Gets the image for the enemy type Kondoria.
+	 * @return the <code>Image</code> shown when Kondoria is in a tile with a brick.
+	 */
+	
 	public Image getImageKondoriaAndBrick() {
 		return nine.getImage();
 	}
-
+	
+	/**
+	 * Gets the image for the enemy type Ovapi.
+	 * @return the <code>Image</code> shown when Ovapi is in a tile by itself.
+	 */
+	
 	public Image getImageOvapi() {
 		return sixth.getImage();
 	}
 	
+	/**
+	 * Gets the image for the enemy type Ovapi.
+	 * @return the <code>Image</code> shown when Ovapi is in a tile with a brick.
+	 */
+	
 	public Image getImageOvapiAndBrick() {
 		return ten.getImage();
 	}
-
+	
+	
+	/**
+	 * Gets the image for the enemy type Pass.
+	 * @return the <code>Image</code> shown when Pass is in a tile by itself.
+	 */
 
 	public Image getImagePass() {
 		return seventh.getImage();
 	}
 
+	/**
+	 * Gets the image for the enemy type Pontan.
+	 * @return the <code>Image</code> shown when Pontan is in a tile by itself.
+	 */
+	
 	public Image getImagePontan() {
 		return eigth.getImage();
 	}
+	
+	/**
+	 * Gets the image for the enemy type Pontan.
+	 * @return the <code>Image</code> shown when Pontan is in a tile with a brick.
+	 */
 	
 	public Image getImagePontanAndBrick() {
 		return eleven.getImage();
 	}
 	
+	/**
+	 * Gets the enemy count which corresponds to the number of enemies on the grid. 
+	 * @return the <code>int</code> representing the number of enemies left on the grid. 
+	 */
 	
 	public int getEnemyCount() {
 		return enemyCount;
 	}
 	
+	/**
+	 * Sets the number of enemies on the grid. 
+	 * @param newEnemyCount an int corresponding to the number of enemies on the grid. 
+	 */
 	public void setEnemyCount(int newEnemyCount){
 		this.enemyCount = newEnemyCount;
 	}
 	
-	
+	/**
+	 * Set if the exitway has been blown up by a bomb. Move checks the exitway condition on each call.
+	 * If this is set to true, the exitway logic is ran. 
+	 * @param b true if the exitway has been blown up by a bomb. 
+	 */
 	public void setIsExitwayBlownUp(boolean b) {
 		this.isExitwayBlownUp = b;
 		
