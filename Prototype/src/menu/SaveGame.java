@@ -49,7 +49,6 @@ public class SaveGame extends JFrame implements Serializable {
 	// load how many games then have a textbox to enter
 	JTextField saveGameText = new JTextField(30);
 	JPanel panelA;
-	StoreStatistics checkStats = new StoreStatistics();
 	int numberOfGames;
 	Enemy enemy;
 

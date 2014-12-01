@@ -20,7 +20,8 @@ import gameplay.PlayerInfo;
  * Login class displays the login Gui where the user enters his username and password
  * The if succesful he is logged in. His input is sent back to fileWriting to check if the 
  * credentials are valid
- * @author elliot
+ * @author Elliot Gimple
+ * @author Leonardo Siracusa
  *
  */
 public class Login {
@@ -87,8 +88,7 @@ public class Login {
 					 
 					PlayerInfo.usernameStatic = username;
 					PlayerInfo.passwordStatic = password;
-					StoreStatistics storingIntoPlayer = new StoreStatistics();
-					storingIntoPlayer.checkNumberOfGames();
+
 					// this line just for test will see if to make it void and
 					// store all info in player
 					
