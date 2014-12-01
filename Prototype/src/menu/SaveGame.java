@@ -3,7 +3,7 @@ package menu;
 import gameplay.Grid;
 import gameplay.Player;
 import gameplay.PlayerInfo;
-import gameplay.Render;
+import gameplay.Game;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -30,7 +30,7 @@ public class SaveGame extends JFrame implements Serializable {
 	JButton backButton = new JButton("Back");
 	JButton saveButton = new JButton("Save");
 
-	private Render render;
+	private Game game;
 
 	// load how many games then have a textbox to enter
 	JTextField saveGameText = new JTextField(30);
@@ -92,7 +92,7 @@ public class SaveGame extends JFrame implements Serializable {
 					savingTheGame.saveGame(gameName, grid,
 							PlayerInfo.playerScore, PlayerInfo.currentLevel);
 					System.out.println("succes");
-					System.out.println(render);
+					System.out.println(game);
 					getContentPane().removeAll();
 					dispose();
 

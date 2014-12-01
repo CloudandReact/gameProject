@@ -26,11 +26,11 @@ public class Brick {
 			for (int j = 1; j < Bomberman.HEIGHT-1; j++){
 				int rand = randInt(1,5);
 				if(rand == 1){
-					grid.setContents(i, j, Cell.BRICK);			
+					grid.setContents(i, j, Tile.BRICK);			
 				}
 				
 				if ((i == 1 && j == 1) || (i == 1 && j == 2) || (i == 2 && j == 1)) {
-					grid.setContents(i, j, Cell.EMPTY);	
+					grid.setContents(i, j, Tile.EMPTY);	
 				}
 			}
 		}

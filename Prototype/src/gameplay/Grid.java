@@ -10,7 +10,7 @@ public class Grid implements TileBasedMap {
 //	private int dimension;
     
 	
-	public Cell[][] gridMap;
+	public Tile[][] gridMap;
     
     
     public Grid() {
@@ -18,15 +18,15 @@ public class Grid implements TileBasedMap {
 		//gridSizeX = Bomberman.getDimensionX();
 		//gridSizeY = Bomberman.getDimensionY();
 		//dimension = 25;
-		//gridMap = new Cell[gridSizeX/dimension][gridSizeY/dimension];
-		gridMap = new Cell[Bomberman.WIDTH][Bomberman.HEIGHT];
+		//gridMap = new Tile[gridSizeX/dimension][gridSizeY/dimension];
+		gridMap = new Tile[Bomberman.WIDTH][Bomberman.HEIGHT];
 	}
     
    
-	public Cell[][] initializeGridMap(){
+	public Tile[][] initializeGridMap(){
 		for(int i = 0; i < Bomberman.WIDTH; i++){
 			for(int j = 0; j < Bomberman.HEIGHT; j++){
-				gridMap[i][j] = Cell.EMPTY;
+				gridMap[i][j] = Tile.EMPTY;
 			}
 		}
 		return gridMap;
@@ -62,23 +62,23 @@ public class Grid implements TileBasedMap {
 	
 
 	@Override
-	public boolean blocked(Cell cellType, int x, int y) {
+	public boolean blocked(Tile tileType, int x, int y) {
 		
-		if(cellType == Cell.KONDORIA || cellType == Cell.OVAPI || cellType == Cell.PONTAN ||cellType == Cell.KONDORIAANDBRICK || cellType == Cell.OVAPIANDBRICK || cellType == Cell.PONTANANDBRICK){
-			if (gridMap[x][y] == Cell.PONTANANDBRICK ||gridMap[x][y] == Cell.OVAPIANDBRICK || gridMap[x][y] == Cell.KONDORIAANDBRICK || gridMap[x][y] == Cell.BRICKANDPOWERUPS || gridMap[x][y] == Cell.BRICKANDEXITWAY || gridMap[x][y] == Cell.CONCRETE  || gridMap[x][y] == Cell.POWERUPS ||  gridMap[x][y] == Cell.ENEMY || gridMap[x][y] == Cell.BRICKANDPOWERUPS || gridMap[x][y] == Cell.BOMB || gridMap[x][y] == Cell.PLAYERANDBOMB || gridMap[x][y] == Cell.BALLOOM || gridMap[x][y] == Cell.ONEAL || gridMap[x][y] == Cell.DOLL || gridMap[x][y] == Cell.MINVO || gridMap[x][y] == Cell.KONDORIA || gridMap[x][y] == Cell.OVAPI  || gridMap[x][y] == Cell.PASS  || gridMap[x][y] == Cell.PONTAN){
+		if(tileType == Tile.KONDORIA || tileType == Tile.OVAPI || tileType == Tile.PONTAN ||tileType == Tile.KONDORIAANDBRICK || tileType == Tile.OVAPIANDBRICK || tileType == Tile.PONTANANDBRICK){
+			if (gridMap[x][y] == Tile.PONTANANDBRICK ||gridMap[x][y] == Tile.OVAPIANDBRICK || gridMap[x][y] == Tile.KONDORIAANDBRICK || gridMap[x][y] == Tile.BRICKANDPOWERUPS || gridMap[x][y] == Tile.BRICKANDEXITWAY || gridMap[x][y] == Tile.CONCRETE  || gridMap[x][y] == Tile.POWERUPS ||  gridMap[x][y] == Tile.ENEMY || gridMap[x][y] == Tile.BRICKANDPOWERUPS || gridMap[x][y] == Tile.BOMB || gridMap[x][y] == Tile.PLAYERANDBOMB || gridMap[x][y] == Tile.BALLOOM || gridMap[x][y] == Tile.ONEAL || gridMap[x][y] == Tile.DOLL || gridMap[x][y] == Tile.MINVO || gridMap[x][y] == Tile.KONDORIA || gridMap[x][y] == Tile.OVAPI  || gridMap[x][y] == Tile.PASS  || gridMap[x][y] == Tile.PONTAN){
 				return true;
 			}
 			return false;
 		}
 		
-		else if (gridMap[x][y] == Cell.PONTANANDBRICK ||gridMap[x][y] == Cell.OVAPIANDBRICK || gridMap[x][y] == Cell.KONDORIAANDBRICK || gridMap[x][y] == Cell.BRICKANDPOWERUPS || gridMap[x][y] == Cell.BRICKANDEXITWAY || gridMap[x][y] == Cell.CONCRETE || gridMap[x][y] == Cell.BRICK || gridMap[x][y] == Cell.POWERUPS ||  gridMap[x][y] == Cell.ENEMY || gridMap[x][y] == Cell.BRICKANDPOWERUPS || gridMap[x][y] == Cell.BOMB || gridMap[x][y] == Cell.PLAYERANDBOMB || gridMap[x][y] == Cell.BALLOOM || gridMap[x][y] == Cell.ONEAL || gridMap[x][y] == Cell.DOLL || gridMap[x][y] == Cell.MINVO || gridMap[x][y] == Cell.KONDORIA || gridMap[x][y] == Cell.OVAPI  || gridMap[x][y] == Cell.PASS  || gridMap[x][y] == Cell.PONTAN){
+		else if (gridMap[x][y] == Tile.PONTANANDBRICK ||gridMap[x][y] == Tile.OVAPIANDBRICK || gridMap[x][y] == Tile.KONDORIAANDBRICK || gridMap[x][y] == Tile.BRICKANDPOWERUPS || gridMap[x][y] == Tile.BRICKANDEXITWAY || gridMap[x][y] == Tile.CONCRETE || gridMap[x][y] == Tile.BRICK || gridMap[x][y] == Tile.POWERUPS ||  gridMap[x][y] == Tile.ENEMY || gridMap[x][y] == Tile.BRICKANDPOWERUPS || gridMap[x][y] == Tile.BOMB || gridMap[x][y] == Tile.PLAYERANDBOMB || gridMap[x][y] == Tile.BALLOOM || gridMap[x][y] == Tile.ONEAL || gridMap[x][y] == Tile.DOLL || gridMap[x][y] == Tile.MINVO || gridMap[x][y] == Tile.KONDORIA || gridMap[x][y] == Tile.OVAPI  || gridMap[x][y] == Tile.PASS  || gridMap[x][y] == Tile.PONTAN){
 			return true;
 		}
 
 		return false;
 		
 		
-	/*	if(gridMap[x][y] != Cell.EMPTY || gridMap[x][y] != Cell.PLAYER){
+	/*	if(gridMap[x][y] != Tile.EMPTY || gridMap[x][y] != Tile.PLAYER){
 			System.out.println("true");
 			return true;
 		}*/
@@ -89,17 +89,17 @@ public class Grid implements TileBasedMap {
 
 
 	@Override
-	public float getCost(Cell cellType, int sx, int sy, int tx, int ty) {
+	public float getCost(Tile tileType, int sx, int sy, int tx, int ty) {
 		ClosestHeuristic manhattan = new ClosestHeuristic();
-		return manhattan.getCost(cellType, sx, sy, tx, ty);
+		return manhattan.getCost(tileType, sx, sy, tx, ty);
 		
 	}
 	
-	public void setContents(int x, int y, Cell celltype){
-		this.gridMap[x][y] = celltype;
+	public void setContents(int x, int y, Tile tiletype){
+		this.gridMap[x][y] = tiletype;
 	}
 	
-	public Cell getContents(int x, int y){
+	public Tile getContents(int x, int y){
 		return this.gridMap[x][y];
 	}
 	

@@ -1,6 +1,6 @@
 package Astar;
 
-import gameplay.Cell;
+import gameplay.Tile;
 
 /**
  * The description for the data we're pathfinding over. This provides the contract
@@ -45,7 +45,7 @@ public interface TileBasedMap {
 	 * @param y The y coordinate of the tile to check
 	 * @return True if the location is blocked
 	 */
-	public boolean blocked(Cell cellType , int x, int y);
+	public boolean blocked(Tile cellType , int x, int y);
 	
 	/**
 	 * Get the cost of moving through the given tile. This can be used to 
@@ -59,5 +59,5 @@ public interface TileBasedMap {
 	 * @param ty The y coordinate of the tile we're moving to
 	 * @return The relative cost of moving across the given tile
 	 */
-	public float getCost(Cell cellType, int sx, int sy, int tx, int ty);
+	public float getCost(Tile cellType, int sx, int sy, int tx, int ty);
 }

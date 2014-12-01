@@ -21,7 +21,7 @@ import menu.MainMenu;
 import menu.PauseMenu;
 import menu.TimeOverMenu;
 
-public class Render extends JPanel implements ActionListener {
+public class Game extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 
@@ -40,8 +40,8 @@ public class Render extends JPanel implements ActionListener {
 	private int currentLevel;
 	private int numberOfLives;
 	private int count;
-	private int leftMostVisibleCell;
-	private int rightMostVisibleCell;
+	private int leftMostVisibleTile;
+	private int rightMostVisibleTile;
 
 	private int countPlayer = 0;
 
@@ -61,7 +61,7 @@ public class Render extends JPanel implements ActionListener {
 
 	Graphics2D g2d;
 
-	public Render(Bomberman bomberman) {
+	public Game(Bomberman bomberman) {
 		
 		this.bomberman = bomberman;
 		System.out.println("HELLO MY NAME IS...: " + PlayerInfo.getUsername());
@@ -81,7 +81,7 @@ public class Render extends JPanel implements ActionListener {
 	}
 	
 	// Load from a level
-	public Render(int level, Bomberman bomberman) {
+	public Game(int level, Bomberman bomberman) {
 		this.bomberman = bomberman;
 		this.currentLevel = level;
 		initialize();
@@ -96,7 +96,7 @@ public class Render extends JPanel implements ActionListener {
 	}
 	
 	// Load from a previous saved game
-	public Render(Grid grid, int currentLevel, Bomberman bomberman){
+	public Game(Grid grid, int currentLevel, Bomberman bomberman){
 		GameState.setState(State.RUNNING);
 		count = 0;
 		
@@ -176,80 +176,80 @@ public class Render extends JPanel implements ActionListener {
 		} else {
 
 			isPlayerAlive = false;
-			for (int i = leftMostVisibleCell; i <= rightMostVisibleCell; i++) {
+			for (int i = leftMostVisibleTile; i <= rightMostVisibleTile; i++) {
 				for (int j = 0; j < Bomberman.HEIGHT; j++) {
 					switch (grid.getContents(i, j)) {
 					case PLAYER:
-						g2d.drawImage(player.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(player.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						isPlayerAlive = true;
 						continue;
 					case BOMB:
-						g2d.drawImage(bomb.getImageBomb(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(bomb.getImageBomb(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						continue;
 					case CONCRETE:
-						g2d.drawImage(concrete.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(concrete.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						continue;
 					case BRICK:
-						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						continue;
 					case PLAYERANDBRICK:
-						g2d.drawImage(player.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(player.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						isPlayerAlive = true;
 						continue;
 					case PLAYERANDBRICKANDEXITWAY:
-						g2d.drawImage(player.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(player.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						isPlayerAlive = true;
 						continue;
 					case PLAYERANDBRICKANDPOWERUPS:
-						g2d.drawImage(player.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(player.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						isPlayerAlive = true;
 						continue;
 					case PLAYERANDBOMB:
-						g2d.drawImage(bomb.getImageBombPlayer(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(bomb.getImageBombPlayer(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						isPlayerAlive = true;
 						continue;
 					case BOMBANDEXITWAY:
-						g2d.drawImage(bomb.getImageBombPlayer(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(bomb.getImageBombPlayer(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						continue;
 					case EXPLODE:
-						g2d.drawImage(bomb.getImageBombExplode(),Bomberman.TILE_SIZE * (i - leftMostVisibleCell),Bomberman.TILE_SIZE * j, this);
-						grid.setContents(i, j, Cell.EMPTY);
+						g2d.drawImage(bomb.getImageBombExplode(),Bomberman.TILE_SIZE * (i - leftMostVisibleTile),Bomberman.TILE_SIZE * j, this);
+						grid.setContents(i, j, Tile.EMPTY);
 						continue;
 					case BALLOOM:
-						g2d.drawImage(enemy.getImageBalloom(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(enemy.getImageBalloom(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						continue;
 					case ONEAL:
-						g2d.drawImage(enemy.getImageOneal(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(enemy.getImageOneal(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						continue;
 					case DOLL:
-						g2d.drawImage(enemy.getImageDoll(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(enemy.getImageDoll(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						continue;	
 					case MINVO:
-						g2d.drawImage(enemy.getImageMinvo(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(enemy.getImageMinvo(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						continue;		
 					case KONDORIA:
-						g2d.drawImage(enemy.getImageKondoria(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(enemy.getImageKondoria(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						continue;	
 					case KONDORIAANDBRICK:
-						g2d.drawImage(enemy.getImageKondoriaAndBrick(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(enemy.getImageKondoriaAndBrick(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						continue;	
 					case OVAPI:
-						g2d.drawImage(enemy.getImageOvapi(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(enemy.getImageOvapi(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						continue;	
 					case OVAPIANDBRICK:
-						g2d.drawImage(enemy.getImageOvapiAndBrick(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(enemy.getImageOvapiAndBrick(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						continue;
 					case PASS:
-						g2d.drawImage(enemy.getImagePass(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(enemy.getImagePass(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						continue;		   
 					case PONTAN:
-						g2d.drawImage(enemy.getImagePontan(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(enemy.getImagePontan(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						continue;		
 					case PONTANANDBRICK:
-						g2d.drawImage(enemy.getImagePontanAndBrick(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(enemy.getImagePontanAndBrick(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						continue;
 					case BRICKANDPOWERUPS:
-						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						continue;
 					case POWERUPS:
 
@@ -259,10 +259,10 @@ public class Render extends JPanel implements ActionListener {
 						
 						continue;
 					case BRICKANDEXITWAY:
-						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleCell), Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(brick.getImage(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						continue;
 					case PLAYERANDEXITWAY:
-						g2d.drawImage(exitway.getImagePlayerAndExitway(),Bomberman.TILE_SIZE * (i - leftMostVisibleCell),Bomberman.TILE_SIZE * j, this);
+						g2d.drawImage(exitway.getImagePlayerAndExitway(),Bomberman.TILE_SIZE * (i - leftMostVisibleTile),Bomberman.TILE_SIZE * j, this);
 						isPlayerAlive = true;
 						
 						if(GameState.getState() == State.RUNNINGANDLEVELOVER){
@@ -278,7 +278,7 @@ public class Render extends JPanel implements ActionListener {
 					case EXITWAY:
 						g2d.drawImage(
 								exitway.getImageExitway(),
-								Bomberman.TILE_SIZE * (i - leftMostVisibleCell),
+								Bomberman.TILE_SIZE * (i - leftMostVisibleTile),
 								Bomberman.TILE_SIZE * j, this);
 						continue;
 
@@ -316,18 +316,18 @@ public class Render extends JPanel implements ActionListener {
 
 	private void getVisibleRange(){
 		
-		leftMostVisibleCell = player.getX() / 25 - 7;
-		rightMostVisibleCell = player.getX() / 25 + 7;
+		leftMostVisibleTile = player.getX() / 25 - 7;
+		rightMostVisibleTile = player.getX() / 25 + 7;
 
-		if (leftMostVisibleCell < 0) {
-			rightMostVisibleCell = rightMostVisibleCell - leftMostVisibleCell;
-			leftMostVisibleCell = 0;
+		if (leftMostVisibleTile < 0) {
+			rightMostVisibleTile = rightMostVisibleTile - leftMostVisibleTile;
+			leftMostVisibleTile = 0;
 		}
 
-		if (rightMostVisibleCell > 30) {
-			leftMostVisibleCell = leftMostVisibleCell
-					- (rightMostVisibleCell - 30);
-			rightMostVisibleCell = 30;
+		if (rightMostVisibleTile > 30) {
+			leftMostVisibleTile = leftMostVisibleTile
+					- (rightMostVisibleTile - 30);
+			rightMostVisibleTile = 30;
 		} 
 		
 	}

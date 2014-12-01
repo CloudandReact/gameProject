@@ -2,7 +2,7 @@ package menu;
 
 import gameplay.Bomberman;
 import gameplay.PlayerInfo;
-import gameplay.Render;
+import gameplay.Game;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

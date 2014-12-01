@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 import gameplay.Grid;
 import gameplay.Player;
-import gameplay.Render;
+import gameplay.Game;
 
 
 import org.apache.commons.csv.CSVFormat;

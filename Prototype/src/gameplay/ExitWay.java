@@ -30,8 +30,8 @@ public class ExitWay {
 			int randX = randInt(2,31);
 			int randY = randInt(2,13); 
 		
-			if(grid.getContents(randX, randY) == Cell.EMPTY){
-				grid.setContents(randX,randY,Cell.BRICKANDEXITWAY);
+			if(grid.getContents(randX, randY) == Tile.EMPTY){
+				grid.setContents(randX,randY,Tile.BRICKANDEXITWAY);
 				exitwayPlaced = true;
 			}
 		

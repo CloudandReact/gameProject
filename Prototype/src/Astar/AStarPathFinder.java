@@ -1,6 +1,6 @@
 package Astar;
 
-import gameplay.Cell;
+import gameplay.Tile;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -56,7 +56,7 @@ public class AStarPathFinder implements PathFinder {
 	/**
 	 * @see PathFinder#findPath(Mover, int, int, int, int)
 	 */
-	public Path findPath(Cell cellType, int sx, int sy, int tx, int ty) {
+	public Path findPath(Tile tileType, int sx, int sy, int tx, int ty) {
 		// easy first check, if the destination is blocked, we can't get there
 
 //		if (map.blocked(mover, tx, ty)) {
@@ -117,14 +117,14 @@ public class AStarPathFinder implements PathFinder {
 					int xp = x + current.x;
 					int yp = y + current.y;
 					
-					if (isValidLocation(cellType,sx,sy,xp,yp)) {
+					if (isValidLocation(tileType,sx,sy,xp,yp)) {
 						// the cost to get to this node is cost the current plus the movement
 
 						// cost to reach this node. Note that the heursitic value is only used
 
 						// in the sorted open list
 
-						float nextStepCost = current.cost + getMovementCost(cellType, current.x, current.y, xp, yp);
+						float nextStepCost = current.cost + getMovementCost(tileType, current.x, current.y, xp, yp);
 						Node neighbour = nodes[xp][yp];
 						map.pathFinderVisited(xp, yp);
 						
@@ -152,7 +152,7 @@ public class AStarPathFinder implements PathFinder {
 
 						if (!inOpenList(neighbour) && !(inClosedList(neighbour))) {
 							neighbour.cost = nextStepCost;
-							neighbour.heuristic = getHeuristicCost(cellType, xp, yp, tx, ty);
+							neighbour.heuristic = getHeuristicCost(tileType, xp, yp, tx, ty);
 							maxDepth = Math.max(maxDepth, neighbour.setParent(current));
 							addToOpen(neighbour);
 						}
@@ -263,12 +263,12 @@ public class AStarPathFinder implements PathFinder {
 	 * @param y The y coordinate of the location to check
 	 * @return True if the location is valid for the given mover
 	 */
-	protected boolean isValidLocation(Cell cellType, int sx, int sy, int x, int y) {	
+	protected boolean isValidLocation(Tile tileType, int sx, int sy, int x, int y) {	
 		
 		boolean invalid =  (x < 0) || (y < 0) || (x >= map.getWidthInTiles()) || (y >= map.getHeightInTiles());
 		
 		if ((!invalid) && ((sx != x) || (sy != y))) {
-			invalid = map.blocked(cellType, x, y);
+			invalid = map.blocked(tileType, x, y);
 		}
 		
 		return !invalid;
@@ -277,30 +277,30 @@ public class AStarPathFinder implements PathFinder {
 	/**
 	 * Get the cost to move through a given location
 	 * 
-	 * @param cellType The entity that is being moved
+	 * @param tileType The entity that is being moved
 	 * @param sx The x coordinate of the tile whose cost is being determined
 	 * @param sy The y coordiante of the tile whose cost is being determined
 	 * @param tx The x coordinate of the target location
 	 * @param ty The y coordinate of the target location
 	 * @return The cost of movement through the given tile
 	 */
-	public float getMovementCost(Cell cellType, int sx, int sy, int tx, int ty) {
-		return map.getCost(cellType, sx, sy, tx, ty);
+	public float getMovementCost(Tile tileType, int sx, int sy, int tx, int ty) {
+		return map.getCost(tileType, sx, sy, tx, ty);
 	}
 
 	/**
 	 * Get the heuristic cost for the given location. This determines in which 
 	 * order the locations are processed.
 	 * 
-	 * @param cellType The entity that is being moved
+	 * @param tileType The entity that is being moved
 	 * @param x The x coordinate of the tile whose cost is being determined
 	 * @param y The y coordiante of the tile whose cost is being determined
 	 * @param tx The x coordinate of the target location
 	 * @param ty The y coordinate of the target location
 	 * @return The heuristic cost assigned to the tile
 	 */
-	public float getHeuristicCost(Cell cellType, int x, int y, int tx, int ty) {
-		return heuristic.getCost(cellType, x, y, tx, ty);
+	public float getHeuristicCost(Tile tileType, int x, int y, int tx, int ty) {
+		return heuristic.getCost(tileType, x, y, tx, ty);
 	}
 	
 	/**

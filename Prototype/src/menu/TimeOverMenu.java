@@ -6,7 +6,7 @@ import gameplay.GameTimer;
 import gameplay.Grid;
 import gameplay.Player;
 import gameplay.PlayerInfo;
-import gameplay.Render;
+import gameplay.Game;
 import gameplay.State;
 
 import java.awt.event.ActionEvent;
@@ -32,19 +32,19 @@ public class TimeOverMenu extends JFrame {
 
 	// JButton loadLevelButton = new JButton("Load Level");
 
-	public Render render;
+	public Game game;
 	GameState state;
 	Player player;
 	Grid grid;
 
 	String playersName;
 
-	public TimeOverMenu(final Grid grid, Render r, GameState s, Player p,
+	public TimeOverMenu(final Grid grid, Game r, GameState s, Player p,
 			final Bomberman bomberman) {
 		this.state = s;
 		this.grid = grid;
 		this.player = p;
-		this.render = r;
+		this.game = r;
 		setSize(325, 230);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -85,7 +85,7 @@ public class TimeOverMenu extends JFrame {
 				// Execute when button is pressed
 				// getContentPane().removeAll();
 
-				render.destroyPanel();
+				game.destroyPanel();
 				new MainMenu(panel, PlayerInfo.getUsername());
 				bomberman.dispose();
 
@@ -109,7 +109,7 @@ public class TimeOverMenu extends JFrame {
 
 				getContentPane().removeAll();
 				dispose();
-				render.initialize();
+				game.initialize();
 				// render.setPauseMenuState(false);
 				GameState.setState(State.RUNNING);
 				GameTimer.restartTimer();

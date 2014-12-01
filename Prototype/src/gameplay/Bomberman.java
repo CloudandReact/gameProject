@@ -64,7 +64,7 @@ public class Bomberman extends JFrame {
         frameTimer.setSize(300, 100);
         frameTimer.setVisible(true);
 		
-		add(new Render(this));
+		add(new Game(this));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(15 * TILE_SIZE, HEIGHT * TILE_SIZE + 22);
 		setLocationRelativeTo(null);
@@ -124,7 +124,7 @@ public class Bomberman extends JFrame {
         frameTimer.setSize(300, 100);
         frameTimer.setVisible(true);
 		
-		add(new Render(level, this));
+		add(new Game(level, this));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(15 * TILE_SIZE, HEIGHT * TILE_SIZE + 22);
 		setLocationRelativeTo(null);
@@ -136,7 +136,7 @@ public class Bomberman extends JFrame {
 	}
 	//changes
 	public Bomberman(Grid grid, int level){
-		add(new Render(grid,level, this));
+		add(new Game(grid,level, this));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(15 * TILE_SIZE, HEIGHT * TILE_SIZE + 22);
 		setLocationRelativeTo(null);
