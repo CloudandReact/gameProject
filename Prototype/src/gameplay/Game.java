@@ -60,6 +60,11 @@ public class Game extends JPanel implements ActionListener {
 	Grid grid = new Grid();
 
 	Graphics2D g2d;
+	
+	/**
+	 * This is the constructor used for new games.
+	 * @param bomberman 
+	 */
 
 	public Game(Bomberman bomberman) {
 		
@@ -203,11 +208,11 @@ public class Game extends JPanel implements ActionListener {
 						g2d.drawImage(bomb.getImageBombPlayer(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
 						isPlayerAlive = true;
 						continue;
-					case BOMBANDEXITWAY:
-						g2d.drawImage(bomb.getImageBombPlayer(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
-						continue;
-					case EXPLODE:
-						g2d.drawImage(bomb.getImageBombExplode(),Bomberman.TILE_SIZE * (i - leftMostVisibleTile),Bomberman.TILE_SIZE * j, this);
+//					case BOMBANDEXITWAY:
+//						g2d.drawImage(bomb.getImageBombPlayer(), Bomberman.TILE_SIZE * (i - leftMostVisibleTile), Bomberman.TILE_SIZE * j, this);
+//						continue;
+					case EXPLOSION:
+						g2d.drawImage(bomb.getImageExplosion(),Bomberman.TILE_SIZE * (i - leftMostVisibleTile),Bomberman.TILE_SIZE * j, this);
 						grid.setContents(i, j, Tile.EMPTY);
 						continue;
 					case BALLOOM:

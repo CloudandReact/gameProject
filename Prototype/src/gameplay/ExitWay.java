@@ -7,8 +7,8 @@ import javax.swing.ImageIcon;
 
 public class ExitWay {
 
-	private String exitway = "exitway.png";
-	private String playerandexitway = "playerandexitway.png";
+	private String imageNameExitway = "exitway.png";
+	private String imageNamePlayerAndExitway = "playerandexitway.png";
 	
 	private Image imageExitway;
 	private Image imagePlayerAndExitway;
@@ -18,6 +18,11 @@ public class ExitWay {
 	
 	private Grid grid;
 	
+	/**
+	 * Exitway which is to be placed on the grid.
+	 * @param grid Grid on which the exitway is placed.
+	 */
+	
 	public ExitWay (Grid grid){
 		this.grid = grid;
 		loadImage();
@@ -25,6 +30,9 @@ public class ExitWay {
 
 	}
 	
+	/**
+	 * Places the exitway in a semi-random location under a brick.
+	 */
 	private void placeExitWay(){
 		while(exitwayPlaced == false){
 			int randX = randInt(2,31);
@@ -39,6 +47,15 @@ public class ExitWay {
 		
 	}
 	
+	/**
+	 * Given two integers, min and max, this method will return a pseudo-random
+	 * integer value contained between these two integers.
+	 * 
+	 * @param min Minimum value which may be returned.
+	 * @param max Maximum value which may be returned.
+	 * @return An integer between min and max inclusively.
+	 */
+
 	public static int randInt(int min, int max) {
 
 	    Random rand = new Random();
@@ -47,12 +64,15 @@ public class ExitWay {
 
 	    return randomNum;
 	}
+	/**
+	 * Load
+	 */
 	
 	private void loadImage() {
-		ImageIcon ii = new ImageIcon(getClass().getResource(exitway));
+		ImageIcon ii = new ImageIcon(getClass().getResource(imageNameExitway));
 		imageExitway = ii.getImage();
 
-		ImageIcon playerandexitways = new ImageIcon(getClass().getResource(playerandexitway));
+		ImageIcon playerandexitways = new ImageIcon(getClass().getResource(imageNamePlayerAndExitway));
 		imagePlayerAndExitway = playerandexitways.getImage();
 	}
 	
@@ -63,14 +83,6 @@ public class ExitWay {
 	public Image getImagePlayerAndExitway() {
 		return imagePlayerAndExitway;
 	}
-	
-	public static void exitWayAccessible(){
-//		if(Enemy.getNumberOfEnemies() == Bomb.getNumberOfEnemiesKilled()){
-//			access = true;
-//		}
-		
-	}
-	public static boolean getExitWayAccessible(){
-		return access;
-	}
+
 }
+

@@ -38,8 +38,13 @@ public class PowerUps {
 	private Level level;
 	
 	/**
+<<<<<<< HEAD
 	 * PowerUps constructor 
 	 * @param grid is the grid that we place the powerups on
+=======
+	 * 
+	 * @param grid
+>>>>>>> branch 'master' of https://github.com/mcgill-ecse321/team-2.git
 	 * @param level
 	 */
 	public PowerUps(Grid grid, Level level){

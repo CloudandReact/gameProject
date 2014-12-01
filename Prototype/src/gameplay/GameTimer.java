@@ -18,6 +18,7 @@ public class GameTimer implements ActionListener{
     private Bomb bomb;
     private Game game;
 
+<<<<<<< HEAD
     /**
      * GameTimer constructor 
      * @param timeLabel is the label for the time count
@@ -30,6 +31,13 @@ public class GameTimer implements ActionListener{
         this.livesLabel = livesLabel;
         this.scoreLabel = scoreLabel;
         this.timeOverLabel = timeOverLabel;
+=======
+    public GameTimer(JLabel label, JLabel label2, JLabel label3, JLabel label4){
+        this.label = label;
+        this.label2 = label2;
+        this.label3 = label3;
+        this.label4 = label4;
+>>>>>>> branch 'master' of https://github.com/mcgill-ecse321/team-2.git
     }
 
     /**
