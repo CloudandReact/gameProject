@@ -77,7 +77,7 @@ public class SaveGame extends JFrame implements Serializable {
 	 * @param flamePass
 	 * 	Boolean of type flamePass as in does the user have the powerup
 	 * @param bombPass
-	 * 	Boolean of tye bombPass
+	 * 	Boolean of type bombPass
 	 * @param wallPass
 	 * 	Boolean of type wallPass
 	 * @param detonate
