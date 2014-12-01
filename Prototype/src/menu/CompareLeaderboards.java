@@ -1,7 +1,7 @@
 package menu;
 
 import gameplay.PlayerInfo;
-import java.util.HashMap;
+
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -11,31 +11,33 @@ import java.util.*;
 import java.io.FileWriter;
 import java.io.File;
 import java.util.Comparator;
-import java.util.PriorityQueue;
+
 
 import org.apache.commons.csv.CSVRecord;
+/**
+ * CompareLeaderBoards gets the info from the file in FileWriting reads it into ArrayList and then 
+ * sorts new arraylist according to score and username.
+ * 
+ */
 
 public class CompareLeaderboards {
 	
 
 	ArrayList<CSVRecord> allUsersStatistics;
 	ArrayList<CSVRecord> allUsersStatistics1;
-	Map<Integer, String> statsAscending = new TreeMap<Integer, String>();
-	Map<Integer, String> statsFormatted = new HashMap<Integer, String>();
 	ArrayList<String> userNames = new ArrayList<String>();
 	ArrayList<Integer> userScores = new ArrayList<Integer>();
-
-	public void setList() {
-
-	}
-
-	public void placeInMap() {
+	int playerScore = 0;
+  /**
+   * The method placeInArrayList stores the arraylist of allUseraStatistics into userNames for the names and userScores for the scores.
+   * 
+   */
+	
+	public void placeInArrayList() {
 		allUsersStatistics = PlayerInfo.allPlayersStats();
 		for (int i = 0; i < allUsersStatistics.size(); i++) {
 			// store in hashmap
-			statsFormatted.put(
-					Integer.parseInt(allUsersStatistics.get(i).get(2)),
-					(allUsersStatistics.get(i).get(0)));
+			
 			userNames.add(allUsersStatistics.get(i).get(0));
 
 			userScores.add(Integer.parseInt(allUsersStatistics.get(i).get(2)));
@@ -46,11 +48,13 @@ public class CompareLeaderboards {
 			}
 		}
 		// store the stats in asceding order
-		statsAscending = new TreeMap<Integer, String>(statsFormatted);
-		System.out.println(statsAscending);
+		
 		System.out.println(userNames);
 		System.out.println(userScores);
 	}
+	/**
+	 * The method sortPlayers sorts the players based on score.
+	 */
 
 	public void sortPlayers() {
 
@@ -70,7 +74,9 @@ public class CompareLeaderboards {
 		System.out.println(userNames);
 		System.out.println(userScores);
 	}
-
+    /**
+     * The method sortPlayersSameScore sorts the players with the same score and different usernames
+     */
 	public void sortPlayersSameScore() {
 		for (int i = 0; i < userNames.size(); i++) {
 			for (int j = 0; j < userNames.size() - 1; j++)
@@ -90,16 +96,20 @@ public class CompareLeaderboards {
 		System.out.println(userScores);
 	}
 
-	int Score = 0;
-
+	
+    
+	/**
+	 * sets the player score which is returned and then displayed in leaderboard.
+	 * 
+	 */
 	public int setPlayerScore() {
 		for (int i = 0; i < userNames.size(); i++) {
 			if (PlayerInfo.usernameStatic.equals(userNames.get(i))) {
-				Score = PlayerInfo.playerScore + userScores.get(i);
+				playerScore = PlayerInfo.playerScore + userScores.get(i);
 			}
 
 		}
-		return Score;
+		return playerScore;
 	}
 
 	public ArrayList<Integer> getUserScores() {
