@@ -56,13 +56,13 @@ public class PowerUps implements Serializable{
 	}
 	
 	/**
-	 * PowerUps constructor 
-	 * @param grid is the grid that we place the powerups on
-	 * @param player is the player that will be given the powerup if he gets it
-	 * @param level is to know which level the player is in and depending on that level the appropriate powerup is placed 
+	 * <p> Constructor that initializes a <code>PowerUps</code> object that  
+	 * </p> 
+	 * @param grid an object of <code>Grid</code> which contains the game's map and required methods access and alter it.
+	 * @param player an object of <code>Player</code> is the player that will be given the powerup if he gets it
+	 * @param level an object of <code>Level</code> which contains the required information about the level.
 	 */
 	public PowerUps(Grid grid, Player player, Level level){
-		//currentLevel = clevel.getCurrentclevel();
 		this.grid = grid;
 		this.player = player;
 		this.level = level;
@@ -79,8 +79,8 @@ public class PowerUps implements Serializable{
 	}
 	
 	/**
-	 * Gives the player the powerup
-	 * Depending on which level the player is on the necessary powerup is given
+	 * Method that gives the player the necessary PowerUp depending on which level the player is on. 
+	 * This method compares which level the player is playing, and according to that gives the required PowerUp to the player. 
 	 */
 	public void givePowerUp(){
 		System.out.println(PowerUps.getClevel());
@@ -136,15 +136,15 @@ public class PowerUps implements Serializable{
 				// Bomberman.TILE_SIZE * i, Bomberman.TILE_SIZE * j, this);
 				// continue;
 				// becomes immune to monsters and explosions
-				// (not included in our gameplay so I dont know what
-				// to do with this)
+				// (not included in our gameplay so I don't know what to do with this)
 			}
 			PowerUps.setGotPowerup(false);
 		}
 	}
 	
 	/**
-	 * Places the brick under which the powerup will be placed on the grid
+	 * Method places the <code>BRICKANDPOWERUP</code> (brick) on the grid. 
+	 * The <code>PowerUp</code> will be placed under this <code>BRICKANDPOWERUP</code> (brick).
 	 */
 	private void placePowerups(){
 		while(powerupPlaced == false){
@@ -174,7 +174,7 @@ public class PowerUps implements Serializable{
 	}
 	
 	/**
-	 * Load the images of the powerups
+	 * Loads the images of the <code>PowerUps</code>.
 	 */
 	private void loadImage() {
 		bomb = new ImageIcon(getClass().getResource(bombsP));

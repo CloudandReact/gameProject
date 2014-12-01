@@ -28,7 +28,7 @@ public class Level implements Serializable{
 	}
 
 	/**
-	 * Gives the number of each type of enemies for each level
+	 * Method which gives the number of each type of enemies for each level
 	 */
 	private void setNumberOfEnemies() {
 
