@@ -9,6 +9,16 @@ public class Validate {
 	boolean usernameValid = false;
 	boolean passwordValid = false;
 	boolean passwordSame = false;
+	/**
+	 * Return whether the attempted created a new user with realName,username,password,retypePassword.
+	 * It calls the other validate methods in this class to check each by itself if they are valid
+	 * So the user will know where the error is 
+	 * @param realName
+	 * @param username
+	 * @param password
+	 * @param retypePassword
+	 * @return
+	 */
 
 	public boolean validateCreateAccount(String realName, String username,
 			String password, String retypePassword) {
@@ -19,6 +29,11 @@ public class Validate {
 		}
 		return false;
 	}
+	/**
+	 * checks if realName follows correct input only letters
+	 * @param realName
+	 * @return
+	 */
 
 	public boolean isRealNameValid(String realName) {
 		// checks if more than one word otherwise just checks one word
@@ -47,10 +62,12 @@ public class Validate {
 
 	} // create indentical method without input as getters
 
-	public boolean isRealNameValid() {
-		return realNameValid;
-	}
-
+	
+	/**
+	 * checks if username is valid only contains letters and numbers
+	 * @param username
+	 * @return
+	 */
 	public boolean isUserNameValid(String username) {
 		// latin characters problems\\p{L}
 		// split i
@@ -65,10 +82,13 @@ public class Validate {
 
 	}
 
-	public boolean isUserNameValid() {
-		return usernameValid;
-	}
-
+	
+	/**
+	 * checks if the password is valid that it contains at least 8 letters a uppercase,lowercase,digit, and a special character
+	 * This is done using pattern matching and regular expressions.
+	 * @param password
+	 * @return
+	 */
 	public boolean isPasswordValid(String password) {
 		Pattern number = Pattern.compile("[0-9]{1,}");
 		Pattern letterLowerCase = Pattern.compile("[a-z]");
@@ -96,10 +116,13 @@ public class Validate {
 		return false;
 	}
 
-	public boolean isPasswordValid() {
-		return passwordValid;
-	}
-
+	
+	/**
+	 * this checks if the passwords submitted are the same.
+	 * @param password
+	 * @param retypePassword
+	 * @return
+	 */
 	public boolean arePasswordSame(String password, String retypePassword) {
 		System.out.println(password.equals(retypePassword));
 
@@ -109,9 +132,18 @@ public class Validate {
 		}
 		return false;
 	}
+	public boolean isRealNameValid() {
+		return realNameValid;
+	}
+	public boolean isUserNameValid() {
+		return usernameValid;
+	}
 
 	public boolean arePasswordSame() {
 		return passwordSame;
+	}
+	public boolean isPasswordValid() {
+		return passwordValid;
 	}
 
 }
