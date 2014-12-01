@@ -87,6 +87,10 @@ public class Login {
 					new MainMenu(panelL, username);
 					 
 					PlayerInfo.usernameStatic = username;
+					PlayerInfo.passwordStatic = password;
+
+					// this line just for test will see if to make it void and
+					// store all info in player
 					
 					try {
 						// store all player statistics which is required for
@@ -95,7 +99,7 @@ public class Login {
 						PlayerInfo.allUserStatistics = loginValidity
 								.allPlayersStats();
 					} catch (IOException e1) {
-						
+						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 

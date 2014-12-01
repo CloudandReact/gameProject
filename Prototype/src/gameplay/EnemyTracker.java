@@ -15,7 +15,6 @@ public class EnemyTracker implements Serializable{
 	private boolean movingInX;
 	private boolean movingInY;
 	
-	
 	/**
 	 * Creates an enemy tracker which stores the position and direction of one enemy.
 	 * @param positionX Enemy's initial position in x.
