@@ -23,6 +23,7 @@ public class ExitWay implements Serializable{
 	
 	/**
 	 * Exitway which is to be placed on the grid.
+	 * 
 	 * @param grid Grid on which the exitway is placed.
 	 */
 	

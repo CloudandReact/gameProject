@@ -5,7 +5,13 @@ import java.io.Serializable;
 import Astar.ClosestHeuristic;
 import Astar.TileBasedMap;
 
-public enum Tile implements Serializable{
+/**
+ * Enum class which defines the Tile type which we put in the grid. It is
+ * used for most game logic.
+ *
+ */
+
+public enum Tile implements Serializable {
 	
 	EMPTY, 
 	PLAYER, 

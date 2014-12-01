@@ -26,6 +26,10 @@ public class Bomberman extends JFrame implements Serializable {
 	private GameTimer listener;
 	private JFrame frameTimer = new JFrame("Bomberman");
 	
+	public Bomberman(String testing) {
+		
+	}
+	
 	public Bomberman() {
 		
         frameTimer.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
