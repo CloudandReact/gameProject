@@ -17,7 +17,7 @@ public class AccountCreation extends JFrame {
 
 	JLabel userRealNameLabel = new JLabel("Real Name");
 	// note changed could modify
-	JTextField userNameText = new JTextField("firstname lastname");
+	JTextField userNameText = new JTextField();
 	JLabel usernameLabel = new JLabel("Username");
 	JTextField userText = new JTextField();
 	JLabel passwordLabel = new JLabel("Password");
@@ -75,22 +75,7 @@ public class AccountCreation extends JFrame {
 		panelA = panel;
 		
 		// this adds in a focus for info
-		userNameText.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) {
-				if (userNameText.getText().equals("firstname lastname")) {
-					userNameText.setText("");
-				}
-			}
-
-			public void focusLost(FocusEvent e) {
-				// nothing
-				if (userNameText.getText().length() == 0) {
-					// System.out.println(userNameText.getText()+ " "+
-					// userNameText.getText().length());
-					userNameText.setText("firstname lastname");
-				}
-			}
-		});
+		
 
 		createButton.addActionListener(new ActionListener() {
 
