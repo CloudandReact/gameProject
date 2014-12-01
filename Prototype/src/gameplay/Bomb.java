@@ -7,6 +7,12 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
+
+/**
+ * 
+ * @author Leonardo Siracusa
+ *
+ */
 public class Bomb implements Runnable,Serializable {
 
 	/**

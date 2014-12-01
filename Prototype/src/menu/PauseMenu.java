@@ -34,8 +34,6 @@ public class PauseMenu extends JFrame implements Serializable {
 	JButton exitToMain = new JButton("Exit to main menu");
 	JButton resumeGame = new JButton("Resume game");
 
-	// JButton loadLevelButton = new JButton("Load Level");
-
 	Game game;
 	GameState state;
 	Player player;

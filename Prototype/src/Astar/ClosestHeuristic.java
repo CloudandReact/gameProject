@@ -8,6 +8,7 @@ import gameplay.Tile;
  * as the next best tile.
  * 
  * @author Kevin Glass
+ * @author Leonardo Siracusa
  */
 public class ClosestHeuristic implements AStarHeuristic {
 	/**
