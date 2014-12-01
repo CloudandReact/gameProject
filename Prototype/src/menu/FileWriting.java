@@ -228,8 +228,7 @@ public class FileWriting implements Serializable {
 		
 				if(loginInfo.get(i).get(usernamePosition).equals(PlayerInfo.getUsername())){
 						writer.printRecord(realName, username, password);
-		// writer.newLine();
-		// writer.flush();
+		
 		
 				}
 				else {
@@ -237,6 +236,7 @@ public class FileWriting implements Serializable {
 				}
 	
 		}
+	
 		writer.close();
 		}
 	/**
@@ -286,7 +286,7 @@ public class FileWriting implements Serializable {
 	 * @throws IOException
 	 */
 	public void writeToStatisticsFile(String username , int score , int levelUnlocked) throws IOException{
-		///String fileName = System.getProperty("user.dir")+"\\" +"src" +"\\"+"menu"+ "\\"+ ("userStatistics.csv");
+		
 		String fileName = System.getProperty("user.dir")+"//" +"src" +"//"+"menu"+ "//"+ ("userStatistics.csv");
 		File userInfo = new File(fileName);
 		// check if file exists otherwise create new file...
@@ -302,8 +302,7 @@ public class FileWriting implements Serializable {
 		boolean isUserStatsStored=false;
 		
 		for(int i=0;i<userStatistics.size();i++){
-			//checks to see if the current game statistics is already stored in the file
-			// we can do this because only one statistics data point per user
+			
 			
 			if(PlayerInfo.usernameStatic.equals(userStatistics.get(i).get(0)))
 			{
@@ -314,6 +313,7 @@ public class FileWriting implements Serializable {
 				writer.printRecord(userStatistics.get(i));
 			}
 		}
+		
 		if(!isUserStatsStored){
 			writer.printRecord(username,score,levelUnlocked);
 		}
@@ -371,7 +371,7 @@ public class FileWriting implements Serializable {
 		   boolean detonate) throws IOException{
 		File savingFile= new File(fileName);
 		if(savingFile.exists()){
-			//check to overwrite file
+			//check to overwrite file give user warning
 			JOptionPane.showMessageDialog(null,"would you like to overwrite file", "error", JOptionPane.INFORMATION_MESSAGE);
 		}
 		else{
@@ -555,9 +555,11 @@ public class FileWriting implements Serializable {
 	}
 	public int getPlayerLives(){
 		return currentLives;
-	}public int getTimer(){
+	}
+	public int getTimer(){
 		return timer;
-	}public boolean getLoadWallPass(){
+	}
+	public boolean getLoadWallPass(){
 		return loadWallPass;
 	}
 	public boolean getLoadFlamePass(){

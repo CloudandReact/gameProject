@@ -46,10 +46,10 @@ public class SaveGame extends JFrame implements Serializable {
 
 	private Game game;
 
-	// load how many games then have a textbox to enter
+	
 	JTextField saveGameText = new JTextField(30);
 	JPanel panelA;
-	StoreStatistics checkStats = new StoreStatistics();
+	
 	int numberOfGames;
 	Enemy enemy;
 
@@ -90,10 +90,10 @@ public class SaveGame extends JFrame implements Serializable {
 	public SaveGame(final Grid grid,final Level level, final Enemy enemy,final Player p,final Concrete concrete,final Brick brick, final PowerUps powerUps,
 			final ExitWay exitWays, final Bomb bomb, final boolean flamePass,final boolean bombPass,final boolean wallPass,
 			final boolean detonate) throws IOException {
-	  //public SaveGame(final Render r) throws IOException {
+	 
 		this.grid = grid;
 		this.enemy = enemy;
-		checkStats.checkNumberOfGames();
+		
 		setSize(450, 450);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -104,7 +104,7 @@ public class SaveGame extends JFrame implements Serializable {
 		setLocationRelativeTo(null);
 		AccountMenu.setFrameTitle("Leaderboards");
 
-		// open statistics read user games and display
+		
 
 		JLabel gameNumberLabel = new JLabel("enter name of save game");
 		gameNumberLabel.setBounds(20, 50, 145, 25);
@@ -132,30 +132,28 @@ public class SaveGame extends JFrame implements Serializable {
 		saveButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				// Execute when button is pressed
+				
 				getContentPane().removeAll();
-				// create savin game object
+				
 				String gameName = (saveGameText.getText());
 
 				// /need to write to file
 				FileWriting savingTheGame = new FileWriting();
 				try {
-					//change to add in currentLives
-					//object save everything
-					//enemy.getEnemiesInitial()
+					
 					savingTheGame.saveGame(gameName,level,enemy, p,concrete,brick, powerUps,exitWays,bomb,grid, 
 							PlayerInfo.playerScore, PlayerInfo.currentLevel,Player.livesLeft,GameTimer.timeCount,flamePass,bombPass,wallPass,detonate);
-					//savingTheGame.saveGame(gameName,r);
+					
 					System.out.println("succes");
 					getContentPane().removeAll();
 					dispose();
 
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+					
 					e1.printStackTrace();
 				}
 
-				// new Game()
+				
 			}
 		});
 
