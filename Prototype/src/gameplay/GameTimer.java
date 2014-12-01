@@ -15,7 +15,6 @@ public class GameTimer implements ActionListener, Serializable {
 
 	public static int timeCount = 200;
 	private int lives = 2;
-	private int score = 0;
 	private String over = "Time Over!";
 	private JLabel timeLabel;
 	private JLabel livesLabel;
