@@ -93,6 +93,7 @@ public class Leaderboards extends JFrame {
 
 				topScores = topScores - 1;
 				scorePlaced = true;
+
 			} else {
 
 				usernameLabel = new JLabel(usernames.get(i));

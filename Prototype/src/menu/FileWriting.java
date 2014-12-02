@@ -44,30 +44,30 @@ public class FileWriting implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String usernameFromFile = "";
-	String passwordFromFile = "";
-	String lineInfo[];
+	private String usernameFromFile = "";
+	private String passwordFromFile = "";
+	private String lineInfo[];
 	private boolean isLoginCredFound = false;
-	ArrayList<CSVRecord> loginInfo;
-	ArrayList<CSVRecord> userStatistics;
-	ArrayList<CSVRecord> loadedGame;
-	Enemy enemy;
-	Brick brick;
-	Player p;
-	Level level;
-	Bomb bomb;
-	Concrete concrete;
-	Grid grid;
-	ExitWay exitWays;
-	PowerUps powerUps;
-	int playerScore;
-	int currentLevel;
-	int currentLives;
-	int timer;
-	boolean loadFlamePass;
-	boolean loadBombPass;
-	boolean loadDetonate;
-	boolean loadWallPass;
+	private ArrayList<CSVRecord> loginInfo;
+	private ArrayList<CSVRecord> userStatistics;
+	private ArrayList<CSVRecord> loadedGame;
+	private Enemy enemy;
+	private Brick brick;
+	private Player player;
+	private Level level;
+	private Bomb bomb;
+	private Concrete concrete;
+	private Grid grid;
+	private ExitWay exitWays;
+	private PowerUps powerUps;
+	private int playerScore;
+	private int currentLevel;
+	private int currentLives;
+	private int timer;
+	private boolean loadFlamePass;
+	private boolean loadBombPass;
+	private boolean loadDetonate;
+	private boolean loadWallPass;
 
 	/**
 	 * This method oops through an arraylist of usernames and passwords and
@@ -112,8 +112,9 @@ public class FileWriting implements Serializable {
 	 */
 
 	public boolean isUserNameAvailible(String username) {
+
 		for (int i = 0; i < (loginInfo).size(); i = i + 1) {
-			System.out.println("use file " + loginInfo.get(i).get(1));
+
 			if (loginInfo.get(i).get(1).equals(username)) {
 				return false;
 			}
@@ -154,7 +155,6 @@ public class FileWriting implements Serializable {
 			parser.close();
 
 		} catch (Exception e) {
-			System.out.println(e + " array out of bounds");
 			e.printStackTrace();
 		}
 
@@ -258,18 +258,8 @@ public class FileWriting implements Serializable {
 				+ "menu" + "//" + ("userStatistics.csv");
 		String checkIfFileExists = System.getProperty("user.dir") + "//"
 				+ "src" + "//" + "menu" + "//" + ("userStatistics.csv");
+
 		File userInfo = new File((checkIfFileExists));
-
-		if (userInfo.exists()) {
-			System.out.println("File exists");
-		} else {
-			System.out.println("File not found");
-		}
-
-		// userFileInfo1 = new ArrayList<String>();
-
-		// Scanner input= new Scanner(userInfo);
-		// String line= input.readLine();
 
 		CSVParser parser = new CSVParser(new FileReader(filename),
 				CSVFormat.DEFAULT);
@@ -439,7 +429,7 @@ public class FileWriting implements Serializable {
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			level = (Level) ois.readObject();
 			enemy = (Enemy) ois.readObject();
-			p = (Player) ois.readObject();
+			player = (Player) ois.readObject();
 			concrete = (Concrete) ois.readObject();
 			brick = (Brick) ois.readObject();
 			powerUps = (PowerUps) ois.readObject();
@@ -544,7 +534,7 @@ public class FileWriting implements Serializable {
 	}
 
 	public Player getPlayer() {
-		return p;
+		return player;
 	}
 
 	public Concrete getConcrete() {
