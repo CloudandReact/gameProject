@@ -587,7 +587,6 @@ public class Bomb implements Runnable, Serializable {
 
 		else {
 			while (true) {
-
 				long currentTime = System.currentTimeMillis() - startTime;
 				if (currentTime >= BOMB_TIMER_IN_MILLISECONDS) {
 					Player.setBombsOnGround(Player.getBombsOnGround() - 1);

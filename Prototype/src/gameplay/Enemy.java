@@ -123,6 +123,7 @@ public class Enemy implements Serializable {
 		validateEnemies();
 
 	}
+	
 
 	/**
 	 * For each enemy type, if it is present on the grid, map them in the lists.

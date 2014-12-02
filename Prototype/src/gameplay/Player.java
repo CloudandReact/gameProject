@@ -692,4 +692,20 @@ public class Player implements Serializable {
 			this.movementSpeed = 2;
 		}
 	}
+	/**
+	 * Method used for unit testing. 
+	 * @return an int representing movement speed. 
+	 */
+	public int getMovementSpeed() {
+		return movementSpeed;
+	}
+	
+	/**
+	 * Method used for unit tested.
+	 * @param dx Allows us to change dx without using keyboard inputs. 
+	 */
+	
+	public void setDx(int dx){
+		this.dx = dx;
+	}
 }
