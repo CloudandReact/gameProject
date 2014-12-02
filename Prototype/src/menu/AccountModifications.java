@@ -26,20 +26,20 @@ public class AccountModifications extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JLabel userRealNameLabel = new JLabel("Real Name");
-	private JTextField realNameText = new JTextField();
-	private JLabel passwordLabel = new JLabel("Password");
-	private JPasswordField passwordText = new JPasswordField();
-	private JLabel verifyPasswordLabel = new JLabel("Verify Password");
-	private JPasswordField verifyPasswordText = new JPasswordField();
-	private JButton modifyButton = new JButton("Modify");
-	private JButton backButton = new JButton("Back");
-	private String realName;
-	private String username;
-	private String password;
-	private String retypePassword;
+	JLabel userRealNameLabel = new JLabel("Real Name");
+	JTextField realNameText = new JTextField();
+	JLabel passwordLabel = new JLabel("Password");
+	JPasswordField passwordText = new JPasswordField();
+	JLabel verifyPasswordLabel = new JLabel("Verify Password");
+	JPasswordField verifyPasswordText = new JPasswordField();
+	JButton modifyButton = new JButton("Modify");
+	JButton backButton = new JButton("Back");
+	String realName;
+	String username;
+	String password;
+	String retypePassword;
 
-	private JPanel panelA;
+	JPanel panelA;
 
 	/**
 	 * AccountModifications creates the jpanel for displaying the gui.By first

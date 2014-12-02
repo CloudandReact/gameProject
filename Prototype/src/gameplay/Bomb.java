@@ -105,9 +105,10 @@ public class Bomb implements Runnable, Serializable {
 	 * positions in each direction, checking the conditions for which it should
 	 * explode. Looping stops when the range has been reached in that direction.
 	 * Hitting a concrete before reaching the final value for range will break
-	 * the loop, as we do not want to explode across concrete. This method also
-	 * deals with player scoring; depending on the enemy type, the player's score
-	 * is updated accordingly.</p>
+	 * the loop, as we do not want to explode across concrete. </p>
+	 * 
+	 * This method also deals with player scoring; depending on the enemy type,
+	 * the player's score is updated accordingly.
 	 */
 
 	public void explode() {
@@ -691,7 +692,8 @@ public class Bomb implements Runnable, Serializable {
 	/**
 	 * Sets the number of bombs available to the player.
 	 * 
-	 * @param bombs number of bombs available to the player.
+	 * @param bombs
+	 *            Number of bombs available to the player.
 	 */
 
 	public void setNumberOfBombs(int numberOfBombs) {
@@ -726,7 +728,9 @@ public class Bomb implements Runnable, Serializable {
 	/**
 	 * Sets the number of enemies killed.
 	 * 
-	 * @param the int representing the number of enemies that have been killed.
+	 * @param the
+	 *            <code>int</code> representing the number of enemies that have
+	 *            been killed.
 	 */
 
 	public static void setNumberOfEnemiesKilled(int enemiesKilled) {

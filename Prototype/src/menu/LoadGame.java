@@ -2,7 +2,8 @@ package menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -13,24 +14,26 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
+import javax.swing.JPasswordField;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import org.apache.commons.csv.CSVRecord;
 
 import gameplay.Bomberman;
+import gameplay.Tile;
 import gameplay.Grid;
 import gameplay.PlayerInfo;
 import gameplay.Bomb;
 import gameplay.Brick;
 import gameplay.Concrete;
 import gameplay.Enemy;
-
+import gameplay.EnemyTracker;
 import gameplay.ExitWay;
-
+import gameplay.Grid;
 import gameplay.Level;
 import gameplay.Player;
-
+import gameplay.PlayerInfo;
 import gameplay.PowerUps;
 
 /**
@@ -54,27 +57,27 @@ public class LoadGame extends JFrame implements Serializable {
 	JTextField gameToPlayText = new JTextField();
 	JPanel panelA;
 
-	private int numberOfGames;
-	private ArrayList<CSVRecord> loadedGameArrayList;
+	int numberOfGames;
+	ArrayList<CSVRecord> loadedGameArrayList;
 	// grid loadedGrid
-	private Grid loadedGrid = new Grid();
-	private Grid grid;
-	private Level level;
-	private Brick brick;
-	private Concrete concrete;
-	private PowerUps powerUps;
-	private ExitWay exitWays;
-	private Bomb bomb;
-	private Player player;
-	private int currentScore;
-	private int currentLevel;
-	private int currentLives;
-	private int timer;
-	private boolean loadFlamePass;
-	private boolean loadBombPass;
-	private boolean loadDetonate;
-	private boolean loadWallPass;
-	private Enemy enemy;
+	Grid loadedGrid = new Grid();
+	Grid grid;
+	Level level;
+	Brick brick;
+	Concrete concrete;
+	PowerUps powerUps;
+	ExitWay exitWays;
+	Bomb bomb;
+	Player player;
+	int currentScore;
+	int currentLevel;
+	int currentLives;
+	int timer;
+	boolean loadFlamePass;
+	boolean loadBombPass;
+	boolean loadDetonate;
+	boolean loadWallPass;
+	Enemy enemy;
 
 	/**
 	 * The LoadGame method sets up the loadGame gui and with the play button and

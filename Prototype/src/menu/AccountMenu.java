@@ -35,7 +35,7 @@ public class AccountMenu {
 	}
 
 	/**
-	 * Destroys the frame.
+	 * destroyFrame destroys the frame and disposes of it
 	 */
 	public static void destroyFrame() {
 		frame.setVisible(false);
@@ -44,7 +44,7 @@ public class AccountMenu {
 	}
 
 	/**
-	 * Displays the GUI for account menu.
+	 * calls new AccountMenu
 	 * 
 	 * @param args
 	 */
