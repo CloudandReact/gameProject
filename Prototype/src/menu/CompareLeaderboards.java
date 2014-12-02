@@ -19,17 +19,16 @@ import org.apache.commons.csv.CSVRecord;
  * CompareLeaderboards this stores the allUserStatistics then sorts it by score
  * and name and then it is called in Leaderboards to display
  * 
- * @author elliot
+ * @author Elliot, Chady, Leonardo, Rakinul
  *
  */
 
 public class CompareLeaderboards {
 
-	ArrayList<CSVRecord> allUsersStatistics;
-	ArrayList<CSVRecord> allUsersStatistics1;
+	private ArrayList<CSVRecord> allUsersStatistics;
 
-	ArrayList<String> userNames = new ArrayList<String>();
-	ArrayList<Integer> userScores = new ArrayList<Integer>();
+	private ArrayList<String> userNames = new ArrayList<String>();
+	private ArrayList<Integer> userScores = new ArrayList<Integer>();
 
 	/**
 	 * placeInArrayList stores the different usernames and scores in 2 seperate
@@ -49,10 +48,6 @@ public class CompareLeaderboards {
 				PlayerInfo.viewedLeaderBoard = true;
 			}
 		}
-		// store the stats in asceding order
-
-		System.out.println(userNames);
-		System.out.println(userScores);
 	}
 
 	/**
@@ -75,8 +70,6 @@ public class CompareLeaderboards {
 					userScores.set(j + 1, currentInt);
 				}
 		}
-		System.out.println(userNames);
-		System.out.println(userScores);
 	}
 
 	/**
@@ -98,8 +91,6 @@ public class CompareLeaderboards {
 					userScores.set(j + 1, currentInt);
 				}
 		}
-		System.out.println(userNames);
-		System.out.println(userScores);
 	}
 
 	int playersScore = 0;

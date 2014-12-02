@@ -29,12 +29,11 @@ public class GameOverMenu extends JFrame {
 	JButton restartLevel = new JButton("Restart Level");
 
 	public Game game;
-	GameState state;
-	Player player;
-	Grid grid;
-	private Level level;
+	private GameState state;
+	private Player player;
+	private Grid grid;
 
-	String playersName;
+	private String playersName;
 
 	/**
 	 * 
@@ -51,6 +50,7 @@ public class GameOverMenu extends JFrame {
 		this.grid = grid;
 		this.player = player;
 		this.game = g;
+		
 		setSize(325, 230);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);

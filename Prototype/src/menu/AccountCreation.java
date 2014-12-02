@@ -21,23 +21,27 @@ import javax.swing.JTextField;
 
 public class AccountCreation extends JFrame {
 
-	JLabel userRealNameLabel = new JLabel("Real Name");
+	private JLabel userRealNameLabel = new JLabel("Real Name");
+	private JTextField userText = new JTextField();
+	
+	private JTextField userRealNameText = new JTextField();
+	private JLabel usernameLabel = new JLabel("Username");
+	
+	private JLabel passwordLabel = new JLabel("Password");
+	private JPasswordField passwordText = new JPasswordField();
+	
+	private JLabel verifyPasswordLabel = new JLabel("Verify Password");
+	private JPasswordField verifyPasswordText = new JPasswordField();
+	
+	private JButton createButton = new JButton("Create");
+	private JButton backButton = new JButton("Back");
+	
+	private String realName;
+	private String username;
+	private String password;
+	private String retypePassword;
 
-	JTextField userNameText = new JTextField();
-	JLabel usernameLabel = new JLabel("Username");
-	JTextField userText = new JTextField();
-	JLabel passwordLabel = new JLabel("Password");
-	JPasswordField passwordText = new JPasswordField();
-	JLabel verifyPasswordLabel = new JLabel("Verify Password");
-	JPasswordField verifyPasswordText = new JPasswordField();
-	JButton createButton = new JButton("Create");
-	JButton backButton = new JButton("Back");
-	String realName;
-	String username;
-	String password;
-	String retypePassword;
-
-	JPanel panelA;
+	private JPanel panelA;
 
 	/**
 	 * This AccountCreation method destroys to login JPanel and creats a creat
@@ -62,8 +66,8 @@ public class AccountCreation extends JFrame {
 		userRealNameLabel.setBounds(10, 10, 80, 25);
 		panel.add(userRealNameLabel);
 
-		userNameText.setBounds(130, 10, 160, 25);
-		panel.add(userNameText);
+		userRealNameText.setBounds(130, 10, 160, 25);
+		panel.add(userRealNameText);
 
 		usernameLabel.setBounds(10, 40, 80, 25);
 		panel.add(usernameLabel);
@@ -96,13 +100,11 @@ public class AccountCreation extends JFrame {
 
 			public void actionPerformed(ActionEvent e) {
 
-				System.out.println("action comman" + e.getActionCommand());
-				realName = userNameText.getText();
+				realName = userRealNameText.getText();
 				username = userText.getText();
 				password = String.valueOf(passwordText.getPassword());
-				retypePassword = String.valueOf(verifyPasswordText
-						.getPassword());
-				System.out.println(realName);
+				retypePassword = String.valueOf(verifyPasswordText.getPassword());
+				
 				String error = "Error";
 				FileWriting writing = new FileWriting();
 				writing.openFile();

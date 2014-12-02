@@ -23,7 +23,6 @@ public class Bomberman extends JFrame implements Serializable {
 	private JFrame frameTimer = new JFrame("Bomberman");
 	private Timer timerG = new Timer(1000, listener);
 
-
 	/**
 	 * Constructor that initializes a <code>Bomberman</code> object that
 	 * initializes the game frame and the second frame.
@@ -86,8 +85,8 @@ public class Bomberman extends JFrame implements Serializable {
 	 * @param bomb
 	 *            an object of <code>Bomb</code> which contains information
 	 *            regarding bomb
-	 * @param player2
-	 * 
+	 * @param player
+	 *			  the player 					 
 	 * @param currentScore
 	 *            the player's current score
 	 * @param currentLevel
@@ -108,14 +107,14 @@ public class Bomberman extends JFrame implements Serializable {
 	// changes
 	public Bomberman(Grid grid, Level levelLoad, Enemy enemy, Brick brick,
 			Concrete concrete, PowerUps powerUps, ExitWay exitWays, Bomb bomb,
-			Player player2, int currentScore, int currentLevel,
+			Player player, int currentScore, int currentLevel,
 			int currentLives, int timer, boolean flamePass, boolean bombPass,
 			boolean wallPass, boolean detonate) {
 
 		secondFrame();
 
 		add(new Game(grid, levelLoad, enemy, brick, concrete, powerUps,
-				exitWays, bomb, player2, currentScore, currentLevel,
+				exitWays, bomb, player, currentScore, currentLevel,
 				currentLives, timer, flamePass, bombPass, wallPass, detonate,
 				this));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -162,6 +161,7 @@ public class Bomberman extends JFrame implements Serializable {
 	 * Sets the number of lives left in the second frame.
 	 * 
 	 * @param lives
+	 *            the number of lives in the second frame
 	 */
 	public void setLivesLeft(int lives) {
 		listener.setLives(lives);
@@ -171,6 +171,7 @@ public class Bomberman extends JFrame implements Serializable {
 	 * Sets the score of the player to display in the second frame.
 	 * 
 	 * @param score
+	 *            the score of the player in the second frame
 	 */
 	public void setScore(int score) {
 		listener.setScore(score);
@@ -204,14 +205,6 @@ public class Bomberman extends JFrame implements Serializable {
 	 */
 	public void stopTimer() {
 		timerG.stop();
-	}
-
-	/**
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		new Bomberman();
 	}
 
 }
